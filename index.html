@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="th" data-lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Akara Resources — HR Policy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+    .home-section-label {
+      text-align: center;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin: 40px 0 20px;
+    }
+    .home-card:hover .home-card-icon.blue { background: var(--blue); }
+    .home-card:hover .home-card-icon.gold { background: var(--gold); }
+    .home-card:hover .home-card-icon { color: var(--white); }
+    .home-card-icon { font-size: 0; display: flex; align-items: center; justify-content: center; }
+    .home-card-icon svg { width: 40px; height: 40px; transition: all 0.25s; }
+    .home-card:hover .home-card-icon.blue svg { stroke: var(--white); }
+    .home-card:hover .home-card-icon.gold svg { stroke: var(--white); }
+    .home-card-icon.blue svg { stroke: var(--blue); fill: none; stroke-width: 1.5; }
+    .home-card-icon.gold svg { stroke: var(--gold-dark); fill: none; stroke-width: 1.5; }
+    .notice-bar {
+      background: #FEF9E0;
+      border-left: 4px solid var(--gold);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      font-size: 0.83rem;
+      color: #7A6200;
+      margin-top: 32px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Topbar -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <img src="assets/Akara_Logo.jpg" alt="Akara Resources" class="topbar-logo">
+      <div class="topbar-title">
+        <span class="text-th">ระบบนโยบาย HR</span>
+        <span class="text-en">HR Policy System</span>
+        <span>Performance Appraisal 2026</span>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="lang-toggle">
+        <button class="lang-btn active" onclick="setLang('th')">TH</button>
+        <button class="lang-btn" onclick="setLang('en')">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-eyebrow text-th">บริษัท อัครา รีซอร์สเซส จำกัด</div>
+    <div class="hero-eyebrow text-en">Akara Resources Co., Ltd.</div>
+    <h1>
+      <span class="text-th">คู่มือพนักงาน</span>
+      <span class="text-en">Employee Handbook</span>
+    </h1>
+    <p>
+      <span class="text-th">ระเบียบข้อบังคับการทำงาน และสวัสดิการพนักงาน</span>
+      <span class="text-en">Work Rules & Regulations and Employee Welfare & Benefits</span>
+    </p>
+  </section>
+
+  <!-- Main -->
+  <main class="container">
+
+    <div class="home-section-label">
+      <span class="text-th">เลือกหมวดหมู่</span>
+      <span class="text-en">Select Category</span>
+    </div>
+
+    <div class="home-cards">
+
+      <!-- Card 1: Work Rules -->
+      <a href="work-rules/index.html" class="home-card">
+        <div class="home-card-icon blue">
+          <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+            <rect x="6" y="4" width="24" height="32" rx="3"/>
+            <line x1="12" y1="14" x2="24" y2="14"/>
+            <line x1="12" y1="20" x2="24" y2="20"/>
+            <line x1="12" y1="26" x2="18" y2="26"/>
+            <circle cx="30" cy="30" r="7" fill="var(--blue-light)" stroke="var(--blue)"/>
+            <line x1="28" y1="30" x2="32" y2="30"/>
+            <line x1="30" y1="28" x2="30" y2="32"/>
+          </svg>
+        </div>
+        <div>
+          <h2>
+            <span class="text-th">ระเบียบข้อบังคับ<br>การทำงาน</span>
+            <span class="text-en">Work Rules &<br>Regulations</span>
+          </h2>
+          <p>
+            <span class="text-th">59 หมวดหมู่</span>
+            <span class="text-en">59 Chapters</span>
+          </p>
+        </div>
+        <span class="badge-count text-th">59 บท</span>
+        <span class="badge-count text-en">59 Chapters</span>
+        <div class="home-card-arrow">→</div>
+      </a>
+
+      <!-- Card 2: Welfare -->
+      <a href="welfare/index.html" class="home-card">
+        <div class="home-card-icon gold">
+          <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 34 C20 34 6 26 6 16 C6 11 10 8 14 8 C17 8 19 10 20 12 C21 10 23 8 26 8 C30 8 34 11 34 16 C34 26 20 34 20 34Z"/>
+            <circle cx="30" cy="30" r="7" fill="#FEF9E0" stroke="var(--gold-dark)"/>
+            <text x="30" y="34" text-anchor="middle" font-size="9" fill="var(--gold-dark)" font-family="sans-serif" font-weight="700">฿</text>
+          </svg>
+        </div>
+        <div>
+          <h2>
+            <span class="text-th">สวัสดิการและ<br>ผลประโยชน์</span>
+            <span class="text-en">Welfare &<br>Benefits</span>
+          </h2>
+          <p>
+            <span class="text-th">30 หัวข้อ</span>
+            <span class="text-en">30 Topics</span>
+          </p>
+        </div>
+        <span class="badge-count text-th">30 หัวข้อ</span>
+        <span class="badge-count text-en">30 Topics</span>
+        <div class="home-card-arrow">→</div>
+      </a>
+
+    </div>
+
+    <div class="notice-bar">
+      <span>📋</span>
+      <span>
+        <span class="text-th">เอกสารนี้มีผลบังคับใช้ตั้งแต่ปี 2026 — หากมีข้อสงสัยกรุณาติดต่อฝ่ายทรัพยากรบุคคล</span>
+        <span class="text-en">This document is effective from 2026 — For inquiries, please contact the HR Department</span>
+      </span>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    © 2026 Akara Resources Co., Ltd. — Human Resources Department
+  </footer>
+
+  <script>
+    function setLang(lang) {
+      document.documentElement.setAttribute('data-lang', lang);
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+      document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
+      localStorage.setItem('hr-lang', lang);
+    }
+    const saved = localStorage.getItem('hr-lang');
+    if (saved) setLang(saved);
+  </script>
+</body>
+</html>
