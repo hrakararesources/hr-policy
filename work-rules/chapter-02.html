@@ -11,20 +11,15 @@
     body { display:flex; flex-direction:column; min-height:100vh; }
     .page-wrap { display:flex; flex:1; }
     .sidebar-fixed {
-      width:270px; flex-shrink:0;
-      position:sticky; top:60px;
-      height:calc(100vh - 60px);
-      overflow-y:auto;
-      background:#fff;
-      border-right:1.5px solid var(--gray-2);
-      padding:12px 8px;
+      width:270px; flex-shrink:0; position:sticky; top:60px;
+      height:calc(100vh - 60px); overflow-y:auto;
+      background:#fff; border-right:1.5px solid var(--gray-2); padding:12px 8px;
     }
     .sidebar-fixed::-webkit-scrollbar { width:4px; }
     .sidebar-fixed::-webkit-scrollbar-thumb { background:var(--gray-3); border-radius:2px; }
     .sidebar-home {
-      display:flex; align-items:center; gap:6px;
-      padding:7px 10px; font-size:0.8rem;
-      color:var(--text-muted); text-decoration:none;
+      display:flex; align-items:center; gap:6px; padding:7px 10px;
+      font-size:0.8rem; color:var(--text-muted); text-decoration:none;
       border-radius:6px; margin-bottom:2px;
     }
     .sidebar-home:hover { background:var(--gray-1); color:var(--blue); }
@@ -34,11 +29,9 @@
       padding:10px 10px 4px; display:block;
     }
     .sidebar-chapter {
-      display:flex; align-items:flex-start; gap:8px;
-      padding:8px 10px; border-radius:8px;
-      text-decoration:none; color:var(--text-muted);
-      font-size:0.8rem; line-height:1.35;
-      transition:all 0.15s; margin-bottom:1px;
+      display:flex; align-items:flex-start; gap:8px; padding:8px 10px;
+      border-radius:8px; text-decoration:none; color:var(--text-muted);
+      font-size:0.8rem; line-height:1.35; transition:all 0.15s; margin-bottom:1px;
     }
     .sidebar-chapter:hover { background:var(--blue-light); color:var(--blue); }
     .sidebar-chapter.active { background:var(--blue); color:#fff; }
@@ -47,23 +40,29 @@
       min-width:26px; height:26px; border-radius:6px;
       background:var(--blue-light); color:var(--blue);
       font-size:0.7rem; font-weight:700;
-      display:flex; align-items:center; justify-content:center;
-      flex-shrink:0; margin-top:1px;
+      display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px;
     }
     .sidebar-label { flex:1; }
     .main-content { flex:1; padding:32px 32px 60px; min-width:0; }
     .chapter-card { max-width:740px; margin:0 auto; }
+    .chapter-body h2.chapter-section { color:var(--blue); font-size:1.1rem; margin:28px 0 8px; }
+    .chapter-body h2 { color:var(--dark); font-size:1.15rem; margin:24px 0 8px; }
+    .chapter-body h3 { color:var(--blue); font-size:1rem; margin:20px 0 6px; border-left:3px solid var(--blue); padding-left:10px; }
+    .chapter-body h4 { color:var(--dark); font-size:0.95rem; margin:14px 0 4px; font-weight:600; }
+    .chapter-body p { color:var(--text); font-size:0.95rem; margin-bottom:0.8em; line-height:1.75; }
+    .chapter-body ul { padding-left:1.4em; margin-bottom:1em; }
+    .chapter-body li { font-size:0.95rem; margin-bottom:0.4em; color:var(--text); line-height:1.7; }
     @media(max-width:768px) {
       .sidebar-fixed { display:none; }
       .sidebar-fixed.open { display:block; position:fixed; top:60px; left:0; z-index:200; height:calc(100vh - 60px); box-shadow:4px 0 20px rgba(0,0,0,0.15); }
-      .sidebar-toggle-btn { display:flex !important; }
+      .mob-menu { display:flex !important; }
     }
   </style>
 </head>
 <body>
   <header class="topbar">
     <div class="topbar-left">
-      <button class="sidebar-toggle-btn" onclick="toggleSidebar()" style="display:none;background:rgba(255,255,255,0.15);border:none;color:#fff;padding:6px 10px;border-radius:6px;cursor:pointer;font-size:1rem;margin-right:8px;">☰</button>
+      <button class="mob-menu" onclick="toggleSidebar()" style="display:none;background:rgba(255,255,255,0.15);border:none;color:#fff;padding:6px 10px;border-radius:6px;cursor:pointer;font-size:1rem;margin-right:8px;">☰</button>
       <img src="../assets/Akara Logo.jpg" alt="Akara Resources" class="topbar-logo">
       <div class="topbar-title">
         <span class="text-th">คู่มือพนักงาน</span><span class="text-en">Employee Handbook</span>
@@ -112,81 +111,57 @@
         </h1>
         <div class="chapter-divider"></div>
         <div class="chapter-body">
-          <div class="text-th"><h2>หมวดที่ 2</h2>
-<h3>วิสัยทัศน์องค์กร เสาหลักกลยุทธ์ และนโยบายองค์กร</h3>
-<h3>1. วิสัยทัศน์องค์กร</h3>
-<h3>มุ่งสร้างคุณค่าให้แก่ผู้มีส่วนได้ส่วนเสียทุกภาคส่วนอย่างปลอดภัยและยั่งยืน ผ่านความเป็นเลิศ</h3>
-<h3>ในการดำเนินงาน และการใช้ศักยภาพของทรัพยากรแร่ให้เกิดประโยชน์สูงสุด</h3>
-<h3>2. เสาหลักกลยุทธ์ 4 ด้าน</h3>
-<h4>2.1 ความปลอดภัยและความยั่งยืน</h4>
-<h5>2.1.1 ให้ความสำคัญสูงสุดกับสุขภาพและความปลอดภัยของพนักงาน ผู้รับเหมาและชุมชน</h5>
-<h3>โดยรอบ</h3>
-<h5>2.1.2 ดำเนินการบริหารความเสี่ยงตามมาตรฐานชั้นนำของอุตสาหกรรม ส่งเสริมแนวปฏิบัติ</h5>
-<h3>ด้านความปลอดภัย และสร้างวัฒนธรรมแห่งการพัฒนาอย่างต่อเนื่อง</h3>
-<h5>2.1.3 มุ่งมั่นในการดูแลสิ่งแวดล้อมอย่างรับผิดชอบ และบริหารจัดการทรัพยากรอย่างยั่งยืน</h5>
-<h5>2.1.4 ลดผลกระทบต่อสิ่งแวดล้อมด้วยเทคโนโลยีที่ทันสมัยและแนวปฏิบัติที่เป็นเลิศ</h5>
-<h4>2.2 การสร้างคุณค่าให้แก่ผู้มีส่วนได้ส่วนเสีย</h4>
-<h5>2.2.1 ส่งเสริมโอกาสในการพัฒนาอาชีพ พร้อมให้ความสำคัญกับการจ้างงานในท้องถิ่น</h5>
-<h5>2.2.2 สร้างความสัมพันธ์กับพนักงาน ผู้รับเหมาชุมชนท้องถิ่น และภาครัฐ บนพื้นฐานของ</h5>
-<h3>ความไว้วางใจ และการสร้างคุณค่าร่วมกันอย่างต่อเนื่อง</h3>
-<h5>2.2.3 มุ่งสร้างผลตอบแทนทางการเงินอย่างยั่งยืนและการเติบโตในระยะยาวให้แก่ผู้ถือหุ้น</h5>
-<h5>2.2.4 ยึดมั่นในความโปร่งใส จริยธรรม และความซื่อสัตย์ในทุกกระบวนการดำเนินธุรกิจ</h5>
-<h5>2.2.5 ลงทุนในโครงการพัฒนาเศรษฐกิจและสังคม เพื่อสร้างผลกระทบเชิงบวกที่ยั่งยืนต่อชุมชน</h5>
-<h4>2.3 ความเป็นเลิศในการดำเนินงาน</h4>
-<h5>2.3.1 ขับเคลื่อนประสิทธิภาพ ผลิตภาพ และความคุ้มค่าในทุกกระบวนการดำเนินงาน</h5>
-<h5>2.3.2 นำนวัตกรรมและเทคโนโลยีการทำเหมืองชั้นนำมาใช้เพื่อยกระดับประสิทธิผล</h5>
-<h5>2.3.3 ส่งเสริมวัฒนธรรมองค์กรที่มุ่งเน้นผลสัมฤทธิ์และความรับผิดชอบ</h5>
-<h5>2.3.4 ยกระดับมาตรฐานการดำเนินงานอย่างต่อเนื่อง เพื่อให้เหนือกว่ามาตรฐานของ</h5>
-<h3>อุตสาหกรรม</h3>
-<h4>2.4 การปลดล็อกศักยภาพแหล่งแร่</h4>
-<h5>2.4.1 มุ่งสร้างมูลค่าสูงสุดจากทรัพยากรแร่ที่มีอยู่ ผ่านการสำรวจและพัฒนาเชิงกลยุทธ์</h5>
-<h5>2.4.2 แสวงหาโอกาสใหม่ในการเพิ่มพูนทรัพยากรและเสริมสร้างการเติบโตของธุรกิจ</h5>
-<h5>2.4.3 นำนวัตกรรมด้านธรณีวิทยาและการทำเหมืองขั้นสูงมาใช้ เพื่อเพิ่มประสิทธิภาพการผลิต</h5>
-<h5>2.4.4 ร่วมมือกับผู้เชี่ยวชาญในอุตสาหกรรม เพื่อค้นหาและปลดล็อกศักยภาพแหล่งแร่ที่ซ่อนอยู่</h5>
-<h3>3. นโยบายต่าง ๆ ของบริษัท</h3>
-<h3>พนักงานทุกระดับมีหน้าที่ต้องศึกษาทำความเข้าใจ และปฏิบัติตามนโยบาย ระเบียบ หลักเกณฑ์ และ</h3>
-<h3>แนวปฏิบัติของบริษัทอย่างเคร่งครัด ทั้งนี้ ให้ถือว่านโยบายดังกล่าวเป็นส่วนหนึ่งของข้อบังคับเกี่ยวกับการทำงาน</h3>
-<h3>และมีผลผูกพันพนักงานทุกคน</h3>
-<h3>บริษัทอาจกำหนด แก้ไข ปรับปรุง หรือเพิ่มเติมนโยบาย ระเบียบ หรือแนวปฏิบัติได้ตามความเหมาะสม</h3>
-<h3>เพื่อให้สอดคล้องกับกฎหมาย มาตรฐานการกำกับดูแลกิจการที่ดี หลักธรรมาภิบาล มาตรฐานสากล ตลอดจน</h3>
-<h3>แนวปฏิบัติด้านการบริหารความเสี่ยงและการกำกับดูแลการปฏิบัติตามกฎหมาย โดยพนักงานมีหน้าที่ต้อง</h3>
-<h3>ติดตามและปฏิบัติตามนโยบายฉบับที่มีผลใช้บังคับในแต่ละเวลา</h3>
-<h3>ในกรณีที่มีความไม่สอดคล้องกันระหว่างข้อบังคับเกี่ยวกับการทำงานกับนโยบายหรือระเบียบของบริษัท</h3>
-<h3>ให้ยึดถือข้อกำหนดที่มีความเข้มงวดหรือให้การกำกับดูแลสูงกว่าเว้นแต่กฎหมายจะกำหนดไว้เป็นอย่างอื่น</h3>
-<h3>ทั้งนี้ นโยบายของบริษัทให้รวมถึง แต่ไม่จำกัดเพียงรายการดังต่อไปนี้</h3>
-<h3>1. นโยบายควบคุมสารเสพติดและแอลกอฮอล์ในสถานประกอบการ</h3>
-<h3>2. นโยบายการเปิดเผยข้อมูลแก่บุคคลภายนอกและการสื่อสารผ่านสื่อสังคมออนไลน์</h3>
-<h3>3. นโยบายการใช้ตราสัญลักษณ์องค์กร</h3>
-<h3>4. นโยบายบริหารคุณภาพ การจัดการสิ่งแวดล้อม อาชีวอนามัยและความปลอดภัย</h3>
-<h3>5. นโยบายการจัดการความเสี่ยง</h3>
-<h3>6. นโยบายประหยัดพลังงาน</h3>
-<h3>7. นโยบายด้านการพัฒนาอย่างยั่งยืนและความรับผิดชอบต่อสังคม</h3>
-<h3>8. นโยบายคุ้มครองข้อมูลส่วนบุคคล</h3>
-<h3>9. นโยบายการจัดการความขัดแย้งทางผลประโยชน์</h3>
-<h3>10. นโยบายการต่อต้านการให้สินบนและการทุจริตคอร์รัปชั่น</h3>
-<h3>การไม่ปฏิบัติตามนโยบาย ระเบียบ หรือแนวปฏิบัติของบริษัทดังกล่าว อาจถือเป็นการฝ่าฝืนข้อบังคับ</h3>
-<h3>เกี่ยวกับการทำงาน และอาจนำไปสู่การพิจารณาดำเนินการทางวินัยตามหลักเกณฑ์และขั้นตอนที่บริษัทกำหนด</h3>
-<h3>รวมถึงอาจมีความรับผิดตามกฎหมายในกรณีที่เกี่ยวข้อง</h3></div>
-          <div class="text-en"><h3>Chapter 2</h3>
-<h3>Corporate Vision, Strategic Pillars and Corporate Policies</h3>
-<h3>1.</h3>
-<h3>Corporate Vision</h3>
-<p>To safely and sustainably create value for all stakeholders through operational excellence and unlocking the full potential of our mineral endowment.</p>
-<h3>2.</h3>
-<h3>Four Strategic Pillars</h3>
-<p>2.1 Safety and Sustainability 2.1.1 Prioritize the health and safety of employees, contractors, and local communities. 2.1.2 Implement industry-leading risk management, safety practices and a culture of continuous improvement. 2.1.3 Commit to responsible environmental stewardship and sustainable resource management. 2.1.4 Minimize environmental impact through innovative technologies and best practices 2.2 Stakeholder Value Creation 2.2.1 Provide meaningful career development opportunities and prioritize local employment. 2.2.2 Build trust-based, mutually beneficial relationships with employees, contractors, local communities and governments  through continuous engagement. 2.2.3 Deliver sustainable financial returns and long-term growth for shareholders. 2.2.4 Uphold transparency, ethics, and integrity in all business dealings. 2.2.5 Invest in social and economic development initiatives to create lasting community impact 2.3 Operational Excellence 2.3.1 Drive efficiency, productivity, and cost-effectiveness across all operations. 2.3.2 Adopt best-in-class mining technologies and processes to enhance performance. 2.3.3 Foster a high-performing culture focused on accountability and results. 2.3.4 Continuously improve operational standards to exceed industry benchmarks 2.4 Unlocking Mineral Potential 2.4.1 Maximize the value of existing mineral endowment through strategic exploration and development.</p>
-<p>2.4.2 Identify and pursue new opportunities for resource expansion and growth. 2.4.3 Leverage advanced geological and mining expertise to optimize production. 2.4.4 Collaborate with industry experts to discover and unlock hidden resource potential.</p>
-<h3>3.</h3>
-<h3>Corporate Policies</h3>
-<p>Employees at all levels are required to study, understand, and strictly comply with the Company’s policies, regulations, rules, and practices. Such policies shall be deemed an integral part of the Work Rules and shall be binding upon all employees. The Company may establish, amend, revise, or supplement its policies, regulations, or practices as deemed appropriate to ensure compliance with applicable laws, principles of good corporate governance, internationally recognized standards, as well as risk management and compliance practices. Employees are responsible for keeping themselves informed of and complying with the policies that are in effect from time to time. In the event of any inconsistency between these Work Rules and any policy or regulation of the Company, the provision that imposes stricter requirements or provides a higher level of governance shall prevail, unless otherwise required by law. The Company’s policies include, but are not limited to, the following: 1. Drug and Alcohol Policy 2. External Communications and Social Media Policy 3. Corporate Branding Policy 4. Quality, Environmental, Occupational Health and Safety Management Policy 5. Risk Management Policy 6. Energy Saving Policy 7. Sustainable Development and Social Responsibility Policy 8. Personal Data Protection Policy 9. Conflicts of Interest Policy 10. Anti-Bribery and Anti-Corruption Policy Failure to comply with the Company’s policies, regulations, or practices may be considered a violation of the Work Rules and may result in disciplinary action in accordance with the procedures and criteria prescribed by the Company. Such actions may also give rise to legal liability where applicable.</p>
-<h3>Chapter 3</h3>
-<h3>Employment</h3>
-<h3>1.</h3>
-<h3>General Qualifications</h3>
-<p>1.1 Applicants must be at least eighteen (18) years of age. 1.2 Applicants must be in good physical and mental health, free from serious communicable diseases, not addicted to narcotics, and not suffering from any condition that may hinder the performance of their duties. 1.3 Applicants shall undergo a medical examination in accordance with the criteria determined by the Company at a medical facility designated or arranged by the Company. Employment shall be subject to the medical examination results meeting the Company’s standards for fitness for work. 1.4 Male applicants who are subject to military conscription must have completed their military obligations, unless the Company considers an exception on a case-by-case basis depending on the suitability of the position. 1.5 Applicants must have good conduct and must not have been sentenced to imprisonment by a final court judgment, except for petty offenses, and must not be fugitives from criminal prosecution. 1.6 Applicants must not be or have previously been declared bankrupt by a court order, unless they have been legally discharged from such status. 1.7 Applicants must possess the qualifications, knowledge, abilities, and experience required for the position as determined by the Company. 1.8 The Company may conduct background checks on applicants before or after employment. If it is subsequently found that an applicant has provided false information or does not meet the required qualifications, the Company reserves the right to terminate employment immediately in accordance with the law. Employment and related conditions shall be in accordance with the applicable labour protection laws and other relevant laws.</p>
-<h3>2.</h3>
-<h3>Types of Employment</h3>
-<p>2.1 Daily Employees means employees who are paid on a daily wage basis and are not entitled to wages on weekly holidays, unless otherwise required by law.</p></div>
+<h2 class="chapter-section">หมวดที่ 2</h2>
+<h2>วิสัยทัศน์องค์กร เสาหลักกลยุทธ์ และนโยบายองค์กร</h2>
+<h4>วิสัยทัศน์องค์กร</h4>
+<ul>
+<li>มุ่งสร้างคุณค่าให้แก่ผู้มีส่วนได้ส่วนเสียทุกภาคส่วนอย่างปลอดภัยและยั่งยืน ผ่านความเป็นเลิศ
+ในการดำเนินงาน และการใช้ศักยภาพของทรัพยากรแร่ให้เกิดประโยชน์สูงสุด</li>
+</ul>
+<h4>เสาหลักกลยุทธ์ 4 ด้าน</h4>
+<ul>
+<li>ความปลอดภัยและความยั่งยืน</li>
+<li>ให้ความสำคัญสูงสุดกับสุขภาพและความปลอดภัยของพนักงาน ผู้รับเหมา และชุมชนโดยรอบ</li>
+<li>ดำเนินการบริหารความเสี่ยงตามมาตรฐานชั้นนำของอุตสาหกรรม ส่งเสริมแนวปฏิบัติ
+ด้านความปลอดภัย และสร้างวัฒนธรรมแห่งการพัฒนาอย่างต่อเนื่อง</li>
+<li>มุ่งมั่นในการดูแลสิ่งแวดล้อมอย่างรับผิดชอบ และบริหารจัดการทรัพยากรอย่างยั่งยืน</li>
+<li>ลดผลกระทบต่อสิ่งแวดล้อมด้วยเทคโนโลยีที่ทันสมัยและแนวปฏิบัติที่เป็นเลิศ</li>
+<li>การสร้างคุณค่าให้แก่ผู้มีส่วนได้ส่วนเสีย</li>
+<li>ส่งเสริมโอกาสในการพัฒนาอาชีพ พร้อมให้ความสำคัญกับการจ้างงานในท้องถิ่น</li>
+<li>สร้างความสัมพันธ์กับพนักงาน ผู้รับเหมา ชุมชนท้องถิ่น และภาครัฐ บนพื้นฐานของ
+ความไว้วางใจ และการสร้างคุณค่าร่วมกันอย่างต่อเนื่อง</li>
+<li>มุ่งสร้างผลตอบแทนทางการเงินอย่างยั่งยืนและการเติบโตในระยะยาวให้แก่ผู้ถือหุ้น</li>
+<li>ยึดมั่นในความโปร่งใส จริยธรรม และความซื่อสัตย์ในทุกกระบวนการดำเนินธุรกิจ</li>
+<li>ลงทุนในโครงการพัฒนาเศรษฐกิจและสังคม เพื่อสร้างผลกระทบเชิงบวกที่ยั่งยืนต่อชุมชน</li>
+<li>ความเป็นเลิศในการดำเนินงาน</li>
+<li>ขับเคลื่อนประสิทธิภาพ ผลิตภาพ และความคุ้มค่าในทุกกระบวนการดำเนินงาน</li>
+<li>นำนวัตกรรมและเทคโนโลยีการทำเหมืองชั้นนำมาใช้เพื่อยกระดับประสิทธิผล</li>
+<li>ส่งเสริมวัฒนธรรมองค์กรที่มุ่งเน้นผลสัมฤทธิ์และความรับผิดชอบ</li>
+<li>ยกระดับมาตรฐานการดำเนินงานอย่างต่อเนื่อง เพื่อให้เหนือกว่ามาตรฐานของอุตสาหกรรม</li>
+<li>การปลดล็อกศักยภาพแหล่งแร่</li>
+<li>มุ่งสร้างมูลค่าสูงสุดจากทรัพยากรแร่ที่มีอยู่ ผ่านการสำรวจและพัฒนาเชิงกลยุทธ์</li>
+<li>แสวงหาโอกาสใหม่ในการเพิ่มพูนทรัพยากรและเสริมสร้างการเติบโตของธุรกิจ</li>
+<li>นำนวัตกรรมด้านธรณีวิทยาและการทำเหมืองขั้นสูงมาใช้ เพื่อเพิ่มประสิทธิภาพการผลิต</li>
+<li>ร่วมมือกับผู้เชี่ยวชาญในอุตสาหกรรม เพื่อค้นหาและปลดล็อกศักยภาพแหล่งแร่ที่ซ่อนอยู่</li>
+</ul>
+<h4>นโยบายต่าง ๆ ของบริษัท</h4>
+<p>พนักงานทุกระดับมีหน้าที่ต้องศึกษา ทำความเข้าใจ และปฏิบัติตามนโยบาย ระเบียบ หลักเกณฑ์ และแนวปฏิบัติของบริษัทอย่างเคร่งครัด ทั้งนี้ ให้ถือว่านโยบายดังกล่าวเป็นส่วนหนึ่งของข้อบังคับเกี่ยวกับการทำงาน และมีผลผูกพันพนักงานทุกคน</p>
+<p>บริษัทอาจกำหนด แก้ไข ปรับปรุง หรือเพิ่มเติมนโยบาย ระเบียบ หรือแนวปฏิบัติได้ตามความเหมาะสม เพื่อให้สอดคล้องกับกฎหมาย มาตรฐานการกำกับดูแลกิจการที่ดี หลักธรรมาภิบาล มาตรฐานสากล ตลอดจนแนวปฏิบัติด้านการบริหารความเสี่ยงและการกำกับดูแลการปฏิบัติตามกฎหมาย โดยพนักงานมีหน้าที่ต้องติดตามและปฏิบัติตามนโยบายฉบับที่มีผลใช้บังคับในแต่ละเวลา</p>
+<p>ในกรณีที่มีความไม่สอดคล้องกันระหว่างข้อบังคับเกี่ยวกับการทำงานกับนโยบายหรือระเบียบของบริษัท ให้ยึดถือข้อกำหนดที่มีความเข้มงวดหรือให้การกำกับดูแลสูงกว่า เว้นแต่กฎหมายจะกำหนดไว้เป็นอย่างอื่น</p>
+<p>ทั้งนี้ นโยบายของบริษัทให้รวมถึง แต่ไม่จำกัดเพียงรายการดังต่อไปนี้</p>
+<ul>
+<li>นโยบายควบคุมสารเสพติดและแอลกอฮอล์ในสถานประกอบการ</li>
+<li>นโยบายการเปิดเผยข้อมูลแก่บุคคลภายนอกและการสื่อสารผ่านสื่อสังคมออนไลน์</li>
+<li>นโยบายการใช้ตราสัญลักษณ์องค์กร</li>
+<li>นโยบายบริหารคุณภาพ การจัดการสิ่งแวดล้อม อาชีวอนามัยและความปลอดภัย</li>
+<li>นโยบายการจัดการความเสี่ยง</li>
+<li>นโยบายประหยัดพลังงาน</li>
+<li>นโยบายด้านการพัฒนาอย่างยั่งยืนและความรับผิดชอบต่อสังคม</li>
+<li>นโยบายคุ้มครองข้อมูลส่วนบุคคล</li>
+<li>นโยบายการจัดการความขัดแย้งทางผลประโยชน์</li>
+<li>นโยบายการต่อต้านการให้สินบนและการทุจริตคอร์รัปชั่น</li>
+</ul>
+<p>การไม่ปฏิบัติตามนโยบาย ระเบียบ หรือแนวปฏิบัติของบริษัทดังกล่าว อาจถือเป็นการฝ่าฝืนข้อบังคับเกี่ยวกับการทำงาน และอาจนำไปสู่การพิจารณาดำเนินการทางวินัยตามหลักเกณฑ์และขั้นตอนที่บริษัทกำหนด รวมถึงอาจมีความรับผิดตามกฎหมายในกรณีที่เกี่ยวข้อง</p>
         </div>
         <nav class="chapter-nav"><a href="chapter-01.html">← บททั่วไป</a><a href="chapter-03.html" class="next">การว่าจ้าง →</a></nav>
       </article>

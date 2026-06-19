@@ -11,20 +11,15 @@
     body { display:flex; flex-direction:column; min-height:100vh; }
     .page-wrap { display:flex; flex:1; }
     .sidebar-fixed {
-      width:270px; flex-shrink:0;
-      position:sticky; top:60px;
-      height:calc(100vh - 60px);
-      overflow-y:auto;
-      background:#fff;
-      border-right:1.5px solid var(--gray-2);
-      padding:12px 8px;
+      width:270px; flex-shrink:0; position:sticky; top:60px;
+      height:calc(100vh - 60px); overflow-y:auto;
+      background:#fff; border-right:1.5px solid var(--gray-2); padding:12px 8px;
     }
     .sidebar-fixed::-webkit-scrollbar { width:4px; }
     .sidebar-fixed::-webkit-scrollbar-thumb { background:var(--gray-3); border-radius:2px; }
     .sidebar-home {
-      display:flex; align-items:center; gap:6px;
-      padding:7px 10px; font-size:0.8rem;
-      color:var(--text-muted); text-decoration:none;
+      display:flex; align-items:center; gap:6px; padding:7px 10px;
+      font-size:0.8rem; color:var(--text-muted); text-decoration:none;
       border-radius:6px; margin-bottom:2px;
     }
     .sidebar-home:hover { background:var(--gray-1); color:var(--blue); }
@@ -34,11 +29,9 @@
       padding:10px 10px 4px; display:block;
     }
     .sidebar-chapter {
-      display:flex; align-items:flex-start; gap:8px;
-      padding:8px 10px; border-radius:8px;
-      text-decoration:none; color:var(--text-muted);
-      font-size:0.8rem; line-height:1.35;
-      transition:all 0.15s; margin-bottom:1px;
+      display:flex; align-items:flex-start; gap:8px; padding:8px 10px;
+      border-radius:8px; text-decoration:none; color:var(--text-muted);
+      font-size:0.8rem; line-height:1.35; transition:all 0.15s; margin-bottom:1px;
     }
     .sidebar-chapter:hover { background:var(--blue-light); color:var(--blue); }
     .sidebar-chapter.active { background:var(--blue); color:#fff; }
@@ -47,23 +40,29 @@
       min-width:26px; height:26px; border-radius:6px;
       background:var(--blue-light); color:var(--blue);
       font-size:0.7rem; font-weight:700;
-      display:flex; align-items:center; justify-content:center;
-      flex-shrink:0; margin-top:1px;
+      display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px;
     }
     .sidebar-label { flex:1; }
     .main-content { flex:1; padding:32px 32px 60px; min-width:0; }
     .chapter-card { max-width:740px; margin:0 auto; }
+    .chapter-body h2.chapter-section { color:var(--blue); font-size:1.1rem; margin:28px 0 8px; }
+    .chapter-body h2 { color:var(--dark); font-size:1.15rem; margin:24px 0 8px; }
+    .chapter-body h3 { color:var(--blue); font-size:1rem; margin:20px 0 6px; border-left:3px solid var(--blue); padding-left:10px; }
+    .chapter-body h4 { color:var(--dark); font-size:0.95rem; margin:14px 0 4px; font-weight:600; }
+    .chapter-body p { color:var(--text); font-size:0.95rem; margin-bottom:0.8em; line-height:1.75; }
+    .chapter-body ul { padding-left:1.4em; margin-bottom:1em; }
+    .chapter-body li { font-size:0.95rem; margin-bottom:0.4em; color:var(--text); line-height:1.7; }
     @media(max-width:768px) {
       .sidebar-fixed { display:none; }
       .sidebar-fixed.open { display:block; position:fixed; top:60px; left:0; z-index:200; height:calc(100vh - 60px); box-shadow:4px 0 20px rgba(0,0,0,0.15); }
-      .sidebar-toggle-btn { display:flex !important; }
+      .mob-menu { display:flex !important; }
     }
   </style>
 </head>
 <body>
   <header class="topbar">
     <div class="topbar-left">
-      <button class="sidebar-toggle-btn" onclick="toggleSidebar()" style="display:none;background:rgba(255,255,255,0.15);border:none;color:#fff;padding:6px 10px;border-radius:6px;cursor:pointer;font-size:1rem;margin-right:8px;">☰</button>
+      <button class="mob-menu" onclick="toggleSidebar()" style="display:none;background:rgba(255,255,255,0.15);border:none;color:#fff;padding:6px 10px;border-radius:6px;cursor:pointer;font-size:1rem;margin-right:8px;">☰</button>
       <img src="../assets/Akara Logo.jpg" alt="Akara Resources" class="topbar-logo">
       <div class="topbar-title">
         <span class="text-th">คู่มือพนักงาน</span><span class="text-en">Employee Handbook</span>
@@ -112,52 +111,32 @@
         </h1>
         <div class="chapter-divider"></div>
         <div class="chapter-body">
-          <div class="text-th"><h2>หมวดที่ 13</h2>
-<h3>สวัสดิการและสิทธิประโยชน์อื่น ๆ</h3>
-<h3>1. หลักการจัดสวัสดิการ</h3>
-<h3>บริษัทจัดให้มีสวัสดิการและสิทธิประโยชน์แก่พนักงานตามความเหมาะสม เพื่อส่งเสริมคุณภาพชีวิต</h3>
-<h3>ความมั่นคงในการทำงาน และประสิทธิภาพในการปฏิบัติงานของพนักงาน</h3>
-<h3>ทั้งนี้ การจัดให้มีสวัสดิการดังกล่าวให้เป็นไปตามนโยบาย ระเบียบ และแนวปฏิบัติที่บริษัทกำหนด และ</h3>
-<h3>บริษัทสงวนสิทธิในการกำหนด แก้ไข เปลี่ยนแปลง ระงับ หรือยกเลิกสวัสดิการใด ๆ ได้ตามความจำเป็น</h3>
-<h3>ความเหมาะสม หรือสภาพการณ์ทางธุรกิจ โดยไม่ถือเป็นการเปลี่ยนแปลงสภาพการจ้าง เว้นแต่กฎหมายกำหนด</h3>
-<h3>ไว้เป็นอย่างอื่น</h3>
-<h3>2. ประเภทสวัสดิการ</h3>
-<h3>สวัสดิการและสิทธิประโยชน์ที่บริษัทจัดให้ อาจรวมถึงแต่ไม่จำกัดเพียงเรื่องดังต่อไปนี้</h3>
-<h4>2.1 การตรวจสุขภาพก่อนเริ่มงาน และการตรวจสุขภาพประจำปี</h4>
-<h4>2.2 การประกันอุบัติเหตุและประกันชีวิต</h4>
-<h4>2.3 เครื่องแบบพนักงาน</h4>
-<h4>2.4 ค่าใช้จ่ายหรือเงินช่วยเหลือที่เกี่ยวข้องกับการปฏิบัติงาน เช่น ค่าเดินทาง ค่าอาหาร ค่ากะทำงาน</h4>
-<h3>เป็นต้น</h3>
-<h4>2.5 สวัสดิการด้านการรักษาพยาบาลสำหรับพนักงานและครอบครัว</h4>
-<h4>2.6 กองทุนสำรองเลี้ยงชีพ</h4>
-<h4>2.7 การจัดหาอุปกรณ์ ทรัพย์สิน หรือสิ่งอำนวยความสะดวกเพื่อการปฏิบัติงาน</h4>
-<h4>2.8 เงินช่วยเหลือในโอกาสสำคัญหรือเหตุจำเป็น เช่น การอุปสมบท การสมรส การคลอดบุตร</h4>
-<h3>การเจ็บป่วย หรือการเสียชีวิต</h3>
-<h4>2.9 รางวัลตอบแทนตามอายุงาน</h4>
-<h4>2.10 สวัสดิการอื่นตามที่บริษัทกำหนดเป็นครั้งคราว</h4>
-<h3>3. เงื่อนไข หลักเกณฑ์ และวิธีการใช้สิทธิ</h3>
-<h3>การได้รับสิทธิในสวัสดิการแต่ละประเภท ให้เป็นไปตามคุณสมบัติ เงื่อนไข อัตราหลักเกณฑ์ วิธีการ</h3>
-<h3>ใช้สิทธิ และแนวปฏิบัติที่บริษัทกำหนดไว้เป็นการเฉพาะสำหรับสวัสดิการนั้น ๆ ซึ่งอาจกำหนดให้แตกต่างกัน</h3>
-<h3>ตามระดับตำแหน่ง อายุงาน ลักษณะงาน การผ่านทดลองงาน หรือเงื่อนไขอื่นตามที่บริษัทเห็นสมควร</h3>
-<h3>รายละเอียดการใช้สิทธิ การเบิกจ่าย และการบริหารสวัสดิการ ให้เป็นไปตามระเบียบ ประกาศ หรือคำสั่ง</h3>
-<h3>ของบริษัทที่เกี่ยวข้อง</h3>
-<h3>4. การตีความและการบริหารสวัสดิการ</h3>
-<h3>ในกรณีที่มีข้อสงสัยเกี่ยวกับการตีความ การใช้สิทธิ หรือการบริหารจัดการสวัสดิการ ให้ถือคำวินิจฉัยของ</h3>
-<h3>บริษัทเป็นที่สุด ทั้งนี้ต้องไม่ขัดต่อกฎหมายแรงงานที่เกี่ยวข้อง</h3></div>
-          <div class="text-en"><p>4.6 Where the Company, acting in good faith, needs to restructure its organization, downsize its operations, abolish positions, or improve operational efficiency, and the Company is unable to assign other suitable positions to the employee. 4.7 In cases of termination under this section, the Company shall provide advance notice of termination of not less than one wage payment period or shall pay wages in lieu of such notice in accordance with applicable laws. 4.8 Notice of termination shall be given in the form and manner prescribed by the Company. Written notice or notification through the Company’s electronic systems shall be deemed valid notice.</p>
-<h3>5.</h3>
-<h3>Severance Pay</h3>
-<p>An employee whose employment is terminated by the Company without fault under labour laws shall be entitled to severance pay in accordance with the rates and criteria prescribed under the Labour Protection Act and its amendments. Such severance pay shall be calculated based on the employee’s length of continuous service and the employee’s final wage rate. 5.1 An employee who has completed at least one hundred and twenty (120) days but less than one (1) year of continuous service shall receive severance pay of not less than thirty (30) days of the employee’s final wage. 5.2 An employee who has completed at least one (1) year but less than three (3) years of continuous service shall receive severance pay of not less than ninety (90) days of the employee’s final wage. 5.3 An employee who has completed at least three (3) years but less than six (6) years of continuous service shall receive severance pay of not less than one hundred and eighty (180) days of the employee’s final wage. 5.4 An employee who has completed at least six (6) years but less than ten (10) years of continuous service shall receive severance pay of not less than two hundred and forty (240) days of the employee’s final wage. 5.5 An employee who has completed at least ten (10) years but less than twenty (20) years of continuous service shall receive severance pay of not less than three hundred (300) days of the employee’s final wage. 5.6 An employee who has completed twenty (20) years or more of continuous service shall receive severance pay of not less than four hundred (400) days of the employee’s final wage.</p>
-<p>Severance pay, including special severance pay where required by law—such as in cases of relocation of the place of business, business closure, organizational restructuring, or other circumstances prescribed under labour laws—shall be paid in accordance with the conditions, criteria, and rates prescribed by law, which may be amended from time to time.</p>
-<h3>6.</h3>
-<h3>Termination without Severance Pay</h3>
-<p>6.1 Where the employee commits serious misconduct in accordance with the criteria specified under Section 119 of the Labour Protection Act B.E. 2541 (1998) and its amendments. 6.2 Where the employee has not completed one hundred and twenty (120) days of continuous service from the commencement date of employment. In such case, the employee shall not be entitled to severance pay, in accordance with the criteria and conditions prescribed by labour laws. 6.3 In any other circumstances where applicable labour laws permit the Company to terminate employment without payment of severance pay, the Company may terminate employment accordingly. This shall not affect the employee’s entitlement to special severance pay where required by law, if any.</p>
-<h3>7.</h3>
-<h3>Death</h3>
-<p>7.1 In the event that an employee dies from any cause, the employee’s employment with the Company shall be deemed terminated as of the date of death. 7.2 The Company shall pay the employee’s outstanding wages, overtime pay, holiday pay, accrued but unused annual leave, and any other payments to which the employee is entitled to the employee’s statutory heirs or designated beneficiary as notified to the Company, in accordance with the criteria and within the period prescribed by law. 7.3 In the event that the employee has any debts or obligations to the Company, the Company shall have the right to deduct such amounts to the extent permitted by law.</p>
-<h3>8.</h3>
-<h3>Expiration of Employment Contract or Other Circumstances Prescribed by Law</h3>
-<p>8.1 Expiration of the employment contract in accordance with the term or conditions specified in the employment contract. 8.2 Where the employee is sentenced by a final court judgment to imprisonment without suspension of the sentence, resulting in the employee being unable to perform his or her duties.</p></div>
+<h2 class="chapter-section">หมวดที่ 13</h2>
+<h2>สวัสดิการและสิทธิประโยชน์อื่น ๆ</h2>
+<h4>หลักการจัดสวัสดิการ</h4>
+<p>บริษัทจัดให้มีสวัสดิการและสิทธิประโยชน์แก่พนักงานตามความเหมาะสม เพื่อส่งเสริมคุณภาพชีวิต ความมั่นคงในการทำงาน และประสิทธิภาพในการปฏิบัติงานของพนักงาน</p>
+<p>ทั้งนี้ การจัดให้มีสวัสดิการดังกล่าวให้เป็นไปตามนโยบาย ระเบียบ และแนวปฏิบัติที่บริษัทกำหนด และบริษัทสงวนสิทธิในการกำหนด แก้ไข เปลี่ยนแปลง ระงับ หรือยกเลิกสวัสดิการใด ๆ ได้ตามความจำเป็น 
+ความเหมาะสม หรือสภาพการณ์ทางธุรกิจ โดยไม่ถือเป็นการเปลี่ยนแปลงสภาพการจ้าง เว้นแต่กฎหมายกำหนดไว้เป็นอย่างอื่น</p>
+<h4>ประเภทสวัสดิการ</h4>
+<p>สวัสดิการและสิทธิประโยชน์ที่บริษัทจัดให้ อาจรวมถึงแต่ไม่จำกัดเพียงเรื่องดังต่อไปนี้</p>
+<ul>
+<li>การตรวจสุขภาพก่อนเริ่มงาน และการตรวจสุขภาพประจำปี</li>
+<li>การประกันอุบัติเหตุและประกันชีวิต</li>
+<li>เครื่องแบบพนักงาน</li>
+<li>ค่าใช้จ่ายหรือเงินช่วยเหลือที่เกี่ยวข้องกับการปฏิบัติงาน เช่น ค่าเดินทาง ค่าอาหาร ค่ากะทำงาน เป็นต้น</li>
+<li>สวัสดิการด้านการรักษาพยาบาลสำหรับพนักงานและครอบครัว</li>
+<li>กองทุนสำรองเลี้ยงชีพ</li>
+<li>การจัดหาอุปกรณ์ ทรัพย์สิน หรือสิ่งอำนวยความสะดวกเพื่อการปฏิบัติงาน</li>
+<li>เงินช่วยเหลือในโอกาสสำคัญหรือเหตุจำเป็น เช่น การอุปสมบท การสมรส การคลอดบุตร 
+การเจ็บป่วย หรือการเสียชีวิต</li>
+<li>รางวัลตอบแทนตามอายุงาน</li>
+<li>สวัสดิการอื่นตามที่บริษัทกำหนดเป็นครั้งคราว</li>
+</ul>
+<h4>เงื่อนไข หลักเกณฑ์ และวิธีการใช้สิทธิ</h4>
+<p>การได้รับสิทธิในสวัสดิการแต่ละประเภท ให้เป็นไปตามคุณสมบัติ เงื่อนไข อัตรา หลักเกณฑ์ วิธีการใช้สิทธิ และแนวปฏิบัติที่บริษัทกำหนดไว้เป็นการเฉพาะสำหรับสวัสดิการนั้น ๆ ซึ่งอาจกำหนดให้แตกต่างกันตามระดับตำแหน่ง อายุงาน ลักษณะงาน การผ่านทดลองงาน หรือเงื่อนไขอื่นตามที่บริษัทเห็นสมควร</p>
+<p>รายละเอียดการใช้สิทธิ การเบิกจ่าย และการบริหารสวัสดิการ ให้เป็นไปตามระเบียบ ประกาศ หรือคำสั่งของบริษัทที่เกี่ยวข้อง</p>
+<h4>การตีความและการบริหารสวัสดิการ</h4>
+<p>ในกรณีที่มีข้อสงสัยเกี่ยวกับการตีความ การใช้สิทธิ หรือการบริหารจัดการสวัสดิการ ให้ถือคำวินิจฉัยของบริษัทเป็นที่สุด ทั้งนี้ต้องไม่ขัดต่อกฎหมายแรงงานที่เกี่ยวข้อง</p>
         </div>
         <nav class="chapter-nav"><a href="chapter-12.html">← การพ้นสภาพการเป็นพนักงาน</a><a href="chapter-14.html" class="next">ข้อกำหนดทั่วไปและการบังคับใช้ →</a></nav>
       </article>

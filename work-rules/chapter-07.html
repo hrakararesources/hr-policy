@@ -11,20 +11,15 @@
     body { display:flex; flex-direction:column; min-height:100vh; }
     .page-wrap { display:flex; flex:1; }
     .sidebar-fixed {
-      width:270px; flex-shrink:0;
-      position:sticky; top:60px;
-      height:calc(100vh - 60px);
-      overflow-y:auto;
-      background:#fff;
-      border-right:1.5px solid var(--gray-2);
-      padding:12px 8px;
+      width:270px; flex-shrink:0; position:sticky; top:60px;
+      height:calc(100vh - 60px); overflow-y:auto;
+      background:#fff; border-right:1.5px solid var(--gray-2); padding:12px 8px;
     }
     .sidebar-fixed::-webkit-scrollbar { width:4px; }
     .sidebar-fixed::-webkit-scrollbar-thumb { background:var(--gray-3); border-radius:2px; }
     .sidebar-home {
-      display:flex; align-items:center; gap:6px;
-      padding:7px 10px; font-size:0.8rem;
-      color:var(--text-muted); text-decoration:none;
+      display:flex; align-items:center; gap:6px; padding:7px 10px;
+      font-size:0.8rem; color:var(--text-muted); text-decoration:none;
       border-radius:6px; margin-bottom:2px;
     }
     .sidebar-home:hover { background:var(--gray-1); color:var(--blue); }
@@ -34,11 +29,9 @@
       padding:10px 10px 4px; display:block;
     }
     .sidebar-chapter {
-      display:flex; align-items:flex-start; gap:8px;
-      padding:8px 10px; border-radius:8px;
-      text-decoration:none; color:var(--text-muted);
-      font-size:0.8rem; line-height:1.35;
-      transition:all 0.15s; margin-bottom:1px;
+      display:flex; align-items:flex-start; gap:8px; padding:8px 10px;
+      border-radius:8px; text-decoration:none; color:var(--text-muted);
+      font-size:0.8rem; line-height:1.35; transition:all 0.15s; margin-bottom:1px;
     }
     .sidebar-chapter:hover { background:var(--blue-light); color:var(--blue); }
     .sidebar-chapter.active { background:var(--blue); color:#fff; }
@@ -47,23 +40,29 @@
       min-width:26px; height:26px; border-radius:6px;
       background:var(--blue-light); color:var(--blue);
       font-size:0.7rem; font-weight:700;
-      display:flex; align-items:center; justify-content:center;
-      flex-shrink:0; margin-top:1px;
+      display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px;
     }
     .sidebar-label { flex:1; }
     .main-content { flex:1; padding:32px 32px 60px; min-width:0; }
     .chapter-card { max-width:740px; margin:0 auto; }
+    .chapter-body h2.chapter-section { color:var(--blue); font-size:1.1rem; margin:28px 0 8px; }
+    .chapter-body h2 { color:var(--dark); font-size:1.15rem; margin:24px 0 8px; }
+    .chapter-body h3 { color:var(--blue); font-size:1rem; margin:20px 0 6px; border-left:3px solid var(--blue); padding-left:10px; }
+    .chapter-body h4 { color:var(--dark); font-size:0.95rem; margin:14px 0 4px; font-weight:600; }
+    .chapter-body p { color:var(--text); font-size:0.95rem; margin-bottom:0.8em; line-height:1.75; }
+    .chapter-body ul { padding-left:1.4em; margin-bottom:1em; }
+    .chapter-body li { font-size:0.95rem; margin-bottom:0.4em; color:var(--text); line-height:1.7; }
     @media(max-width:768px) {
       .sidebar-fixed { display:none; }
       .sidebar-fixed.open { display:block; position:fixed; top:60px; left:0; z-index:200; height:calc(100vh - 60px); box-shadow:4px 0 20px rgba(0,0,0,0.15); }
-      .sidebar-toggle-btn { display:flex !important; }
+      .mob-menu { display:flex !important; }
     }
   </style>
 </head>
 <body>
   <header class="topbar">
     <div class="topbar-left">
-      <button class="sidebar-toggle-btn" onclick="toggleSidebar()" style="display:none;background:rgba(255,255,255,0.15);border:none;color:#fff;padding:6px 10px;border-radius:6px;cursor:pointer;font-size:1rem;margin-right:8px;">☰</button>
+      <button class="mob-menu" onclick="toggleSidebar()" style="display:none;background:rgba(255,255,255,0.15);border:none;color:#fff;padding:6px 10px;border-radius:6px;cursor:pointer;font-size:1rem;margin-right:8px;">☰</button>
       <img src="../assets/Akara Logo.jpg" alt="Akara Resources" class="topbar-logo">
       <div class="topbar-title">
         <span class="text-th">คู่มือพนักงาน</span><span class="text-en">Employee Handbook</span>
@@ -112,56 +111,33 @@
         </h1>
         <div class="chapter-divider"></div>
         <div class="chapter-body">
-          <div class="text-th"><h2>หมวดที่ 7</h2>
-<h3>หลักเกณฑ์การทำงานล่วงเวลาและการทำงานในวันหยุด</h3>
-<h3>1. การทำงานล่วงเวลา</h3>
-<h4>1.1 บริษัทจะให้พนักงานทำงานล่วงเวลาเฉพาะเมื่อมีความจำเป็น และผู้บังคับบัญชาระดับผู้จัดการหรือ</h4>
-<h3>เทียบเท่าขึ้นไป หรือผู้ที่ได้รับมอบหมายจากบริษัท เป็นผู้กำหนดการทำงานล่วงเวลาในวันทำงาน</h3>
-<h3>และในวันหยุด โดยจะต้องได้รับความยินยอมจากพนักงานเป็นคราว ๆ ไป</h3>
-<h4>1.2 ในกรณีที่ลักษณะหรือสภาพของงานต้องทำติดต่อกันไป หากหยุดจะก่อให้เกิดความเสียหายแก่งาน</h4>
-<h3>หรือเป็นกรณีงานฉุกเฉิน ผู้บังคับบัญชาระดับผู้จัดการหรือเทียบเท่าขึ้นไป หรือผู้ที่ได้รับมอบหมาย</h3>
-<h3>จากบริษัท อาจสั่งให้พนักงานทำงานล่วงเวลาได้ตามความจำเป็น โดยไม่ต้องได้รับความยินยอม</h3>
-<h3>ล่วงหน้า</h3>
-<h4>1.3 ในกรณีที่มีการมอบหมายให้พนักงานทำงานล่วงเวลาต่อเนื่องจากเวลาทำงานปกติไม่น้อยกว่า</h4>
-<h3>2 ชั่วโมง บริษัทจะจัดให้พนักงานมีเวลาพักไม่น้อยกว่า20 นาที ก่อนเริ่มทำงานล่วงเวลาทั้งนี้ เว้นแต่</h3>
-<h3>ลักษณะหรือสภาพของงานจำเป็นต้องทำติดต่อกันไปโดยไม่อาจหยุดพักได้ และพนักงานได้ให้</h3>
-<h3>ความยินยอม หรือเป็นกรณีงานฉุกเฉิน</h3>
-<h3>2. การทำงานในวันหยุด</h3>
-<h4>2.1 บริษัทจะให้พนักงานทำงานในวันหยุดเฉพาะเมื่อมีความจำเป็น และผู้บังคับบัญชาระดับผู้จัดการ</h4>
-<h3>หรือเทียบเท่าขึ้นไป หรือผู้ที่ได้รับมอบหมายจากบริษัท จะเป็นผู้กำหนดการมาทำงานในวันหยุดตาม</h3>
-<h3>ความจำเป็นโดยได้รับความยินยอมจากพนักงานเป็นคราว ๆ ไป</h3>
-<h4>2.2 ในกรณีที่ลักษณะหรือสภาพของงานต้องทำติดต่อกันไป หากหยุดจะก่อให้เกิดความเสียหายแก่งาน</h4>
-<h3>หรือเป็นกรณีงานฉุกเฉิน ผู้บังคับบัญชาระดับผู้จัดการหรือเทียบเท่าขึ้นไป หรือผู้ที่ได้รับมอบหมาย</h3>
-<h3>จากบริษัท อาจสั่งให้พนักงานมาปฏิบัติงานในวันหยุดได้ตามความจำเป็น โดยไม่ต้องได้รับความ</h3>
-<h3>ยินยอมล่วงหน้า</h3>
-<h3>3. จำนวนชั่วโมงทำงานล่วงเวลาและทำงานในวันหยุด</h3>
-<h3>การมอบหมายให้พนักงานทำงานล่วงเวลาในวันทำงาน การทำงานในวันหยุด และการทำงานล่วงเวลา</h3>
-<h3>ในวันหยุด รวมกันแล้วต้องมีจำนวนชั่วโมงไม่เกิน 36 ชั่วโมงต่อสัปดาห์</h3>
-<h3>เว้นแต่ในกรณีที่ลักษณะหรือสภาพของงานต้องทำติดต่อกันไป หากหยุดจะก่อให้เกิดความเสียหาย</h3>
-<h3>แก่งาน หรือเป็นกรณีงานฉุกเฉิน บริษัทอาจมอบหมายให้พนักงานทำงานล่วงเวลาหรือทำงานในวันหยุดได้</h3>
-<h3>เกินกว่าที่กำหนดตามความจำเป็น</h3>
-<h3>4. ผู้ไม่มีสิทธิได้รับค่าล่วงเวลา ค่าทำงานในวันหยุด และค่าล่วงเวลาในวันหยุด</h3>
-<h4>4.1 พนักงานในระดับบังคับบัญชา(ระดับ S1 ขึ้นไป) และมีอำนาจหน้าที่ทำการแทนนายจ้างสำหรับ</h4>
-<h3>กรณีการจ้าง การให้บำเหน็จ การลงโทษ หรือการเลิกจ้าง ไม่มีสิทธิได้รับค่าล่วงเวลาค่าทำงานใน</h3>
-<h3>วันหยุด และค่าล่วงเวลาในวันหยุด</h3>
-<h4>4.2 ในกรณีที่พนักงานอ้างว่าได้มาทำงานล่วงเวลาหรือทำงานในวันหยุด โดยมิได้รับคำสั่งหรือมิได้รับ</h4>
-<h3>อนุมัติจากบริษัทให้ถูกต้องก่อน  บริษัทมีสิทธิปฏิเสธไม่จ่ายค่าล่วงเวลาหรือค่าทำงานในวันหยุด</h3>
-<h3>ให้แก่พนักงาน</h3></div>
-          <div class="text-en"><h3>Chapter 7</h3>
-<h3>Overtime Work and Work on Holidays</h3>
-<h3>1.</h3>
-<h3>Overtime Work</h3>
-<p>1.1 The Company shall require employees to perform overtime work only when necessary. A supervisor at the manager level or equivalent, or a person authorized by the Company, shall determine overtime work on working days and holidays. Such overtime work shall be performed with the employee’s consent on a case-by-case basis. 1.2 In cases where the nature or condition of the work requires continuous performance and interruption may cause damage to the work, or in emergency situations, a supervisor at the manager level or equivalent, or a person authorized by the Company, may instruct employees to perform overtime work as necessary without prior consent. 1.3 Where employees are required to perform overtime work for not less than two (2) consecutive hours after normal working hours, the Company shall provide a rest period of not less than twenty (20) minutes before the commencement of overtime work, except where the nature or condition of the work requires continuous operation and cannot be interrupted, and the employee has given consent, or in emergency situations.</p>
-<h3>2.</h3>
-<h3>Work on Holidays</h3>
-<p>2.1 The Company shall require employees to work on holidays only when necessary. A supervisor at the manager level or equivalent, or a person authorized by the Company, shall determine the requirement for employees to work on holidays as necessary, subject to the employee’s consent on a case-by-case basis. 2.2 In cases where the nature or condition of the work requires continuous performance and interruption may cause damage to the work, or in emergency situations, a supervisor at the manager level or equivalent, or a person authorized by the Company, may instruct employees to work on holidays as necessary without prior consent.</p>
-<h3>3.</h3>
-<h3>Limits of Overtime and Holiday Work</h3>
-<p>The total number of hours assigned for overtime work on working days, work on holidays, and overtime work on holidays combined shall not exceed thirty-six (36) hours per week.</p>
-<p>However, in cases where the nature or condition of the work requires continuous operation and interruption may cause damage to the work, or in emergency situations, the Company may require employees to perform overtime work or work on holidays in excess of the above limit as necessary.</p>
-<h3>4.</h3>
-<h3>Employees Not Entitled to Overtime Pay, Holiday Pay, and Holiday Overtime Pay</h3>
-<p>4.1 Employees in supervisory positions (S1 level and above) who have authority to act on behalf of the employer in matters relating to employment, including hiring, granting remuneration or benefits, imposing disciplinary action, or terminating employment, shall not be entitled to overtime pay, holiday pay, or holiday overtime pay. 4.2 In the event that an employee claims to have performed overtime work or work on a holiday without prior instruction or approval from the Company, the Company reserves the right to refuse payment of overtime pay or holiday pay.</p></div>
+<h2 class="chapter-section">หมวดที่ 7</h2>
+<h2>หลักเกณฑ์การทำงานล่วงเวลา และการทำงานในวันหยุด</h2>
+<h4>การทำงานล่วงเวลา</h4>
+<ul>
+<li>บริษัทจะให้พนักงานทำงานล่วงเวลาเฉพาะเมื่อมีความจำเป็น และผู้บังคับบัญชาระดับผู้จัดการหรือเทียบเท่าขึ้นไป หรือผู้ที่ได้รับมอบหมายจากบริษัท เป็นผู้กำหนดการทำงานล่วงเวลาในวันทำงานและในวันหยุด โดยจะต้องได้รับความยินยอมจากพนักงานเป็นคราว ๆ ไป</li>
+<li>ในกรณีที่ลักษณะหรือสภาพของงานต้องทำติดต่อกันไป หากหยุดจะก่อให้เกิดความเสียหายแก่งาน หรือเป็นกรณีงานฉุกเฉิน ผู้บังคับบัญชาระดับผู้จัดการหรือเทียบเท่าขึ้นไป หรือผู้ที่ได้รับมอบหมายจากบริษัท อาจสั่งให้พนักงานทำงานล่วงเวลาได้ตามความจำเป็น โดยไม่ต้องได้รับความยินยอมล่วงหน้า</li>
+<li>ในกรณีที่มีการมอบหมายให้พนักงานทำงานล่วงเวลาต่อเนื่องจากเวลาทำงานปกติไม่น้อยกว่า 
+2 ชั่วโมง บริษัทจะจัดให้พนักงานมีเวลาพักไม่น้อยกว่า 20 นาที ก่อนเริ่มทำงานล่วงเวลา ทั้งนี้ เว้นแต่ลักษณะหรือสภาพของงานจำเป็นต้องทำติดต่อกันไปโดยไม่อาจหยุดพักได้ และพนักงานได้ให้
+ความยินยอม หรือเป็นกรณีงานฉุกเฉิน</li>
+</ul>
+<h4>การทำงานในวันหยุด</h4>
+<ul>
+<li>บริษัทจะให้พนักงานทำงานในวันหยุดเฉพาะเมื่อมีความจำเป็น และผู้บังคับบัญชาระดับผู้จัดการหรือเทียบเท่าขึ้นไป หรือผู้ที่ได้รับมอบหมายจากบริษัท จะเป็นผู้กำหนดการมาทำงานในวันหยุดตามความจำเป็นโดยได้รับความยินยอมจากพนักงานเป็นคราว ๆ ไป</li>
+<li>ในกรณีที่ลักษณะหรือสภาพของงานต้องทำติดต่อกันไป หากหยุดจะก่อให้เกิดความเสียหายแก่งาน หรือเป็นกรณีงานฉุกเฉิน ผู้บังคับบัญชาระดับผู้จัดการหรือเทียบเท่าขึ้นไป หรือผู้ที่ได้รับมอบหมายจากบริษัท อาจสั่งให้พนักงานมาปฏิบัติงานในวันหยุดได้ตามความจำเป็น โดยไม่ต้องได้รับความยินยอมล่วงหน้า</li>
+</ul>
+<h4>จำนวนชั่วโมงทำงานล่วงเวลาและทำงานในวันหยุด</h4>
+<ul>
+<li>การมอบหมายให้พนักงานทำงานล่วงเวลาในวันทำงาน การทำงานในวันหยุด และการทำงานล่วงเวลาในวันหยุด รวมกันแล้วต้องมีจำนวนชั่วโมงไม่เกิน 36 ชั่วโมงต่อสัปดาห์</li>
+<li>เว้นแต่ในกรณีที่ลักษณะหรือสภาพของงานต้องทำติดต่อกันไป หากหยุดจะก่อให้เกิดความเสียหาย
+แก่งาน หรือเป็นกรณีงานฉุกเฉิน บริษัทอาจมอบหมายให้พนักงานทำงานล่วงเวลา หรือทำงานในวันหยุดได้
+เกินกว่าที่กำหนดตามความจำเป็น</li>
+</ul>
+<h4>ผู้ไม่มีสิทธิได้รับค่าล่วงเวลา  ค่าทำงานในวันหยุด และค่าล่วงเวลาในวันหยุด</h4>
+<ul>
+<li>พนักงานในระดับบังคับบัญชา (ระดับ S1 ขึ้นไป) และมีอำนาจหน้าที่ทำการแทนนายจ้างสำหรับกรณีการจ้าง การให้บำเหน็จ การลงโทษ หรือการเลิกจ้าง ไม่มีสิทธิได้รับค่าล่วงเวลา ค่าทำงานในวันหยุด และค่าล่วงเวลาในวันหยุด</li>
+<li>ในกรณีที่พนักงานอ้างว่าได้มาทำงานล่วงเวลาหรือทำงานในวันหยุด โดยมิได้รับคำสั่งหรือมิได้รับอนุมัติจากบริษัทให้ถูกต้องก่อน  บริษัทมีสิทธิปฏิเสธไม่จ่ายค่าล่วงเวลา หรือค่าทำงานในวันหยุดให้แก่พนักงาน</li>
+</ul>
         </div>
         <nav class="chapter-nav"><a href="chapter-06.html">← วันหยุด และหลักเกณฑ์วันหยุด</a><a href="chapter-08.html" class="next">การจ่ายค่าจ้าง ค่าล่วงเวลา และค่าทำ →</a></nav>
       </article>

@@ -11,20 +11,15 @@
     body { display:flex; flex-direction:column; min-height:100vh; }
     .page-wrap { display:flex; flex:1; }
     .sidebar-fixed {
-      width:270px; flex-shrink:0;
-      position:sticky; top:60px;
-      height:calc(100vh - 60px);
-      overflow-y:auto;
-      background:#fff;
-      border-right:1.5px solid var(--gray-2);
-      padding:12px 8px;
+      width:270px; flex-shrink:0; position:sticky; top:60px;
+      height:calc(100vh - 60px); overflow-y:auto;
+      background:#fff; border-right:1.5px solid var(--gray-2); padding:12px 8px;
     }
     .sidebar-fixed::-webkit-scrollbar { width:4px; }
     .sidebar-fixed::-webkit-scrollbar-thumb { background:var(--gray-3); border-radius:2px; }
     .sidebar-home {
-      display:flex; align-items:center; gap:6px;
-      padding:7px 10px; font-size:0.8rem;
-      color:var(--text-muted); text-decoration:none;
+      display:flex; align-items:center; gap:6px; padding:7px 10px;
+      font-size:0.8rem; color:var(--text-muted); text-decoration:none;
       border-radius:6px; margin-bottom:2px;
     }
     .sidebar-home:hover { background:var(--gray-1); color:var(--blue); }
@@ -34,11 +29,9 @@
       padding:10px 10px 4px; display:block;
     }
     .sidebar-chapter {
-      display:flex; align-items:flex-start; gap:8px;
-      padding:8px 10px; border-radius:8px;
-      text-decoration:none; color:var(--text-muted);
-      font-size:0.8rem; line-height:1.35;
-      transition:all 0.15s; margin-bottom:1px;
+      display:flex; align-items:flex-start; gap:8px; padding:8px 10px;
+      border-radius:8px; text-decoration:none; color:var(--text-muted);
+      font-size:0.8rem; line-height:1.35; transition:all 0.15s; margin-bottom:1px;
     }
     .sidebar-chapter:hover { background:var(--blue-light); color:var(--blue); }
     .sidebar-chapter.active { background:var(--blue); color:#fff; }
@@ -47,23 +40,29 @@
       min-width:26px; height:26px; border-radius:6px;
       background:var(--blue-light); color:var(--blue);
       font-size:0.7rem; font-weight:700;
-      display:flex; align-items:center; justify-content:center;
-      flex-shrink:0; margin-top:1px;
+      display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px;
     }
     .sidebar-label { flex:1; }
     .main-content { flex:1; padding:32px 32px 60px; min-width:0; }
     .chapter-card { max-width:740px; margin:0 auto; }
+    .chapter-body h2.chapter-section { color:var(--blue); font-size:1.1rem; margin:28px 0 8px; }
+    .chapter-body h2 { color:var(--dark); font-size:1.15rem; margin:24px 0 8px; }
+    .chapter-body h3 { color:var(--blue); font-size:1rem; margin:20px 0 6px; border-left:3px solid var(--blue); padding-left:10px; }
+    .chapter-body h4 { color:var(--dark); font-size:0.95rem; margin:14px 0 4px; font-weight:600; }
+    .chapter-body p { color:var(--text); font-size:0.95rem; margin-bottom:0.8em; line-height:1.75; }
+    .chapter-body ul { padding-left:1.4em; margin-bottom:1em; }
+    .chapter-body li { font-size:0.95rem; margin-bottom:0.4em; color:var(--text); line-height:1.7; }
     @media(max-width:768px) {
       .sidebar-fixed { display:none; }
       .sidebar-fixed.open { display:block; position:fixed; top:60px; left:0; z-index:200; height:calc(100vh - 60px); box-shadow:4px 0 20px rgba(0,0,0,0.15); }
-      .sidebar-toggle-btn { display:flex !important; }
+      .mob-menu { display:flex !important; }
     }
   </style>
 </head>
 <body>
   <header class="topbar">
     <div class="topbar-left">
-      <button class="sidebar-toggle-btn" onclick="toggleSidebar()" style="display:none;background:rgba(255,255,255,0.15);border:none;color:#fff;padding:6px 10px;border-radius:6px;cursor:pointer;font-size:1rem;margin-right:8px;">☰</button>
+      <button class="mob-menu" onclick="toggleSidebar()" style="display:none;background:rgba(255,255,255,0.15);border:none;color:#fff;padding:6px 10px;border-radius:6px;cursor:pointer;font-size:1rem;margin-right:8px;">☰</button>
       <img src="../assets/Akara Logo.jpg" alt="Akara Resources" class="topbar-logo">
       <div class="topbar-title">
         <span class="text-th">คู่มือพนักงาน</span><span class="text-en">Employee Handbook</span>
@@ -112,65 +111,46 @@
         </h1>
         <div class="chapter-divider"></div>
         <div class="chapter-body">
-          <div class="text-th"><h2>หมวดที่ 3</h2>
-<h3>การว่าจ้าง</h3>
-<h3>1. คุณสมบัติทั่วไป</h3>
-<h4>1.1 ผู้สมัครต้องมีอายุไม่ต ่ากว่าสิบแปด (18) ปีบริบูรณ์</h4>
-<h4>1.2 ต้องมีสุขภาพสมบูรณ์ทั้งทางร่างกายและจิตใจ ไม่เป็นโรคติดต่อร้ายแรง ไม่ติดยาเสพติด หรือมีภาวะ</h4>
-<h3>ที่อาจเป็นอุปสรรคต่อการปฏิบัติงาน</h3>
-<h4>1.3 ต้องเข้ารับการตรวจสุขภาพตามหลักเกณฑ์ที่บริษัทกำหนด ณ สถานพยาบาลที่บริษัทเป็นผู้กำหนด</h4>
-<h3>หรือจัดส่ง ทั้งนี้ การว่าจ้างจะขึ้นอยู่กับผลการตรวจสุขภาพที่เป็นไปตามมาตรฐานความเหมาะสม</h3>
-<h3>ต่อการปฏิบัติงาน</h3>
-<h4>1.4 ผู้สมัครเพศชายที่อยู่ในเกณฑ์การรับราชการทหารจะต้องพ้นภาระทางทหารแล้ว เว้นแต่บริษัท</h4>
-<h3>จะพิจารณาอนุโลมเป็นรายกรณีตามความเหมาะสมของตำแหน่งงาน</h3>
-<h4>1.5 ต้องมีความประพฤติดี ไม่เคยต้องโทษจำคุกตามคำพิพากษาถึงที่สุด เว้นแต่เป็นความผิดลหุโทษ</h4>
-<h3>และไม่เป็นผู้หลบหนีคดีอาญา</h3>
-<h4>1.6 ต้องไม่เป็นหรือเคยเป็นบุคคลล้มละลายตามคำสั่งศาล เว้นแต่ได้รับการปลดจากสถานะดังกล่าว</h4>
-<h3>โดยชอบด้วยกฎหมายแล้ว</h3>
-<h4>1.7 ต้องมีคุณวุฒิ ความรู้ ความสามารถ และประสบการณ์ตรงตามคุณสมบัติของตำแหน่งงานที่บริษัท</h4>
-<h3>กำหนด</h3>
-<h4>1.8 บริษัทอาจดำเนินการตรวจสอบประวัติผู้สมัครก่อนหรือหลังการว่าจ้าง หากภายหลังปรากฏว่า</h4>
-<h3>ผู้สมัครให้ข้อมูลอันเป็นเท็จ หรือขาดคุณสมบัติตามที่กำหนด บริษัทมีสิทธิเลิกจ้างได้ทันทีตามที่</h3>
-<h3>กฎหมายกำหนด</h3>
-<h3>ทั้งนี้ การว่าจ้างและเงื่อนไขต่าง ๆ ให้เป็นไปตามกฎหมายคุ้มครองแรงงานและกฎหมายที่เกี่ยวข้อง</h3>
-<h3>2. ประเภทการจ้างงาน</h3>
-<h4>2.1 พนักงานรายวัน หมายถึง พนักงานที่ได้รับค่าจ้างเป็นรายวัน และไม่ได้รับค่าจ้างในวันหยุดประจำ</h4>
-<h3>สัปดาห์ เว้นแต่กฎหมายกำหนดไว้เป็นอย่างอื่น</h3>
-<h4>2.2 พนักงานรายเดือน หมายถึง พนักงานของบริษัทที่ได้รับค่าจ้างเป็นรายเดือน</h4>
-<h4>2.3 พนักงานสัญญาจ้างมีกำหนดระยะเวลาหมายถึง พนักงานที่มีการกำหนดระยะเวลาการจ้างไว้</h4>
-<h3>แน่นอน เพื่อปฏิบัติงานที่มีลักษณะเป็นครั้งคราว งานโครงการเฉพาะ งานตามฤดูกาล หรืองานที่มิใช่</h3>
-<h3>งานปกติของธุรกิจของบริษัท โดยต้องระบุวันเริ่มต้นและวันสิ้นสุดของการจ้างอย่างชัดเจน และ</h3>
-<h3>เมื่อครบกำหนดระยะเวลาการจ้างตามสัญญาจ้าง การจ้างงานจะสิ้นสุดลงทันที ทั้งนี้ ให้เป็นไปตาม</h3>
-<h3>หลักเกณฑ์การจ้างงานมีกำหนดระยะเวลาตามกฎหมายแรงงานที่เกี่ยวข้อง</h3>
-<h3>3. โครงสร้างระดับตำแหน่งงาน</h3>
-<h3>บริษัทกำหนดโครงสร้างระดับตำแหน่งงานเพื่อใช้ในการบริหารทรัพยากรบุคคล ดังนี้</h3>
-<h4>3.1 ระดับตำแหน่งงาน M1 – M4 คือ พนักงานระดับบริหาร</h4>
-<h4>3.2 ระดับตำแหน่งงาน S1 – S3 คือ พนักงานระดับอาวุโส</h4>
-<h4>3.3 ระดับตำแหน่งงาน O1 – O3 คือ พนักงานระดับปฏิบัติการ</h4>
-<h3>ทั้งนี้ บริษัทขอสงวนสิทธิในการกำหนด ปรับปรุง หรือเปลี่ยนแปลงโครงสร้างระดับตำแหน่งงานตาม</h3>
-<h3>ความเหมาะสมของโครงสร้างองค์กรและสภาพธุรกิจ</h3>
-<h3>4. การทดลองงาน</h3>
-<h4>4.1 พนักงานที่ได้รับการว่าจ้างต้องผ่านการทดลองงานเป็นระยะเวลาไม่เกินหนึ่งร้อยสิบเก้า(119) วัน</h4>
-<h3>เว้นแต่ในบางตำแหน่ง บริษัทอาจกำหนดเงื่อนไขเป็นอย่างอื่นตามความเหมาะสมซึ่งจะระบุไว้ใน</h3>
-<h3>สัญญาจ้างแรงงานของพนักงานแต่ละคน</h3>
-<h4>4.2 ในระหว่างการทดลองงาน บริษัทจะประเมินผลการปฏิบัติงานของพนักงานตามหลักเกณฑ์ที่กำหนด</h4>
-<h3>โดยพิจารณาจากผลการปฏิบัติงาน ความรับผิดชอบ ความประพฤติ ทัศนคติ ความร่วมมือ</h3>
-<h3>ในการทำงาน สุขภาพ และความเหมาะสมต่อหน้าที่งาน</h3>
-<h4>4.3 หากผลการทดลองงานไม่เป็นที่น่าพอใจ หรือไม่เป็นไปตามมาตรฐานที่บริษัทกำหนด บริษัทอาจ</h4>
-<h3>เลิกจ้างได้โดยปฏิบัติตามกฎหมายแรงงาน</h3>
-<h4>4.4 พนักงานทดลองงานถือเป็นพนักงานของบริษัทและมีสิทธิหน้าที่ตามกฎหมายแรงงาน ทั้งนี้ อาจยัง</h4>
-<h3>ไม่มีสิทธิได้รับสวัสดิการบางประเภทตามที่บริษัทกำหนด จนกว่าจะผ่านการทดลองงาน เว้นแต่</h3>
-<h3>บริษัทจะกำหนดไว้เป็นอย่างอื่น</h3>
-<h4>4.5 รายละเอียดหรือเงื่อนไขอื่นใดเกี่ยวกับการทดลองงาน ให้เป็นไปตามระเบียบ แนวปฏิบัติ หรือ</h4>
-<h3>ประกาศของบริษัทที่กำหนดเป็นคราว ๆ ไป</h3></div>
-          <div class="text-en"><p>2.2 Monthly Employees means employees of the Company who receive wages on a monthly basis. 2.3 Fixed-Term Contract Employees means employees hired for a definite period to perform occasional work, specific project work, seasonal work, or work that is not part of the normal business operations of the Company. The employment contract must clearly specify the start date and end date of employment. Upon expiration of the employment period stated in the contract, the employment shall automatically terminate. Such employment shall be in accordance with the legal requirements governing fixed-term employment under the applicable labour laws.</p>
-<h3>3.</h3>
-<h3>Job Level Structure</h3>
-<p>The Company establishes a job level structure for the purpose of human resource management as follows: 3.1 Position levels M1 – M4 represent Management Level employees. 3.2 Position levels S1 – S3 represent Senior Level employees. 3.3 Position levels O1 – O3 represent Operational Level employees. The Company reserves the right to determine, revise, or modify the job level structure as deemed appropriate in accordance with the organizational structure and business conditions.</p>
-<h3>4.</h3>
-<h3>Probation Period</h3>
-<p>4.1 Employees who are hired shall be subject to a probation period of not more than one hundred and nineteen (119) days, unless the Company specifies otherwise for certain positions as stated in the individual employment contract. 4.2 During the probation period, the Company shall evaluate the employee’s performance in accordance with the Company’s criteria, including work performance, responsibility, conduct, attitude, cooperation, health condition, and suitability for the assigned duties. 4.3 If the probation performance is unsatisfactory or does not meet the Company’s standards, the Company may terminate the employment in accordance with applicable labour laws. 4.4 Probationary employees shall be considered employees of the Company and shall have rights and obligations under labour laws. However, they may not yet be entitled to certain benefits as determined by the Company until they have successfully completed the probation period, unless otherwise specified by the Company.</p>
-<p>4.5 Any additional details or conditions relating to the probation period shall be in accordance with the Company’s regulations, guidelines, or announcements issued from time to time.</p></div>
+<h2 class="chapter-section">หมวดที่ 3</h2>
+<h2>การว่าจ้าง</h2>
+<h4>คุณสมบัติทั่วไป</h4>
+<ul>
+<li>ผู้สมัครต้องมีอายุไม่ต่ำกว่าสิบแปด (18) ปีบริบูรณ์</li>
+<li>ต้องมีสุขภาพสมบูรณ์ทั้งทางร่างกายและจิตใจ ไม่เป็นโรคติดต่อร้ายแรง ไม่ติดยาเสพติด หรือมีภาวะที่อาจเป็นอุปสรรคต่อการปฏิบัติงาน</li>
+<li>ต้องเข้ารับการตรวจสุขภาพตามหลักเกณฑ์ที่บริษัทกำหนด ณ สถานพยาบาลที่บริษัทเป็นผู้กำหนดหรือจัดส่ง ทั้งนี้ การว่าจ้างจะขึ้นอยู่กับผลการตรวจสุขภาพที่เป็นไปตามมาตรฐานความเหมาะสมต่อการปฏิบัติงาน</li>
+<li>ผู้สมัครเพศชายที่อยู่ในเกณฑ์การรับราชการทหารจะต้องพ้นภาระทางทหารแล้ว เว้นแต่บริษัท
+จะพิจารณาอนุโลมเป็นรายกรณีตามความเหมาะสมของตำแหน่งงาน</li>
+<li>ต้องมีความประพฤติดี ไม่เคยต้องโทษจำคุกตามคำพิพากษาถึงที่สุด เว้นแต่เป็นความผิดลหุโทษ และไม่เป็นผู้หลบหนีคดีอาญา</li>
+<li>ต้องไม่เป็นหรือเคยเป็นบุคคลล้มละลายตามคำสั่งศาล เว้นแต่ได้รับการปลดจากสถานะดังกล่าว
+โดยชอบด้วยกฎหมายแล้ว</li>
+<li>ต้องมีคุณวุฒิ ความรู้ ความสามารถ และประสบการณ์ตรงตามคุณสมบัติของตำแหน่งงานที่บริษัทกำหนด</li>
+<li>บริษัทอาจดำเนินการตรวจสอบประวัติผู้สมัครก่อนหรือหลังการว่าจ้าง หากภายหลังปรากฏว่าผู้สมัครให้ข้อมูลอันเป็นเท็จ หรือขาดคุณสมบัติตามที่กำหนด บริษัทมีสิทธิเลิกจ้างได้ทันทีตามที่กฎหมายกำหนด</li>
+</ul>
+<p>ทั้งนี้ การว่าจ้างและเงื่อนไขต่าง ๆ ให้เป็นไปตามกฎหมายคุ้มครองแรงงานและกฎหมายที่เกี่ยวข้อง</p>
+<h4>ประเภทการจ้างงาน</h4>
+<h4>พนักงานรายวัน หมายถึง พนักงานที่ได้รับค่าจ้างเป็นรายวัน และไม่ได้รับค่าจ้างในวันหยุดประจำสัปดาห์ เว้นแต่กฎหมายกำหนดไว้เป็นอย่างอื่น</h4>
+<h4>พนักงานรายเดือน หมายถึง พนักงานของบริษัทที่ได้รับค่าจ้างเป็นรายเดือน</h4>
+<h4>พนักงานสัญญาจ้างมีกำหนดระยะเวลา หมายถึง พนักงานที่มีการกำหนดระยะเวลาการจ้างไว้แน่นอน เพื่อปฏิบัติงานที่มีลักษณะเป็นครั้งคราว งานโครงการเฉพาะ งานตามฤดูกาล หรืองานที่มิใช่งานปกติของธุรกิจของบริษัท โดยต้องระบุวันเริ่มต้นและวันสิ้นสุดของการจ้างอย่างชัดเจน และ
+เมื่อครบกำหนดระยะเวลาการจ้างตามสัญญาจ้าง การจ้างงานจะสิ้นสุดลงทันที ทั้งนี้ ให้เป็นไปตามหลักเกณฑ์การจ้างงานมีกำหนดระยะเวลาตามกฎหมายแรงงานที่เกี่ยวข้อง</h4>
+<h4>โครงสร้างระดับตำแหน่งงาน</h4>
+<ul>
+<li>บริษัทกำหนดโครงสร้างระดับตำแหน่งงานเพื่อใช้ในการบริหารทรัพยากรบุคคล ดังนี้</li>
+<li>ระดับตำแหน่งงาน M1 – M4 คือ พนักงานระดับบริหาร</li>
+<li>ระดับตำแหน่งงาน S1 – S3 คือ พนักงานระดับอาวุโส</li>
+<li>ระดับตำแหน่งงาน O1 – O3 คือ พนักงานระดับปฏิบัติการ</li>
+</ul>
+<p>ทั้งนี้ บริษัทขอสงวนสิทธิในการกำหนด ปรับปรุง หรือเปลี่ยนแปลงโครงสร้างระดับตำแหน่งงานตาม
+ความเหมาะสมของโครงสร้างองค์กรและสภาพธุรกิจ</p>
+<h4>การทดลองงาน</h4>
+<ul>
+<li>พนักงานที่ได้รับการว่าจ้างต้องผ่านการทดลองงานเป็นระยะเวลาไม่เกินหนึ่งร้อยสิบเก้า (119) วัน เว้นแต่ในบางตำแหน่ง บริษัทอาจกำหนดเงื่อนไขเป็นอย่างอื่นตามความเหมาะสมซึ่งจะระบุไว้ในสัญญาจ้างแรงงานของพนักงานแต่ละคน</li>
+<li>ในระหว่างการทดลองงาน บริษัทจะประเมินผลการปฏิบัติงานของพนักงานตามหลักเกณฑ์ที่กำหนด โดยพิจารณาจากผลการปฏิบัติงาน ความรับผิดชอบ ความประพฤติ ทัศนคติ ความร่วมมือ
+ในการทำงาน สุขภาพ และความเหมาะสมต่อหน้าที่งาน</li>
+<li>หากผลการทดลองงานไม่เป็นที่น่าพอใจ หรือไม่เป็นไปตามมาตรฐานที่บริษัทกำหนด บริษัทอาจ
+เลิกจ้างได้โดยปฏิบัติตามกฎหมายแรงงาน</li>
+<li>พนักงานทดลองงานถือเป็นพนักงานของบริษัทและมีสิทธิหน้าที่ตามกฎหมายแรงงาน ทั้งนี้ อาจยังไม่มีสิทธิได้รับสวัสดิการบางประเภทตามที่บริษัทกำหนด จนกว่าจะผ่านการทดลองงาน เว้นแต่บริษัทจะกำหนดไว้เป็นอย่างอื่น</li>
+<li>รายละเอียดหรือเงื่อนไขอื่นใดเกี่ยวกับการทดลองงาน ให้เป็นไปตามระเบียบ แนวปฏิบัติ หรือประกาศของบริษัทที่กำหนดเป็นคราว ๆ ไป</li>
+</ul>
         </div>
         <nav class="chapter-nav"><a href="chapter-02.html">← วิสัยทัศน์องค์กร เสาหลักกลยุทธ์และน</a><a href="chapter-04.html" class="next">การสับเปลี่ยนหน้าที่ การโยกย้าย และ →</a></nav>
       </article>

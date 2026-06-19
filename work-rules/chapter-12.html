@@ -11,20 +11,15 @@
     body { display:flex; flex-direction:column; min-height:100vh; }
     .page-wrap { display:flex; flex:1; }
     .sidebar-fixed {
-      width:270px; flex-shrink:0;
-      position:sticky; top:60px;
-      height:calc(100vh - 60px);
-      overflow-y:auto;
-      background:#fff;
-      border-right:1.5px solid var(--gray-2);
-      padding:12px 8px;
+      width:270px; flex-shrink:0; position:sticky; top:60px;
+      height:calc(100vh - 60px); overflow-y:auto;
+      background:#fff; border-right:1.5px solid var(--gray-2); padding:12px 8px;
     }
     .sidebar-fixed::-webkit-scrollbar { width:4px; }
     .sidebar-fixed::-webkit-scrollbar-thumb { background:var(--gray-3); border-radius:2px; }
     .sidebar-home {
-      display:flex; align-items:center; gap:6px;
-      padding:7px 10px; font-size:0.8rem;
-      color:var(--text-muted); text-decoration:none;
+      display:flex; align-items:center; gap:6px; padding:7px 10px;
+      font-size:0.8rem; color:var(--text-muted); text-decoration:none;
       border-radius:6px; margin-bottom:2px;
     }
     .sidebar-home:hover { background:var(--gray-1); color:var(--blue); }
@@ -34,11 +29,9 @@
       padding:10px 10px 4px; display:block;
     }
     .sidebar-chapter {
-      display:flex; align-items:flex-start; gap:8px;
-      padding:8px 10px; border-radius:8px;
-      text-decoration:none; color:var(--text-muted);
-      font-size:0.8rem; line-height:1.35;
-      transition:all 0.15s; margin-bottom:1px;
+      display:flex; align-items:flex-start; gap:8px; padding:8px 10px;
+      border-radius:8px; text-decoration:none; color:var(--text-muted);
+      font-size:0.8rem; line-height:1.35; transition:all 0.15s; margin-bottom:1px;
     }
     .sidebar-chapter:hover { background:var(--blue-light); color:var(--blue); }
     .sidebar-chapter.active { background:var(--blue); color:#fff; }
@@ -47,23 +40,29 @@
       min-width:26px; height:26px; border-radius:6px;
       background:var(--blue-light); color:var(--blue);
       font-size:0.7rem; font-weight:700;
-      display:flex; align-items:center; justify-content:center;
-      flex-shrink:0; margin-top:1px;
+      display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px;
     }
     .sidebar-label { flex:1; }
     .main-content { flex:1; padding:32px 32px 60px; min-width:0; }
     .chapter-card { max-width:740px; margin:0 auto; }
+    .chapter-body h2.chapter-section { color:var(--blue); font-size:1.1rem; margin:28px 0 8px; }
+    .chapter-body h2 { color:var(--dark); font-size:1.15rem; margin:24px 0 8px; }
+    .chapter-body h3 { color:var(--blue); font-size:1rem; margin:20px 0 6px; border-left:3px solid var(--blue); padding-left:10px; }
+    .chapter-body h4 { color:var(--dark); font-size:0.95rem; margin:14px 0 4px; font-weight:600; }
+    .chapter-body p { color:var(--text); font-size:0.95rem; margin-bottom:0.8em; line-height:1.75; }
+    .chapter-body ul { padding-left:1.4em; margin-bottom:1em; }
+    .chapter-body li { font-size:0.95rem; margin-bottom:0.4em; color:var(--text); line-height:1.7; }
     @media(max-width:768px) {
       .sidebar-fixed { display:none; }
       .sidebar-fixed.open { display:block; position:fixed; top:60px; left:0; z-index:200; height:calc(100vh - 60px); box-shadow:4px 0 20px rgba(0,0,0,0.15); }
-      .sidebar-toggle-btn { display:flex !important; }
+      .mob-menu { display:flex !important; }
     }
   </style>
 </head>
 <body>
   <header class="topbar">
     <div class="topbar-left">
-      <button class="sidebar-toggle-btn" onclick="toggleSidebar()" style="display:none;background:rgba(255,255,255,0.15);border:none;color:#fff;padding:6px 10px;border-radius:6px;cursor:pointer;font-size:1rem;margin-right:8px;">☰</button>
+      <button class="mob-menu" onclick="toggleSidebar()" style="display:none;background:rgba(255,255,255,0.15);border:none;color:#fff;padding:6px 10px;border-radius:6px;cursor:pointer;font-size:1rem;margin-right:8px;">☰</button>
       <img src="../assets/Akara Logo.jpg" alt="Akara Resources" class="topbar-logo">
       <div class="topbar-title">
         <span class="text-th">คู่มือพนักงาน</span><span class="text-en">Employee Handbook</span>
@@ -112,155 +111,89 @@
         </h1>
         <div class="chapter-divider"></div>
         <div class="chapter-body">
-          <div class="text-th"><h2>หมวดที่ 12</h2>
-<h3>การพ้นสภาพการเป็นพนักงาน</h3>
-<h3>1. หลักเกณฑ์การพ้นสภาพการเป็นพนักงาน</h3>
-<h3>การพ้นสภาพการเป็นพนักงาน หมายถึง การสิ้นสุดความเป็นพนักงานกับบริษัท ไม่ว่าด้วยเหตุใด ๆ และ</h3>
-<h3>ให้รวมถึงกรณีดังต่อไปนี้</h3>
-<h4>1.1 การลาออกโดยสมัครใจของพนักงาน</h4>
-<h4>1.2 การเกษียณอายุ ตามหลักเกณฑ์และเงื่อนไขที่บริษัทกำหนด</h4>
-<h4>1.3 การเลิกจ้างโดยบริษัท โดยพนักงานมีสิทธิได้รับค่าชดเชยตามกฎหมาย</h4>
-<h4>1.4 การเลิกจ้างโดยบริษัท โดยพนักงานไม่มีสิทธิได้รับค่าชดเชยตามกฎหมาย</h4>
-<h4>1.5 การเสียชีวิต</h4>
-<h4>1.6 การสิ้นสุดสัญญาจ้างตามกฎหมาย หรือเหตุอื่นใดที่ทำให้สัญญาจ้างแรงงานสิ้นสุดลงตาม</h4>
-<h3>บทบัญญัติแห่งกฎหมาย</h3>
-<h3>2. การลาออกโดยสมัครใจของพนักงาน</h3>
-<h4>2.1 พนักงานที่ประสงค์จะลาออกต้องยื่นหนังสือลาออกเป็นลายลักษณ์อักษรต่อผู้บังคับบัญชาตามสาย</h4>
-<h3>งาน หรือผู้มีอำนาจของบริษัทล่วงหน้าไม่น้อยกว่าสามสิบ (30) วัน โดยให้ถือเป็นการบอกกล่าว</h3>
-<h3>ล่วงหน้าตามกฎหมาย ทั้งนี้ บริษัทอาจพิจารณาอนุมัติให้พนักงานพ้นสภาพก่อนกำหนดได้ตาม</h3>
-<h3>ความเหมาะสม โดยคำนึงถึงความจำเป็นของงานและผลกระทบต่อการดำเนินธุรกิจของบริษัท</h3>
-<h4>2.2 นับแต่วันที่ยื่นหนังสือลาออก พนักงานยังคงมีหน้าที่ต้องปฏิบัติงานตามปกติจนกว่าจะถึงวันสิ้นสุด</h4>
-<h3>การเป็นพนักงาน และต้องไม่ผละงาน ละทิ้งหน้าที่ หรือหยุดงานโดยไม่มีเหตุอันสมควร</h3>
-<h4>2.3 ก่อนวันสิ้นสุดการเป็นพนักงาน พนักงานต้องดำเนินการส่งมอบงานในความรับผิดชอบ รวมถึง</h4>
-<h3>ทรัพย์สิน อุปกรณ์ เครื่องมือ เอกสาร ข้อมูล สิทธิการเข้าถึงระบบสารสนเทศ รหัสผ่าน ตลอดจนสิ่ง</h3>
-<h3>อื่นใดที่เป็นของบริษัท หรืออยู่ในความครอบครองหรือความดูแลของพนักงาน ให้ครบถ้วน ถูกต้อง</h3>
-<h3>และเรียบร้อย ตามหลักเกณฑ์ ขั้นตอน และระยะเวลาที่บริษัทกำหนด รวมทั้งต้องดำเนินการ</h3>
-<h3>ชำระหนี้สินหรือภาระผูกพันใด ๆ ที่มีต่อบริษัท (ถ้ามี) ให้เสร็จสิ้นก่อนวันสิ้นสุดการเป็นพนักงาน</h3>
-<h4>2.4 ในกรณีที่พนักงานไม่ดำเนินการส่งมอบให้ครบถ้วน หรือก่อให้เกิดความเสียหายแก่บริษัท บริษัท</h4>
-<h3>มีสิทธิเรียกคืนทรัพย์สิน เรียกร้องค่าเสียหาย หรือดำเนินการตามกฎหมายตามความเหมาะสม</h3>
-<h4>2.5 ในกรณีที่พนักงานได้ยื่นหนังสือลาออกแล้ว แต่ละทิ้งหน้าที่เป็นเวลาสาม (3) วันทำงานติดต่อกัน</h4>
-<h3>ไม่ว่าจะมีวันหยุดคั่นหรือไม่ก็ตาม โดยไม่มีเหตุอันสมควรหรือไม่ได้รับอนุญาตจากบริษัท ให้ถือว่า</h3>
-<h3>เป็นความผิดวินัยร้ายแรง และบริษัทมีสิทธิพิจารณาดำเนินการทางวินัย รวมถึงเลิกจ้างโดยไม่จ่าย</h3>
-<h3>ค่าชดเชยตามกฎหมาย</h3>
-<h4>2.6 การลาออกที่ไม่เป็นไปตามหลักเกณฑ์และขั้นตอนที่บริษัทกำหนด อาจส่งผลให้พนักงานไม่ได้รับ</h4>
-<h3>สิทธิประโยชน์บางประการตามนโยบายหรือระเบียบของบริษัท ทั้งนี้ ไม่กระทบต่อสิทธิที่พนักงาน</h3>
-<h3>พึงได้รับตามกฎหมาย</h3>
-<h4>2.7 เมื่อพนักงานพ้นสภาพการเป็นพนักงาน และได้ดำเนินการส่งมอบงาน ทรัพย์สิน สิทธิการเข้าถึง</h4>
-<h3>ระบบสารสนเทศ ตลอดจนเอกสารหรือสิ่งอื่นใดที่เกี่ยวข้อง รวมทั้งได้ชำระหนี้สินหรือภาระผูกพัน</h3>
-<h3>ที่มีต่อบริษัทครบถ้วนแล้ว บริษัทจะดำเนินการชำระค่าจ้าง ค่าล่วงเวลาค่าลาพักผ่อนประจำปี</h3>
-<h3>คงเหลือ และเงินอื่นใดที่พนักงานมีสิทธิได้รับตามกฎหมาย ภายในระยะเวลาที่กฎหมายกำหนด ทั้งนี้</h3>
-<h3>บริษัทมีสิทธิหักเงินได้เท่าที่กฎหมายอนุญาต รวมถึงหนี้สิน ความเสียหาย หรือภาระผูกพัน</h3>
-<h3>ที่พนักงานค้างชำระต่อบริษัท (ถ้ามี)</h3>
-<h4>2.8 การไม่ดำเนินการส่งมอบงานหรือทรัพย์สินให้ครบถ้วน ไม่ถือเป็นเหตุให้เลื่อนวันสิ้นสุดการเป็น</h4>
-<h3>พนักงาน ทั้งนี้ บริษัทสงวนสิทธิในการเรียกร้องตามกฎหมายต่อไป</h3>
-<h3>3. การเกษียณอายุ</h3>
-<h4>3.1 พนักงานจะพ้นสภาพการเป็นพนักงานเนื่องจากการเกษียณอายุ เมื่อมีอายุครบหกสิบ (60) ปี</h4>
-<h3>บริบูรณ์</h3>
-<h4>3.2 พนักงานที่พ้นสภาพการเป็นพนักงานเนื่องจากการเกษียณอายุ มีสิทธิได้รับค่าชดเชยและสิทธิ</h4>
-<h3>ประโยชน์อื่นตามที่กฎหมายกำหนด</h3>
-<h4>3.3 ในกรณีที่พนักงานมีอายุครบหกสิบ (60) ปีบริบูรณ์ในปีใด ให้การเกษียณอายุมีผลตั้งแต่วันที่</h4>
-<h3>1 มกราคมของปีถัดไป เว้นแต่บริษัทจะกำหนดเป็นอย่างอื่นตามความจำเป็นทางธุรกิจ หรือ</h3>
-<h3>มีข้อตกลงเป็นลายลักษณ์อักษรระหว่างบริษัทและพนักงาน</h3>
-<h4>3.4 พนักงานอาจยื่นคำร้องขอเกษียณอายุก่อนกำหนดได้เมื่อมีอายุไม่น้อยกว่าห้าสิบห้า(55) ปีบริบูรณ์</h4>
-<h3>ทั้งนี้ การอนุมัติให้เกษียณอายุก่อนกำหนดให้เป็นไปตามดุลยพินิจของบริษัทแต่เพียงผู้เดียว และ</h3>
-<h3>ให้ถือว่าการพ้นสภาพดังกล่าวเป็นการพ้นสภาพเนื่องจากการเกษียณอายุ</h3>
-<h4>3.5 การจ้างงานภายหลังเกษียณให้ถือเป็นสัญญาจ้างฉบับใหม่ ไม่ถือเป็นการจ้างงานต่อเนื่อง และ</h4>
-<h3>ไม่ก่อให้เกิดสิทธิในการนับอายุงานย้อนหลัง เว้นแต่บริษัทจะกำหนดไว้เป็นลายลักษณ์อักษร</h3>
-<h3>4. การเลิกจ้างโดยได้รับค่าชดเชย</h3>
-<h3>บริษัทอาจพิจารณาเลิกจ้างพนักงานโดยพนักงานมีสิทธิได้รับค่าชดเชยตามที่กฎหมายกำหนด ในกรณี</h3>
-<h3>ดังต่อไปนี้</h3>
-<h4>4.1 พนักงานกระทำผิดวินัยในลักษณะที่ยังไม่ถึงขั้นเป็นความผิดวินัยร้ายแรง และบริษัทได้มี</h4>
-<h3>การตักเตือนหรือแจ้งให้พนักงานทราบแล้ว แต่พนักงานยังไม่ปรับปรุงพฤติกรรมหรือการปฏิบัติงาน</h3>
-<h3>ให้ดีขึ้นภายในระยะเวลาที่บริษัทกำหนด</h3>
-<h4>4.2 พนักงานมีผลการปฏิบัติงานต ่ากว่ามาตรฐาน หรือไม่สามารถปฏิบัติหน้าที่ที่ได้รับมอบหมายได้</h4>
-<h3>อย่างมีประสิทธิภาพ ทั้งนี้ ภายหลังจากที่บริษัทได้แจ้งผลการประเมิน ตักเตือน หรือให้โอกาส</h3>
-<h3>ปรับปรุงแก้ไขแล้ว แต่ยังไม่สามารถปรับปรุงได้ภายในระยะเวลาอันสมควร</h3>
-<h4>4.3 พนักงานมีภาวะเจ็บป่วย หรือมีข้อจำกัดทางสุขภาพที่ส่งผลให้ไม่สามารถปฏิบัติงานตามหน้าที่ได้</h4>
-<h3>อย่างต่อเนื่อง หรือไม่สามารถกลับเข้าปฏิบัติงานได้ภายในระยะเวลาที่เหมาะสม ทั้งนี้ บริษัท</h3>
-<h3>ได้พิจารณาโดยสุจริต และไม่สามารถจัดหางานอื่นที่เหมาะสมให้ได้</h3>
-<h4>4.4 พนักงานขาดคุณสมบัติที่จำเป็นต่อการปฏิบัติงาน หรือมีพฤติการณ์ที่ส่งผลกระทบต่อความเชื่อถือ</h4>
-<h3>ไว้วางใจในการปฏิบัติหน้าที่ ทั้งนี้ ต้องไม่เข้าลักษณะเป็นความผิดวินัยร้ายแรง</h3>
-<h4>4.5 พนักงานมีข้อมูลหรือคุณสมบัติไม่ตรงตามที่ได้แสดงไว้ในการสมัครงาน และมีผลกระทบต่อ</h4>
-<h3>ความสามารถในการปฏิบัติงาน โดยไม่เข้าข่ายเป็นการให้ข้อมูลอันเป็นเท็จในลักษณะร้ายแรง</h3>
-<h4>4.6 บริษัทมีความจำเป็นต้องปรับโครงสร้างองค์กรโดยสุจริต ลดขนาดกิจการ ยุบตำแหน่งงาน หรือ</h4>
-<h3>ปรับปรุงประสิทธิภาพการดำเนินงาน และบริษัทไม่สามารถจัดหาตำแหน่งงานอื่นที่เหมาะสมให้</h3>
-<h3>พนักงานได้</h3>
-<h4>4.7 ในกรณีการเลิกจ้างตามหมวดนี้ บริษัทจะบอกกล่าวล่วงหน้าไม่น้อยกว่าหนึ่งงวดการจ่ายค่าจ้าง หรือ</h4>
-<h3>จ่ายค่าจ้างแทนการบอกกล่าวล่วงหน้าตามที่กฎหมายกำหนด</h3>
-<h4>4.8 การบอกกล่าวการเลิกจ้างให้เป็นไปตามรูปแบบและวิธีการที่บริษัทกำหนด และให้ถือว่าการแจ้งเป็น</h4>
-<h3>หนังสือหรือผ่านระบบอิเล็กทรอนิกส์ของบริษัทเป็นการบอกกล่าวโดยชอบแล้ว</h3>
-<h3>5. ค่าชดเชย</h3>
-<h3>พนักงานที่ถูกเลิกจ้างโดยไม่มีความผิดตามกฎหมายแรงงาน มีสิทธิได้รับค่าชดเชยตามอัตราและ</h3>
-<h3>หลักเกณฑ์ที่กำหนดไว้ในพระราชบัญญัติคุ้มครองแรงงาน และที่แก้ไขเพิ่มเติม โดยให้เป็นไปตามอายุงาน</h3>
-<h3>และอัตราค่าจ้างสุดท้ายของพนักงาน</h3>
-<h4>5.1 พนักงานที่ทำงานติดต่อกันครบ 120 วัน แต่ไม่ครบ 1 ปี ได้รับไม่น้อยกว่าค่าจ้างอัตราสุดท้าย 30 วัน</h4>
-<h4>5.2 พนักงานที่ทำงานติดต่อกันครบ 1 ปี แต่ไม่ครบ 3 ปี ได้รับไม่น้อยกว่าค่าจ้างอัตราสุดท้าย 90 วัน</h4>
-<h4>5.3 พนักงานที่ทำงานติดต่อกันครบ 3 ปี แต่ไม่ครบ 6 ปี ได้รับไม่น้อยกว่าค่าจ้างอัตราสุดท้าย 180 วัน</h4>
-<h4>5.4 พนักงานที่ทำงานติดต่อกันครบ 6 ปี แต่ไม่ครบ 10 ปี ได้รับไม่น้อยกว่าค่าจ้างอัตราสุดท้าย 240 วัน</h4>
-<h4>5.5 พนักงานที่ทำงานติดต่อกันครบ 10 ปี แต่ไม่ครบ 20 ปี ได้รับไม่น้อยกว่าค่าจ้างอัตราสุดท้าย 300 วัน</h4>
-<h4>5.6 พนักงานที่ทำงานติดต่อกันครบ 20 ปีขึ้นไป ได้รับไม่น้อยกว่าค่าจ้างอัตราสุดท้าย 400 วัน</h4>
-<h3>ทั้งนี้ อัตราค่าชดเชย รวมถึงค่าชดเชยพิเศษในกรณีที่กฎหมายกำหนด เช่น การย้ายสถานประกอบ</h3>
-<h3>กิจการ การเลิกกิจการ การปรับโครงสร้างองค์กร หรือเหตุอื่นตามที่กฎหมายแรงงานกำหนด ให้เป็นไป</h3>
-<h3>ตามหลักเกณฑ์ เงื่อนไข และอัตราที่กฎหมายกำหนด ซึ่งอาจมีการเปลี่ยนแปลงได้ตามการแก้ไขกฎหมาย</h3>
-<h3>ในอนาคต</h3>
-<h3>6. การเลิกจ้างโดยไม่ได้รับค่าชดเชย</h3>
-<h4>6.1 พนักงานกระทำความผิดวินัยร้ายแรงตามหลักเกณฑ์ที่กำหนดไว้ในมาตรา119 แห่งพระราชบัญญัติ</h4>
-<h3>คุ้มครองแรงงาน พ.ศ. 2541 และที่แก้ไขเพิ่มเติม</h3>
-<h4>6.2 พนักงานซึ่งทำงานยังไม่ครบหนึ่งร้อยยี่สิบ (120) วันติดต่อกันนับแต่วันเริ่มงาน จะไม่มีสิทธิได้รับ</h4>
-<h3>ค่าชดเชย ทั้งนี้ ให้เป็นไปตามหลักเกณฑ์และเงื่อนไขที่กฎหมายแรงงานกำหนด</h3>
-<h4>6.3 กรณีอื่นใดที่กฎหมายแรงงานกำหนดให้บริษัทมีสิทธิเลิกจ้างโดยไม่ต้องจ่ายค่าชดเชย ทั้งนี้</h4>
-<h3>ไม่กระทบต่อสิทธิของพนักงานในการได้รับค่าชดเชยพิเศษตามที่กฎหมายกำหนด (ถ้ามี)</h3>
-<h3>7. การเสียชีวิต</h3>
-<h4>7.1 เมื่อพนักงานเสียชีวิตด้วยเหตุใด ๆ ให้ถือว่าพนักงานพ้นสภาพจากการเป็นพนักงานของบริษัทนับแต่</h4>
-<h3>วันที่เสียชีวิต</h3>
-<h4>7.2 บริษัทจะดำเนินการชำระค่าจ้าง ค่าล่วงเวลาค่าทำงานในวันหยุด ค่าลาพักผ่อนประจำปีคงเหลือ</h4>
-<h3>และเงินอื่นใดที่พนักงานมีสิทธิได้รับ ให้แก่ทายาทโดยธรรม หรือผู้รับผลประโยชน์ที่พนักงานได้แจ้ง</h3>
-<h3>ไว้กับบริษัท ทั้งนี้ ให้เป็นไปตามหลักเกณฑ์และภายในระยะเวลาที่กฎหมายกำหนด</h3>
-<h4>7.3 ในกรณีที่พนักงานมีหนี้สิน หรือภาระผูกพันใด ๆ ต่อบริษัท บริษัทมีสิทธิหักเงินได้เท่าที่กฎหมาย</h4>
-<h3>อนุญาต</h3>
-<h3>8. การสิ้นสุดสัญญาจ้าง หรือเหตุอื่นตามกฎหมาย</h3>
-<h4>8.1 การสิ้นสุดสัญญาจ้างตามระยะเวลาหรือเงื่อนไขที่กำหนดในสัญญาจ้าง</h4>
-<h4>8.2 การที่พนักงานต้องคำพิพากษาถึงที่สุดให้จำคุกโดยไม่รอการลงโทษ อันเป็นเหตุให้ไม่สามารถ</h4>
-<h3>ปฏิบัติงานได้</h3>
-<h4>8.3 เหตุอื่นใดตามที่กฎหมายกำหนดให้สัญญาจ้างแรงงานสิ้นสุดลง</h4>
-<h4>8.4 การที่พนักงานขาดคุณสมบัติ หรือถูกเพิกถอนใบอนุญาตตามกฎหมาย อันเป็นเงื่อนไขสำคัญใน</h4>
-<h3>การปฏิบัติงาน และไม่สามารถแก้ไขได้ภายในระยะเวลาที่เหมาะสม</h3>
-<h4>8.5 การสิ้นสุดสัญญาจ้างตามข้อนี้ ให้ถือเป็นการสิ้นสุดสัญญาจ้างตามกฎหมาย และไม่ถือเป็น</h4>
-<h3>การเลิกจ้างของบริษัท</h3></div>
-          <div class="text-en"><h3>Chapter 11</h3>
-<h3>Grievance Procedures</h3>
-<h3>1.</h3>
-<h3>Definition of Grievance</h3>
-<p>A grievance refers to a situation in which an employee is dissatisfied with or suffers hardship arising from work, including matters related to working conditions, terms of employment, supervision, work instructions or job assignments, payment of wages or other compensation, welfare and benefits, or any inappropriate treatment by the Company, supervisors, or fellow employees. This shall also include cases where the employee submits such matters to the Company or a supervisor for consideration, resolution, or settlement, with the objective of promoting fairness, maintaining good working relationships, and ensuring an appropriate working environment.</p>
-<h3>2.</h3>
-<h3>Principles for Handling Grievances</h3>
-<p>The Company shall handle grievances in accordance with the following principles: 2.1 Fairness, impartiality, and transparency 2.2 Prompt and appropriate action in accordance with the circumstances 2.3 Confidentiality of all parties involved 2.4 Protection of complainants, witnesses, and information providers 2.5 Non-discrimination and prohibition of retaliation or harassment</p>
-<h3>3.</h3>
-<h3>Grievance Procedures</h3>
-<p>3.1 If an employee believes that he or she has not been treated fairly or has been treated in a manner inconsistent with the Company’s Work Rules, the employee shall first discuss the matter with his or her direct supervisor. The supervisor shall consider the matter and provide a response without undue delay and within seven (7) working days. If the grievance involves the direct supervisor, the employee may submit the matter directly to a higher-level supervisor or the Human Resources Department. 3.2 If the employee does not receive a response within the specified period or is dissatisfied with the outcome, the matter shall be deemed a formal grievance. The employee must submit the grievance in writing, stating the relevant facts and details, together with the employee’s name and position,</p>
-<p>within thirty (30) days from the date the incident occurred or the date the employee became aware of the incident. 3.3 Upon receiving the grievance, the supervisor or the Human Resources Department shall promptly conduct a fact-finding process in a fair, impartial, and appropriate manner. The complainant and all relevant parties shall cooperate in providing information honestly and in good faith. 3.4 If the grievance falls within the authority of the recipient, the matter shall be resolved promptly and the result shall be communicated to the employee in writing. The outcome shall also be reported to the Human Resources Department. 3.5 If the grievance is beyond the authority of the recipient, the matter shall be escalated to the next higher level of management together with recommendations for resolution. Each level of management shall consider the matter and communicate the outcome within a reasonable period, and not later than seven (7) working days for each step of the process from the date the matter is received.</p>
-<h3>4.</h3>
-<h3>Protection of Complainants and Related Persons</h3>
-<p>The Company shall protect complainants, information providers, witnesses, and all related persons who act in good faith from retaliation, intimidation, discrimination, or any unfair treatment arising from the exercise of their right to file a grievance, to the extent necessary and appropriate for the investigation process. However, such protection shall not apply where the grievance is made in bad faith, involves false information, or is intended to cause damage to the Company or other persons.</p>
-<h3>5.</h3>
-<h3>Channels for Submitting Grievances</h3>
-<p>Employees may submit grievances through the following channels: 5.1 Direct supervisor 5.2 Human Resources Department 5.3 Other complaint channels as designated by the Company The Company shall strictly maintain the confidentiality of the information and the identity of the complainant to the extent necessary for the grievance process.</p>
-<h3>Chapter 12</h3>
-<h3>Separation from Employment</h3>
-<h3>1.</h3>
-<h3>Grounds for Separation from Employment</h3>
-<p>Separation from employment refers to the cessation of the employment relationship between the employee and the Company for any reason whatsoever. This includes, but is not limited to, the following circumstances: 1.1 Voluntary resignation by the employee. 1.2 Retirement in accordance with the criteria and conditions prescribed by the Company. 1.3 Termination by the Company where the employee is entitled to severance pay in accordance with applicable laws. 1.4 Termination by the Company where the employee is not entitled to severance pay in accordance with applicable laws. 1.5 Death of the employee. 1.6 Expiration or termination of the employment contract in accordance with the law, or any other circumstances resulting in the termination of the employment relationship under applicable law.</p>
-<h3>2.</h3>
-<h3>Voluntary Resignation</h3>
-<p>2.1 An employee who wishes to resign shall submit a written resignation letter to his or her line supervisor or other authorized representative of the Company at least thirty (30) days in advance. Such notice shall be deemed advance notice in accordance with applicable law. The Company may, at its discretion, approve an earlier effective date of resignation as appropriate, taking into account operational requirements and the impact on the Company’s business. 2.2 From the date the resignation letter is submitted, the employee shall continue to perform his or her duties as usual until the effective date of termination and shall not abandon duties, neglect responsibilities, or be absent from work without reasonable cause. 2.3 Prior to the effective date of termination, the employee shall complete the proper handover of all work responsibilities, as well as return all Company property, including but not limited to equipment, tools, documents, information, access rights to information systems, passwords, and any other items belonging to the Company or under the employee’s possession or control. The employee shall comply with the procedures, requirements, and timelines prescribed by the Company and shall settle any debts or obligations owed to the Company (if any) before the termination date.</p>
-<p>2.4 If the employee fails to complete the handover or causes damage to the Company, the Company reserves the right to recover its property, claim compensation for damages, or take legal action as deemed appropriate. 2.5 If an employee submits a resignation letter but subsequently abandons his or her duties for three (3) consecutive working days, regardless of whether holidays fall within such period, without reasonable cause or without the Company’s approval, such conduct shall be deemed serious misconduct. The Company reserves the right to take disciplinary action, including termination without severance pay in accordance with applicable law. 2.6 Failure to comply with the Company’s resignation procedures and requirements may result in the employee not being eligible for certain benefits under the Company’s policies or regulations. However, this shall not affect any rights to which the employee is legally entitled. 2.7 Upon termination of employment and after the employee has properly completed the handover of work, Company property, access rights to information systems, documents, and any other related items, and has settled all debts or obligations owed to the Company, the Company shall pay wages, overtime pay, unused annual leave compensation, and any other payments to which the employee is legally entitled within the timeframe prescribed by law. The Company reserves the right to make deductions as permitted by law, including any debts, damages, or obligations owed by the employee to the Company (if any). 2.8 Failure to complete the handover of work or Company property shall not be considered a reason to postpone the effective date of termination of employment. The Company reserves the right to pursue any legal remedies as appropriate.</p>
-<h3>3.</h3>
-<h3>Retirement</h3>
-<p>3.1 An employee shall cease to be employed by the Company upon reaching sixty (60) years of age. 3.2 An employee whose employment terminates due to retirement shall be entitled to severance pay and other benefits as prescribed by applicable laws. 3.3 If an employee reaches sixty (60) years of age in any given year, the retirement shall take effect on 1 January of the following year, unless otherwise determined by the Company due to business necessity or otherwise agreed in writing between the Company and the employee.</p>
-<p>3.4 An employee may request early retirement upon reaching at least fifty-five (55) years of age. Approval of early retirement shall be at the sole discretion of the Company, and such separation shall be deemed termination due to retirement. 3.5 Any employment after retirement shall be considered a new employment contract and shall not be regarded as a continuation of the previous employment. Such employment shall not entitle the employee to retroactive recognition of prior years of service unless otherwise specified in writing by the Company.</p>
-<h3>4.</h3>
-<h3>Termination of Employment with Severance Pay</h3>
-<p>The Company may terminate the employment of an employee with entitlement to severance pay in accordance with applicable laws under the following circumstances: 4.1 Where the employee commits disciplinary misconduct that does not constitute serious misconduct, and the Company has issued a written warning, but the employee fails to improve his or her conduct or performance within the period specified by the Company. 4.2 Where the employee’s performance is below the required standards or the employee is unable to perform assigned duties effectively, provided that the Company has informed the employee of the performance evaluation, issued warnings, or given the employee an opportunity to improve, but the employee fails to demonstrate satisfactory improvement within a reasonable period. 4.3 Where the employee suffers from illness or health limitations that prevent the employee from continuously performing his or her duties or returning to work within a reasonable period, provided that the Company has considered the matter in good faith and is unable to assign other suitable work to the employee. 4.4 Where the employee lacks the qualifications necessary for the position or demonstrates conduct that adversely affects the trust and confidence required for the performance of duties, provided that such conduct does not constitute serious misconduct. 4.5 Where the employee’s qualifications or information provided during the recruitment process are inconsistent with the actual qualifications and affect the employee’s ability to perform the job, provided that such case does not constitute serious misrepresentation.</p></div>
+<h2 class="chapter-section">หมวดที่ 12</h2>
+<h2>การพ้นสภาพการเป็นพนักงาน</h2>
+<h4>หลักเกณฑ์การพ้นสภาพการเป็นพนักงาน</h4>
+<ul>
+<li>การพ้นสภาพการเป็นพนักงาน หมายถึง การสิ้นสุดความเป็นพนักงานกับบริษัท ไม่ว่าด้วยเหตุใด ๆ และให้รวมถึงกรณีดังต่อไปนี้</li>
+<li>การลาออกโดยสมัครใจของพนักงาน</li>
+<li>การเกษียณอายุ ตามหลักเกณฑ์และเงื่อนไขที่บริษัทกำหนด</li>
+<li>การเลิกจ้างโดยบริษัท โดยพนักงานมีสิทธิได้รับค่าชดเชยตามกฎหมาย</li>
+<li>การเลิกจ้างโดยบริษัท โดยพนักงานไม่มีสิทธิได้รับค่าชดเชยตามกฎหมาย</li>
+<li>การเสียชีวิต</li>
+<li>การสิ้นสุดสัญญาจ้างตามกฎหมาย หรือเหตุอื่นใดที่ทำให้สัญญาจ้างแรงงานสิ้นสุดลงตามบทบัญญัติแห่งกฎหมาย</li>
+</ul>
+<h4>การลาออกโดยสมัครใจของพนักงาน</h4>
+<ul>
+<li>พนักงานที่ประสงค์จะลาออกต้องยื่นหนังสือลาออกเป็นลายลักษณ์อักษรต่อผู้บังคับบัญชาตามสายงาน หรือผู้มีอำนาจของบริษัทล่วงหน้าไม่น้อยกว่าสามสิบ (30) วัน โดยให้ถือเป็นการบอกกล่าวล่วงหน้าตามกฎหมาย ทั้งนี้ บริษัทอาจพิจารณาอนุมัติให้พนักงานพ้นสภาพก่อนกำหนดได้ตามความเหมาะสม โดยคำนึงถึงความจำเป็นของงานและผลกระทบต่อการดำเนินธุรกิจของบริษัท</li>
+<li>นับแต่วันที่ยื่นหนังสือลาออก พนักงานยังคงมีหน้าที่ต้องปฏิบัติงานตามปกติจนกว่าจะถึงวันสิ้นสุดการเป็นพนักงาน และต้องไม่ผละงาน ละทิ้งหน้าที่ หรือหยุดงานโดยไม่มีเหตุอันสมควร</li>
+<li>ก่อนวันสิ้นสุดการเป็นพนักงาน พนักงานต้องดำเนินการส่งมอบงานในความรับผิดชอบ รวมถึงทรัพย์สิน อุปกรณ์ เครื่องมือ เอกสาร ข้อมูล สิทธิการเข้าถึงระบบสารสนเทศ รหัสผ่าน ตลอดจนสิ่งอื่นใดที่เป็นของบริษัท หรืออยู่ในความครอบครองหรือความดูแลของพนักงาน ให้ครบถ้วน ถูกต้อง และเรียบร้อย ตามหลักเกณฑ์ ขั้นตอน และระยะเวลาที่บริษัทกำหนด รวมทั้งต้องดำเนินการชำระหนี้สินหรือภาระผูกพันใด ๆ ที่มีต่อบริษัท (ถ้ามี) ให้เสร็จสิ้นก่อนวันสิ้นสุดการเป็นพนักงาน</li>
+<li>ในกรณีที่พนักงานไม่ดำเนินการส่งมอบให้ครบถ้วน หรือก่อให้เกิดความเสียหายแก่บริษัท บริษัท
+มีสิทธิเรียกคืนทรัพย์สิน เรียกร้องค่าเสียหาย หรือดำเนินการตามกฎหมายตามความเหมาะสม</li>
+<li>ในกรณีที่พนักงานได้ยื่นหนังสือลาออกแล้ว แต่ละทิ้งหน้าที่เป็นเวลาสาม (3) วันทำงานติดต่อกัน 
+ไม่ว่าจะมีวันหยุดคั่นหรือไม่ก็ตาม โดยไม่มีเหตุอันสมควรหรือไม่ได้รับอนุญาตจากบริษัท ให้ถือว่าเป็นความผิดวินัยร้ายแรง และบริษัทมีสิทธิพิจารณาดำเนินการทางวินัย รวมถึงเลิกจ้างโดยไม่จ่ายค่าชดเชยตามกฎหมาย</li>
+<li>การลาออกที่ไม่เป็นไปตามหลักเกณฑ์และขั้นตอนที่บริษัทกำหนด อาจส่งผลให้พนักงานไม่ได้รับสิทธิประโยชน์บางประการตามนโยบายหรือระเบียบของบริษัท ทั้งนี้ ไม่กระทบต่อสิทธิที่พนักงาน
+พึงได้รับตามกฎหมาย</li>
+<li>เมื่อพนักงานพ้นสภาพการเป็นพนักงาน และได้ดำเนินการส่งมอบงาน ทรัพย์สิน สิทธิการเข้าถึงระบบสารสนเทศ ตลอดจนเอกสารหรือสิ่งอื่นใดที่เกี่ยวข้อง รวมทั้งได้ชำระหนี้สินหรือภาระผูกพันที่มีต่อบริษัทครบถ้วนแล้ว บริษัทจะดำเนินการชำระค่าจ้าง ค่าล่วงเวลา ค่าลาพักผ่อนประจำปีคงเหลือ และเงินอื่นใดที่พนักงานมีสิทธิได้รับตามกฎหมาย ภายในระยะเวลาที่กฎหมายกำหนด ทั้งนี้ บริษัท
+มีสิทธิหักเงินได้เท่าที่กฎหมายอนุญาต รวมถึงหนี้สิน ความเสียหาย หรือภาระผูกพันที่พนักงานค้างชำระต่อบริษัท (ถ้ามี)</li>
+<li>การไม่ดำเนินการส่งมอบงานหรือทรัพย์สินให้ครบถ้วน ไม่ถือเป็นเหตุให้เลื่อนวันสิ้นสุดการเป็นพนักงาน ทั้งนี้ บริษัทสงวนสิทธิในการเรียกร้องตามกฎหมายต่อไป</li>
+</ul>
+<h4>การเกษียณอายุ</h4>
+<ul>
+<li>พนักงานจะพ้นสภาพการเป็นพนักงานเนื่องจากการเกษียณอายุ เมื่อมีอายุครบหกสิบ (60) ปีบริบูรณ์</li>
+<li>พนักงานที่พ้นสภาพการเป็นพนักงานเนื่องจากการเกษียณอายุ มีสิทธิได้รับค่าชดเชยและสิทธิประโยชน์อื่นตามที่กฎหมายกำหนด</li>
+<li>ในกรณีที่พนักงานมีอายุครบหกสิบ (60) ปีบริบูรณ์ในปีใด ให้การเกษียณอายุมีผลตั้งแต่วันที่ 
+1 มกราคมของปีถัดไป เว้นแต่บริษัทจะกำหนดเป็นอย่างอื่นตามความจำเป็นทางธุรกิจ หรือ
+มีข้อตกลงเป็นลายลักษณ์อักษรระหว่างบริษัทและพนักงาน</li>
+<li>พนักงานอาจยื่นคำร้องขอเกษียณอายุก่อนกำหนดได้เมื่อมีอายุไม่น้อยกว่าห้าสิบห้า (55) ปีบริบูรณ์ ทั้งนี้ การอนุมัติให้เกษียณอายุก่อนกำหนดให้เป็นไปตามดุลยพินิจของบริษัทแต่เพียงผู้เดียว และ
+ให้ถือว่าการพ้นสภาพดังกล่าวเป็นการพ้นสภาพเนื่องจากการเกษียณอายุ</li>
+<li>การจ้างงานภายหลังเกษียณให้ถือเป็นสัญญาจ้างฉบับใหม่ ไม่ถือเป็นการจ้างงานต่อเนื่อง และไม่ก่อให้เกิดสิทธิในการนับอายุงานย้อนหลัง เว้นแต่บริษัทจะกำหนดไว้เป็นลายลักษณ์อักษร</li>
+</ul>
+<h4>การเลิกจ้างโดยได้รับค่าชดเชย</h4>
+<ul>
+<li>บริษัทอาจพิจารณาเลิกจ้างพนักงานโดยพนักงานมีสิทธิได้รับค่าชดเชยตามที่กฎหมายกำหนด ในกรณีดังต่อไปนี้</li>
+<li>พนักงานกระทำผิดวินัยในลักษณะที่ยังไม่ถึงขั้นเป็นความผิดวินัยร้ายแรง และบริษัทได้มีการตักเตือนหรือแจ้งให้พนักงานทราบแล้ว แต่พนักงานยังไม่ปรับปรุงพฤติกรรมหรือการปฏิบัติงานให้ดีขึ้นภายในระยะเวลาที่บริษัทกำหนด</li>
+<li>พนักงานมีผลการปฏิบัติงานต่ำกว่ามาตรฐาน หรือไม่สามารถปฏิบัติหน้าที่ที่ได้รับมอบหมายได้อย่างมีประสิทธิภาพ ทั้งนี้ ภายหลังจากที่บริษัทได้แจ้งผลการประเมิน ตักเตือน หรือให้โอกาสปรับปรุงแก้ไขแล้ว แต่ยังไม่สามารถปรับปรุงได้ภายในระยะเวลาอันสมควร</li>
+<li>พนักงานมีภาวะเจ็บป่วย หรือมีข้อจำกัดทางสุขภาพที่ส่งผลให้ไม่สามารถปฏิบัติงานตามหน้าที่ได้อย่างต่อเนื่อง หรือไม่สามารถกลับเข้าปฏิบัติงานได้ภายในระยะเวลาที่เหมาะสม ทั้งนี้ บริษัทได้พิจารณาโดยสุจริต และไม่สามารถจัดหางานอื่นที่เหมาะสมให้ได้</li>
+<li>พนักงานขาดคุณสมบัติที่จำเป็นต่อการปฏิบัติงาน หรือมีพฤติการณ์ที่ส่งผลกระทบต่อความเชื่อถือไว้วางใจในการปฏิบัติหน้าที่ ทั้งนี้ ต้องไม่เข้าลักษณะเป็นความผิดวินัยร้ายแรง</li>
+<li>พนักงานมีข้อมูลหรือคุณสมบัติไม่ตรงตามที่ได้แสดงไว้ในการสมัครงาน และมีผลกระทบต่อความสามารถในการปฏิบัติงาน โดยไม่เข้าข่ายเป็นการให้ข้อมูลอันเป็นเท็จในลักษณะร้ายแรง</li>
+<li>บริษัทมีความจำเป็นต้องปรับโครงสร้างองค์กรโดยสุจริต ลดขนาดกิจการ ยุบตำแหน่งงาน หรือปรับปรุงประสิทธิภาพการดำเนินงาน และบริษัทไม่สามารถจัดหาตำแหน่งงานอื่นที่เหมาะสมให้พนักงานได้</li>
+<li>ในกรณีการเลิกจ้างตามหมวดนี้ บริษัทจะบอกกล่าวล่วงหน้าไม่น้อยกว่าหนึ่งงวดการจ่ายค่าจ้าง หรือจ่ายค่าจ้างแทนการบอกกล่าวล่วงหน้าตามที่กฎหมายกำหนด</li>
+<li>การบอกกล่าวการเลิกจ้างให้เป็นไปตามรูปแบบและวิธีการที่บริษัทกำหนด และให้ถือว่าการแจ้งเป็นหนังสือหรือผ่านระบบอิเล็กทรอนิกส์ของบริษัทเป็นการบอกกล่าวโดยชอบแล้ว</li>
+</ul>
+<h4>ค่าชดเชย</h4>
+<ul>
+<li>พนักงานที่ถูกเลิกจ้างโดยไม่มีความผิดตามกฎหมายแรงงาน มีสิทธิได้รับค่าชดเชยตามอัตราและหลักเกณฑ์ที่กำหนดไว้ในพระราชบัญญัติคุ้มครองแรงงาน และที่แก้ไขเพิ่มเติม โดยให้เป็นไปตามอายุงานและอัตราค่าจ้างสุดท้ายของพนักงาน</li>
+<li>พนักงานที่ทำงานติดต่อกันครบ 120 วัน แต่ไม่ครบ 1 ปี ได้รับไม่น้อยกว่าค่าจ้างอัตราสุดท้าย 30 วัน</li>
+<li>พนักงานที่ทำงานติดต่อกันครบ 1 ปี แต่ไม่ครบ 3 ปี ได้รับไม่น้อยกว่าค่าจ้างอัตราสุดท้าย 90 วัน</li>
+<li>พนักงานที่ทำงานติดต่อกันครบ 3 ปี แต่ไม่ครบ 6 ปี ได้รับไม่น้อยกว่าค่าจ้างอัตราสุดท้าย 180 วัน</li>
+<li>พนักงานที่ทำงานติดต่อกันครบ 6 ปี แต่ไม่ครบ 10 ปี ได้รับไม่น้อยกว่าค่าจ้างอัตราสุดท้าย 240 วัน</li>
+<li>พนักงานที่ทำงานติดต่อกันครบ 10 ปี แต่ไม่ครบ 20 ปี ได้รับไม่น้อยกว่าค่าจ้างอัตราสุดท้าย 300 วัน</li>
+<li>พนักงานที่ทำงานติดต่อกันครบ 20 ปีขึ้นไป ได้รับไม่น้อยกว่าค่าจ้างอัตราสุดท้าย 400 วัน</li>
+<li>ทั้งนี้ อัตราค่าชดเชย รวมถึงค่าชดเชยพิเศษในกรณีที่กฎหมายกำหนด เช่น การย้ายสถานประกอบกิจการ การเลิกกิจการ การปรับโครงสร้างองค์กร หรือเหตุอื่นตามที่กฎหมายแรงงานกำหนด ให้เป็นไป
+ตามหลักเกณฑ์ เงื่อนไข และอัตราที่กฎหมายกำหนด ซึ่งอาจมีการเปลี่ยนแปลงได้ตามการแก้ไขกฎหมาย
+ในอนาคต</li>
+</ul>
+<h4>การเลิกจ้างโดยไม่ได้รับค่าชดเชย</h4>
+<ul>
+<li>พนักงานกระทำความผิดวินัยร้ายแรงตามหลักเกณฑ์ที่กำหนดไว้ในมาตรา 119 แห่งพระราชบัญญัติคุ้มครองแรงงาน พ.ศ. 2541 และที่แก้ไขเพิ่มเติม</li>
+<li>พนักงานซึ่งทำงานยังไม่ครบหนึ่งร้อยยี่สิบ (120) วันติดต่อกันนับแต่วันเริ่มงาน จะไม่มีสิทธิได้รับค่าชดเชย ทั้งนี้ ให้เป็นไปตามหลักเกณฑ์และเงื่อนไขที่กฎหมายแรงงานกำหนด</li>
+<li>กรณีอื่นใดที่กฎหมายแรงงานกำหนดให้บริษัทมีสิทธิเลิกจ้างโดยไม่ต้องจ่ายค่าชดเชย ทั้งนี้ ไม่กระทบต่อสิทธิของพนักงานในการได้รับค่าชดเชยพิเศษตามที่กฎหมายกำหนด (ถ้ามี)</li>
+</ul>
+<h4>การเสียชีวิต</h4>
+<ul>
+<li>เมื่อพนักงานเสียชีวิตด้วยเหตุใด ๆ ให้ถือว่าพนักงานพ้นสภาพจากการเป็นพนักงานของบริษัทนับแต่วันที่เสียชีวิต</li>
+<li>บริษัทจะดำเนินการชำระค่าจ้าง ค่าล่วงเวลา ค่าทำงานในวันหยุด ค่าลาพักผ่อนประจำปีคงเหลือ และเงินอื่นใดที่พนักงานมีสิทธิได้รับ ให้แก่ทายาทโดยธรรม หรือผู้รับผลประโยชน์ที่พนักงานได้แจ้งไว้กับบริษัท ทั้งนี้ ให้เป็นไปตามหลักเกณฑ์และภายในระยะเวลาที่กฎหมายกำหนด</li>
+<li>ในกรณีที่พนักงานมีหนี้สิน หรือภาระผูกพันใด ๆ ต่อบริษัท บริษัทมีสิทธิหักเงินได้เท่าที่กฎหมายอนุญาต</li>
+</ul>
+<h4>การสิ้นสุดสัญญาจ้าง หรือเหตุอื่นตามกฎหมาย</h4>
+<ul>
+<li>การสิ้นสุดสัญญาจ้างตามระยะเวลา หรือเงื่อนไขที่กำหนดในสัญญาจ้าง</li>
+<li>การที่พนักงานต้องคำพิพากษาถึงที่สุดให้จำคุกโดยไม่รอการลงโทษ อันเป็นเหตุให้ไม่สามารถปฏิบัติงานได้</li>
+<li>เหตุอื่นใดตามที่กฎหมายกำหนดให้สัญญาจ้างแรงงานสิ้นสุดลง</li>
+<li>การที่พนักงานขาดคุณสมบัติ หรือถูกเพิกถอนใบอนุญาตตามกฎหมาย อันเป็นเงื่อนไขสำคัญในการปฏิบัติงาน และไม่สามารถแก้ไขได้ภายในระยะเวลาที่เหมาะสม</li>
+<li>การสิ้นสุดสัญญาจ้างตามข้อนี้ ให้ถือเป็นการสิ้นสุดสัญญาจ้างตามกฎหมาย และไม่ถือเป็นการเลิกจ้างของบริษัท</li>
+</ul>
         </div>
         <nav class="chapter-nav"><a href="chapter-11.html">← การร้องทุกข์</a><a href="chapter-13.html" class="next">สวัสดิการและสิทธิประโยชน์อื่น ๆ →</a></nav>
       </article>

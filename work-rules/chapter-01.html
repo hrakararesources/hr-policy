@@ -11,20 +11,15 @@
     body { display:flex; flex-direction:column; min-height:100vh; }
     .page-wrap { display:flex; flex:1; }
     .sidebar-fixed {
-      width:270px; flex-shrink:0;
-      position:sticky; top:60px;
-      height:calc(100vh - 60px);
-      overflow-y:auto;
-      background:#fff;
-      border-right:1.5px solid var(--gray-2);
-      padding:12px 8px;
+      width:270px; flex-shrink:0; position:sticky; top:60px;
+      height:calc(100vh - 60px); overflow-y:auto;
+      background:#fff; border-right:1.5px solid var(--gray-2); padding:12px 8px;
     }
     .sidebar-fixed::-webkit-scrollbar { width:4px; }
     .sidebar-fixed::-webkit-scrollbar-thumb { background:var(--gray-3); border-radius:2px; }
     .sidebar-home {
-      display:flex; align-items:center; gap:6px;
-      padding:7px 10px; font-size:0.8rem;
-      color:var(--text-muted); text-decoration:none;
+      display:flex; align-items:center; gap:6px; padding:7px 10px;
+      font-size:0.8rem; color:var(--text-muted); text-decoration:none;
       border-radius:6px; margin-bottom:2px;
     }
     .sidebar-home:hover { background:var(--gray-1); color:var(--blue); }
@@ -34,11 +29,9 @@
       padding:10px 10px 4px; display:block;
     }
     .sidebar-chapter {
-      display:flex; align-items:flex-start; gap:8px;
-      padding:8px 10px; border-radius:8px;
-      text-decoration:none; color:var(--text-muted);
-      font-size:0.8rem; line-height:1.35;
-      transition:all 0.15s; margin-bottom:1px;
+      display:flex; align-items:flex-start; gap:8px; padding:8px 10px;
+      border-radius:8px; text-decoration:none; color:var(--text-muted);
+      font-size:0.8rem; line-height:1.35; transition:all 0.15s; margin-bottom:1px;
     }
     .sidebar-chapter:hover { background:var(--blue-light); color:var(--blue); }
     .sidebar-chapter.active { background:var(--blue); color:#fff; }
@@ -47,23 +40,29 @@
       min-width:26px; height:26px; border-radius:6px;
       background:var(--blue-light); color:var(--blue);
       font-size:0.7rem; font-weight:700;
-      display:flex; align-items:center; justify-content:center;
-      flex-shrink:0; margin-top:1px;
+      display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px;
     }
     .sidebar-label { flex:1; }
     .main-content { flex:1; padding:32px 32px 60px; min-width:0; }
     .chapter-card { max-width:740px; margin:0 auto; }
+    .chapter-body h2.chapter-section { color:var(--blue); font-size:1.1rem; margin:28px 0 8px; }
+    .chapter-body h2 { color:var(--dark); font-size:1.15rem; margin:24px 0 8px; }
+    .chapter-body h3 { color:var(--blue); font-size:1rem; margin:20px 0 6px; border-left:3px solid var(--blue); padding-left:10px; }
+    .chapter-body h4 { color:var(--dark); font-size:0.95rem; margin:14px 0 4px; font-weight:600; }
+    .chapter-body p { color:var(--text); font-size:0.95rem; margin-bottom:0.8em; line-height:1.75; }
+    .chapter-body ul { padding-left:1.4em; margin-bottom:1em; }
+    .chapter-body li { font-size:0.95rem; margin-bottom:0.4em; color:var(--text); line-height:1.7; }
     @media(max-width:768px) {
       .sidebar-fixed { display:none; }
       .sidebar-fixed.open { display:block; position:fixed; top:60px; left:0; z-index:200; height:calc(100vh - 60px); box-shadow:4px 0 20px rgba(0,0,0,0.15); }
-      .sidebar-toggle-btn { display:flex !important; }
+      .mob-menu { display:flex !important; }
     }
   </style>
 </head>
 <body>
   <header class="topbar">
     <div class="topbar-left">
-      <button class="sidebar-toggle-btn" onclick="toggleSidebar()" style="display:none;background:rgba(255,255,255,0.15);border:none;color:#fff;padding:6px 10px;border-radius:6px;cursor:pointer;font-size:1rem;margin-right:8px;">☰</button>
+      <button class="mob-menu" onclick="toggleSidebar()" style="display:none;background:rgba(255,255,255,0.15);border:none;color:#fff;padding:6px 10px;border-radius:6px;cursor:pointer;font-size:1rem;margin-right:8px;">☰</button>
       <img src="../assets/Akara Logo.jpg" alt="Akara Resources" class="topbar-logo">
       <div class="topbar-title">
         <span class="text-th">คู่มือพนักงาน</span><span class="text-en">Employee Handbook</span>
@@ -112,128 +111,66 @@
         </h1>
         <div class="chapter-divider"></div>
         <div class="chapter-body">
-          <div class="text-th"><h2>หมวดที่ 1</h2>
-<h3>บททั่วไป</h3>
-<h3>คู่มือพนักงานฉบับนี้จัดทำขึ้นเพื่อรวบรวมนโยบายทั่วไปเกี่ยวกับสภาพการจ้างของพนักงาน และให้ถือ</h3>
-<h3>เป็นส่วนหนึ่งของสัญญาจ้างระหว่างบริษัทและพนักงาน เพื่อแจ้งให้พนักงานทุกคนทราบถึงสิทธิและ</h3>
-<h3>ความรับผิดชอบของตน รวมถึงข้อกำหนดและเงื่อนไขแห่งการจ้างงานให้เป็นไปตามข้อบังคับ ระเบียบ และ</h3>
-<h3>แนวปฏิบัติของบริษัท</h3>
-<h3>ข้อบังคับเกี่ยวกับการทำงานฉบับนี้จัดทำขึ้นให้สอดคล้องกับกฎหมายว่าด้วยการคุ้มครองแรงงาน</h3>
-<h3>ที่มีผลบังคับใช้ในปัจจุบัน และพิจารณาประกอบกับนโยบายการจ้างงานของสถานประกอบการโดยทั่วไป</h3>
-<h3>ในประเทศไทย ในกรณีที่เกิดข้อขัดแย้งใด ๆ ระหว่างข้อบังคับเกี่ยวกับการทำงานฉบับนี้กับกฎหมาย บริษัทจะ</h3>
-<h3>ถือปฏิบัติตามกฎหมายว่าด้วยการคุ้มครองแรงงานเป็นหลัก</h3>
-<h3>ทั้งนี้ บริษัทขอสงวนสิทธิในการเปลี่ยนแปลง แก้ไข เพิ่มเติม หรือยกเว้นข้อความทั้งหมดหรือบางส่วน</h3>
-<h3>ของข้อบังคับเกี่ยวกับการทำงานฉบับนี้ เพื่อให้สอดคล้องกับการเปลี่ยนแปลงทางเศรษฐกิจ สังคม หรือในกรณีที่มี</h3>
-<h3>การประกาศใช้กฎหมายใหม่ โดยบริษัทจะดำเนินการตามขั้นตอนที่กฎหมายกำหนด จริยธรรม และวัฒนธรรม</h3>
-<h3>อันดีงามของประเทศไทยและประเทศคู่ค้าเพื่อให้การดำเนินงานเป็นไปอย่างถูกต้องและเหมาะสม</h3>
-<h3>ให้ใช้คำนิยามดังต่อไปนี้กับคำต่าง ๆ ที่อยู่ในข้อบังคับเกี่ยวกับการทำงานฉบับนี้</h3>
-<h3>1. ข้อบังคับ หมายถึง ข้อบังคับเกี่ยวกับการทำงานของบริษัท อัครารีซอร์สเซส จำกัด (มหาชน)</h3>
-<h3>2. บริษัท หมายถึง บริษัท อัครารีซอร์สเซส จำกัด (มหาชน) สำนักงานกรุงเทพและสำนักงานเหมืองแร่</h3>
-<h3>ทองคำชาตรี โดยให้รวมถึงผู้ซึ่งได้รับมอบอำนาจให้ทำการแทนบริษัท หรือผู้ได้รับมอบหมายให้</h3>
-<h3>3. สถานที่ทำงาน หมายถึง สถานที่ทำงานเพื่อประกอบกิจการของบริษัท  ได้แก่</h3>
-<h4>3.1 สำนักงานกรุงเทพ</h4>
-<h3>188 อาคารสปริง ทาวเวอร์ ห้องเลขที่ 6 ชั้น 14 ถนนพญาไท</h3>
-<h3>แขวงทุ่งพญาไท เขตราชเทวี กรุงเทพมหานคร 10400</h3>
-<h3>โทรศัพท์ +66 5661 4500 ต่อ 2000</h3>
-<h3>อีเมล: admincgm@akararesources.com</h3>
-<h4>3.2 สำนักงานเหมืองแร่ทองคำชาตรี</h4>
-<h3>99 หมู่ 9 ตำบลเขาเจ็ดลูก อำเภอทับคล้อ จังหวัดพิจิตร 66230</h3>
-<h3>โทรศัพท์ +66 5661 4500</h3>
-<h3>อีเมล: admincgm@akararesources.com</h3>
-<h4>3.3 สำนักงานหรือสถานที่ทำงานอื่น ๆ ที่อาจมีขึ้นในอนาคต</h4>
-<h4>3.4 นอกจากนี้ “สถานที่ทำงาน” ให้หมายความรวมถึง</h4>
-<h5>3.4.1 สถานที่ที่บริษัทมอบหมายหรืออนุญาตให้พนักงานไปปฏิบัติงาน ไม่ว่าจะอยู่ภายใน</h5>
-<h3>หรือภายนอกสถานประกอบการ</h3>
-<h5>3.4.2 สถานที่ของบริษัท ลูกค้าคู่ค้าหรือสถานที่อื่นใดที่เกี่ยวข้องกับการปฏิบัติงาน</h5>
-<h3>ตามหน้าที่</h3>
-<h5>3.4.3 ยานพาหนะของบริษัท หรือยานพาหนะที่บริษัทจัดจ้างหรืออนุญาตให้ใช้</h5>
-<h3>ในการปฏิบัติงานหรือกิจกรรมของบริษัท</h3>
-<h5>3.4.4 สถานที่ที่บริษัทจัดกิจกรรม ไม่ว่าจะเป็นกิจกรรมภายในหรือนอกสถานที่</h5>
-<h5>3.4.5 สถานที่ซึ่งพนักงานปฏิบัติงานที่บ้าน หรือปฏิบัติงานผ่านการใช้เทคโนโลยีสารสนเทศ</h5>
-<h3>ณ สถานที่ใด ๆ ทั้งนี้ ต้องเป็นสถานที่ที่พนักงานได้แจ้งไว้และได้รับความเห็นชอบ</h3>
-<h3>จากบริษัทแล้ว</h3>
-<h3>4. บุคลากรหรือพนักงาน หมายถึง บุคคลซึ่งบริษัทได้ตกลงจ้างตามสัญญาจ้างแรงงานให้ปฏิบัติงาน</h3>
-<h3>แก่บริษัท เพื่อรับค่าตอบแทนหรือค่าจ้าง ไม่ว่าจะอยู่ในระยะทดลองงาน หรือได้รับการบรรจุ</h3>
-<h3>เป็นพนักงานแล้วก็ตาม</h3>
-<h3>5. พนักงานทดลองงาน หมายถึง พนักงานซึ่งบริษัทตกลงจ้างให้ปฏิบัติงานและอยู่ในระยะทดลอง-</h3>
-<h3>งานตามเงื่อนไขที่บริษัทกำหนดและแจ้งไว้เป็นลายลักษณ์อักษร ทั้งนี้ บริษัทอาจพิจารณาขยาย</h3>
-<h3>ระยะเวลาทดลองงาน ประเมินผลการปฏิบัติงาน หรือดำเนินการเกี่ยวกับการจ้างตามที่กฎหมาย</h3>
-<h3>อนุญาต โดยพนักงานทดลองงานยังคงมีสิทธิและได้รับความคุ้มครองตามกฎหมายว่าด้วย</h3>
-<h3>การคุ้มครองแรงงานทุกประการ</h3>
-<h3>6. พนักงานรายเดือน หมายถึง พนักงานซึ่งบริษัทตกลงจ้างให้ปฏิบัติงาน โดยกำหนดอัตราค่าจ้าง</h3>
-<h3>เป็นรายเดือน ทั้งนี้ สิทธิ ประโยชน์ และสวัสดิการต่าง ๆ ให้เป็นไปตามข้อบังคับการทำงาน ระเบียบ</h3>
-<h3>และนโยบายของบริษัท รวมถึงกฎหมายที่เกี่ยวข้อง</h3>
-<h3>7. พนักงานรายวัน หรือรายชั่วโมง หรือพนักงานตามผลงาน หมายถึง พนักงานซึ่งบริษัทตกลง</h3>
-<h3>จ้างให้ปฏิบัติงาน และได้รับค่าจ้างในอัตรารายวัน รายชั่วโมง หรือค่าจ้างตามผลงาน ตามที่กำหนด</h3>
-<h3>ไว้ในสัญญาจ้าง ทั้งนี้ การกำหนดและการจ่ายค่าจ้างตามผลงานต้องไม่ขัดต่อกฎหมายว่าด้วย</h3>
-<h3>การคุ้มครองแรงงาน และสิทธิประโยชน์และสวัสดิการให้เป็นไปตามข้อบังคับการทำงาน ระเบียบ</h3>
-<h3>และนโยบายของบริษัท รวมถึงกฎหมายที่เกี่ยวข้อง</h3>
-<h3>8. พนักงานตามสัญญาหมายถึง พนักงานซึ่งบริษัทตกลงจ้างให้ปฏิบัติงานตามสัญญาจ้าง โดยทำ</h3>
-<h3>สัญญาเป็นลายลักษณ์อักษร และกำหนดระยะเวลาการจ้างที่แน่นอน หรือผูกพันกับความสำเร็จ</h3>
-<h3>ของงานในแต่ละโครงการ หรือระยะเวลาที่ตกลงกันไว้เป็นการเฉพาะ ทั้งนี้ การจ้างดังกล่าว</h3>
-<h3>ไม่ก่อให้เกิดความคาดหมายในการจ้างงานต่อเนื่อง หรือการบรรจุเป็นพนักงานประจำ เว้นแต่บริษัท</h3>
-<h3>จะได้ตกลงเป็นหนังสือไว้เป็นอย่างอื่น</h3>
-<h3>9. วันทำงาน หมายถึง วันที่บริษัทกำหนดให้พนักงานต้องปฏิบัติงานตามปกติ โดยให้จำนวนวันทำงาน</h3>
-<h3>และชั่วโมงการทำงานเป็นไปตามที่บริษัทกำหนด ทั้งนี้ ต้องไม่เกินอัตราที่กฎหมายว่าด้วย</h3>
-<h3>การคุ้มครองแรงงานกำหนด</h3>
-<h3>10. วันหยุด หมายถึง วันที่บริษัทกำหนดให้พนักงานหยุดทำงานตามข้อบังคับการทำงาน ระเบียบ และ</h3>
-<h3>นโยบายของบริษัท ได้แก่ วันหยุดประจำสัปดาห์ วันหยุดตามประเพณี และวันหยุดพักผ่อนประจำปี</h3>
-<h3>11. วันลาหมายถึง วันที่พนักงานได้รับอนุญาตให้หยุดงานเป็นการชั่วคราวตามประเภทการลาที่กำหนด</h3>
-<h3>ไว้ตามกฎหมายหรือข้อบังคับการทำงานของบริษัท ซึ่งรวมถึงการลาป่วย ลาคลอด ลารับราชการ</h3>
-<h3>ทหาร ลาบวช และลากิจ ทั้งนี้ ให้เป็นไปตามหลักเกณฑ์และเงื่อนไขที่บริษัทกำหนด โดยบริษัท</h3>
-<h3>จะจัดให้สิทธิในการลาไม่น้อยกว่าที่กฎหมายว่าด้วยการคุ้มครองแรงงานกำหนด</h3>
-<h3>12. ค่าจ้าง หมายถึง เงินที่บริษัทตกลงจ่ายเป็นค่าตอบแทนในการทำงานตามสัญญาจ้าง ไม่ว่าจะ</h3>
-<h3>กำหนดหรือคำนวณเป็นรายเดือน รายวัน รายชั่วโมง หรือในรูปแบบอื่นใดตามที่ตกลงกัน ทั้งนี้</h3>
-<h3>สำหรับการทำงานในเวลาทำงานปกติ หรือการทำงานที่บริษัทมอบหมาย</h3>
-<h3>13. การทำงานล่วงเวลาหมายถึง การทำงานเกินเวลาทำงานปกติในวันทำงานตามที่บริษัทกำหนด</h3>
-<h3>ซึ่งบริษัทได้สั่ง มอบหมาย หรืออนุญาต และพนักงานให้ความยินยอม ทั้งนี้ ให้เป็นไปตามกฎหมาย</h3>
-<h3>ว่าด้วยการคุ้มครองแรงงาน</h3>
-<h3>14. ค่าล่วงเวลาหมายถึง เงินค่าจ้างที่บริษัทจ่ายให้แก่พนักงานสำหรับการทำงานล่วงเวลาในวันทำงาน</h3>
-<h3>ซึ่งบริษัทได้สั่งหรืออนุญาต ทั้งนี้ ให้เป็นไปตามกฎหมายว่าด้วยการคุ้มครองแรงงาน</h3>
-<h3>15. ค่าทำงานในวันหยุด หมายถึง เงินค่าจ้างที่บริษัทจ่ายให้แก่พนักงานสำหรับการทำงานในวันหยุด</h3>
-<h3>ซึ่งบริษัทได้สั่งหรืออนุญาต ทั้งนี้ ให้เป็นไปตามกฎหมายว่าด้วยการคุ้มครองแรงงาน</h3>
-<h3>16. ค่าล่วงเวลาในวันหยุด หมายถึง เงินค่าจ้างที่บริษัทจ่ายให้แก่พนักงานเป็นค่าตอบแทนสำหรับ</h3>
-<h3>การทำงานล่วงเวลาในวันหยุดประจำสัปดาห์ หรือวันหยุดตามประเพณี ในช่วงเวลาที่เกินกว่าชั่วโมง</h3>
-<h3>การทำงานปกติ ซึ่งบริษัทได้สั่งหรืออนุญาต ทั้งนี้ ให้เป็นไปตามอัตราและหลักเกณฑ์ที่กฎหมาย</h3>
-<h3>ว่าด้วยการคุ้มครองแรงงานกำหนด</h3>
-<h3>17. ค่าชดเชย หมายถึง เงินที่บริษัทจ่ายให้แก่พนักงานเนื่องจากการเลิกจ้าง ตามอัตราและหลักเกณฑ์</h3>
-<h3>ที่กฎหมายว่าด้วยการคุ้มครองแรงงานกำหนด เว้นแต่กรณีที่กฎหมายบัญญัติให้นายจ้างไม่ต้องจ่าย</h3>
-<h3>ค่าชดเชย</h3>
-<h3>18. ค่าชดเชยพิเศษ หมายถึง เงินที่นายจ้างจ่ายให้แก่ลูกจ้าง นอกเหนือจากค่าชดเชยตามปกติ ในกรณี</h3>
-<h3>ที่กฎหมายว่าด้วยการคุ้มครองแรงงานกำหนดให้นายจ้างต้องจ่ายค่าชดเชยพิเศษ</h3>
-<h3>19. นโยบายของบริษัท หมายถึง ระเบียบ ข้อกำหนด แนวปฏิบัติ จรรยาบรรณ หรือประกาศใด ๆ ของ</h3>
-<h3>บริษัทที่บริษัทกำหนดขึ้นเพื่อใช้บังคับในการปฏิบัติงานของพนักงาน ไม่ว่าประกาศใช้เป็น</h3>
-<h3>ลายลักษณ์อักษรและ/หรือทางอิเล็กทรอนิกส์ รวมถึงแต่ไม่จำกัดเพียง จรรยาบรรณทางธุรกิจ</h3>
-<h3>นโยบายต่อต้านการให้หรือรับสินบนและการทุจริตคอร์รัปชัน นโยบายเกี่ยวกับยาเสพติด นโยบาย</h3>
-<h3>ความขัดแย้งทางผลประโยชน์ นโยบายการแจ้งเบาะแส และนโยบายอื่นใดที่บริษัทกำหนด แก้ไข</h3>
-<h3>หรือเพิ่มเติมเป็นครั้งคราว ทั้งนี้ ให้ถือว่านโยบายของบริษัทดังกล่าวเป็นส่วนหนึ่งของข้อบังคับ</h3>
-<h3>เกี่ยวกับการทำงานฉบับนี้ และมีผลผูกพันพนักงานทันทีนับแต่วันที่บริษัทประกาศใช้ ไม่ว่าพนักงาน</h3>
-<h3>ลงนามรับทราบ หรือให้ความยินยอมเป็นหนังสือหรือไม่ก็ตาม โดยบริษัทจะแจ้งให้พนักงาน</h3>
-<h3>ทราบตามช่องทางที่บริษัทเห็นสมควร</h3></div>
-          <div class="text-en"><h3>Chapter 1</h3>
-<h3>General Provisions</h3>
-<p>These Work Rules have been established to set forth the general policies governing the employment conditions of employees and shall form an integral part of the employment agreement between the Company and its employees. The purpose of these Work Rules is to inform all employees of their rights and responsibilities, as well as the terms and conditions of employment, in accordance with the Company’s rules, regulations, and established practices. These Work Rules have been prepared in compliance with the applicable labour protection laws currently in force and with due consideration of general employment practices in Thailand. In the event of any inconsistency between these Work Rules and the applicable labour protection laws, the provisions of the applicable labour protection laws shall prevail. The Company reserves the right to amend, revise, supplement, or waive any provision, in whole or in part, of these Work Rules in order to reflect changes in economic or social conditions or in the event of the enactment of new laws or regulations. Any such amendment shall be implemented in accordance with applicable legal procedures and in a manner consistent with ethical standards and the cultural values of Thailand and the Company’s business partners, to ensure that the Company’s operations remain appropriate and compliant. For the purposes of these Work Rules, the following terms shall have the meanings set forth below: 1.</p>
-<h3>Work Rules means the Work Rules of Akara Resources Public Company Limited.</h3>
-<p>2.</p>
-<h3>Company means Akara Resources Public Company Limited, including the Bangkok Office and the</h3>
-<p>Chatree Gold Mine Office, and shall also include any person duly authorized or assigned to act on behalf of the Company. 3.</p>
-<h3>Workplace means any place where the Company conducts its business operations, including but</h3>
-<p>not limited to: 3.1 Bangkok Office 188 Spring Tower, Unit 6, Level 14, Phaya Thai Road, Thung Phaya Thai, Ratchathewi, Bangkok 10400, Thailand Tel +66 5661 4500 ext. 2000 Email: admincgm@akararesources.com</p>
-<p>3.2 Chatree Gold Mine No. 99, Moo 9, Khao Chet Luk Subdistrict, Thap Khlo District, Phichit Province 66230 Tel +66 5661 4500 Email: admincgm@akararesources.com 3.3 Any other office or workplace that may be established by the Company in the future. 3.4 In addition, the term “Workplace” shall also include: 3.4.1 Any location where an employee is assigned or authorized by the Company to perform work duties, whether within or outside the Company’s premises. 3.4.2 Any premises of the Company, its customers, business partners, or any other location related to the performance of the employee’s duties. 3.4.3 Any vehicle owned by the Company or any vehicle arranged, contracted, or authorized by the Company for use in performing work duties or participating in Company activities. 3.4.4 Any location where Company activities are organized, whether conducted on the Company’s premises or off-site. 3.4.5 Any location where an employee performs work from home or performs duties through the use of information technology at any place, provided that such location has been notified to and approved by the Company. 4.</p>
-<h3>Employee means any person whom the Company has agreed to employ under an employment</h3>
-<p>contract to perform work for the Company in return for remuneration or wages, whether such person is under a probationary period or has already been confirmed as a regular employee. 5.</p>
-<h3>Probationary Employee means an employee whom the Company has agreed to employ and who</h3>
-<p>is undergoing a probationary period in accordance with the conditions determined and notified in writing by the Company. The Company may extend the probationary period, evaluate the employee’s performance, or take any employment-related action as permitted by law. A probationary employee shall remain entitled to all rights and protections provided under the applicable labour protection laws. 6.</p>
-<h3>Monthly Employee means an employee whom the Company has agreed to employ with wages</h3>
-<p>determined on a monthly basis. The rights, benefits, and welfare of such employee shall be in</p>
-<p>accordance with these Work Rules, the Company’s regulations and policies, and the applicable laws. 7.</p>
-<h3>Daily Employee, Hourly Employee, or Piece-rate Employee means an employee whom the</h3>
-<p>Company has agreed to employ and who receives wages calculated on a daily basis, hourly basis, or based on work output, as specified in the employment contract. The determination and payment of piece-rate wages shall not be contrary to the applicable labour protection laws. The rights, benefits, and welfare of such employees shall be in accordance with these Work Rules, the Company’s regulations and policies, and the applicable laws. 8.</p>
-<h3>Contract Employee means an employee whom the Company has agreed to employ under a written</h3>
-<p>employment contract for a fixed term or for the duration of a specific project or assignment, or for a period as mutually agreed upon. Such employment shall not create any expectation of continued employment or conversion to permanent employment unless otherwise agreed in writing by the Company. 9.</p>
-<h3>Working Day means a day on which an employee is required to perform work in accordance with</h3>
-<p>the Company’s normal working schedule. The number of working days and working hours shall be determined by the Company, provided that such working hours shall not exceed the limits prescribed by the applicable labour protection laws. 10. Holiday means a day on which the Company designates employees to be off from work in accordance with these Work Rules and the Company’s regulations and policies, including weekly holidays, traditional holidays, and annual leave. 11. Leave means a day on which an employee is granted permission to be temporarily absent from work under the types of leave prescribed by law or under these Work Rules of the Company, including sick leave, maternity leave, military service leave, ordination leave, and personal leave. Such leave shall be subject to the rules and conditions determined by the Company, provided that the leave entitlements granted shall not be less than those prescribed under the applicable labour protection laws. 12. Wages means money which the Company agrees to pay as remuneration for work performed under an employment contract, whether calculated on a monthly, daily, hourly, or any other agreed basis, for work performed during normal working hours or for duties assigned by the Company.</p>
-<p>13. Overtime Work means work performed beyond the normal working hours on a working day as determined by the Company, which has been ordered, assigned, or authorized by the Company and consented to by the employee, in accordance with the applicable labour protection laws. 14. Overtime Pay means wages paid by the Company to an employee for overtime work performed on a working day as ordered or authorized by the Company, in accordance with the applicable labour protection laws. 15. Holiday Pay means wages paid by the Company to an employee for work performed on a holiday as ordered or authorized by the Company, in accordance with the applicable labour protection laws. 16. Holiday Overtime Pay means wages paid by the Company to an employee as compensation for overtime work performed on a weekly holiday or traditional holiday beyond the normal working hours, as ordered or authorized by the Company, in accordance with the rates and conditions prescribed under the applicable labour protection laws. 17. Severance Pay means money paid by the Company to an employee upon termination of employment in accordance with the rates and conditions prescribed under the applicable labour protection laws, except in cases where the law provides that the employer is not required to pay severance pay. 18. Special Severance Pay means money paid by the employer to an employee in addition to the normal severance pay, in cases where the applicable labour protection laws require the employer to pay special severance pay. 19. Company Policies means any regulations, rules, guidelines, codes of conduct, or announcements issued by the Company for the purpose of governing employees’ work and conduct, whether issued in written form and/or through electronic means, including but not limited to the Business Code of Conduct, Anti-Bribery and Anti-Corruption Policy, Drug Policy, Conflict of Interest Policy, Whistleblowing Policy, and any other policies issued, amended, or supplemented by the Company from time to time. Such Company policies shall be deemed to form an integral part of these Work Rules and shall be binding upon employees from the date of issuance by the Company, regardless of whether the employee has signed an acknowledgement or provided written consent. The Company shall notify employees of such policies through any communication channels deemed appropriate by the Company.</p></div>
+<h2 class="chapter-section">หมวดที่ 1</h2>
+<h2>บททั่วไป</h2>
+<p>คู่มือพนักงานฉบับนี้จัดทำขึ้นเพื่อรวบรวมนโยบายทั่วไปเกี่ยวกับสภาพการจ้างของพนักงาน และให้ถือเป็นส่วนหนึ่งของสัญญาจ้างระหว่างบริษัทและพนักงาน เพื่อแจ้งให้พนักงานทุกคนทราบถึงสิทธิและ
+ความรับผิดชอบของตน รวมถึงข้อกำหนดและเงื่อนไขแห่งการจ้างงานให้เป็นไปตามข้อบังคับ ระเบียบ และ
+แนวปฏิบัติของบริษัท</p>
+<p>ข้อบังคับเกี่ยวกับการทำงานฉบับนี้จัดทำขึ้นให้สอดคล้องกับกฎหมายว่าด้วยการคุ้มครองแรงงาน
+ที่มีผลบังคับใช้ในปัจจุบัน และพิจารณาประกอบกับนโยบายการจ้างงานของสถานประกอบการโดยทั่วไป
+ในประเทศไทย ในกรณีที่เกิดข้อขัดแย้งใด ๆ ระหว่างข้อบังคับเกี่ยวกับการทำงานฉบับนี้กับกฎหมาย บริษัทจะถือปฏิบัติตามกฎหมายว่าด้วยการคุ้มครองแรงงานเป็นหลัก</p>
+<p>ทั้งนี้ บริษัทขอสงวนสิทธิในการเปลี่ยนแปลง แก้ไข เพิ่มเติม หรือยกเว้นข้อความทั้งหมดหรือบางส่วน
+ของข้อบังคับเกี่ยวกับการทำงานฉบับนี้ เพื่อให้สอดคล้องกับการเปลี่ยนแปลงทางเศรษฐกิจ สังคม หรือในกรณีที่มี
+การประกาศใช้กฎหมายใหม่ โดยบริษัทจะดำเนินการตามขั้นตอนที่กฎหมายกำหนด จริยธรรม และวัฒนธรรม
+อันดีงามของประเทศไทยและประเทศคู่ค้า เพื่อให้การดำเนินงานเป็นไปอย่างถูกต้องและเหมาะสม</p>
+<p>ให้ใช้คำนิยามดังต่อไปนี้กับคำต่าง ๆ ที่อยู่ในข้อบังคับเกี่ยวกับการทำงานฉบับนี้</p>
+<h4>สถานที่ทำงาน หมายถึง สถานที่ทำงานเพื่อประกอบกิจการของบริษัท  ได้แก่</h4>
+<ul>
+<li>สำนักงานกรุงเทพ</li>
+<li>188 อาคารสปริง ทาวเวอร์ ห้องเลขที่ 6 ชั้น 14 ถนนพญาไท</li>
+<li>แขวงทุ่งพญาไท เขตราชเทวี กรุงเทพมหานคร 10400</li>
+<li>โทรศัพท์ +66 5661 4500 ต่อ 2000</li>
+<li>อีเมล: admincgm@akararesources.com</li>
+<li>สำนักงานเหมืองแร่ทองคำชาตรี</li>
+<li>99 หมู่ 9 ตำบลเขาเจ็ดลูก อำเภอทับคล้อ จังหวัดพิจิตร 66230</li>
+<li>โทรศัพท์ +66 5661 4500</li>
+<li>อีเมล: admincgm@akararesources.com</li>
+<li>สำนักงานหรือสถานที่ทำงานอื่น ๆ ที่อาจมีขึ้นในอนาคต</li>
+<li>นอกจากนี้ “สถานที่ทำงาน” ให้หมายความรวมถึง</li>
+<li>สถานที่ที่บริษัทมอบหมายหรืออนุญาตให้พนักงานไปปฏิบัติงาน ไม่ว่าจะอยู่ภายในหรือภายนอกสถานประกอบการ</li>
+<li>สถานที่ของบริษัท ลูกค้า คู่ค้า หรือสถานที่อื่นใดที่เกี่ยวข้องกับการปฏิบัติงาน
+ตามหน้าที่</li>
+<li>ยานพาหนะของบริษัท หรือยานพาหนะที่บริษัทจัดจ้างหรืออนุญาตให้ใช้ใน
+การปฏิบัติงานหรือกิจกรรมของบริษัท</li>
+<li>สถานที่ที่บริษัทจัดกิจกรรม ไม่ว่าจะเป็นกิจกรรมภายในหรือนอกสถานที่</li>
+<li>สถานที่ซึ่งพนักงานปฏิบัติงานที่บ้าน หรือปฏิบัติงานผ่านการใช้เทคโนโลยีสารสนเทศ ณ สถานที่ใด ๆ ทั้งนี้ ต้องเป็นสถานที่ที่พนักงานได้แจ้งไว้และได้รับความเห็นชอบ
+จากบริษัทแล้ว</li>
+</ul>
+<h4>บุคลากรหรือพนักงาน หมายถึง บุคคลซึ่งบริษัทได้ตกลงจ้างตามสัญญาจ้างแรงงานให้ปฏิบัติงานแก่บริษัท เพื่อรับค่าตอบแทนหรือค่าจ้าง ไม่ว่าจะอยู่ในระยะทดลองงาน หรือได้รับการบรรจุเป็นพนักงานแล้วก็ตาม</h4>
+<h4>พนักงานทดลองงาน หมายถึง พนักงานซึ่งบริษัทตกลงจ้างให้ปฏิบัติงานและอยู่ในระยะทดลอง-งานตามเงื่อนไขที่บริษัทกำหนดและแจ้งไว้เป็นลายลักษณ์อักษร ทั้งนี้ บริษัทอาจพิจารณาขยายระยะเวลาทดลองงาน ประเมินผลการปฏิบัติงาน หรือดำเนินการเกี่ยวกับการจ้างตามที่กฎหมายอนุญาต โดยพนักงานทดลองงานยังคงมีสิทธิและได้รับความคุ้มครองตามกฎหมายว่าด้วยการคุ้มครองแรงงานทุกประการ</h4>
+<h4>พนักงานรายเดือน หมายถึง พนักงานซึ่งบริษัทตกลงจ้างให้ปฏิบัติงาน โดยกำหนดอัตราค่าจ้างเป็นรายเดือน ทั้งนี้ สิทธิ ประโยชน์ และสวัสดิการต่าง ๆ ให้เป็นไปตามข้อบังคับการทำงาน ระเบียบ และนโยบายของบริษัท รวมถึงกฎหมายที่เกี่ยวข้อง</h4>
+<h4>พนักงานรายวัน หรือรายชั่วโมง หรือพนักงานตามผลงาน หมายถึง พนักงานซึ่งบริษัทตกลงจ้างให้ปฏิบัติงาน และได้รับค่าจ้างในอัตรารายวัน รายชั่วโมง หรือค่าจ้างตามผลงาน ตามที่กำหนดไว้ในสัญญาจ้าง ทั้งนี้ การกำหนดและการจ่ายค่าจ้างตามผลงานต้องไม่ขัดต่อกฎหมายว่าด้วย
+การคุ้มครองแรงงาน และสิทธิประโยชน์และสวัสดิการให้เป็นไปตามข้อบังคับการทำงาน ระเบียบ และนโยบายของบริษัท รวมถึงกฎหมายที่เกี่ยวข้อง</h4>
+<h4>พนักงานตามสัญญา หมายถึง พนักงานซึ่งบริษัทตกลงจ้างให้ปฏิบัติงานตามสัญญาจ้าง โดยทำสัญญาเป็นลายลักษณ์อักษร และกำหนดระยะเวลาการจ้างที่แน่นอน หรือผูกพันกับความสำเร็จ
+ของงานในแต่ละโครงการ หรือระยะเวลาที่ตกลงกันไว้เป็นการเฉพาะ ทั้งนี้ การจ้างดังกล่าว
+ไม่ก่อให้เกิดความคาดหมายในการจ้างงานต่อเนื่อง หรือการบรรจุเป็นพนักงานประจำ เว้นแต่บริษัทจะได้ตกลงเป็นหนังสือไว้เป็นอย่างอื่น</h4>
+<h4>วันทำงาน หมายถึง วันที่บริษัทกำหนดให้พนักงานต้องปฏิบัติงานตามปกติ โดยให้จำนวนวันทำงานและชั่วโมงการทำงานเป็นไปตามที่บริษัทกำหนด ทั้งนี้ ต้องไม่เกินอัตราที่กฎหมายว่าด้วย
+การคุ้มครองแรงงานกำหนด</h4>
+<h4>วันหยุด หมายถึง วันที่บริษัทกำหนดให้พนักงานหยุดทำงานตามข้อบังคับการทำงาน ระเบียบ และนโยบายของบริษัท ได้แก่ วันหยุดประจำสัปดาห์ วันหยุดตามประเพณี และวันหยุดพักผ่อนประจำปี</h4>
+<h4>วันลา หมายถึง วันที่พนักงานได้รับอนุญาตให้หยุดงานเป็นการชั่วคราวตามประเภทการลาที่กำหนดไว้ตามกฎหมายหรือข้อบังคับการทำงานของบริษัท ซึ่งรวมถึงการลาป่วย ลาคลอด ลารับราชการทหาร ลาบวช และลากิจ ทั้งนี้ ให้เป็นไปตามหลักเกณฑ์และเงื่อนไขที่บริษัทกำหนด โดยบริษัท
+จะจัดให้สิทธิในการลาไม่น้อยกว่าที่กฎหมายว่าด้วยการคุ้มครองแรงงานกำหนด</h4>
+<h4>ค่าจ้าง หมายถึง เงินที่บริษัทตกลงจ่ายเป็นค่าตอบแทนในการทำงานตามสัญญาจ้าง ไม่ว่าจะกำหนดหรือคำนวณเป็นรายเดือน รายวัน รายชั่วโมง หรือในรูปแบบอื่นใดตามที่ตกลงกัน ทั้งนี้ สำหรับการทำงานในเวลาทำงานปกติ หรือการทำงานที่บริษัทมอบหมาย</h4>
+<h4>การทำงานล่วงเวลา หมายถึง การทำงานเกินเวลาทำงานปกติในวันทำงานตามที่บริษัทกำหนด 
+ซึ่งบริษัทได้สั่ง มอบหมาย หรืออนุญาต และพนักงานให้ความยินยอม ทั้งนี้ ให้เป็นไปตามกฎหมายว่าด้วยการคุ้มครองแรงงาน</h4>
+<h4>ค่าล่วงเวลา หมายถึง เงินค่าจ้างที่บริษัทจ่ายให้แก่พนักงานสำหรับการทำงานล่วงเวลาในวันทำงาน ซึ่งบริษัทได้สั่งหรืออนุญาต ทั้งนี้ ให้เป็นไปตามกฎหมายว่าด้วยการคุ้มครองแรงงาน</h4>
+<h4>ค่าทำงานในวันหยุด หมายถึง เงินค่าจ้างที่บริษัทจ่ายให้แก่พนักงานสำหรับการทำงานในวันหยุด ซึ่งบริษัทได้สั่งหรืออนุญาต ทั้งนี้ ให้เป็นไปตามกฎหมายว่าด้วยการคุ้มครองแรงงาน</h4>
+<h4>ค่าล่วงเวลาในวันหยุด หมายถึง เงินค่าจ้างที่บริษัทจ่ายให้แก่พนักงานเป็นค่าตอบแทนสำหรับ
+การทำงานล่วงเวลาในวันหยุดประจำสัปดาห์ หรือวันหยุดตามประเพณี ในช่วงเวลาที่เกินกว่าชั่วโมงการทำงานปกติ ซึ่งบริษัทได้สั่งหรืออนุญาต ทั้งนี้ ให้เป็นไปตามอัตราและหลักเกณฑ์ที่กฎหมาย
+ว่าด้วยการคุ้มครองแรงงานกำหนด</h4>
+<h4>ค่าชดเชย หมายถึง เงินที่บริษัทจ่ายให้แก่พนักงานเนื่องจากการเลิกจ้าง ตามอัตราและหลักเกณฑ์ที่กฎหมายว่าด้วยการคุ้มครองแรงงานกำหนด เว้นแต่กรณีที่กฎหมายบัญญัติให้นายจ้างไม่ต้องจ่ายค่าชดเชย</h4>
+<h4>ค่าชดเชยพิเศษ หมายถึง เงินที่นายจ้างจ่ายให้แก่ลูกจ้าง นอกเหนือจากค่าชดเชยตามปกติ ในกรณีที่กฎหมายว่าด้วยการคุ้มครองแรงงานกำหนดให้นายจ้างต้องจ่ายค่าชดเชยพิเศษ</h4>
+<h4>นโยบายของบริษัท หมายถึง ระเบียบ ข้อกำหนด แนวปฏิบัติ จรรยาบรรณ หรือประกาศใด ๆ ของบริษัทที่บริษัทกำหนดขึ้นเพื่อใช้บังคับในการปฏิบัติงานของพนักงาน ไม่ว่าประกาศใช้เป็นลายลักษณ์อักษรและ/หรือทางอิเล็กทรอนิกส์ รวมถึงแต่ไม่จำกัดเพียง จรรยาบรรณทางธุรกิจ นโยบายต่อต้านการให้หรือรับสินบนและการทุจริตคอร์รัปชัน นโยบายเกี่ยวกับยาเสพติด นโยบายความขัดแย้งทางผลประโยชน์ นโยบายการแจ้งเบาะแส และนโยบายอื่นใดที่บริษัทกำหนด แก้ไข หรือเพิ่มเติมเป็นครั้งคราว ทั้งนี้ ให้ถือว่านโยบายของบริษัทดังกล่าวเป็นส่วนหนึ่งของข้อบังคับเกี่ยวกับการทำงานฉบับนี้ และมีผลผูกพันพนักงานทันทีนับแต่วันที่บริษัทประกาศใช้ ไม่ว่าพนักงาน 
+ลงนามรับทราบ หรือให้ความยินยอมเป็นหนังสือหรือไม่ก็ตาม โดยบริษัทจะแจ้งให้พนักงานทราบตามช่องทางที่บริษัทเห็นสมควร</h4>
         </div>
         <nav class="chapter-nav"><a href="chapter-00.html">← สารจากผู้บริหาร</a><a href="chapter-02.html" class="next">วิสัยทัศน์องค์กร เสาหลักกลยุทธ์และน →</a></nav>
       </article>

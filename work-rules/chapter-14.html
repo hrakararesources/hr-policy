@@ -11,20 +11,15 @@
     body { display:flex; flex-direction:column; min-height:100vh; }
     .page-wrap { display:flex; flex:1; }
     .sidebar-fixed {
-      width:270px; flex-shrink:0;
-      position:sticky; top:60px;
-      height:calc(100vh - 60px);
-      overflow-y:auto;
-      background:#fff;
-      border-right:1.5px solid var(--gray-2);
-      padding:12px 8px;
+      width:270px; flex-shrink:0; position:sticky; top:60px;
+      height:calc(100vh - 60px); overflow-y:auto;
+      background:#fff; border-right:1.5px solid var(--gray-2); padding:12px 8px;
     }
     .sidebar-fixed::-webkit-scrollbar { width:4px; }
     .sidebar-fixed::-webkit-scrollbar-thumb { background:var(--gray-3); border-radius:2px; }
     .sidebar-home {
-      display:flex; align-items:center; gap:6px;
-      padding:7px 10px; font-size:0.8rem;
-      color:var(--text-muted); text-decoration:none;
+      display:flex; align-items:center; gap:6px; padding:7px 10px;
+      font-size:0.8rem; color:var(--text-muted); text-decoration:none;
       border-radius:6px; margin-bottom:2px;
     }
     .sidebar-home:hover { background:var(--gray-1); color:var(--blue); }
@@ -34,11 +29,9 @@
       padding:10px 10px 4px; display:block;
     }
     .sidebar-chapter {
-      display:flex; align-items:flex-start; gap:8px;
-      padding:8px 10px; border-radius:8px;
-      text-decoration:none; color:var(--text-muted);
-      font-size:0.8rem; line-height:1.35;
-      transition:all 0.15s; margin-bottom:1px;
+      display:flex; align-items:flex-start; gap:8px; padding:8px 10px;
+      border-radius:8px; text-decoration:none; color:var(--text-muted);
+      font-size:0.8rem; line-height:1.35; transition:all 0.15s; margin-bottom:1px;
     }
     .sidebar-chapter:hover { background:var(--blue-light); color:var(--blue); }
     .sidebar-chapter.active { background:var(--blue); color:#fff; }
@@ -47,23 +40,29 @@
       min-width:26px; height:26px; border-radius:6px;
       background:var(--blue-light); color:var(--blue);
       font-size:0.7rem; font-weight:700;
-      display:flex; align-items:center; justify-content:center;
-      flex-shrink:0; margin-top:1px;
+      display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px;
     }
     .sidebar-label { flex:1; }
     .main-content { flex:1; padding:32px 32px 60px; min-width:0; }
     .chapter-card { max-width:740px; margin:0 auto; }
+    .chapter-body h2.chapter-section { color:var(--blue); font-size:1.1rem; margin:28px 0 8px; }
+    .chapter-body h2 { color:var(--dark); font-size:1.15rem; margin:24px 0 8px; }
+    .chapter-body h3 { color:var(--blue); font-size:1rem; margin:20px 0 6px; border-left:3px solid var(--blue); padding-left:10px; }
+    .chapter-body h4 { color:var(--dark); font-size:0.95rem; margin:14px 0 4px; font-weight:600; }
+    .chapter-body p { color:var(--text); font-size:0.95rem; margin-bottom:0.8em; line-height:1.75; }
+    .chapter-body ul { padding-left:1.4em; margin-bottom:1em; }
+    .chapter-body li { font-size:0.95rem; margin-bottom:0.4em; color:var(--text); line-height:1.7; }
     @media(max-width:768px) {
       .sidebar-fixed { display:none; }
       .sidebar-fixed.open { display:block; position:fixed; top:60px; left:0; z-index:200; height:calc(100vh - 60px); box-shadow:4px 0 20px rgba(0,0,0,0.15); }
-      .sidebar-toggle-btn { display:flex !important; }
+      .mob-menu { display:flex !important; }
     }
   </style>
 </head>
 <body>
   <header class="topbar">
     <div class="topbar-left">
-      <button class="sidebar-toggle-btn" onclick="toggleSidebar()" style="display:none;background:rgba(255,255,255,0.15);border:none;color:#fff;padding:6px 10px;border-radius:6px;cursor:pointer;font-size:1rem;margin-right:8px;">☰</button>
+      <button class="mob-menu" onclick="toggleSidebar()" style="display:none;background:rgba(255,255,255,0.15);border:none;color:#fff;padding:6px 10px;border-radius:6px;cursor:pointer;font-size:1rem;margin-right:8px;">☰</button>
       <img src="../assets/Akara Logo.jpg" alt="Akara Resources" class="topbar-logo">
       <div class="topbar-title">
         <span class="text-th">คู่มือพนักงาน</span><span class="text-en">Employee Handbook</span>
@@ -112,61 +111,33 @@
         </h1>
         <div class="chapter-divider"></div>
         <div class="chapter-body">
-          <div class="text-th"><h2>หมวดที่ 14</h2>
-<h3>ข้อกำหนดทั่วไปและการบังคับใช้</h3>
-<h3>1. ทรัพย์สินทางปัญญา(Intellectual Property)</h3>
-<h3>ผลงาน สิ่งประดิษฐ์ งานสร้างสรรค์ โปรแกรมคอมพิวเตอร์ ข้อมูล งานวิจัย แบบจำลอง กระบวนการ</h3>
-<h3>วิธีการ หรือทรัพย์สินทางปัญญาอื่นใด ไม่ว่าอยู่ในรูปแบบใด ซึ่งพนักงานได้จัดทำ พัฒนาคิดค้น หรือสร้างขึ้น</h3>
-<h3>ไม่ว่าโดยลำพังหรือร่วมกับผู้อื่น ในระหว่างระยะเวลาการจ้างงาน และไม่ว่าจะเกิดจากการปฏิบัติหน้าที่</h3>
-<h3>โดยตรง หรือเกิดจากการใช้เวลาความรู้ ทรัพยากร งบประมาณ ระบบ หรืออุปกรณ์ของบริษัททั้งหมดหรือ</h3>
-<h3>บางส่วน ให้ถือเป็นทรัพย์สินและสิทธิแต่เพียงผู้เดียวของบริษัทโดยสมบูรณ์</h3>
-<h3>2. การละเมิดทรัพย์สินทางปัญญา</h3>
-<h3>พนักงานต้องไม่คัดลอก ดัดแปลง เผยแพร่ ใช้ หรือแอบอ้างทรัพย์สินทางปัญญาของบุคคลอื่นโดย</h3>
-<h3>ไม่ได้รับอนุญาตตามกฎหมาย หากการกระทำดังกล่าวก่อให้เกิดความเสียหาย ความรับผิด หรือภาระ</h3>
-<h3>ค่าใช้จ่ายแก่บริษัท พนักงานต้องรับผิดชดใช้ค่าเสียหายทั้งหมดโดยสิ้นเชิง</h3>
-<h3>3. การใช้ทรัพย์สินหรือข้อมูลของบุคคลภายนอก</h3>
-<h3>พนักงานต้องไม่ติดตั้ง จัดเก็บ หรือใช้ซอฟต์แวร์ ข้อมูล หรือทรัพย์สินทางปัญญาของบุคคลภายนอก</h3>
-<h3>ในระบบหรืออุปกรณ์ของบริษัทโดยไม่ได้รับอนุญาตเป็นลายลักษณ์อักษร หากก่อให้เกิดความเสียหาย บริษัท</h3>
-<h3>มีสิทธิเรียกร้องให้พนักงานรับผิดชดใช้ทั้งหมด</h3>
-<h3>4. มาตรการป้องกันยาเสพติด</h3>
-<h3>พนักงานยินยอมให้บริษัทดำเนินการตรวจหาสารเสพติดในร่างกายตามหลักเกณฑ์ที่บริษัทกำหนด</h3>
-<h3>เพื่อประโยชน์ด้านความปลอดภัย อาชีวอนามัย และการปฏิบัติตามกฎหมาย</h3>
-<h3>5. หน้าที่ในการรับทราบและปฏิบัติตามข้อบังคับ</h3>
-<h3>พนักงานทุกระดับมีหน้าที่ศึกษาทำความเข้าใจ และปฏิบัติตามข้อบังคับเกี่ยวกับการทำงาน</h3>
-<h3>นโยบาย ระเบียบ ขั้นตอน และคำสั่งของบริษัทโดยเคร่งครัด</h3>
-<h3>6. การอ้างไม่ทราบข้อบังคับ</h3>
-<h3>พนักงานไม่อาจอ้างว่าไม่ทราบ ไม่เข้าใจ หรือไม่ได้รับทราบข้อบังคับ นโยบาย หรือแนวปฏิบัติของ</h3>
-<h3>บริษัทเพื่อยกเว้นความรับผิดได้</h3>
-<h3>7. สถานะของนโยบายบริษัท</h3>
-<h3>นโยบาย ระเบียบปฏิบัติ ขั้นตอนการทำงาน ประกาศ หรือคำสั่งของบริษัท ไม่ว่าจะจัดทำใน</h3>
-<h3>รูปแบบใด ให้ถือเป็นส่วนหนึ่งของข้อบังคับเกี่ยวกับการทำงาน และมีผลผูกพันพนักงานทุกคน</h3>
-<h3>8. การตีความข้อบังคับ</h3>
-<h3>การตีความข้อบังคับเกี่ยวกับการทำงานฉบับนี้ ให้เป็นอำนาจของบริษัทแต่เพียงผู้เดียว และคำ</h3>
-<h3>วินิจฉัยของบริษัทให้ถือเป็นที่สุด</h3>
-<h3>9. การแก้ไขเพิ่มเติม</h3>
-<h3>บริษัทสงวนสิทธิในการแก้ไข เปลี่ยนแปลง หรือเพิ่มเติมข้อบังคับเกี่ยวกับการทำงาน นโยบาย หรือ</h3>
-<h3>ระเบียบใด ๆ ได้ตามความจำเป็น โดยให้มีผลบังคับใช้เมื่อบริษัทได้ประกาศให้พนักงานทราบตามวิธีการที่</h3>
-<h3>บริษัทกำหนด</h3>
-<h3>10. การแยกบังคับใช้</h3>
-<h3>หากบทบัญญัติใดของข้อบังคับนี้ถูกวินิจฉัยว่าไม่ชอบด้วยกฎหมาย หรือไม่สามารถบังคับใช้ได้ ให้</h3>
-<h3>บทบัญญัติส่วนที่เหลือยังคงมีผลบังคับใช้โดยสมบูรณ์</h3>
-<h3>11. กฎหมายที่ใช้บังคับ</h3>
-<h3>ข้อบังคับเกี่ยวกับการทำงานฉบับนี้ให้ตีความและบังคับใช้ตามกฎหมายแรงงานและกฎหมายที่</h3>
-<h3>เกี่ยวข้องของประเทศไทย</h3>
-<h3>12. วันมีผลบังคับใช้</h3>
-<h3>ข้อบังคับเกี่ยวกับการทำงานฉบับนี้ให้มีผลใช้บังคับตั้งแต่วันที่ 1 เมษายน พ.ศ. 2569 เป็นต้นไป</h3></div>
-          <div class="text-en"><p>8.3 Any other circumstances prescribed by law that result in the termination of the employment contract. 8.4 Where the employee no longer possesses the required qualifications or has had a license revoked as required by law for the performance of the job, and such issue cannot be remedied within a reasonable period of time. 8.5 Termination of employment under this clause shall be deemed termination of the employment contract in accordance with applicable law and shall not be deemed a termination initiated by the Company.</p>
-<h3>Chapter 13</h3>
-<h3>Welfare and Other Benefits</h3>
-<h3>1.</h3>
-<h3>Principles of Welfare Provision</h3>
-<p>The Company provides welfare and benefits to employees as appropriate in order to promote employees’ quality of life, job security, and efficiency in the performance of their duties. The provision of such welfare and benefits shall be in accordance with the policies, regulations, and practices prescribed by the Company. The Company reserves the right to determine, amend, modify, suspend, or cancel any welfare or benefit as necessary, appropriate, or due to business circumstances, which shall not be considered a change in employment conditions unless otherwise required by law.</p>
-<h3>2.</h3>
-<h3>Types of Welfare</h3>
-<p>Welfare and benefits provided by the Company may include, but are not limited to, the following: 2.1 Pre-employment medical examination and annual health check-ups. 2.2 Accident and life insurance. 2.3 Employee uniforms. 2.4 Expenses or allowances related to work performance, such as travel expenses, meal allowances, shift allowances, or similar payments. 2.5 Medical benefits for employees and their families. 2.6 Provident fund. 2.7 Provision of equipment, assets, or facilities necessary for work performance. 2.8 Financial assistance on special occasions or in necessary circumstances, such as ordination, marriage, childbirth, illness, or death. 2.9 Long service awards. 2.10 Other welfare or benefits as determined by the Company from time to time.</p>
-<h3>3.</h3>
-<h3>Conditions, Criteria, and Methods of Entitlement</h3>
-<p>Eligibility for each type of welfare or benefit shall be subject to the qualifications, conditions, rates, criteria, methods of entitlement, and practices specifically prescribed by the Company for each welfare</p></div>
+<h2 class="chapter-section">หมวดที่ 14</h2>
+<h2>ข้อกำหนดทั่วไปและการบังคับใช้</h2>
+<h4>ทรัพย์สินทางปัญญา (Intellectual Property)</h4>
+<p>ผลงาน สิ่งประดิษฐ์ งานสร้างสรรค์ โปรแกรมคอมพิวเตอร์ ข้อมูล งานวิจัย แบบจำลอง กระบวนการ วิธีการ หรือทรัพย์สินทางปัญญาอื่นใด ไม่ว่าอยู่ในรูปแบบใด ซึ่งพนักงานได้จัดทำ พัฒนา คิดค้น หรือสร้างขึ้น ไม่ว่าโดยลำพังหรือร่วมกับผู้อื่น ในระหว่างระยะเวลาการจ้างงาน และไม่ว่าจะเกิดจากการปฏิบัติหน้าที่โดยตรง หรือเกิดจากการใช้เวลา ความรู้ ทรัพยากร งบประมาณ ระบบ หรืออุปกรณ์ของบริษัททั้งหมดหรือบางส่วน ให้ถือเป็นทรัพย์สินและสิทธิแต่เพียงผู้เดียวของบริษัทโดยสมบูรณ์</p>
+<h4>การละเมิดทรัพย์สินทางปัญญา</h4>
+<p>พนักงานต้องไม่คัดลอก ดัดแปลง เผยแพร่ ใช้ หรือแอบอ้างทรัพย์สินทางปัญญาของบุคคลอื่นโดยไม่ได้รับอนุญาตตามกฎหมาย หากการกระทำดังกล่าวก่อให้เกิดความเสียหาย ความรับผิด หรือภาระค่าใช้จ่ายแก่บริษัท พนักงานต้องรับผิดชดใช้ค่าเสียหายทั้งหมดโดยสิ้นเชิง</p>
+<h4>การใช้ทรัพย์สินหรือข้อมูลของบุคคลภายนอก</h4>
+<p>พนักงานต้องไม่ติดตั้ง จัดเก็บ หรือใช้ซอฟต์แวร์ ข้อมูล หรือทรัพย์สินทางปัญญาของบุคคลภายนอกในระบบหรืออุปกรณ์ของบริษัทโดยไม่ได้รับอนุญาตเป็นลายลักษณ์อักษร หากก่อให้เกิดความเสียหาย บริษัทมีสิทธิเรียกร้องให้พนักงานรับผิดชดใช้ทั้งหมด</p>
+<h4>มาตรการป้องกันยาเสพติด</h4>
+<p>พนักงานยินยอมให้บริษัทดำเนินการตรวจหาสารเสพติดในร่างกายตามหลักเกณฑ์ที่บริษัทกำหนด เพื่อประโยชน์ด้านความปลอดภัย อาชีวอนามัย และการปฏิบัติตามกฎหมาย</p>
+<h4>หน้าที่ในการรับทราบและปฏิบัติตามข้อบังคับ</h4>
+<p>พนักงานทุกระดับมีหน้าที่ศึกษา ทำความเข้าใจ และปฏิบัติตามข้อบังคับเกี่ยวกับการทำงาน นโยบาย ระเบียบ ขั้นตอน และคำสั่งของบริษัทโดยเคร่งครัด</p>
+<h4>การอ้างไม่ทราบข้อบังคับ</h4>
+<p>พนักงานไม่อาจอ้างว่าไม่ทราบ ไม่เข้าใจ หรือไม่ได้รับทราบข้อบังคับ นโยบาย หรือแนวปฏิบัติของบริษัทเพื่อยกเว้นความรับผิดได้</p>
+<h4>สถานะของนโยบายบริษัท</h4>
+<p>นโยบาย ระเบียบปฏิบัติ ขั้นตอนการทำงาน ประกาศ หรือคำสั่งของบริษัท ไม่ว่าจะจัดทำใน
+รูปแบบใด ให้ถือเป็นส่วนหนึ่งของข้อบังคับเกี่ยวกับการทำงาน และมีผลผูกพันพนักงานทุกคน</p>
+<h4>การตีความข้อบังคับ</h4>
+<p>การตีความข้อบังคับเกี่ยวกับการทำงานฉบับนี้ ให้เป็นอำนาจของบริษัทแต่เพียงผู้เดียว และคำวินิจฉัยของบริษัทให้ถือเป็นที่สุด</p>
+<h4>การแก้ไขเพิ่มเติม</h4>
+<p>บริษัทสงวนสิทธิในการแก้ไข เปลี่ยนแปลง หรือเพิ่มเติมข้อบังคับเกี่ยวกับการทำงาน นโยบาย หรือระเบียบใด ๆ ได้ตามความจำเป็น โดยให้มีผลบังคับใช้เมื่อบริษัทได้ประกาศให้พนักงานทราบตามวิธีการที่บริษัทกำหนด</p>
+<h4>การแยกบังคับใช้</h4>
+<p>หากบทบัญญัติใดของข้อบังคับนี้ถูกวินิจฉัยว่าไม่ชอบด้วยกฎหมาย หรือไม่สามารถบังคับใช้ได้ ให้บทบัญญัติส่วนที่เหลือยังคงมีผลบังคับใช้โดยสมบูรณ์</p>
+<h4>กฎหมายที่ใช้บังคับ</h4>
+<p>ข้อบังคับเกี่ยวกับการทำงานฉบับนี้ให้ตีความและบังคับใช้ตามกฎหมายแรงงานและกฎหมายที่เกี่ยวข้องของประเทศไทย</p>
+<h4>วันมีผลบังคับใช้</h4>
+<h3>ข้อบังคับเกี่ยวกับการทำงานฉบับนี้ให้มีผลใช้บังคับตั้งแต่วันที่ 1 เมษายน พ.ศ. 2569 เป็นต้นไป</h3>
         </div>
         <nav class="chapter-nav"><a href="chapter-13.html">← สวัสดิการและสิทธิประโยชน์อื่น ๆ</a></nav>
       </article>
