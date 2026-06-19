@@ -78,10 +78,29 @@ def extract_pages(pdf_path):
     doc = fitz.open(pdf_path)
     pages = []
     for page in doc:
-        raw_lines = page.get_text("text").split('\n')
-        clean = [clean_line(l) for l in raw_lines]
-        clean = [l for l in clean if l]
-        pages.append('\n'.join(clean))
+        blocks = page.get_text("dict")["blocks"]
+        lines_out = []
+        for block in blocks:
+            if block["type"] != 0:
+                continue
+            for line in block["lines"]:
+                spans = line["spans"]
+                if not spans:
+                    continue
+                text = "".join(s["text"] for s in spans).strip()
+                if not text:
+                    continue
+                size = spans[0]["size"]
+                is_bold = "Bold" in (spans[0].get("font",""))
+                cleaned = clean_line(text)
+                if not cleaned:
+                    continue
+                # ถ้า font ใหญ่หรือ bold = หัวข้อ
+                if size >= 13 or is_bold:
+                    lines_out.append(f"HEADING::{cleaned}")
+                else:
+                    lines_out.append(cleaned)
+        pages.append("\n".join(lines_out))
     doc.close()
     return pages
 
@@ -94,38 +113,41 @@ def text_to_html(text):
     if not text.strip():
         return '<p style="color:var(--text-muted)">ไม่มีเนื้อหา</p>'
     html, buf = [], []
+    prev_heading = False
 
-    def flush():
+    def flush(is_heading=False):
         if not buf: return
         para = ' '.join(buf).strip()
         buf.clear()
         if not para or len(para) < 2: return
-        # หมวดที่ X
-        if re.match(r'^หมวดที่\s*\d+', para):
-            html.append(f'<h2>{para}</h2>')
-        # ข้อ 1. / 2. / 3. (หัวข้อหลัก)
-        elif re.match(r'^\d+\.\s+[\u0E00-\u0E7FA-Z]', para) and len(para) < 150:
-            html.append(f'<h3>{para}</h3>')
-        # ข้อ 1.1 / 2.3 (หัวข้อย่อย)
-        elif re.match(r'^\d+\.\d+\s+[\u0E00-\u0E7FA-Z]', para) and len(para) < 150:
-            html.append(f'<h4>{para}</h4>')
-        # ข้อ 1.1.1 (หัวข้อย่อยย่อย)
-        elif re.match(r'^\d+\.\d+\.\d+\s+', para) and len(para) < 200:
-            html.append(f'<p style="padding-left:1.5em"><strong>{para[:para.index(" ")+20]}</strong>{para[para.index(" ")+20:]}</p>')
+        if is_heading:
+            if re.match(r'^หมวดที่\s*\d+', para):
+                html.append(f'<h2>{para}</h2>')
+            elif re.match(r'^\d+\.\d+\.\d+', para):
+                html.append(f'<h5>{para}</h5>')
+            elif re.match(r'^\d+\.\d+', para):
+                html.append(f'<h4>{para}</h4>')
+            else:
+                html.append(f'<h3>{para}</h3>')
         else:
             html.append(f'<p>{para}</p>')
 
     for line in text.split('\n'):
-        line = line.strip()
-        # บังคับ flush เมื่อเจอหัวข้อใหม่
-        if line and re.match(r'^(\d+\.|หมวดที่)\s*\d', line):
-            flush()
-            buf.append(line)
-        elif not line:
-            flush()
+        is_h = line.startswith('HEADING::')
+        content = line[9:] if is_h else line.strip()
+        if is_h:
+            flush(prev_heading)
+            buf.append(content)
+            prev_heading = True
+        elif not content:
+            flush(prev_heading)
+            prev_heading = False
         else:
-            buf.append(line)
-    flush()
+            if prev_heading and buf:
+                flush(prev_heading)
+                prev_heading = False
+            buf.append(content)
+    flush(prev_heading)
     return '\n'.join(html)
 
 def build_sidebar(chapters, current_file):
