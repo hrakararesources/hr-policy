@@ -8,38 +8,62 @@
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/style.css">
   <style>
-    .chapter-layout { grid-template-columns: 280px 1fr; }
+    body { display:flex; flex-direction:column; min-height:100vh; }
+    .page-wrap { display:flex; flex:1; }
+    .sidebar-fixed {
+      width:270px; flex-shrink:0;
+      position:sticky; top:60px;
+      height:calc(100vh - 60px);
+      overflow-y:auto;
+      background:#fff;
+      border-right:1.5px solid var(--gray-2);
+      padding:12px 8px;
+    }
+    .sidebar-fixed::-webkit-scrollbar { width:4px; }
+    .sidebar-fixed::-webkit-scrollbar-thumb { background:var(--gray-3); border-radius:2px; }
+    .sidebar-home {
+      display:flex; align-items:center; gap:6px;
+      padding:7px 10px; font-size:0.8rem;
+      color:var(--text-muted); text-decoration:none;
+      border-radius:6px; margin-bottom:2px;
+    }
+    .sidebar-home:hover { background:var(--gray-1); color:var(--blue); }
+    .sidebar-section {
+      font-size:0.68rem; font-weight:700; letter-spacing:0.1em;
+      text-transform:uppercase; color:var(--text-muted);
+      padding:10px 10px 4px; display:block;
+    }
     .sidebar-chapter {
-      display: flex; align-items: flex-start; gap: 10px;
-      padding: 10px 12px; border-radius: 8px;
-      text-decoration: none; color: var(--text-muted);
-      font-size: 0.82rem; line-height: 1.35;
-      transition: all 0.2s; border: 1.5px solid transparent;
+      display:flex; align-items:flex-start; gap:8px;
+      padding:8px 10px; border-radius:8px;
+      text-decoration:none; color:var(--text-muted);
+      font-size:0.8rem; line-height:1.35;
+      transition:all 0.15s; margin-bottom:1px;
     }
-    .sidebar-chapter:hover { background: var(--blue-light); color: var(--blue); }
-    .sidebar-chapter.active {
-      background: var(--blue); color: #fff;
-      border-color: var(--blue);
-    }
-    .sidebar-chapter.active .sidebar-num { background: rgba(255,255,255,0.2); color: #fff; }
+    .sidebar-chapter:hover { background:var(--blue-light); color:var(--blue); }
+    .sidebar-chapter.active { background:var(--blue); color:#fff; }
+    .sidebar-chapter.active .sidebar-num { background:rgba(255,255,255,0.25); color:#fff; }
     .sidebar-num {
-      min-width: 28px; height: 28px; border-radius: 7px;
-      background: var(--blue-light); color: var(--blue);
-      font-size: 0.72rem; font-weight: 700;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; margin-top: 1px;
+      min-width:26px; height:26px; border-radius:6px;
+      background:var(--blue-light); color:var(--blue);
+      font-size:0.7rem; font-weight:700;
+      display:flex; align-items:center; justify-content:center;
+      flex-shrink:0; margin-top:1px;
     }
-    .sidebar-label { flex: 1; }
-    .sidebar-section-label {
-      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--text-muted);
-      padding: 12px 12px 4px; display: block;
+    .sidebar-label { flex:1; }
+    .main-content { flex:1; padding:32px 32px 60px; min-width:0; }
+    .chapter-card { max-width:740px; margin:0 auto; }
+    @media(max-width:768px) {
+      .sidebar-fixed { display:none; }
+      .sidebar-fixed.open { display:block; position:fixed; top:60px; left:0; z-index:200; height:calc(100vh - 60px); box-shadow:4px 0 20px rgba(0,0,0,0.15); }
+      .sidebar-toggle-btn { display:flex !important; }
     }
   </style>
 </head>
 <body>
   <header class="topbar">
     <div class="topbar-left">
+      <button class="sidebar-toggle-btn" onclick="toggleSidebar()" style="display:none;background:rgba(255,255,255,0.15);border:none;color:#fff;padding:6px 10px;border-radius:6px;cursor:pointer;font-size:1rem;margin-right:8px;">☰</button>
       <img src="../assets/Akara Logo.jpg" alt="Akara Resources" class="topbar-logo">
       <div class="topbar-title">
         <span class="text-th">คู่มือพนักงาน</span><span class="text-en">Employee Handbook</span>
@@ -54,17 +78,13 @@
     </div>
   </header>
 
-  <div style="display:flex; min-height:calc(100vh - 60px);">
-    <aside class="sidebar" id="sidebar" style="width:280px;flex-shrink:0;position:sticky;top:60px;height:calc(100vh - 60px);overflow-y:auto;background:#fff;border-right:1px solid var(--gray-2);padding:16px 8px;">
-      <a href="../index.html" style="display:flex;align-items:center;gap:6px;padding:8px 12px;font-size:0.8rem;color:var(--text-muted);text-decoration:none;margin-bottom:4px;">
-        ← <span class="text-th">หน้าหลัก</span><span class="text-en">Home</span>
-      </a>
-      <a href="index.html" style="display:flex;align-items:center;gap:6px;padding:8px 12px;font-size:0.8rem;color:var(--blue);text-decoration:none;font-weight:600;margin-bottom:8px;">
-        ☰ <span class="text-th">สารบัญ</span><span class="text-en">Contents</span>
-      </a>
-      <span class="sidebar-section-label text-th">ระเบียบข้อบังคับการทำงาน</span>
-      <span class="sidebar-section-label text-en">Work Rules & Regulations</span>
-      <nav style="display:flex;flex-direction:column;gap:2px;">
+  <div class="page-wrap">
+    <aside class="sidebar-fixed" id="sidebar">
+      <a href="../index.html" class="sidebar-home">← <span class="text-th">หน้าหลัก</span><span class="text-en">Home</span></a>
+      <a href="index.html" class="sidebar-home" style="color:var(--blue);font-weight:600;">☰ <span class="text-th">สารบัญ</span><span class="text-en">Contents</span></a>
+      <span class="sidebar-section text-th">ระเบียบข้อบังคับการทำงาน</span>
+      <span class="sidebar-section text-en">Work Rules & Regulations</span>
+      <nav style="display:flex;flex-direction:column;gap:1px;">
           <a href="chapter-00.html" class="sidebar-chapter"><span class="sidebar-num">00</span><span class="sidebar-label"><span class="text-th">สารจากผู้บริหาร</span><span class="text-en">Message from Management</span></span></a>
           <a href="chapter-01.html" class="sidebar-chapter"><span class="sidebar-num">01</span><span class="sidebar-label"><span class="text-th">บททั่วไป</span><span class="text-en">General Provisions</span></span></a>
           <a href="chapter-02.html" class="sidebar-chapter"><span class="sidebar-num">02</span><span class="sidebar-label"><span class="text-th">วิสัยทัศน์องค์กร เสาหลักกลยุทธ์และนโยบายองค์กร</span><span class="text-en">Corporate Vision, Strategic Pillars and Policies</span></span></a>
@@ -72,10 +92,10 @@
           <a href="chapter-04.html" class="sidebar-chapter"><span class="sidebar-num">04</span><span class="sidebar-label"><span class="text-th">การสับเปลี่ยนหน้าที่ การโยกย้าย และการปฏิบัติงานที่บ้าน</span><span class="text-en">Job Rotation, Transfer and Work from Home</span></span></a>
           <a href="chapter-05.html" class="sidebar-chapter"><span class="sidebar-num">05</span><span class="sidebar-label"><span class="text-th">วันทำงาน เวลาทำงานปกติ และเวลาพัก</span><span class="text-en">Working Days, Hours and Rest Periods</span></span></a>
           <a href="chapter-06.html" class="sidebar-chapter"><span class="sidebar-num">06</span><span class="sidebar-label"><span class="text-th">วันหยุด และหลักเกณฑ์วันหยุด</span><span class="text-en">Holidays and Holiday Criteria</span></span></a>
-          <a href="chapter-07.html" class="sidebar-chapter"><span class="sidebar-num">07</span><span class="sidebar-label"><span class="text-th">หลักเกณฑ์การทำงานล่วงเวลา และการทำงานในวันหยุด</span><span class="text-en">Overtime and Holiday Work</span></span></a>
-          <a href="chapter-08.html" class="sidebar-chapter"><span class="sidebar-num">08</span><span class="sidebar-label"><span class="text-th">การจ่ายค่าจ้าง ค่าล่วงเวลา และค่าทำงานในวันหยุด</span><span class="text-en">Wages, Overtime and Holiday Pay</span></span></a>
+          <a href="chapter-07.html" class="sidebar-chapter"><span class="sidebar-num">07</span><span class="sidebar-label"><span class="text-th">หลักเกณฑ์การทำงานล่วงเวลา และการทำงานในวันหยุด</span><span class="text-en">Overtime and Holiday Work Criteria</span></span></a>
+          <a href="chapter-08.html" class="sidebar-chapter"><span class="sidebar-num">08</span><span class="sidebar-label"><span class="text-th">การจ่ายค่าจ้าง ค่าล่วงเวลา และค่าทำงานในวันหยุด</span><span class="text-en">Wages, Overtime Pay and Holiday Pay</span></span></a>
           <a href="chapter-09.html" class="sidebar-chapter"><span class="sidebar-num">09</span><span class="sidebar-label"><span class="text-th">วันลา และหลักเกณฑ์การลา</span><span class="text-en">Leave and Leave Criteria</span></span></a>
-          <a href="chapter-10.html" class="sidebar-chapter"><span class="sidebar-num">10</span><span class="sidebar-label"><span class="text-th">วินัย และโทษทางวินัย</span><span class="text-en">Discipline and Penalties</span></span></a>
+          <a href="chapter-10.html" class="sidebar-chapter"><span class="sidebar-num">10</span><span class="sidebar-label"><span class="text-th">วินัย และโทษทางวินัย</span><span class="text-en">Discipline and Disciplinary Penalties</span></span></a>
           <a href="chapter-11.html" class="sidebar-chapter"><span class="sidebar-num">11</span><span class="sidebar-label"><span class="text-th">การร้องทุกข์</span><span class="text-en">Grievance Procedure</span></span></a>
           <a href="chapter-12.html" class="sidebar-chapter"><span class="sidebar-num">12</span><span class="sidebar-label"><span class="text-th">การพ้นสภาพการเป็นพนักงาน</span><span class="text-en">Termination of Employment</span></span></a>
           <a href="chapter-13.html" class="sidebar-chapter"><span class="sidebar-num">13</span><span class="sidebar-label"><span class="text-th">สวัสดิการและสิทธิประโยชน์อื่น ๆ</span><span class="text-en">Welfare and Other Benefits</span></span></a>
@@ -83,35 +103,19 @@
       </nav>
     </aside>
 
-    <main style="flex:1;padding:32px 28px 60px;min-width:0;">
-      <button class="sidebar-toggle" onclick="toggleSidebar()" style="display:none;">☰</button>
-      <article class="chapter-card" style="max-width:760px;margin:0 auto;">
+    <main class="main-content">
+      <article class="chapter-card">
         <div class="chapter-badge">หมวดที่ 14</div>
         <h1 class="chapter-title">
           <span class="text-th">ข้อกำหนดทั่วไปและการบังคับใช้</span>
           <span class="text-en">General Provisions and Enforcement</span>
         </h1>
         <div class="chapter-divider"></div>
-        <div class="chapter-body" id="chapterBody">
-          <div class="text-th"><p>16-Apr-2026</p>
-<p>Effective date: 20/Jun/2025</p>
-<p>3. เงื่อนไข หลักเกณฑ์ และวิธีการใช้สิทธิ การได้รับสิทธิในสวัสดิการแต่ละประเภท ให้เป็นไปตามคุณสมบัติ เงื่อนไข อัตรา หลักเกณฑ์ วิธีการ ใช้สิทธิ และแนวปฏิบัติที่บริษัทก าหนดไว้เป็นการเฉพาะส าหรับสวัสดิการนั้น ๆ ซึ่งอาจก าหนดให้แตกต่างกัน ตามระดับต าแหน่ง อายุงาน ลักษณะงาน การผ่านทดลองงาน หรือเงื่อนไขอื่นตามที่บริษัทเห็นสมควร รายละเอียดการใช้สิทธิ การเบิกจ่าย และการบริหารสวัสดิการ ให้เป็นไปตามระเบียบ ประกาศ หรือค าสั่ง ของบริษัทที่เกี่ยวข้อง</p>
-<p>4. การตีความและการบริหารสวัสดิการ ในกรณีที่มีข้อสงสัยเกี่ยวกับการตีความ การใช้สิทธิ หรือการบริหารจัดการสวัสดิการ ให้ถือค าวินิจฉัยของ บริษัทเป็นที่สุด ทั้งนี้ต้องไม่ขัดต่อกฎหมายแรงงานที่เกี่ยวข้อง</p>
-<p>16-Apr-2026</p>
-<p>Effective date: 20/Jun/2025</p>
-<h2>หมวดที่ 14 ข้อก าหนดทั่วไปและการบังคับใช้</h2>
-<p>1. ทรัพย์สินทางปัญญา (Intellectual Property) ผลงาน สิ่งประดิษฐ์ งานสร้างสรรค์ โปรแกรมคอมพิวเตอร์ ข้อมูล งานวิจัย แบบจ าลอง กระบวนการ วิธีการ หรือทรัพย์สินทางปัญญาอื่นใด ไม่ว่าอยู่ในรูปแบบใด ซึ่งพนักงานได้จัดท า พัฒนา คิดค้น หรือสร้างขึ้น ไม่ว่าโดยล าพังหรือร่วมกับผู้อื่น ในระหว่างระยะเวลาการจ้างงาน และไม่ว่าจะเกิดจากการปฏิบัติหน้าที่ โดยตรง หรือเกิดจากการใช้เวลา ความรู้ ทรัพยากร งบประมาณ ระบบ หรืออุปกรณ์ของบริษัททั้งหมดหรือ บางส่วน ให้ถือเป็นทรัพย์สินและสิทธิแต่เพียงผู้เดียวของบริษัทโดยสมบูรณ์</p>
-<p>2. การละเมิดทรัพย์สินทางปัญญา พนักงานต้องไม่คัดลอก ดัดแปลง เผยแพร่ ใช้ หรือแอบอ้างทรัพย์สินทางปัญญาของบุคคลอื่นโดย ไม่ได้รับอนุญาตตามกฎหมาย หากการกระท าดังกล่าวก่อให้เกิดความเสียหาย ความรับผิด หรือภาระ ค่าใช้จ่ายแก่บริษัท พนักงานต้องรับผิดชดใช้ค่าเสียหายทั้งหมดโดยสิ้นเชิง</p>
-<p>3. การใช้ทรัพย์สินหรือข้อมูลของบุคคลภายนอก พนักงานต้องไม่ติดตั้ง จัดเก็บ หรือใช้ซอฟต์แวร์ ข้อมูล หรือทรัพย์สินทางปัญญาของบุคคลภายนอก ในระบบหรืออุปกรณ์ของบริษัทโดยไม่ได้รับอนุญาตเป็นลายลักษณ์อักษร หากก่อให้เกิดความเสียหาย บริษัท มีสิทธิเรียกร้องให้พนักงานรับผิดชดใช้ทั้งหมด</p>
-<p>4. มาตรการป้องกันยาเสพติด พนักงานยินยอมให้บริษัทด าเนินการตรวจหาสารเสพติดในร่างกายตามหลักเกณฑ์ที่บริษัทก าหนด เพื่อประโยชน์ด้านความปลอดภัย อาชีวอนามัย และการปฏิบัติตามกฎหมาย</p>
-<p>5. หน้าที่ในการรับทราบและปฏิบัติตามข้อบังคับ พนักงานทุกระดับมีหน้าที่ศึกษา ท าความเข้าใจ และปฏิบัติตามข้อบังคับเกี่ยวกับการท างาน นโยบาย ระเบียบ ขั้นตอน และค าสั่งของบริษัทโดยเคร่งครัด</p></div>
-          <div class="text-en"><p>Effective date: 20/Jun/2025</p>
-<p>Severance pay, including special severance pay where required by law—such as in cases of relocation of the place of business, business closure, organizational restructuring, or other circumstances prescribed under labour laws—shall be paid in accordance with the conditions, criteria, and rates prescribed by law, which may be amended from time to time.</p>
-<p>6. Termination without Severance Pay 6.1 Where the employee commits serious misconduct in accordance with the criteria specified under Section 119 of the Labour Protection Act B.E. 2541 (1998) and its amendments. 6.2 Where the employee has not completed one hundred and twenty (120) days of continuous service from the commencement date of employment. In such case, the employee shall not be entitled to severance pay, in accordance with the criteria and conditions prescribed by labour laws. 6.3 In any other circumstances where applicable labour laws permit the Company to terminate employment without payment of severance pay, the Company may terminate employment accordingly. This shall not affect the employee’s entitlement to special severance pay where required by law, if any.</p>
-<p>7. Death 7.1 In the event that an employee dies from any cause, the employee’s employment with the Company shall be deemed terminated as of the date of death. 7.2 The Company shall pay the employee’s outstanding wages, overtime pay, holiday pay, accrued but unused annual leave, and any other payments to which the employee is entitled to the employee’s statutory heirs or designated beneficiary as notified to the Company, in accordance with the criteria and within the period prescribed by law. 7.3 In the event that the employee has any debts or obligations to the Company, the Company shall have the right to deduct such amounts to the extent permitted by law.</p>
-<p>8. Expiration of Employment Contract or Other Circumstances Prescribed by Law 8.1 Expiration of the employment contract in accordance with the term or conditions specified in the employment contract. 8.2 Where the employee is sentenced by a final court judgment to imprisonment without suspension of the sentence, resulting in the employee being unable to perform his or her duties.</p>
-<p>Effective date: 20/Jun/2025</p>
-<p>8.3 Any other circumstances prescribed by law that result in the termination of the employment contract. 8.4 Where the employee no longer possesses the required qualifications or has had a license revoked as required by law for the performance of the job, and such issue cannot be remedied within a reasonable period of time. 8.5 Termination of employment under this clause shall be deemed termination of the employment contract in accordance with applicable law and shall not be deemed a termination initiated by the Company.</p></div>
+        <div class="chapter-body">
+          <div class="text-th"><p>Rev.00 หมวดที่ 14 ข้อกำหนดทั่วไปและการบังคับใช้ 1. ทรัพย์สินทางปัญญา(Intellectual Property) ผลงาน สิ่งประดิษฐ์ งานสร้างสรรค์ โปรแกรมคอมพิวเตอร์ ข้อมูล งานวิจัย แบบจำลอง กระบวนการ วิธีการ หรือทรัพย์สินทางปัญญาอื่นใด ไม่ว่าอยู่ในรูปแบบใด ซึ่งพนักงานได้จัดทำ พัฒนาคิดค้น หรือสร้างขึ้น ไม่ว่าโดยลำพังหรือร่วมกับผู้อื่น ในระหว่างระยะเวลาการจ้างงาน และไม่ว่าจะเกิดจากการปฏิบัติหน้าที่ โดยตรง หรือเกิดจากการใช้เวลาความรู้ ทรัพยากร งบประมาณ ระบบ หรืออุปกรณ์ของบริษัททั้งหมดหรือ บางส่วน ให้ถือเป็นทรัพย์สินและสิทธิแต่เพียงผู้เดียวของบริษัทโดยสมบูรณ์ 2. การละเมิดทรัพย์สินทางปัญญา พนักงานต้องไม่คัดลอก ดัดแปลง เผยแพร่ ใช้ หรือแอบอ้างทรัพย์สินทางปัญญาของบุคคลอื่นโดย ไม่ได้รับอนุญาตตามกฎหมาย หากการกระทำดังกล่าวก่อให้เกิดความเสียหาย ความรับผิด หรือภาระ ค่าใช้จ่ายแก่บริษัท พนักงานต้องรับผิดชดใช้ค่าเสียหายทั้งหมดโดยสิ้นเชิง 3. การใช้ทรัพย์สินหรือข้อมูลของบุคคลภายนอก พนักงานต้องไม่ติดตั้ง จัดเก็บ หรือใช้ซอฟต์แวร์ ข้อมูล หรือทรัพย์สินทางปัญญาของบุคคลภายนอก ในระบบหรืออุปกรณ์ของบริษัทโดยไม่ได้รับอนุญาตเป็นลายลักษณ์อักษร หากก่อให้เกิดความเสียหาย บริษัท มีสิทธิเรียกร้องให้พนักงานรับผิดชดใช้ทั้งหมด 4. มาตรการป้องกันยาเสพติด พนักงานยินยอมให้บริษัทดำเนินการตรวจหาสารเสพติดในร่างกายตามหลักเกณฑ์ที่บริษัทกำหนด เพื่อประโยชน์ด้านความปลอดภัย อาชีวอนามัย และการปฏิบัติตามกฎหมาย 5. หน้าที่ในการรับทราบและปฏิบัติตามข้อบังคับ พนักงานทุกระดับมีหน้าที่ศึกษาทำความเข้าใจ และปฏิบัติตามข้อบังคับเกี่ยวกับการทำงาน นโยบาย ระเบียบ ขั้นตอน และคำสั่งของบริษัทโดยเคร่งครัด</p>
+<p>Rev.00 6. การอ้างไม่ทราบข้อบังคับ พนักงานไม่อาจอ้างว่าไม่ทราบ ไม่เข้าใจ หรือไม่ได้รับทราบข้อบังคับ นโยบาย หรือแนวปฏิบัติของ บริษัทเพื่อยกเว้นความรับผิดได้ 7. สถานะของนโยบายบริษัท นโยบาย ระเบียบปฏิบัติ ขั้นตอนการทำงาน ประกาศ หรือคำสั่งของบริษัท ไม่ว่าจะจัดทำใน รูปแบบใด ให้ถือเป็นส่วนหนึ่งของข้อบังคับเกี่ยวกับการทำงาน และมีผลผูกพันพนักงานทุกคน 8. การตีความข้อบังคับ การตีความข้อบังคับเกี่ยวกับการทำงานฉบับนี้ ให้เป็นอำนาจของบริษัทแต่เพียงผู้เดียว และคำ วินิจฉัยของบริษัทให้ถือเป็นที่สุด 9. การแก้ไขเพิ่มเติม บริษัทสงวนสิทธิในการแก้ไข เปลี่ยนแปลง หรือเพิ่มเติมข้อบังคับเกี่ยวกับการทำงาน นโยบาย หรือ ระเบียบใด ๆ ได้ตามความจำเป็น โดยให้มีผลบังคับใช้เมื่อบริษัทได้ประกาศให้พนักงานทราบตามวิธีการที่ บริษัทกำหนด 10. การแยกบังคับใช้ หากบทบัญญัติใดของข้อบังคับนี้ถูกวินิจฉัยว่าไม่ชอบด้วยกฎหมาย หรือไม่สามารถบังคับใช้ได้ ให้ บทบัญญัติส่วนที่เหลือยังคงมีผลบังคับใช้โดยสมบูรณ์ 11. กฎหมายที่ใช้บังคับ ข้อบังคับเกี่ยวกับการทำงานฉบับนี้ให้ตีความและบังคับใช้ตามกฎหมายแรงงานและกฎหมายที่ เกี่ยวข้องของประเทศไทย 12. วันมีผลบังคับใช้ ข้อบังคับเกี่ยวกับการทำงานฉบับนี้ให้มีผลใช้บังคับตั้งแต่วันที่ 1 เมษายน พ.ศ. 2569 เป็นต้นไป</p></div>
+          <div class="text-en"><p>Rev.00 8.3 Any other circumstances prescribed by law that result in the termination of the employment contract. 8.4 Where the employee no longer possesses the required qualifications or has had a license revoked as required by law for the performance of the job, and such issue cannot be remedied within a reasonable period of time. 8.5 Termination of employment under this clause shall be deemed termination of the employment contract in accordance with applicable law and shall not be deemed a termination initiated by the Company.</p>
+<p>Rev.00 Chapter 13 Welfare and Other Benefits 1. Principles of Welfare Provision The Company provides welfare and benefits to employees as appropriate in order to promote employees’ quality of life, job security, and efficiency in the performance of their duties. The provision of such welfare and benefits shall be in accordance with the policies, regulations, and practices prescribed by the Company. The Company reserves the right to determine, amend, modify, suspend, or cancel any welfare or benefit as necessary, appropriate, or due to business circumstances, which shall not be considered a change in employment conditions unless otherwise required by law. 2. Types of Welfare Welfare and benefits provided by the Company may include, but are not limited to, the following: 2.1 Pre-employment medical examination and annual health check-ups. 2.2 Accident and life insurance. 2.3 Employee uniforms. 2.4 Expenses or allowances related to work performance, such as travel expenses, meal allowances, shift allowances, or similar payments. 2.5 Medical benefits for employees and their families. 2.6 Provident fund. 2.7 Provision of equipment, assets, or facilities necessary for work performance. 2.8 Financial assistance on special occasions or in necessary circumstances, such as ordination, marriage, childbirth, illness, or death. 2.9 Long service awards. 2.10 Other welfare or benefits as determined by the Company from time to time. 3. Conditions, Criteria, and Methods of Entitlement Eligibility for each type of welfare or benefit shall be subject to the qualifications, conditions, rates, criteria, methods of entitlement, and practices specifically prescribed by the Company for each welfare</p></div>
         </div>
         <nav class="chapter-nav"><a href="chapter-13.html">← สวัสดิการและสิทธิประโยชน์อื่น ๆ</a></nav>
       </article>
@@ -132,7 +136,6 @@
     }
     const saved = localStorage.getItem('hr-lang');
     if (saved) setLang(saved);
-
     function toggleSidebar() {
       document.getElementById('sidebar').classList.toggle('open');
     }

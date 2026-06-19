@@ -1,12 +1,6 @@
 #!/usr/bin/env python3
-"""Akara Resources — HR Policy HTML Generator v4 (sidebar nav)"""
-
-import os, re, unicodedata
-def fix_thai(text):
-    text = unicodedata.normalize('NFC', text)
-    text = text.replace('\u0e32\u0e47', '\u0e33')
-    text = text.replace('\u0e32\u0e4b', '\u0e33')
-    return text
+"""Akara Resources — HR Policy Generator v5 (correct page ranges + sara am fix)"""
+import os, re
 
 try:
     import fitz
@@ -17,62 +11,89 @@ except ImportError:
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 WORK_RULES_CHAPTERS = [
-    {"num": 0,  "title_th": "สารจากผู้บริหาร",       "title_en": "Message from Management",        "page_start": 2, "page_end": 2},
-    {"num": 1,  "title_th": "บททั่วไป",               "title_en": "General Provisions",              "page_start": 3, "page_end": 6},
-    {"num": 2,  "title_th": "วิสัยทัศน์องค์กร เสาหลักกลยุทธ์และนโยบายองค์กร", "title_en": "Corporate Vision, Strategic Pillars and Policies", "page_start": 7, "page_end": 9},
-    {"num": 3,  "title_th": "การว่าจ้าง",              "title_en": "Employment",                      "page_start": 10, "page_end": 11},
-    {"num": 4,  "title_th": "การสับเปลี่ยนหน้าที่ การโยกย้าย และการปฏิบัติงานที่บ้าน", "title_en": "Job Rotation, Transfer and Work from Home", "page_start": 12, "page_end": 13},
-    {"num": 5,  "title_th": "วันทำงาน เวลาทำงานปกติ และเวลาพัก", "title_en": "Working Days, Hours and Rest Periods", "page_start": 14, "page_end": 16},
-    {"num": 6,  "title_th": "วันหยุด และหลักเกณฑ์วันหยุด", "title_en": "Holidays and Holiday Criteria", "page_start": 17, "page_end": 19},
-    {"num": 7,  "title_th": "หลักเกณฑ์การทำงานล่วงเวลา และการทำงานในวันหยุด", "title_en": "Overtime and Holiday Work", "page_start": 20, "page_end": 21},
-    {"num": 8,  "title_th": "การจ่ายค่าจ้าง ค่าล่วงเวลา และค่าทำงานในวันหยุด", "title_en": "Wages, Overtime and Holiday Pay", "page_start": 22, "page_end": 26},
-    {"num": 9,  "title_th": "วันลา และหลักเกณฑ์การลา", "title_en": "Leave and Leave Criteria",        "page_start": 27, "page_end": 33},
-    {"num": 10, "title_th": "วินัย และโทษทางวินัย",    "title_en": "Discipline and Penalties",        "page_start": 34, "page_end": 44},
-    {"num": 11, "title_th": "การร้องทุกข์",             "title_en": "Grievance Procedure",             "page_start": 45, "page_end": 46},
-    {"num": 12, "title_th": "การพ้นสภาพการเป็นพนักงาน","title_en": "Termination of Employment",       "page_start": 47, "page_end": 51},
-    {"num": 13, "title_th": "สวัสดิการและสิทธิประโยชน์อื่น ๆ", "title_en": "Welfare and Other Benefits", "page_start": 52, "page_end": 53},
-    {"num": 14, "title_th": "ข้อกำหนดทั่วไปและการบังคับใช้", "title_en": "General Provisions and Enforcement", "page_start": 54, "page_end": 55},
+    {"num": 0,  "title_th": "สารจากผู้บริหาร",       "title_en": "Message from Management",               "ps": 3,  "pe": 3},
+    {"num": 1,  "title_th": "บททั่วไป",               "title_en": "General Provisions",                     "ps": 4,  "pe": 7},
+    {"num": 2,  "title_th": "วิสัยทัศน์องค์กร เสาหลักกลยุทธ์และนโยบายองค์กร", "title_en": "Corporate Vision, Strategic Pillars and Policies", "ps": 8, "pe": 10},
+    {"num": 3,  "title_th": "การว่าจ้าง",              "title_en": "Employment",                             "ps": 11, "pe": 12},
+    {"num": 4,  "title_th": "การสับเปลี่ยนหน้าที่ การโยกย้าย และการปฏิบัติงานที่บ้าน", "title_en": "Job Rotation, Transfer and Work from Home", "ps": 13, "pe": 14},
+    {"num": 5,  "title_th": "วันทำงาน เวลาทำงานปกติ และเวลาพัก", "title_en": "Working Days, Hours and Rest Periods", "ps": 15, "pe": 17},
+    {"num": 6,  "title_th": "วันหยุด และหลักเกณฑ์วันหยุด", "title_en": "Holidays and Holiday Criteria",    "ps": 18, "pe": 20},
+    {"num": 7,  "title_th": "หลักเกณฑ์การทำงานล่วงเวลา และการทำงานในวันหยุด", "title_en": "Overtime and Holiday Work Criteria", "ps": 21, "pe": 22},
+    {"num": 8,  "title_th": "การจ่ายค่าจ้าง ค่าล่วงเวลา และค่าทำงานในวันหยุด", "title_en": "Wages, Overtime Pay and Holiday Pay", "ps": 23, "pe": 27},
+    {"num": 9,  "title_th": "วันลา และหลักเกณฑ์การลา", "title_en": "Leave and Leave Criteria",             "ps": 28, "pe": 34},
+    {"num": 10, "title_th": "วินัย และโทษทางวินัย",    "title_en": "Discipline and Disciplinary Penalties", "ps": 35, "pe": 45},
+    {"num": 11, "title_th": "การร้องทุกข์",             "title_en": "Grievance Procedure",                   "ps": 46, "pe": 47},
+    {"num": 12, "title_th": "การพ้นสภาพการเป็นพนักงาน","title_en": "Termination of Employment",             "ps": 48, "pe": 52},
+    {"num": 13, "title_th": "สวัสดิการและสิทธิประโยชน์อื่น ๆ", "title_en": "Welfare and Other Benefits",  "ps": 53, "pe": 54},
+    {"num": 14, "title_th": "ข้อกำหนดทั่วไปและการบังคับใช้", "title_en": "General Provisions and Enforcement", "ps": 55, "pe": 56},
 ]
 
-JUNK = [
-    r'ห้ามทำสำเนา[^\n]*', r'ห้ามท า[^\n]*',
-    r'AKR-DCC[^\n]*', r'AKR-OHR[^\n]*',
-    r'Support Document[^\n]*',
-    r'Document No\.[^\n]*', r'Document Title:[^\n]*',
-    r'Revision No\.[^\n]*', r'Effective Date[^\n]*',
-    r'Page No\.[^\n]*',
-    r'Work Rules and Regulations\s*', r'Welfare and Benefits\s*',
-    r'^\d+\s*of\s*\d+\s*$', r'^Rev\.\d+.*$',
-    r'^00\s*$', r'^16-Apr-2026\s*$',
-    r'สารบัญ\s*\n',
-    r'สารจากผู้บริหาร\s+\d+',
-    r'หมวดที่\s*\d+\s+[^\n]+\d+\s*\n',
+# บรรทัดที่ต้องกรองออก
+SKIP = [
+    'Support Document', 'AKR-OHR', 'AKR-DCC', 'Document No',
+    'Document Title', 'Revision No', 'Effective Date', 'Effective date',
+    'Page No', 'Work Rules and Regulations', 'Welfare and Benefits',
+    'ห้ามท า', 'ห้ามทำ', 'QMR', '16-Apr-2026', '20/Jun/2025',
 ]
 
-def clean(text):
-    for p in JUNK:
-        text = re.sub(p, '', text, flags=re.MULTILINE)
-    return re.sub(r'\n{3,}', '\n\n', text).strip()
+def fix_spaces(text):
+    """แก้ปัญหาช่องว่างในคำภาษาไทย เช่น ท า→ทำ, ส า→สำ, จ า→จำ"""
+    # แก้ pattern: พยัญชนะ + space + า (สระอา/อำที่ถูกแยก)
+    fixes = [
+        (r'ท า', 'ทำ'), (r'ส า', 'สำ'), (r'จ า', 'จำ'), (r'ก า', 'กำ'),
+        (r'ค า', 'คำ'), (r'ข า', 'ขำ'), (r'ง า', 'งำ'), (r'ด า', 'ดำ'),
+        (r'ต า', 'ตำ'), (r'น า', 'นำ'), (r'บ า', 'บำ'), (r'ป า', 'ปำ'),
+        (r'ผ า', 'ผำ'), (r'ฝ า', 'ฝำ'), (r'พ า', 'พำ'), (r'ฟ า', 'ฟำ'),
+        (r'ภ า', 'ภำ'), (r'ม า', 'มำ'), (r'ย า', 'ยำ'), (r'ร า', 'รำ'),
+        (r'ล า', 'ลำ'), (r'ว า', 'วำ'), (r'ห า', 'หำ'), (r'อ า', 'อำ'),
+        (r'ช า', 'ชำ'), (r'ซ า', 'ซำ'), (r'ฉ า', 'ฉำ'), (r'ฃ า', 'ฃำ'),
+        (r'ท ำ', 'ทำ'), (r'ส ำ', 'สำ'), (r'จ ำ', 'จำ'), (r'ก ำ', 'กำ'),
+        # แก้ช่องว่างใน ำ
+        (r' ำ', 'ำ'), (r'า ', 'า'),
+    ]
+    for old, new in fixes:
+        text = text.replace(old, new)
+    return text
+
+def clean_line(line):
+    """ตรวจว่าควรเก็บบรรทัดนี้ไหม"""
+    line = line.strip()
+    if not line:
+        return None
+    if any(s in line for s in SKIP):
+        return None
+    if re.match(r'^\d+\s+of\s+\d+$', line):
+        return None
+    if re.match(r'^00$', line):
+        return None
+    if re.match(r'^\d{1,2}-\w{3}-\d{4}$', line):
+        return None
+    return fix_spaces(line)
 
 def extract_pages(pdf_path):
     doc = fitz.open(pdf_path)
-    pages = [clean(p.get_text("text")) for p in doc]
+    pages = []
+    for page in doc:
+        raw_lines = page.get_text("text").split('\n')
+        clean = [clean_line(l) for l in raw_lines]
+        clean = [l for l in clean if l]
+        pages.append('\n'.join(clean))
     doc.close()
     return pages
 
 def get_chapter_text(pages, ch):
-    s = ch["page_start"] - 1
-    e = min(ch["page_end"], len(pages))
-    return "\n\n".join(pages[s:e])
+    s = ch["ps"] - 1
+    e = min(ch["pe"], len(pages))
+    return '\n\n'.join(pages[s:e])
 
 def text_to_html(text):
     if not text.strip():
         return '<p style="color:var(--text-muted)">ไม่มีเนื้อหา</p>'
-    html, buffer = [], []
+    html, buf = [], []
     def flush():
-        if not buffer: return
-        para = ' '.join(buffer).strip()
-        buffer.clear()
+        if not buf: return
+        para = ' '.join(buf).strip()
+        buf.clear()
         if not para or len(para) < 2: return
         if re.match(r'^หมวดที่\s*\d+', para):
             html.append(f'<h2>{para}</h2>')
@@ -85,7 +106,7 @@ def text_to_html(text):
     for line in text.split('\n'):
         line = line.strip()
         if not line: flush()
-        else: buffer.append(line)
+        else: buf.append(line)
     flush()
     return '\n'.join(html)
 
@@ -116,38 +137,62 @@ PAGE_HTML = '''<!DOCTYPE html>
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/style.css">
   <style>
-    .chapter-layout {{ grid-template-columns: 280px 1fr; }}
+    body {{ display:flex; flex-direction:column; min-height:100vh; }}
+    .page-wrap {{ display:flex; flex:1; }}
+    .sidebar-fixed {{
+      width:270px; flex-shrink:0;
+      position:sticky; top:60px;
+      height:calc(100vh - 60px);
+      overflow-y:auto;
+      background:#fff;
+      border-right:1.5px solid var(--gray-2);
+      padding:12px 8px;
+    }}
+    .sidebar-fixed::-webkit-scrollbar {{ width:4px; }}
+    .sidebar-fixed::-webkit-scrollbar-thumb {{ background:var(--gray-3); border-radius:2px; }}
+    .sidebar-home {{
+      display:flex; align-items:center; gap:6px;
+      padding:7px 10px; font-size:0.8rem;
+      color:var(--text-muted); text-decoration:none;
+      border-radius:6px; margin-bottom:2px;
+    }}
+    .sidebar-home:hover {{ background:var(--gray-1); color:var(--blue); }}
+    .sidebar-section {{
+      font-size:0.68rem; font-weight:700; letter-spacing:0.1em;
+      text-transform:uppercase; color:var(--text-muted);
+      padding:10px 10px 4px; display:block;
+    }}
     .sidebar-chapter {{
-      display: flex; align-items: flex-start; gap: 10px;
-      padding: 10px 12px; border-radius: 8px;
-      text-decoration: none; color: var(--text-muted);
-      font-size: 0.82rem; line-height: 1.35;
-      transition: all 0.2s; border: 1.5px solid transparent;
+      display:flex; align-items:flex-start; gap:8px;
+      padding:8px 10px; border-radius:8px;
+      text-decoration:none; color:var(--text-muted);
+      font-size:0.8rem; line-height:1.35;
+      transition:all 0.15s; margin-bottom:1px;
     }}
-    .sidebar-chapter:hover {{ background: var(--blue-light); color: var(--blue); }}
-    .sidebar-chapter.active {{
-      background: var(--blue); color: #fff;
-      border-color: var(--blue);
-    }}
-    .sidebar-chapter.active .sidebar-num {{ background: rgba(255,255,255,0.2); color: #fff; }}
+    .sidebar-chapter:hover {{ background:var(--blue-light); color:var(--blue); }}
+    .sidebar-chapter.active {{ background:var(--blue); color:#fff; }}
+    .sidebar-chapter.active .sidebar-num {{ background:rgba(255,255,255,0.25); color:#fff; }}
     .sidebar-num {{
-      min-width: 28px; height: 28px; border-radius: 7px;
-      background: var(--blue-light); color: var(--blue);
-      font-size: 0.72rem; font-weight: 700;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; margin-top: 1px;
+      min-width:26px; height:26px; border-radius:6px;
+      background:var(--blue-light); color:var(--blue);
+      font-size:0.7rem; font-weight:700;
+      display:flex; align-items:center; justify-content:center;
+      flex-shrink:0; margin-top:1px;
     }}
-    .sidebar-label {{ flex: 1; }}
-    .sidebar-section-label {{
-      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--text-muted);
-      padding: 12px 12px 4px; display: block;
+    .sidebar-label {{ flex:1; }}
+    .main-content {{ flex:1; padding:32px 32px 60px; min-width:0; }}
+    .chapter-card {{ max-width:740px; margin:0 auto; }}
+    @media(max-width:768px) {{
+      .sidebar-fixed {{ display:none; }}
+      .sidebar-fixed.open {{ display:block; position:fixed; top:60px; left:0; z-index:200; height:calc(100vh - 60px); box-shadow:4px 0 20px rgba(0,0,0,0.15); }}
+      .sidebar-toggle-btn {{ display:flex !important; }}
     }}
   </style>
 </head>
 <body>
   <header class="topbar">
     <div class="topbar-left">
+      <button class="sidebar-toggle-btn" onclick="toggleSidebar()" style="display:none;background:rgba(255,255,255,0.15);border:none;color:#fff;padding:6px 10px;border-radius:6px;cursor:pointer;font-size:1rem;margin-right:8px;">☰</button>
       <img src="../assets/Akara Logo.jpg" alt="Akara Resources" class="topbar-logo">
       <div class="topbar-title">
         <span class="text-th">คู่มือพนักงาน</span><span class="text-en">Employee Handbook</span>
@@ -162,31 +207,26 @@ PAGE_HTML = '''<!DOCTYPE html>
     </div>
   </header>
 
-  <div style="display:flex; min-height:calc(100vh - 60px);">
-    <aside class="sidebar" id="sidebar" style="width:280px;flex-shrink:0;position:sticky;top:60px;height:calc(100vh - 60px);overflow-y:auto;background:#fff;border-right:1px solid var(--gray-2);padding:16px 8px;">
-      <a href="../index.html" style="display:flex;align-items:center;gap:6px;padding:8px 12px;font-size:0.8rem;color:var(--text-muted);text-decoration:none;margin-bottom:4px;">
-        ← <span class="text-th">หน้าหลัก</span><span class="text-en">Home</span>
-      </a>
-      <a href="index.html" style="display:flex;align-items:center;gap:6px;padding:8px 12px;font-size:0.8rem;color:var(--blue);text-decoration:none;font-weight:600;margin-bottom:8px;">
-        ☰ <span class="text-th">สารบัญ</span><span class="text-en">Contents</span>
-      </a>
-      <span class="sidebar-section-label text-th">ระเบียบข้อบังคับการทำงาน</span>
-      <span class="sidebar-section-label text-en">Work Rules & Regulations</span>
-      <nav style="display:flex;flex-direction:column;gap:2px;">
+  <div class="page-wrap">
+    <aside class="sidebar-fixed" id="sidebar">
+      <a href="../index.html" class="sidebar-home">← <span class="text-th">หน้าหลัก</span><span class="text-en">Home</span></a>
+      <a href="index.html" class="sidebar-home" style="color:var(--blue);font-weight:600;">☰ <span class="text-th">สารบัญ</span><span class="text-en">Contents</span></a>
+      <span class="sidebar-section text-th">ระเบียบข้อบังคับการทำงาน</span>
+      <span class="sidebar-section text-en">Work Rules & Regulations</span>
+      <nav style="display:flex;flex-direction:column;gap:1px;">
           {sidebar_links}
       </nav>
     </aside>
 
-    <main style="flex:1;padding:32px 28px 60px;min-width:0;">
-      <button class="sidebar-toggle" onclick="toggleSidebar()" style="display:none;">☰</button>
-      <article class="chapter-card" style="max-width:760px;margin:0 auto;">
+    <main class="main-content">
+      <article class="chapter-card">
         <div class="chapter-badge">{badge}</div>
         <h1 class="chapter-title">
           <span class="text-th">{title_th}</span>
           <span class="text-en">{title_en}</span>
         </h1>
         <div class="chapter-divider"></div>
-        <div class="chapter-body" id="chapterBody">
+        <div class="chapter-body">
           <div class="text-th">{content_th}</div>
           <div class="text-en">{content_en}</div>
         </div>
@@ -209,7 +249,6 @@ PAGE_HTML = '''<!DOCTYPE html>
     }}
     const saved = localStorage.getItem(\'hr-lang\');
     if (saved) setLang(saved);
-
     function toggleSidebar() {{
       document.getElementById(\'sidebar\').classList.toggle(\'open\');
     }}
@@ -228,7 +267,7 @@ TOC_ITEM = '''<a href="{filename}" class="toc-item">
 
 def main():
     print("="*56)
-    print("  Akara Resources — HR Policy Generator v4")
+    print("  Akara Resources — HR Policy Generator v5")
     print("="*56)
     if PDF_LIB is None:
         print("\n❌  pip install PyMuPDF\n"); return
@@ -282,31 +321,30 @@ def main():
             prev_link=prev_link, next_link=next_link,
             sidebar_links=sidebar_links
         )
-        out_path = os.path.join(out_dir, filename)
-        with open(out_path, "w", encoding="utf-8") as f:
+        with open(os.path.join(out_dir, filename), "w", encoding="utf-8") as f:
             f.write(html)
-        print(f"  ✅ {filename}")
+        print(f"  ✅ {filename} (หน้า {ch['ps']}–{ch['pe']})")
 
         toc_items.append(TOC_ITEM.format(
             filename=filename, badge=badge,
             title_th=ch["title_th"], title_en=ch["title_en"]
         ))
 
+    # อัปเดต TOC
     with open(toc_path, "r", encoding="utf-8") as f:
         toc_html = f.read()
     toc_block = "\n".join(toc_items)
-    if "WORK_RULES_TOC_PLACEHOLDER" in toc_html:
-        toc_html = toc_html.replace("<!-- WORK_RULES_TOC_PLACEHOLDER -->", toc_block)
-    else:
-        toc_html = re.sub(r'<div class="toc-list"[^>]*>.*?</div>',
-                          f'<div class="toc-list" id="tocList">{toc_block}</div>',
-                          toc_html, flags=re.DOTALL)
+    toc_html = re.sub(
+        r'<div class="toc-list"[^>]*>.*?</div>',
+        f'<div class="toc-list" id="tocList">{toc_block}</div>',
+        toc_html, flags=re.DOTALL
+    )
     with open(toc_path, "w", encoding="utf-8") as f:
         f.write(toc_html)
 
     print(f"\n✅ อัปเดต TOC")
     print("\n" + "="*56)
-    print("  เสร็จ! git add . && git commit -m 'v4 sidebar' && git push")
+    print("  เสร็จ! git add . && git commit -m 'v5 fix pages and sara am' && git push")
     print("="*56 + "\n")
 
 if __name__ == "__main__":

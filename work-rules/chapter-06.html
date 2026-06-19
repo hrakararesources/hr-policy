@@ -8,38 +8,62 @@
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/style.css">
   <style>
-    .chapter-layout { grid-template-columns: 280px 1fr; }
+    body { display:flex; flex-direction:column; min-height:100vh; }
+    .page-wrap { display:flex; flex:1; }
+    .sidebar-fixed {
+      width:270px; flex-shrink:0;
+      position:sticky; top:60px;
+      height:calc(100vh - 60px);
+      overflow-y:auto;
+      background:#fff;
+      border-right:1.5px solid var(--gray-2);
+      padding:12px 8px;
+    }
+    .sidebar-fixed::-webkit-scrollbar { width:4px; }
+    .sidebar-fixed::-webkit-scrollbar-thumb { background:var(--gray-3); border-radius:2px; }
+    .sidebar-home {
+      display:flex; align-items:center; gap:6px;
+      padding:7px 10px; font-size:0.8rem;
+      color:var(--text-muted); text-decoration:none;
+      border-radius:6px; margin-bottom:2px;
+    }
+    .sidebar-home:hover { background:var(--gray-1); color:var(--blue); }
+    .sidebar-section {
+      font-size:0.68rem; font-weight:700; letter-spacing:0.1em;
+      text-transform:uppercase; color:var(--text-muted);
+      padding:10px 10px 4px; display:block;
+    }
     .sidebar-chapter {
-      display: flex; align-items: flex-start; gap: 10px;
-      padding: 10px 12px; border-radius: 8px;
-      text-decoration: none; color: var(--text-muted);
-      font-size: 0.82rem; line-height: 1.35;
-      transition: all 0.2s; border: 1.5px solid transparent;
+      display:flex; align-items:flex-start; gap:8px;
+      padding:8px 10px; border-radius:8px;
+      text-decoration:none; color:var(--text-muted);
+      font-size:0.8rem; line-height:1.35;
+      transition:all 0.15s; margin-bottom:1px;
     }
-    .sidebar-chapter:hover { background: var(--blue-light); color: var(--blue); }
-    .sidebar-chapter.active {
-      background: var(--blue); color: #fff;
-      border-color: var(--blue);
-    }
-    .sidebar-chapter.active .sidebar-num { background: rgba(255,255,255,0.2); color: #fff; }
+    .sidebar-chapter:hover { background:var(--blue-light); color:var(--blue); }
+    .sidebar-chapter.active { background:var(--blue); color:#fff; }
+    .sidebar-chapter.active .sidebar-num { background:rgba(255,255,255,0.25); color:#fff; }
     .sidebar-num {
-      min-width: 28px; height: 28px; border-radius: 7px;
-      background: var(--blue-light); color: var(--blue);
-      font-size: 0.72rem; font-weight: 700;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; margin-top: 1px;
+      min-width:26px; height:26px; border-radius:6px;
+      background:var(--blue-light); color:var(--blue);
+      font-size:0.7rem; font-weight:700;
+      display:flex; align-items:center; justify-content:center;
+      flex-shrink:0; margin-top:1px;
     }
-    .sidebar-label { flex: 1; }
-    .sidebar-section-label {
-      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--text-muted);
-      padding: 12px 12px 4px; display: block;
+    .sidebar-label { flex:1; }
+    .main-content { flex:1; padding:32px 32px 60px; min-width:0; }
+    .chapter-card { max-width:740px; margin:0 auto; }
+    @media(max-width:768px) {
+      .sidebar-fixed { display:none; }
+      .sidebar-fixed.open { display:block; position:fixed; top:60px; left:0; z-index:200; height:calc(100vh - 60px); box-shadow:4px 0 20px rgba(0,0,0,0.15); }
+      .sidebar-toggle-btn { display:flex !important; }
     }
   </style>
 </head>
 <body>
   <header class="topbar">
     <div class="topbar-left">
+      <button class="sidebar-toggle-btn" onclick="toggleSidebar()" style="display:none;background:rgba(255,255,255,0.15);border:none;color:#fff;padding:6px 10px;border-radius:6px;cursor:pointer;font-size:1rem;margin-right:8px;">☰</button>
       <img src="../assets/Akara Logo.jpg" alt="Akara Resources" class="topbar-logo">
       <div class="topbar-title">
         <span class="text-th">คู่มือพนักงาน</span><span class="text-en">Employee Handbook</span>
@@ -54,17 +78,13 @@
     </div>
   </header>
 
-  <div style="display:flex; min-height:calc(100vh - 60px);">
-    <aside class="sidebar" id="sidebar" style="width:280px;flex-shrink:0;position:sticky;top:60px;height:calc(100vh - 60px);overflow-y:auto;background:#fff;border-right:1px solid var(--gray-2);padding:16px 8px;">
-      <a href="../index.html" style="display:flex;align-items:center;gap:6px;padding:8px 12px;font-size:0.8rem;color:var(--text-muted);text-decoration:none;margin-bottom:4px;">
-        ← <span class="text-th">หน้าหลัก</span><span class="text-en">Home</span>
-      </a>
-      <a href="index.html" style="display:flex;align-items:center;gap:6px;padding:8px 12px;font-size:0.8rem;color:var(--blue);text-decoration:none;font-weight:600;margin-bottom:8px;">
-        ☰ <span class="text-th">สารบัญ</span><span class="text-en">Contents</span>
-      </a>
-      <span class="sidebar-section-label text-th">ระเบียบข้อบังคับการทำงาน</span>
-      <span class="sidebar-section-label text-en">Work Rules & Regulations</span>
-      <nav style="display:flex;flex-direction:column;gap:2px;">
+  <div class="page-wrap">
+    <aside class="sidebar-fixed" id="sidebar">
+      <a href="../index.html" class="sidebar-home">← <span class="text-th">หน้าหลัก</span><span class="text-en">Home</span></a>
+      <a href="index.html" class="sidebar-home" style="color:var(--blue);font-weight:600;">☰ <span class="text-th">สารบัญ</span><span class="text-en">Contents</span></a>
+      <span class="sidebar-section text-th">ระเบียบข้อบังคับการทำงาน</span>
+      <span class="sidebar-section text-en">Work Rules & Regulations</span>
+      <nav style="display:flex;flex-direction:column;gap:1px;">
           <a href="chapter-00.html" class="sidebar-chapter"><span class="sidebar-num">00</span><span class="sidebar-label"><span class="text-th">สารจากผู้บริหาร</span><span class="text-en">Message from Management</span></span></a>
           <a href="chapter-01.html" class="sidebar-chapter"><span class="sidebar-num">01</span><span class="sidebar-label"><span class="text-th">บททั่วไป</span><span class="text-en">General Provisions</span></span></a>
           <a href="chapter-02.html" class="sidebar-chapter"><span class="sidebar-num">02</span><span class="sidebar-label"><span class="text-th">วิสัยทัศน์องค์กร เสาหลักกลยุทธ์และนโยบายองค์กร</span><span class="text-en">Corporate Vision, Strategic Pillars and Policies</span></span></a>
@@ -72,10 +92,10 @@
           <a href="chapter-04.html" class="sidebar-chapter"><span class="sidebar-num">04</span><span class="sidebar-label"><span class="text-th">การสับเปลี่ยนหน้าที่ การโยกย้าย และการปฏิบัติงานที่บ้าน</span><span class="text-en">Job Rotation, Transfer and Work from Home</span></span></a>
           <a href="chapter-05.html" class="sidebar-chapter"><span class="sidebar-num">05</span><span class="sidebar-label"><span class="text-th">วันทำงาน เวลาทำงานปกติ และเวลาพัก</span><span class="text-en">Working Days, Hours and Rest Periods</span></span></a>
           <a href="chapter-06.html" class="sidebar-chapter active"><span class="sidebar-num">06</span><span class="sidebar-label"><span class="text-th">วันหยุด และหลักเกณฑ์วันหยุด</span><span class="text-en">Holidays and Holiday Criteria</span></span></a>
-          <a href="chapter-07.html" class="sidebar-chapter"><span class="sidebar-num">07</span><span class="sidebar-label"><span class="text-th">หลักเกณฑ์การทำงานล่วงเวลา และการทำงานในวันหยุด</span><span class="text-en">Overtime and Holiday Work</span></span></a>
-          <a href="chapter-08.html" class="sidebar-chapter"><span class="sidebar-num">08</span><span class="sidebar-label"><span class="text-th">การจ่ายค่าจ้าง ค่าล่วงเวลา และค่าทำงานในวันหยุด</span><span class="text-en">Wages, Overtime and Holiday Pay</span></span></a>
+          <a href="chapter-07.html" class="sidebar-chapter"><span class="sidebar-num">07</span><span class="sidebar-label"><span class="text-th">หลักเกณฑ์การทำงานล่วงเวลา และการทำงานในวันหยุด</span><span class="text-en">Overtime and Holiday Work Criteria</span></span></a>
+          <a href="chapter-08.html" class="sidebar-chapter"><span class="sidebar-num">08</span><span class="sidebar-label"><span class="text-th">การจ่ายค่าจ้าง ค่าล่วงเวลา และค่าทำงานในวันหยุด</span><span class="text-en">Wages, Overtime Pay and Holiday Pay</span></span></a>
           <a href="chapter-09.html" class="sidebar-chapter"><span class="sidebar-num">09</span><span class="sidebar-label"><span class="text-th">วันลา และหลักเกณฑ์การลา</span><span class="text-en">Leave and Leave Criteria</span></span></a>
-          <a href="chapter-10.html" class="sidebar-chapter"><span class="sidebar-num">10</span><span class="sidebar-label"><span class="text-th">วินัย และโทษทางวินัย</span><span class="text-en">Discipline and Penalties</span></span></a>
+          <a href="chapter-10.html" class="sidebar-chapter"><span class="sidebar-num">10</span><span class="sidebar-label"><span class="text-th">วินัย และโทษทางวินัย</span><span class="text-en">Discipline and Disciplinary Penalties</span></span></a>
           <a href="chapter-11.html" class="sidebar-chapter"><span class="sidebar-num">11</span><span class="sidebar-label"><span class="text-th">การร้องทุกข์</span><span class="text-en">Grievance Procedure</span></span></a>
           <a href="chapter-12.html" class="sidebar-chapter"><span class="sidebar-num">12</span><span class="sidebar-label"><span class="text-th">การพ้นสภาพการเป็นพนักงาน</span><span class="text-en">Termination of Employment</span></span></a>
           <a href="chapter-13.html" class="sidebar-chapter"><span class="sidebar-num">13</span><span class="sidebar-label"><span class="text-th">สวัสดิการและสิทธิประโยชน์อื่น ๆ</span><span class="text-en">Welfare and Other Benefits</span></span></a>
@@ -83,36 +103,21 @@
       </nav>
     </aside>
 
-    <main style="flex:1;padding:32px 28px 60px;min-width:0;">
-      <button class="sidebar-toggle" onclick="toggleSidebar()" style="display:none;">☰</button>
-      <article class="chapter-card" style="max-width:760px;margin:0 auto;">
+    <main class="main-content">
+      <article class="chapter-card">
         <div class="chapter-badge">หมวดที่ 6</div>
         <h1 class="chapter-title">
           <span class="text-th">วันหยุด และหลักเกณฑ์วันหยุด</span>
           <span class="text-en">Holidays and Holiday Criteria</span>
         </h1>
         <div class="chapter-divider"></div>
-        <div class="chapter-body" id="chapterBody">
-          <div class="text-th"><p>16-Apr-2026</p>
-<p>Effective date: 20/Jun/2025</p>
-<p>3.5 ในกรณีที่พนักงานลืมบันทึกเวลาเข้าท างานและ/หรือเลิกงาน ให้พนักงานแจ้งแผนกทรัพยากรบุคคล ตามวิธีการที่บริษัทก าหนด พร้อมให้ผู้บังคับบัญชารับรองว่าพนักงานได้มาปฏิบัติงานจริง หาก พนักงานลืมบันทึกเวลาเป็นประจ า บริษัทอาจพิจารณาเป็นความผิดทางวินัยตามระเบียบของบริษัท</p>
-<p>16-Apr-2026</p>
-<p>Effective date: 20/Jun/2025</p>
-<h2>หมวดที่ 6 วันหยุด และหลักเกณฑ์วันหยุด</h2>
-<p>1. วันหยุดประจ าสัปดาห์ บริษัทก าหนดให้พนักงานมีวันหยุดประจ าสัปดาห์ไม่น้อยกว่า 1 วันต่อสัปดาห์ โดยวันหยุดต้องมี ระยะห่างไม่เกิน 6 วันท างาน 1.1 ส าหรับพนักงานประจ าส านักงาน ก าหนดให้วันเสาร์และวันอาทิตย์เป็นวันหยุดประจ าสัปดาห์ 1.2 ส าหรับพนักงานที่ปฏิบัติงานเป็นกะ ก าหนดให้มีวันหยุดตามรอบตารางการท างานที่บริษัทก าหนด 1.3 ส าหรับพนักงานที่มีเงื่อนไขวันหยุดเป็นพิเศษ ให้เป็นไปตามที่ระบุไว้ในสัญญาจ้าง 1.4 บริษัทอาจก าหนดหรือเปลี่ยนแปลงวันหยุดประจ าสัปดาห์ของพนักงานตามความเหมาะสมของ ลักษณะงานหรือความจ าเป็นทางธุรกิจ โดยแจ้งให้พนักงานทราบล่วงหน้า</p>
-<p>2. วันหยุดตามประเพณี 2.1 บริษัทก าหนดให้พนักงานมีวันหยุดตามประเพณีไม่น้อยกว่า 15 วันต่อปี โดยรวมวันแรงงานแห่งชาติ และพนักงานจะได้รับค่าจ้างเท่ากับค่าจ้างในวันท างานปกติ 2.2 บริษัทจะประกาศวันหยุดตามประเพณีให้พนักงานทราบล่วงหน้าเป็นรายปี 2.3 ในกรณีที่วันหยุดตามประเพณีตรงกับวันหยุดประจ าสัปดาห์ของพนักงาน บริษัทจะก าหนดวันหยุด- ชดเชยให้ในวันท างานถัดไป 2.4 บริษัทอาจเปลี่ยนวันหยุดตามประเพณีเป็นวันอื่นได้ตามความจ าเป็นต่อการด าเนินธุรกิจของบริษัท โดยจะปฏิบัติตามขั้นตอนของกฎหมาย แจ้งให้พนักงานทราบล่วงหน้า และต้องไม่ท าให้จ านวน วันหยุดตามประเพณีในปีนั้นลดลง 2.5 ในกรณีที่รัฐบาลประกาศวันหยุดพิเศษเป็นกรณีเฉพาะ บริษัทจะพิจารณาก าหนดให้เป็นวันหยุด หรือไม่ก็ได้ โดยค านึงถึงความเหมาะสมของการด าเนินธุรกิจ และจะแจ้งให้พนักงานทราบล่วงหน้า 2.6 ส าหรับพนักงานที่ปฏิบัติงานเป็นกะ หากวันหยุดตามประเพณีตรงกับวันท างานตามรอบกะ บริษัท จะจัดให้มีวันหยุดชดเชย หรือจ่ายค่าท างานในวันหยุดตามที่กฎหมายก าหนด</p>
-<p>16-Apr-2026</p>
-<p>Effective date: 20/Jun/2025</p>
-<p>3. วันหยุดพักผ่อนประจ าปี พนักงานที่ยังอยู่ในช่วงทดลองงาน จะยังไม่สามารถใช้สิทธิวันหยุดพักผ่อนประจ าปีได้ จนกว่าจะพ้น การทดลองงาน โดยสิทธิวันหยุดพักผ่อนประจ าปีส าหรับปีแรกของการท างาน ให้ค านวณตามสัดส่วนของ ระยะเวลาการท างานจริงในปีนั้น 3.1 พนักงานประจ า 3.1.1 อายุงาน 1 – 3  ปี มีสิทธิหยุดพักผ่อนประจ าปี 13 วัน 3.1.2 อายุงาน 3 ปีขึ้นไป มีสิทธิหยุดพักผ่อนประจ าปี 15 วัน 3.1.3 พนักงานสามารถสะสมวันหยุดพักผ่อนประจ าปีได้ไม่เกิน 30 วัน ณ วันสิ้นปีของแต่ละปี 3.2  พนักงานรายวัน 3.2.1 มีสิทธิหยุดพักผ่อนประจ าปี 6 วัน 3.2.2 พนักงานสามารถสะสมวันหยุดพักผ่อนประจ าปีได้ไม่เกิน 6 วัน ณ วันสิ้นปีของแต่ละปี 3.3 ระเบียบการใช้วันหยุดพักผ่อนประจ าปี 3.3.1 พนักงานที่ประสงค์จะใช้สิทธิวันหยุดพักผ่อนประจ าปี ต้องยื่นใช้สิทธิล่วงหน้าไม่น้อยกว่า 3 วันท างาน ตามหลักเกณฑ์และวิธีการที่บริษัทก าหนด และจะถือว่าใช้สิทธิโดยถูกต้อง ต่อเมื่อได้รับอนุมัติจากผู้บังคับบัญชาแล้วเท่านั้น 3.3.2 ในกรณีที่พนักงานเจ็บป่วยระหว่างการลาพักผ่อนประจ าปี และสามารถแสดงใบรับรอง แพทย์หรือหลักฐานอื่นตามที่บริษัทก าหนด ซึ่งยืนยันว่าไม่สามารถมาปฏิบัติงานได้จริง บริษัทจะพิจารณาให้นับวันดังกล่าวเป็นวันลาป่วย หากพนักงานไม่สามารถแสดงหลักฐาน ตามที่ก าหนดได้ ให้ถือว่าวันดังกล่าวเป็นวันลาพักผ่อนประจ าปี 3.3.3 ภายหลังจากพนักงานยื่นใบลาออกแล้ว บริษัทขอสงวนสิทธิไม่อนุมัติการใช้วันหยุด พักผ่อนประจ าปี เว้นแต่จะได้รับการพิจารณาอนุมัติเป็นกรณีไป โดยค านึงถึงความจ าเป็น ในการปฏิบัติงาน การส่งมอบหน้าที่ ความต่อเนื่องของงาน และการคืนทรัพย์สินของบริษัท 3.3.4 บริษัทอาจก าหนดช่วงเวลาปิดท าการ หรือก าหนดให้พนักงานใช้วันหยุดพักผ่อนประจ าปี ในช่วงเวลาที่บริษัทก าหนด ตามความจ าเป็นในการด าเนินธุรกิจ โดยจะแจ้งให้พนักงาน ทราบล่วงหน้า 3.3.5 วันหยุดพักผ่อนประจ าปีที่เกินจากจ านวนวันที่สามารถสะสมได้ ให้ถือว่าสิ้นสุดลงเมื่อสิ้นปี ปฏิทิน และบริษัทไม่มีหน้าที่จ่ายค่าจ้างแทนวันหยุดในส่วนที่เกินดังกล่าว อย่างไรก็ตาม ใน กรณีที่พนักงานลาออก ถูกเลิกจ้าง หรือถึงแก่ความตาย บริษัทจะจ่ายค่าจ้างแทนวันหยุด</p></div>
-          <div class="text-en"><p>Effective date: 20/Jun/2025</p>
-<p>reported to work. Repeated failure to record working time may be considered a disciplinary offense under the Company’s regulations.</p>
-<p>Effective date: 20/Jun/2025</p>
-<p>Chapter 6 Holidays and Holiday Entitlements</p>
-<p>1. Weekly Holidays The Company provides employees with at least one (1) weekly holiday per week. The interval between weekly holidays shall not exceed six (6) consecutive working days. 1.1 Office Employees: Saturday and Sunday shall be designated as weekly holidays. 1.2 Shift Employees: Weekly holidays shall be determined in accordance with the work schedule prescribed by the Company. 1.3 Employees with Special Holiday Arrangements: For employees whose weekly holidays are subject to special conditions, such holidays shall be as specified in the employment contract. 1.4 The Company may determine or change employees’ weekly holidays as appropriate to the nature of work or business necessity, provided that employees are notified in advance.</p>
-<p>2. Public Holidays 2.1 The Company provides employees with not less than fifteen (15) public holidays per year, including National Labour Day, with pay equivalent to a normal working day. 2.2 The Company shall announce the public holidays to employees in advance on an annual basis. 2.3 If a public holiday falls on an employee’s weekly holiday, the Company shall grant a substitute holiday on the next working day. 2.4 The Company may substitute a public holiday with another day where necessary for business operations, provided that such substitution complies with applicable legal procedures, employees are notified in advance, and the total number of public holidays in that year is not reduced. 2.5 In the event that the government announces a special public holiday on an ad hoc basis, the Company may determine whether to grant such day as a holiday, taking into consideration the Company’s business operations. Employees will be notified in advance. 2.6 For shift employees, if a public holiday falls on a scheduled working day under the shift schedule, the Company shall provide a substitute holiday or pay holiday work compensation in accordance with applicable law.</p>
-<p>Effective date: 20/Jun/2025</p>
-<p>3. Annual Leave Employees who are still within the probationary period shall not be entitled to take annual leave until they have successfully completed their probation. Annual leave entitlement for the first year of employment shall be calculated on a pro-rata basis according to the employee’s actual length of service in that year.</p>
-<p>3.1 Permanent Employees 3.1.1 Employees with 1 – 3 years of service are entitled to 13 days of annual leave. 3.1.2 Employees with more than 3 years of service are entitled to 15 days of annual leave. 3.1.3 Employees may accumulate annual leave up to a maximum of 30 days as of the end of each calendar year. 3.2 Daily Employees 3.2.1 Daily Employees are entitled to 6 days of annual leave. 3.2.2 Daily Employees may accumulate annual leave up to a maximum of 6 days as of the end of each calendar year. 3.3 Regulations for the Use of Annual Leave 3.3.1 Employees who wish to take annual leave must submit a leave request at least three (3) working days in advance, in accordance with the procedures prescribed by the Company. The leave shall be considered valid only after approval by the employee’s supervisor. 3.3.2 In the event that an employee becomes ill during annual leave and is able to present a medical certificate or other evidence as prescribed by the Company confirming that the employee was genuinely unable to work, the Company may consider such day(s) as sick leave. If the employee fails to provide the required evidence, such day(s) shall be treated as annual leave. 3.3.3 After an employee has submitted a resignation, the Company reserves the right not to approve the use of annual leave, unless otherwise approved on a case-by-case basis, taking into consideration operational necessity, work handover, continuity of work, and the return of Company property. 3.3.4 The Company may designate certain periods as Company shutdown periods or require employees to take annual leave during specified periods as necessary for business operations. Employees will be notified in advance.</p></div>
+        <div class="chapter-body">
+          <div class="text-th"><p>Rev.00 หมวดที่ 6 วันหยุด และหลักเกณฑ์วันหยุด 1. วันหยุดประจำสัปดาห์ บริษัทกำหนดให้พนักงานมีวันหยุดประจำสัปดาห์ไม่น้อยกว่า1 วันต่อสัปดาห์ โดยวันหยุดต้องมี ระยะห่างไม่เกิน 6 วันทำงาน 1.1 สำหรับพนักงานประจำสำนักงาน กำหนดให้วันเสาร์และวันอาทิตย์เป็นวันหยุดประจำสัปดาห์ 1.2 สำหรับพนักงานที่ปฏิบัติงานเป็นกะ กำหนดให้มีวันหยุดตามรอบตารางการทำงานที่บริษัทกำหนด 1.3 สำหรับพนักงานที่มีเงื่อนไขวันหยุดเป็นพิเศษ ให้เป็นไปตามที่ระบุไว้ในสัญญาจ้าง 1.4 บริษัทอาจกำหนดหรือเปลี่ยนแปลงวันหยุดประจำสัปดาห์ของพนักงานตามความเหมาะสมของ ลักษณะงานหรือความจำเป็นทางธุรกิจ โดยแจ้งให้พนักงานทราบล่วงหน้า 2. วันหยุดตามประเพณี 2.1 บริษัทกำหนดให้พนักงานมีวันหยุดตามประเพณีไม่น้อยกว่า15 วันต่อปี โดยรวมวันแรงงานแห่งชาติ และพนักงานจะได้รับค่าจ้างเท่ากับค่าจ้างในวันทำงานปกติ 2.2 บริษัทจะประกาศวันหยุดตามประเพณีให้พนักงานทราบล่วงหน้าเป็นรายปี 2.3 ในกรณีที่วันหยุดตามประเพณีตรงกับวันหยุดประจำสัปดาห์ของพนักงาน บริษัทจะกำหนดวันหยุด- ชดเชยให้ในวันทำงานถัดไป 2.4 บริษัทอาจเปลี่ยนวันหยุดตามประเพณีเป็นวันอื่นได้ตามความจำเป็นต่อการดำเนินธุรกิจของบริษัท โดยจะปฏิบัติตามขั้นตอนของกฎหมาย แจ้งให้พนักงานทราบล่วงหน้าและต้องไม่ทำให้จำนวน วันหยุดตามประเพณีในปีนั้นลดลง 2.5 ในกรณีที่รัฐบาลประกาศวันหยุดพิเศษเป็นกรณีเฉพาะ บริษัทจะพิจารณากำหนดให้เป็นวันหยุด หรือไม่ก็ได้ โดยคำนึงถึงความเหมาะสมของการดำเนินธุรกิจ และจะแจ้งให้พนักงานทราบล่วงหน้า 2.6 สำหรับพนักงานที่ปฏิบัติงานเป็นกะ หากวันหยุดตามประเพณีตรงกับวันทำงานตามรอบกะ บริษัท จะจัดให้มีวันหยุดชดเชย หรือจ่ายค่าทำงานในวันหยุดตามที่กฎหมายกำหนด</p>
+<p>Rev.00 3. วันหยุดพักผ่อนประจำปี พนักงานที่ยังอยู่ในช่วงทดลองงาน จะยังไม่สามารถใช้สิทธิวันหยุดพักผ่อนประจำปีได้ จนกว่าจะพ้น การทดลองงาน โดยสิทธิวันหยุดพักผ่อนประจำปีสำหรับปีแรกของการทำงาน ให้คำนวณตามสัดส่วนของ ระยะเวลาการทำงานจริงในปีนั้น 3.1 พนักงานประจำ 3.1.1 อายุงาน 1 – 3  ปี มีสิทธิหยุดพักผ่อนประจำปี 13 วัน 3.1.2 อายุงาน 3 ปีขึ้นไป มีสิทธิหยุดพักผ่อนประจำปี 15 วัน 3.1.3 พนักงานสามารถสะสมวันหยุดพักผ่อนประจำปีได้ไม่เกิน 30 วัน ณ วันสิ้นปีของแต่ละปี 3.2  พนักงานรายวัน 3.2.1 มีสิทธิหยุดพักผ่อนประจำปี 6 วัน 3.2.2 พนักงานสามารถสะสมวันหยุดพักผ่อนประจำปีได้ไม่เกิน 6 วัน ณ วันสิ้นปีของแต่ละปี 3.3 ระเบียบการใช้วันหยุดพักผ่อนประจำปี 3.3.1 พนักงานที่ประสงค์จะใช้สิทธิวันหยุดพักผ่อนประจำปี ต้องยื่นใช้สิทธิล่วงหน้าไม่น้อยกว่า 3 วันทำงาน ตามหลักเกณฑ์และวิธีการที่บริษัทกำหนด และจะถือว่าใช้สิทธิโดยถูกต้อง ต่อเมื่อได้รับอนุมัติจากผู้บังคับบัญชาแล้วเท่านั้น 3.3.2 ในกรณีที่พนักงานเจ็บป่วยระหว่างการลาพักผ่อนประจำปี และสามารถแสดงใบรับรอง แพทย์หรือหลักฐานอื่นตามที่บริษัทกำหนด ซึ่งยืนยันว่าไม่สามารถมาปฏิบัติงานได้จริง บริษัทจะพิจารณาให้นับวันดังกล่าวเป็นวันลาป่วย หากพนักงานไม่สามารถแสดงหลักฐาน ตามที่กำหนดได้ ให้ถือว่าวันดังกล่าวเป็นวันลาพักผ่อนประจำปี 3.3.3 ภายหลังจากพนักงานยื่นใบลาออกแล้ว บริษัทขอสงวนสิทธิไม่อนุมัติการใช้วันหยุด พักผ่อนประจำปี เว้นแต่จะได้รับการพิจารณาอนุมัติเป็นกรณีไป โดยคำนึงถึงความจำเป็น ในการปฏิบัติงาน การส่งมอบหน้าที่ ความต่อเนื่องของงาน และการคืนทรัพย์สินของบริษัท 3.3.4 บริษัทอาจกำหนดช่วงเวลาปิดทำการ หรือกำหนดให้พนักงานใช้วันหยุดพักผ่อนประจำปี ในช่วงเวลาที่บริษัทกำหนด ตามความจำเป็นในการดำเนินธุรกิจ โดยจะแจ้งให้พนักงาน ทราบล่วงหน้า 3.3.5 วันหยุดพักผ่อนประจำปีที่เกินจากจำนวนวันที่สามารถสะสมได้ ให้ถือว่าสิ้นสุดลงเมื่อสิ้นปี ปฏิทิน และบริษัทไม่มีหน้าที่จ่ายค่าจ้างแทนวันหยุดในส่วนที่เกินดังกล่าว อย่างไรก็ตาม ใน กรณีที่พนักงานลาออก ถูกเลิกจ้าง หรือถึงแก่ความตาย บริษัทจะจ่ายค่าจ้างแทนวันหยุด</p>
+<p>Rev.00 พักผ่อนประจำปีที่พนักงานมีสิทธิได้รับและยังคงเหลืออยู่ ณ วันที่สัญญาจ้างสิ้นสุด ตามที่ กฎหมายกำหนด 3.3.6 วันหยุดพักผ่อนประจำปีถือเป็นสิทธิประโยชน์ตามสัญญาจ้าง มิให้ถือเป็นค่าจ้าง เว้นแต่ ในกรณีที่กฎหมายกำหนดให้ต้องจ่ายค่าจ้างแทนวันหยุดดังกล่าว</p></div>
+          <div class="text-en"><p>Rev.00 Chapter 6 Holidays and Holiday Entitlements 1. Weekly Holidays The Company provides employees with at least one (1) weekly holiday per week. The interval between weekly holidays shall not exceed six (6) consecutive working days. 1.1 Office Employees: Saturday and Sunday shall be designated as weekly holidays. 1.2 Shift Employees: Weekly holidays shall be determined in accordance with the work schedule prescribed by the Company. 1.3 Employees with Special Holiday Arrangements: For employees whose weekly holidays are subject to special conditions, such holidays shall be as specified in the employment contract. 1.4 The Company may determine or change employees’ weekly holidays as appropriate to the nature of work or business necessity, provided that employees are notified in advance. 2. Public Holidays 2.1 The Company provides employees with not less than fifteen (15) public holidays per year, including National Labour Day, with pay equivalent to a normal working day. 2.2 The Company shall announce the public holidays to employees in advance on an annual basis. 2.3 If a public holiday falls on an employee’s weekly holiday, the Company shall grant a substitute holiday on the next working day. 2.4 The Company may substitute a public holiday with another day where necessary for business operations, provided that such substitution complies with applicable legal procedures, employees are notified in advance, and the total number of public holidays in that year is not reduced. 2.5 In the event that the government announces a special public holiday on an ad hoc basis, the Company may determine whether to grant such day as a holiday, taking into consideration the Company’s business operations. Employees will be notified in advance. 2.6 For shift employees, if a public holiday falls on a scheduled working day under the shift schedule, the Company shall provide a substitute holiday or pay holiday work compensation in accordance with applicable law.</p>
+<p>Rev.00 3. Annual Leave Employees who are still within the probationary period shall not be entitled to take annual leave until they have successfully completed their probation. Annual leave entitlement for the first year of employment shall be calculated on a pro-rata basis according to the employee’s actual length of service in that year. 3.1 Permanent Employees 3.1.1 Employees with 1 – 3 years of service are entitled to 13 days of annual leave. 3.1.2 Employees with more than 3 years of service are entitled to 15 days of annual leave. 3.1.3 Employees may accumulate annual leave up to a maximum of 30 days as of the end of each calendar year. 3.2 Daily Employees 3.2.1 Daily Employees are entitled to 6 days of annual leave. 3.2.2 Daily Employees may accumulate annual leave up to a maximum of 6 days as of the end of each calendar year. 3.3 Regulations for the Use of Annual Leave 3.3.1 Employees who wish to take annual leave must submit a leave request at least three (3) working days in advance, in accordance with the procedures prescribed by the Company. The leave shall be considered valid only after approval by the employee’s supervisor. 3.3.2 In the event that an employee becomes ill during annual leave and is able to present a medical certificate or other evidence as prescribed by the Company confirming that the employee was genuinely unable to work, the Company may consider such day(s) as sick leave. If the employee fails to provide the required evidence, such day(s) shall be treated as annual leave. 3.3.3 After an employee has submitted a resignation, the Company reserves the right not to approve the use of annual leave, unless otherwise approved on a case-by-case basis, taking into consideration operational necessity, work handover, continuity of work, and the return of Company property. 3.3.4 The Company may designate certain periods as Company shutdown periods or require employees to take annual leave during specified periods as necessary for business operations. Employees will be notified in advance.</p>
+<p>Rev.00 3.3.5 Annual leave exceeding the maximum accumulation limit shall expire at the end of the calendar year, and the Company shall not be obligated to pay wages in lieu of such excess leave. However, in the event that an employee resigns, is terminated, or passes away, the Company shall pay wages in lieu of any accrued annual leave to which the employee is entitled and which remains unused as of the termination date, in accordance with applicable law. 3.3.6 Annual leave is considered an employment benefit and shall not be deemed wages, except where the law requires payment in lieu of such leave.</p></div>
         </div>
         <nav class="chapter-nav"><a href="chapter-05.html">← วันทำงาน เวลาทำงานปกติ และเวลาพัก</a><a href="chapter-07.html" class="next">หลักเกณฑ์การทำงานล่วงเวลา และการทำง →</a></nav>
       </article>
@@ -133,7 +138,6 @@
     }
     const saved = localStorage.getItem('hr-lang');
     if (saved) setLang(saved);
-
     function toggleSidebar() {
       document.getElementById('sidebar').classList.toggle('open');
     }

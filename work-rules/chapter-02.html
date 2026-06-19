@@ -8,38 +8,62 @@
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/style.css">
   <style>
-    .chapter-layout { grid-template-columns: 280px 1fr; }
+    body { display:flex; flex-direction:column; min-height:100vh; }
+    .page-wrap { display:flex; flex:1; }
+    .sidebar-fixed {
+      width:270px; flex-shrink:0;
+      position:sticky; top:60px;
+      height:calc(100vh - 60px);
+      overflow-y:auto;
+      background:#fff;
+      border-right:1.5px solid var(--gray-2);
+      padding:12px 8px;
+    }
+    .sidebar-fixed::-webkit-scrollbar { width:4px; }
+    .sidebar-fixed::-webkit-scrollbar-thumb { background:var(--gray-3); border-radius:2px; }
+    .sidebar-home {
+      display:flex; align-items:center; gap:6px;
+      padding:7px 10px; font-size:0.8rem;
+      color:var(--text-muted); text-decoration:none;
+      border-radius:6px; margin-bottom:2px;
+    }
+    .sidebar-home:hover { background:var(--gray-1); color:var(--blue); }
+    .sidebar-section {
+      font-size:0.68rem; font-weight:700; letter-spacing:0.1em;
+      text-transform:uppercase; color:var(--text-muted);
+      padding:10px 10px 4px; display:block;
+    }
     .sidebar-chapter {
-      display: flex; align-items: flex-start; gap: 10px;
-      padding: 10px 12px; border-radius: 8px;
-      text-decoration: none; color: var(--text-muted);
-      font-size: 0.82rem; line-height: 1.35;
-      transition: all 0.2s; border: 1.5px solid transparent;
+      display:flex; align-items:flex-start; gap:8px;
+      padding:8px 10px; border-radius:8px;
+      text-decoration:none; color:var(--text-muted);
+      font-size:0.8rem; line-height:1.35;
+      transition:all 0.15s; margin-bottom:1px;
     }
-    .sidebar-chapter:hover { background: var(--blue-light); color: var(--blue); }
-    .sidebar-chapter.active {
-      background: var(--blue); color: #fff;
-      border-color: var(--blue);
-    }
-    .sidebar-chapter.active .sidebar-num { background: rgba(255,255,255,0.2); color: #fff; }
+    .sidebar-chapter:hover { background:var(--blue-light); color:var(--blue); }
+    .sidebar-chapter.active { background:var(--blue); color:#fff; }
+    .sidebar-chapter.active .sidebar-num { background:rgba(255,255,255,0.25); color:#fff; }
     .sidebar-num {
-      min-width: 28px; height: 28px; border-radius: 7px;
-      background: var(--blue-light); color: var(--blue);
-      font-size: 0.72rem; font-weight: 700;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; margin-top: 1px;
+      min-width:26px; height:26px; border-radius:6px;
+      background:var(--blue-light); color:var(--blue);
+      font-size:0.7rem; font-weight:700;
+      display:flex; align-items:center; justify-content:center;
+      flex-shrink:0; margin-top:1px;
     }
-    .sidebar-label { flex: 1; }
-    .sidebar-section-label {
-      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--text-muted);
-      padding: 12px 12px 4px; display: block;
+    .sidebar-label { flex:1; }
+    .main-content { flex:1; padding:32px 32px 60px; min-width:0; }
+    .chapter-card { max-width:740px; margin:0 auto; }
+    @media(max-width:768px) {
+      .sidebar-fixed { display:none; }
+      .sidebar-fixed.open { display:block; position:fixed; top:60px; left:0; z-index:200; height:calc(100vh - 60px); box-shadow:4px 0 20px rgba(0,0,0,0.15); }
+      .sidebar-toggle-btn { display:flex !important; }
     }
   </style>
 </head>
 <body>
   <header class="topbar">
     <div class="topbar-left">
+      <button class="sidebar-toggle-btn" onclick="toggleSidebar()" style="display:none;background:rgba(255,255,255,0.15);border:none;color:#fff;padding:6px 10px;border-radius:6px;cursor:pointer;font-size:1rem;margin-right:8px;">☰</button>
       <img src="../assets/Akara Logo.jpg" alt="Akara Resources" class="topbar-logo">
       <div class="topbar-title">
         <span class="text-th">คู่มือพนักงาน</span><span class="text-en">Employee Handbook</span>
@@ -54,17 +78,13 @@
     </div>
   </header>
 
-  <div style="display:flex; min-height:calc(100vh - 60px);">
-    <aside class="sidebar" id="sidebar" style="width:280px;flex-shrink:0;position:sticky;top:60px;height:calc(100vh - 60px);overflow-y:auto;background:#fff;border-right:1px solid var(--gray-2);padding:16px 8px;">
-      <a href="../index.html" style="display:flex;align-items:center;gap:6px;padding:8px 12px;font-size:0.8rem;color:var(--text-muted);text-decoration:none;margin-bottom:4px;">
-        ← <span class="text-th">หน้าหลัก</span><span class="text-en">Home</span>
-      </a>
-      <a href="index.html" style="display:flex;align-items:center;gap:6px;padding:8px 12px;font-size:0.8rem;color:var(--blue);text-decoration:none;font-weight:600;margin-bottom:8px;">
-        ☰ <span class="text-th">สารบัญ</span><span class="text-en">Contents</span>
-      </a>
-      <span class="sidebar-section-label text-th">ระเบียบข้อบังคับการทำงาน</span>
-      <span class="sidebar-section-label text-en">Work Rules & Regulations</span>
-      <nav style="display:flex;flex-direction:column;gap:2px;">
+  <div class="page-wrap">
+    <aside class="sidebar-fixed" id="sidebar">
+      <a href="../index.html" class="sidebar-home">← <span class="text-th">หน้าหลัก</span><span class="text-en">Home</span></a>
+      <a href="index.html" class="sidebar-home" style="color:var(--blue);font-weight:600;">☰ <span class="text-th">สารบัญ</span><span class="text-en">Contents</span></a>
+      <span class="sidebar-section text-th">ระเบียบข้อบังคับการทำงาน</span>
+      <span class="sidebar-section text-en">Work Rules & Regulations</span>
+      <nav style="display:flex;flex-direction:column;gap:1px;">
           <a href="chapter-00.html" class="sidebar-chapter"><span class="sidebar-num">00</span><span class="sidebar-label"><span class="text-th">สารจากผู้บริหาร</span><span class="text-en">Message from Management</span></span></a>
           <a href="chapter-01.html" class="sidebar-chapter"><span class="sidebar-num">01</span><span class="sidebar-label"><span class="text-th">บททั่วไป</span><span class="text-en">General Provisions</span></span></a>
           <a href="chapter-02.html" class="sidebar-chapter active"><span class="sidebar-num">02</span><span class="sidebar-label"><span class="text-th">วิสัยทัศน์องค์กร เสาหลักกลยุทธ์และนโยบายองค์กร</span><span class="text-en">Corporate Vision, Strategic Pillars and Policies</span></span></a>
@@ -72,10 +92,10 @@
           <a href="chapter-04.html" class="sidebar-chapter"><span class="sidebar-num">04</span><span class="sidebar-label"><span class="text-th">การสับเปลี่ยนหน้าที่ การโยกย้าย และการปฏิบัติงานที่บ้าน</span><span class="text-en">Job Rotation, Transfer and Work from Home</span></span></a>
           <a href="chapter-05.html" class="sidebar-chapter"><span class="sidebar-num">05</span><span class="sidebar-label"><span class="text-th">วันทำงาน เวลาทำงานปกติ และเวลาพัก</span><span class="text-en">Working Days, Hours and Rest Periods</span></span></a>
           <a href="chapter-06.html" class="sidebar-chapter"><span class="sidebar-num">06</span><span class="sidebar-label"><span class="text-th">วันหยุด และหลักเกณฑ์วันหยุด</span><span class="text-en">Holidays and Holiday Criteria</span></span></a>
-          <a href="chapter-07.html" class="sidebar-chapter"><span class="sidebar-num">07</span><span class="sidebar-label"><span class="text-th">หลักเกณฑ์การทำงานล่วงเวลา และการทำงานในวันหยุด</span><span class="text-en">Overtime and Holiday Work</span></span></a>
-          <a href="chapter-08.html" class="sidebar-chapter"><span class="sidebar-num">08</span><span class="sidebar-label"><span class="text-th">การจ่ายค่าจ้าง ค่าล่วงเวลา และค่าทำงานในวันหยุด</span><span class="text-en">Wages, Overtime and Holiday Pay</span></span></a>
+          <a href="chapter-07.html" class="sidebar-chapter"><span class="sidebar-num">07</span><span class="sidebar-label"><span class="text-th">หลักเกณฑ์การทำงานล่วงเวลา และการทำงานในวันหยุด</span><span class="text-en">Overtime and Holiday Work Criteria</span></span></a>
+          <a href="chapter-08.html" class="sidebar-chapter"><span class="sidebar-num">08</span><span class="sidebar-label"><span class="text-th">การจ่ายค่าจ้าง ค่าล่วงเวลา และค่าทำงานในวันหยุด</span><span class="text-en">Wages, Overtime Pay and Holiday Pay</span></span></a>
           <a href="chapter-09.html" class="sidebar-chapter"><span class="sidebar-num">09</span><span class="sidebar-label"><span class="text-th">วันลา และหลักเกณฑ์การลา</span><span class="text-en">Leave and Leave Criteria</span></span></a>
-          <a href="chapter-10.html" class="sidebar-chapter"><span class="sidebar-num">10</span><span class="sidebar-label"><span class="text-th">วินัย และโทษทางวินัย</span><span class="text-en">Discipline and Penalties</span></span></a>
+          <a href="chapter-10.html" class="sidebar-chapter"><span class="sidebar-num">10</span><span class="sidebar-label"><span class="text-th">วินัย และโทษทางวินัย</span><span class="text-en">Discipline and Disciplinary Penalties</span></span></a>
           <a href="chapter-11.html" class="sidebar-chapter"><span class="sidebar-num">11</span><span class="sidebar-label"><span class="text-th">การร้องทุกข์</span><span class="text-en">Grievance Procedure</span></span></a>
           <a href="chapter-12.html" class="sidebar-chapter"><span class="sidebar-num">12</span><span class="sidebar-label"><span class="text-th">การพ้นสภาพการเป็นพนักงาน</span><span class="text-en">Termination of Employment</span></span></a>
           <a href="chapter-13.html" class="sidebar-chapter"><span class="sidebar-num">13</span><span class="sidebar-label"><span class="text-th">สวัสดิการและสิทธิประโยชน์อื่น ๆ</span><span class="text-en">Welfare and Other Benefits</span></span></a>
@@ -83,42 +103,21 @@
       </nav>
     </aside>
 
-    <main style="flex:1;padding:32px 28px 60px;min-width:0;">
-      <button class="sidebar-toggle" onclick="toggleSidebar()" style="display:none;">☰</button>
-      <article class="chapter-card" style="max-width:760px;margin:0 auto;">
+    <main class="main-content">
+      <article class="chapter-card">
         <div class="chapter-badge">หมวดที่ 2</div>
         <h1 class="chapter-title">
           <span class="text-th">วิสัยทัศน์องค์กร เสาหลักกลยุทธ์และนโยบายองค์กร</span>
           <span class="text-en">Corporate Vision, Strategic Pillars and Policies</span>
         </h1>
         <div class="chapter-divider"></div>
-        <div class="chapter-body" id="chapterBody">
-          <div class="text-th"><p>16-Apr-2026</p>
-<p>Effective date: 20/Jun/2025</p>
-<p>15. ค่าท างานในวันหยุด หมายถึง เงินค่าจ้างที่บริษัทจ่ายให้แก่พนักงานส าหรับการท างานในวันหยุด ซึ่งบริษัทได้สั่งหรืออนุญาต ทั้งนี้ ให้เป็นไปตามกฎหมายว่าด้วยการคุ้มครองแรงงาน 16. ค่าล่วงเวลาในวันหยุด หมายถึง เงินค่าจ้างที่บริษัทจ่ายให้แก่พนักงานเป็นค่าตอบแทนส าหรับ การท างานล่วงเวลาในวันหยุดประจ าสัปดาห์ หรือวันหยุดตามประเพณี ในช่วงเวลาที่เกินกว่าชั่วโมง การท างานปกติ ซึ่งบริษัทได้สั่งหรืออนุญาต ทั้งนี้ ให้เป็นไปตามอัตราและหลักเกณฑ์ที่กฎหมาย ว่าด้วยการคุ้มครองแรงงานก าหนด 17. ค่าชดเชย หมายถึง เงินที่บริษัทจ่ายให้แก่พนักงานเนื่องจากการเลิกจ้าง ตามอัตราและหลักเกณฑ์ ที่กฎหมายว่าด้วยการคุ้มครองแรงงานก าหนด เว้นแต่กรณีที่กฎหมายบัญญัติให้นายจ้างไม่ต้องจ่าย ค่าชดเชย 18. ค่าชดเชยพิเศษ หมายถึง เงินที่นายจ้างจ่ายให้แก่ลูกจ้าง นอกเหนือจากค่าชดเชยตามปกติ ในกรณี ที่กฎหมายว่าด้วยการคุ้มครองแรงงานก าหนดให้นายจ้างต้องจ่ายค่าชดเชยพิเศษ 19. นโยบายของบริษัท หมายถึง ระเบียบ ข้อก าหนด แนวปฏิบัติ จรรยาบรรณ หรือประกาศใด ๆ ของ บริษัทที่บริษัทก าหนดขึ้นเพื่อใช้บังคับในการปฏิบัติงานของพนักงาน ไม่ว่าประกาศใช้เป็น ลายลักษณ์อักษรและ/หรือทางอิเล็กทรอนิกส์ รวมถึงแต่ไม่จ ากัดเพียง จรรยาบรรณทางธุรกิจ นโยบายต่อต้านการให้หรือรับสินบนและการทุจริตคอร์รัปชัน นโยบายเกี่ยวกับยาเสพติด นโยบาย ความขัดแย้งทางผลประโยชน์ นโยบายการแจ้งเบาะแส และนโยบายอื่นใดที่บริษัทก าหนด แก้ไข หรือเพิ่มเติมเป็นครั้งคราว ทั้งนี้ ให้ถือว่านโยบายของบริษัทดังกล่าวเป็นส่วนหนึ่งของข้อบังคับ เกี่ยวกับการท างานฉบับนี้ และมีผลผูกพันพนักงานทันทีนับแต่วันที่บริษัทประกาศใช้ ไม่ว่าพนักงาน ลงนามรับทราบ หรือให้ความยินยอมเป็นหนังสือหรือไม่ก็ตาม โดยบริษัทจะแจ้งให้พนักงาน ทราบตามช่องทางที่บริษัทเห็นสมควร</p>
-<p>16-Apr-2026</p>
-<p>Effective date: 20/Jun/2025</p>
-<h2>หมวดที่ 2 วิสัยทัศน์องค์กร เสาหลักกลยุทธ์ และนโยบายองค์กร</h2>
-<p>1. วิสัยทัศน์องค์กร มุ่งสร้างคุณค่าให้แก่ผู้มีส่วนได้ส่วนเสียทุกภาคส่วนอย่างปลอดภัยและยั่งยืน ผ่านความเป็นเลิศ ในการด าเนินงาน และการใช้ศักยภาพของทรัพยากรแร่ให้เกิดประโยชน์สูงสุด</p>
-<p>2. เสาหลักกลยุทธ์ 4 ด้าน 2.1 ความปลอดภัยและความยั่งยืน 2.1.1 ให้ความส าคัญสูงสุดกับสุขภาพและความปลอดภัยของพนักงาน ผู้รับเหมา และชุมชน โดยรอบ 2.1.2 ด าเนินการบริหารความเสี่ยงตามมาตรฐานชั้นน าของอุตสาหกรรม ส่งเสริมแนวปฏิบัติ ด้านความปลอดภัย และสร้างวัฒนธรรมแห่งการพัฒนาอย่างต่อเนื่อง 2.1.3 มุ่งมั่นในการดูแลสิ่งแวดล้อมอย่างรับผิดชอบ และบริหารจัดการทรัพยากรอย่างยั่งยืน 2.1.4 ลดผลกระทบต่อสิ่งแวดล้อมด้วยเทคโนโลยีที่ทันสมัยและแนวปฏิบัติที่เป็นเลิศ</p>
-<p>2.2 การสร้างคุณค่าให้แก่ผู้มีส่วนได้ส่วนเสีย 2.2.1 ส่งเสริมโอกาสในการพัฒนาอาชีพ พร้อมให้ความส าคัญกับการจ้างงานในท้องถิ่น 2.2.2 สร้างความสัมพันธ์กับพนักงาน ผู้รับเหมา ชุมชนท้องถิ่น และภาครัฐ บนพื้นฐานของ ความไว้วางใจ และการสร้างคุณค่าร่วมกันอย่างต่อเนื่อง 2.2.3 มุ่งสร้างผลตอบแทนทางการเงินอย่างยั่งยืนและการเติบโตในระยะยาวให้แก่ผู้ถือหุ้น 2.2.4 ยึดมั่นในความโปร่งใส จริยธรรม และความซื่อสัตย์ในทุกกระบวนการด าเนินธุรกิจ 2.2.5 ลงทุนในโครงการพัฒนาเศรษฐกิจและสังคม เพื่อสร้างผลกระทบเชิงบวกที่ยั่งยืนต่อชุมชน</p>
-<p>2.3 ความเป็นเลิศในการด าเนินงาน 2.3.1 ขับเคลื่อนประสิทธิภาพ ผลิตภาพ และความคุ้มค่าในทุกกระบวนการด าเนินงาน 2.3.2 น านวัตกรรมและเทคโนโลยีการท าเหมืองชั้นน ามาใช้เพื่อยกระดับประสิทธิผล 2.3.3 ส่งเสริมวัฒนธรรมองค์กรที่มุ่งเน้นผลสัมฤทธิ์และความรับผิดชอบ 2.3.4 ยกระดับมาตรฐานการด าเนินงานอย่างต่อเนื่อง เพื่อให้เหนือกว่ามาตรฐานของ อุตสาหกรรม</p>
-<p>16-Apr-2026</p>
-<p>Effective date: 20/Jun/2025</p>
-<p>2.4 การปลดล็อกศักยภาพแหล่งแร่ 2.4.1 มุ่งสร้างมูลค่าสูงสุดจากทรัพยากรแร่ที่มีอยู่ ผ่านการส ารวจและพัฒนาเชิงกลยุทธ์ 2.4.2 แสวงหาโอกาสใหม่ในการเพิ่มพูนทรัพยากรและเสริมสร้างการเติบโตของธุรกิจ 2.4.3 น านวัตกรรมด้านธรณีวิทยาและการท าเหมืองขั้นสูงมาใช้ เพื่อเพิ่มประสิทธิภาพการผลิต 2.4.4 ร่วมมือกับผู้เชี่ยวชาญในอุตสาหกรรม เพื่อค้นหาและปลดล็อกศักยภาพแหล่งแร่ที่ซ่อนอยู่</p>
-<p>3. นโยบายต่าง ๆ ของบริษัท พนักงานทุกระดับมีหน้าที่ต้องศึกษา ท าความเข้าใจ และปฏิบัติตามนโยบาย ระเบียบ หลักเกณฑ์ และ แนวปฏิบัติของบริษัทอย่างเคร่งครัด ทั้งนี้ ให้ถือว่านโยบายดังกล่าวเป็นส่วนหนึ่งของข้อบังคับเกี่ยวกับการท างาน และมีผลผูกพันพนักงานทุกคน บริษัทอาจก าหนด แก้ไข ปรับปรุง หรือเพิ่มเติมนโยบาย ระเบียบ หรือแนวปฏิบัติได้ตามความเหมาะสม เพื่อให้สอดคล้องกับกฎหมาย มาตรฐานการก ากับดูแลกิจการที่ดี หลักธรรมาภิบาล มาตรฐานสากล ตลอดจน แนวปฏิบัติด้านการบริหารความเสี่ยงและการก ากับดูแลการปฏิบัติตามกฎหมาย โดยพนักงานมีหน้าที่ต้อง ติดตามและปฏิบัติตามนโยบายฉบับที่มีผลใช้บังคับในแต่ละเวลา ในกรณีที่มีความไม่สอดคล้องกันระหว่างข้อบังคับเกี่ยวกับการท างานกับนโยบายหรือระเบียบของบริษัท ให้ยึดถือข้อก าหนดที่มีความเข้มงวดหรือให้การก ากับดูแลสูงกว่า เว้นแต่กฎหมายจะก าหนดไว้เป็นอย่างอื่น ทั้งนี้ นโยบายของบริษัทให้รวมถึง แต่ไม่จ ากัดเพียงรายการดังต่อไปนี้ 1. นโยบายควบคุมสารเสพติดและแอลกอฮอล์ในสถานประกอบการ 2. นโยบายการเปิดเผยข้อมูลแก่บุคคลภายนอกและการสื่อสารผ่านสื่อสังคมออนไลน์ 3. นโยบายการใช้ตราสัญลักษณ์องค์กร 4. นโยบายบริหารคุณภาพ การจัดการสิ่งแวดล้อม อาชีวอนามัยและความปลอดภัย 5. นโยบายการจัดการความเสี่ยง 6. นโยบายประหยัดพลังงาน 7. นโยบายด้านการพัฒนาอย่างยั่งยืนและความรับผิดชอบต่อสังคม 8. นโยบายคุ้มครองข้อมูลส่วนบุคคล 9. นโยบายการจัดการความขัดแย้งทางผลประโยชน์ 10. นโยบายการต่อต้านการให้สินบนและการทุจริตคอร์รัปชั่น</p></div>
-          <div class="text-en"><p>Effective date: 20/Jun/2025</p>
-<p>13. Overtime Work means work performed beyond the normal working hours on a working day as determined by the Company, which has been ordered, assigned, or authorized by the Company and consented to by the employee, in accordance with the applicable labour protection laws. 14. Overtime Pay means wages paid by the Company to an employee for overtime work performed on a working day as ordered or authorized by the Company, in accordance with the applicable labour protection laws. 15. Holiday Pay means wages paid by the Company to an employee for work performed on a holiday as ordered or authorized by the Company, in accordance with the applicable labour protection laws. 16. Holiday Overtime Pay means wages paid by the Company to an employee as compensation for overtime work performed on a weekly holiday or traditional holiday beyond the normal working hours, as ordered or authorized by the Company, in accordance with the rates and conditions prescribed under the applicable labour protection laws. 17. Severance Pay means money paid by the Company to an employee upon termination of employment in accordance with the rates and conditions prescribed under the applicable labour protection laws, except in cases where the law provides that the employer is not required to pay severance pay. 18. Special Severance Pay means money paid by the employer to an employee in addition to the normal severance pay, in cases where the applicable labour protection laws require the employer to pay special severance pay. 19. Company Policies means any regulations, rules, guidelines, codes of conduct, or announcements issued by the Company for the purpose of governing employees’ work and conduct, whether issued in written form and/or through electronic means, including but not limited to the Business Code of Conduct, Anti-Bribery and Anti-Corruption Policy, Drug Policy, Conflict of Interest Policy, Whistleblowing Policy, and any other policies issued, amended, or supplemented by the Company from time to time. Such Company policies shall be deemed to form an integral part of these Work Rules and shall be binding upon employees from the date of issuance by the Company, regardless of whether the employee has signed an acknowledgement or provided written consent. The Company shall notify employees of such policies through any communication channels deemed appropriate by the Company.</p>
-<p>Effective date: 20/Jun/2025</p>
-<p>Chapter 2 Corporate Vision, Strategic Pillars and Corporate Policies</p>
-<p>1. Corporate Vision To safely and sustainably create value for all stakeholders through operational excellence and unlocking the full potential of our mineral endowment.</p>
-<p>2. Four Strategic Pillars 2.1 Safety and Sustainability 2.1.1 Prioritize the health and safety of employees, contractors, and local communities. 2.1.2 Implement industry-leading risk management, safety practices and a culture of continuous improvement. 2.1.3 Commit to responsible environmental stewardship and sustainable resource management. 2.1.4 Minimize environmental impact through innovative technologies and best practices</p>
-<p>2.2 Stakeholder Value Creation 2.2.1 Provide meaningful career development opportunities and prioritize local employment. 2.2.2 Build trust-based, mutually beneficial relationships with employees, contractors, local communities and governments  through continuous engagement. 2.2.3 Deliver sustainable financial returns and long-term growth for shareholders. 2.2.4 Uphold transparency, ethics, and integrity in all business dealings. 2.2.5 Invest in social and economic development initiatives to create lasting community impact</p>
-<p>2.3 Operational Excellence 2.3.1 Drive efficiency, productivity, and cost-effectiveness across all operations. 2.3.2 Adopt best-in-class mining technologies and processes to enhance performance. 2.3.3 Foster a high-performing culture focused on accountability and results. 2.3.4 Continuously improve operational standards to exceed industry benchmarks</p>
-<p>2.4 Unlocking Mineral Potential 2.4.1 Maximize the value of existing mineral endowment through strategic exploration and development.</p>
-<p>Effective date: 20/Jun/2025</p>
-<p>2.4.2 Identify and pursue new opportunities for resource expansion and growth. 2.4.3 Leverage advanced geological and mining expertise to optimize production. 2.4.4 Collaborate with industry experts to discover and unlock hidden resource potential.</p>
-<p>3. Corporate Policies Employees at all levels are required to study, understand, and strictly comply with the Company’s policies, regulations, rules, and practices. Such policies shall be deemed an integral part of the Work Rules and shall be binding upon all employees. The Company may establish, amend, revise, or supplement its policies, regulations, or practices as deemed appropriate to ensure compliance with applicable laws, principles of good corporate governance, internationally recognized standards, as well as risk management and compliance practices. Employees are responsible for keeping themselves informed of and complying with the policies that are in effect from time to time. In the event of any inconsistency between these Work Rules and any policy or regulation of the Company, the provision that imposes stricter requirements or provides a higher level of governance shall prevail, unless otherwise required by law. The Company’s policies include, but are not limited to, the following: 1. Drug and Alcohol Policy 2. External Communications and Social Media Policy 3. Corporate Branding Policy 4. Quality, Environmental, Occupational Health and Safety Management Policy 5. Risk Management Policy 6. Energy Saving Policy 7. Sustainable Development and Social Responsibility Policy 8. Personal Data Protection Policy 9. Conflicts of Interest Policy 10. Anti-Bribery and Anti-Corruption Policy Failure to comply with the Company’s policies, regulations, or practices may be considered a violation of the Work Rules and may result in disciplinary action in accordance with the procedures and criteria prescribed by the Company. Such actions may also give rise to legal liability where applicable.</p></div>
+        <div class="chapter-body">
+          <div class="text-th"><p>Rev.00 หมวดที่ 2 วิสัยทัศน์องค์กร เสาหลักกลยุทธ์ และนโยบายองค์กร 1. วิสัยทัศน์องค์กร มุ่งสร้างคุณค่าให้แก่ผู้มีส่วนได้ส่วนเสียทุกภาคส่วนอย่างปลอดภัยและยั่งยืน ผ่านความเป็นเลิศ ในการดำเนินงาน และการใช้ศักยภาพของทรัพยากรแร่ให้เกิดประโยชน์สูงสุด 2. เสาหลักกลยุทธ์ 4 ด้าน 2.1 ความปลอดภัยและความยั่งยืน 2.1.1 ให้ความสำคัญสูงสุดกับสุขภาพและความปลอดภัยของพนักงาน ผู้รับเหมาและชุมชน โดยรอบ 2.1.2 ดำเนินการบริหารความเสี่ยงตามมาตรฐานชั้นนำของอุตสาหกรรม ส่งเสริมแนวปฏิบัติ ด้านความปลอดภัย และสร้างวัฒนธรรมแห่งการพัฒนาอย่างต่อเนื่อง 2.1.3 มุ่งมั่นในการดูแลสิ่งแวดล้อมอย่างรับผิดชอบ และบริหารจัดการทรัพยากรอย่างยั่งยืน 2.1.4 ลดผลกระทบต่อสิ่งแวดล้อมด้วยเทคโนโลยีที่ทันสมัยและแนวปฏิบัติที่เป็นเลิศ 2.2 การสร้างคุณค่าให้แก่ผู้มีส่วนได้ส่วนเสีย 2.2.1 ส่งเสริมโอกาสในการพัฒนาอาชีพ พร้อมให้ความสำคัญกับการจ้างงานในท้องถิ่น 2.2.2 สร้างความสัมพันธ์กับพนักงาน ผู้รับเหมาชุมชนท้องถิ่น และภาครัฐ บนพื้นฐานของ ความไว้วางใจ และการสร้างคุณค่าร่วมกันอย่างต่อเนื่อง 2.2.3 มุ่งสร้างผลตอบแทนทางการเงินอย่างยั่งยืนและการเติบโตในระยะยาวให้แก่ผู้ถือหุ้น 2.2.4 ยึดมั่นในความโปร่งใส จริยธรรม และความซื่อสัตย์ในทุกกระบวนการดำเนินธุรกิจ 2.2.5 ลงทุนในโครงการพัฒนาเศรษฐกิจและสังคม เพื่อสร้างผลกระทบเชิงบวกที่ยั่งยืนต่อชุมชน 2.3 ความเป็นเลิศในการดำเนินงาน 2.3.1 ขับเคลื่อนประสิทธิภาพ ผลิตภาพ และความคุ้มค่าในทุกกระบวนการดำเนินงาน 2.3.2 นำนวัตกรรมและเทคโนโลยีการทำเหมืองชั้นนำมาใช้เพื่อยกระดับประสิทธิผล 2.3.3 ส่งเสริมวัฒนธรรมองค์กรที่มุ่งเน้นผลสัมฤทธิ์และความรับผิดชอบ 2.3.4 ยกระดับมาตรฐานการดำเนินงานอย่างต่อเนื่อง เพื่อให้เหนือกว่ามาตรฐานของ อุตสาหกรรม</p>
+<p>Rev.00 2.4 การปลดล็อกศักยภาพแหล่งแร่ 2.4.1 มุ่งสร้างมูลค่าสูงสุดจากทรัพยากรแร่ที่มีอยู่ ผ่านการสำรวจและพัฒนาเชิงกลยุทธ์ 2.4.2 แสวงหาโอกาสใหม่ในการเพิ่มพูนทรัพยากรและเสริมสร้างการเติบโตของธุรกิจ 2.4.3 นำนวัตกรรมด้านธรณีวิทยาและการทำเหมืองขั้นสูงมาใช้ เพื่อเพิ่มประสิทธิภาพการผลิต 2.4.4 ร่วมมือกับผู้เชี่ยวชาญในอุตสาหกรรม เพื่อค้นหาและปลดล็อกศักยภาพแหล่งแร่ที่ซ่อนอยู่ 3. นโยบายต่าง ๆ ของบริษัท พนักงานทุกระดับมีหน้าที่ต้องศึกษาทำความเข้าใจ และปฏิบัติตามนโยบาย ระเบียบ หลักเกณฑ์ และ แนวปฏิบัติของบริษัทอย่างเคร่งครัด ทั้งนี้ ให้ถือว่านโยบายดังกล่าวเป็นส่วนหนึ่งของข้อบังคับเกี่ยวกับการทำงาน และมีผลผูกพันพนักงานทุกคน บริษัทอาจกำหนด แก้ไข ปรับปรุง หรือเพิ่มเติมนโยบาย ระเบียบ หรือแนวปฏิบัติได้ตามความเหมาะสม เพื่อให้สอดคล้องกับกฎหมาย มาตรฐานการกำกับดูแลกิจการที่ดี หลักธรรมาภิบาล มาตรฐานสากล ตลอดจน แนวปฏิบัติด้านการบริหารความเสี่ยงและการกำกับดูแลการปฏิบัติตามกฎหมาย โดยพนักงานมีหน้าที่ต้อง ติดตามและปฏิบัติตามนโยบายฉบับที่มีผลใช้บังคับในแต่ละเวลา ในกรณีที่มีความไม่สอดคล้องกันระหว่างข้อบังคับเกี่ยวกับการทำงานกับนโยบายหรือระเบียบของบริษัท ให้ยึดถือข้อกำหนดที่มีความเข้มงวดหรือให้การกำกับดูแลสูงกว่าเว้นแต่กฎหมายจะกำหนดไว้เป็นอย่างอื่น ทั้งนี้ นโยบายของบริษัทให้รวมถึง แต่ไม่จำกัดเพียงรายการดังต่อไปนี้ 1. นโยบายควบคุมสารเสพติดและแอลกอฮอล์ในสถานประกอบการ 2. นโยบายการเปิดเผยข้อมูลแก่บุคคลภายนอกและการสื่อสารผ่านสื่อสังคมออนไลน์ 3. นโยบายการใช้ตราสัญลักษณ์องค์กร 4. นโยบายบริหารคุณภาพ การจัดการสิ่งแวดล้อม อาชีวอนามัยและความปลอดภัย 5. นโยบายการจัดการความเสี่ยง 6. นโยบายประหยัดพลังงาน 7. นโยบายด้านการพัฒนาอย่างยั่งยืนและความรับผิดชอบต่อสังคม 8. นโยบายคุ้มครองข้อมูลส่วนบุคคล 9. นโยบายการจัดการความขัดแย้งทางผลประโยชน์ 10. นโยบายการต่อต้านการให้สินบนและการทุจริตคอร์รัปชั่น</p>
+<p>Rev.00 การไม่ปฏิบัติตามนโยบาย ระเบียบ หรือแนวปฏิบัติของบริษัทดังกล่าว อาจถือเป็นการฝ่าฝืนข้อบังคับ เกี่ยวกับการทำงาน และอาจนำไปสู่การพิจารณาดำเนินการทางวินัยตามหลักเกณฑ์และขั้นตอนที่บริษัทกำหนด รวมถึงอาจมีความรับผิดตามกฎหมายในกรณีที่เกี่ยวข้อง</p></div>
+          <div class="text-en"><p>Rev.00 Chapter 2 Corporate Vision, Strategic Pillars and Corporate Policies 1. Corporate Vision To safely and sustainably create value for all stakeholders through operational excellence and unlocking the full potential of our mineral endowment. 2. Four Strategic Pillars 2.1 Safety and Sustainability 2.1.1 Prioritize the health and safety of employees, contractors, and local communities. 2.1.2 Implement industry-leading risk management, safety practices and a culture of continuous improvement. 2.1.3 Commit to responsible environmental stewardship and sustainable resource management. 2.1.4 Minimize environmental impact through innovative technologies and best practices 2.2 Stakeholder Value Creation 2.2.1 Provide meaningful career development opportunities and prioritize local employment. 2.2.2 Build trust-based, mutually beneficial relationships with employees, contractors, local communities and governments  through continuous engagement. 2.2.3 Deliver sustainable financial returns and long-term growth for shareholders. 2.2.4 Uphold transparency, ethics, and integrity in all business dealings. 2.2.5 Invest in social and economic development initiatives to create lasting community impact 2.3 Operational Excellence 2.3.1 Drive efficiency, productivity, and cost-effectiveness across all operations. 2.3.2 Adopt best-in-class mining technologies and processes to enhance performance. 2.3.3 Foster a high-performing culture focused on accountability and results. 2.3.4 Continuously improve operational standards to exceed industry benchmarks 2.4 Unlocking Mineral Potential 2.4.1 Maximize the value of existing mineral endowment through strategic exploration and development.</p>
+<p>Rev.00 2.4.2 Identify and pursue new opportunities for resource expansion and growth. 2.4.3 Leverage advanced geological and mining expertise to optimize production. 2.4.4 Collaborate with industry experts to discover and unlock hidden resource potential. 3. Corporate Policies Employees at all levels are required to study, understand, and strictly comply with the Company’s policies, regulations, rules, and practices. Such policies shall be deemed an integral part of the Work Rules and shall be binding upon all employees. The Company may establish, amend, revise, or supplement its policies, regulations, or practices as deemed appropriate to ensure compliance with applicable laws, principles of good corporate governance, internationally recognized standards, as well as risk management and compliance practices. Employees are responsible for keeping themselves informed of and complying with the policies that are in effect from time to time. In the event of any inconsistency between these Work Rules and any policy or regulation of the Company, the provision that imposes stricter requirements or provides a higher level of governance shall prevail, unless otherwise required by law. The Company’s policies include, but are not limited to, the following: 1. Drug and Alcohol Policy 2. External Communications and Social Media Policy 3. Corporate Branding Policy 4. Quality, Environmental, Occupational Health and Safety Management Policy 5. Risk Management Policy 6. Energy Saving Policy 7. Sustainable Development and Social Responsibility Policy 8. Personal Data Protection Policy 9. Conflicts of Interest Policy 10. Anti-Bribery and Anti-Corruption Policy Failure to comply with the Company’s policies, regulations, or practices may be considered a violation of the Work Rules and may result in disciplinary action in accordance with the procedures and criteria prescribed by the Company. Such actions may also give rise to legal liability where applicable.</p>
+<p>Rev.00 Chapter 3 Employment 1. General Qualifications 1.1 Applicants must be at least eighteen (18) years of age. 1.2 Applicants must be in good physical and mental health, free from serious communicable diseases, not addicted to narcotics, and not suffering from any condition that may hinder the performance of their duties. 1.3 Applicants shall undergo a medical examination in accordance with the criteria determined by the Company at a medical facility designated or arranged by the Company. Employment shall be subject to the medical examination results meeting the Company’s standards for fitness for work. 1.4 Male applicants who are subject to military conscription must have completed their military obligations, unless the Company considers an exception on a case-by-case basis depending on the suitability of the position. 1.5 Applicants must have good conduct and must not have been sentenced to imprisonment by a final court judgment, except for petty offenses, and must not be fugitives from criminal prosecution. 1.6 Applicants must not be or have previously been declared bankrupt by a court order, unless they have been legally discharged from such status. 1.7 Applicants must possess the qualifications, knowledge, abilities, and experience required for the position as determined by the Company. 1.8 The Company may conduct background checks on applicants before or after employment. If it is subsequently found that an applicant has provided false information or does not meet the required qualifications, the Company reserves the right to terminate employment immediately in accordance with the law. Employment and related conditions shall be in accordance with the applicable labour protection laws and other relevant laws. 2. Types of Employment 2.1 Daily Employees means employees who are paid on a daily wage basis and are not entitled to wages on weekly holidays, unless otherwise required by law.</p></div>
         </div>
         <nav class="chapter-nav"><a href="chapter-01.html">← บททั่วไป</a><a href="chapter-03.html" class="next">การว่าจ้าง →</a></nav>
       </article>
@@ -139,7 +138,6 @@
     }
     const saved = localStorage.getItem('hr-lang');
     if (saved) setLang(saved);
-
     function toggleSidebar() {
       document.getElementById('sidebar').classList.toggle('open');
     }
