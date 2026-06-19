@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="th" data-lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>เครื่องแบบพนักงาน — Akara Resources</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    body { display:flex; flex-direction:column; min-height:100vh; }
+    .page-wrap { display:flex; flex:1; }
+    .sidebar-fixed {
+      width:270px; flex-shrink:0; position:sticky; top:60px;
+      height:calc(100vh - 60px); overflow-y:auto;
+      background:#fff; border-right:1.5px solid var(--gray-2); padding:12px 8px;
+    }
+    .sidebar-fixed::-webkit-scrollbar { width:4px; }
+    .sidebar-fixed::-webkit-scrollbar-thumb { background:var(--gray-3); border-radius:2px; }
+    .sidebar-home {
+      display:flex; align-items:center; gap:6px; padding:7px 10px;
+      font-size:0.8rem; color:var(--text-muted); text-decoration:none;
+      border-radius:6px; margin-bottom:2px;
+    }
+    .sidebar-home:hover { background:var(--gray-1); color:var(--blue); }
+    .sidebar-section {
+      font-size:0.68rem; font-weight:700; letter-spacing:0.1em;
+      text-transform:uppercase; color:var(--text-muted);
+      padding:10px 10px 4px; display:block;
+    }
+    .sidebar-chapter {
+      display:flex; align-items:flex-start; gap:8px; padding:8px 10px;
+      border-radius:8px; text-decoration:none; color:var(--text-muted);
+      font-size:0.8rem; line-height:1.35; transition:all 0.15s; margin-bottom:1px;
+    }
+    .sidebar-chapter:hover { background:#FEF9E0; color:#7A6200; }
+    .sidebar-chapter.active { background:var(--gold); color:var(--dark); }
+    .sidebar-chapter.active .sidebar-num { background:rgba(0,0,0,0.1); color:var(--dark); }
+    .sidebar-num {
+      min-width:26px; height:26px; border-radius:6px;
+      background:#FEF9E0; color:#7A6200;
+      font-size:0.7rem; font-weight:700;
+      display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px;
+    }
+    .sidebar-label { flex:1; }
+    .main-content { flex:1; padding:32px 32px 60px; min-width:0; }
+    .chapter-card { max-width:740px; margin:0 auto; }
+    .chapter-body h2 { color:#7A6200; font-size:1.1rem; margin:28px 0 8px; padding-bottom:6px; border-bottom:2px solid #FEF9E0; }
+    .chapter-body h3 { color:var(--dark); font-size:1rem; margin:20px 0 6px; font-weight:700; }
+    .chapter-body h4 { color:#7A6200; font-size:0.95rem; margin:12px 0 4px; font-weight:600; }
+    .chapter-body p { color:var(--text); font-size:0.95rem; margin-bottom:0.8em; line-height:1.8; }
+    @media(max-width:768px) {
+      .sidebar-fixed { display:none; }
+      .sidebar-fixed.open { display:block; position:fixed; top:60px; left:0; z-index:200; height:calc(100vh - 60px); box-shadow:4px 0 20px rgba(0,0,0,0.15); }
+      .mob-menu { display:flex !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar" style="background:linear-gradient(135deg,#7A6200,#B8940A,var(--gold-dark))">
+    <div class="topbar-left">
+      <button class="mob-menu" onclick="toggleSidebar()" style="display:none;background:rgba(255,255,255,0.15);border:none;color:#fff;padding:6px 10px;border-radius:6px;cursor:pointer;font-size:1rem;margin-right:8px;">☰</button>
+      <img src="../assets/Akara Logo.jpg" alt="Akara Resources" class="topbar-logo">
+      <div class="topbar-title">
+        <span class="text-th">คู่มือพนักงาน</span><span class="text-en">Employee Handbook</span>
+        <span>Akara Resources Public Company Limited</span>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="lang-toggle">
+        <button class="lang-btn active" onclick="setLang('th')">TH</button>
+        <button class="lang-btn" onclick="setLang('en')">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="page-wrap">
+    <aside class="sidebar-fixed" id="sidebar">
+      <a href="../index.html" class="sidebar-home">← <span class="text-th">หน้าหลัก</span><span class="text-en">Home</span></a>
+      <span class="sidebar-section text-th">สวัสดิการและสิทธิประโยชน์</span>
+      <span class="sidebar-section text-en">Welfare & Benefits</span>
+      <nav style="display:flex;flex-direction:column;gap:1px;">
+          <a href="welfare-01.html" class="sidebar-chapter"><span class="sidebar-num">01</span><span class="sidebar-label"><span class="text-th">บททั่วไปและหลักการ</span><span class="text-en">General Provisions and Principles</span></span></a>
+          <a href="welfare-02.html" class="sidebar-chapter"><span class="sidebar-num">02</span><span class="sidebar-label"><span class="text-th">การตรวจสุขภาพ</span><span class="text-en">Medical Examination</span></span></a>
+          <a href="welfare-03.html" class="sidebar-chapter"><span class="sidebar-num">03</span><span class="sidebar-label"><span class="text-th">การประกันชีวิตกลุ่ม</span><span class="text-en">Group Life Insurance</span></span></a>
+          <a href="welfare-04.html" class="sidebar-chapter"><span class="sidebar-num">04</span><span class="sidebar-label"><span class="text-th">การประกันอุบัติเหตุกลุ่ม</span><span class="text-en">Group Accident Insurance</span></span></a>
+          <a href="welfare-05.html" class="sidebar-chapter active"><span class="sidebar-num">05</span><span class="sidebar-label"><span class="text-th">เครื่องแบบพนักงาน</span><span class="text-en">Employee Uniforms</span></span></a>
+          <a href="welfare-06.html" class="sidebar-chapter"><span class="sidebar-num">06</span><span class="sidebar-label"><span class="text-th">อาหารพนักงาน</span><span class="text-en">Employee Meals</span></span></a>
+          <a href="welfare-07.html" class="sidebar-chapter"><span class="sidebar-num">07</span><span class="sidebar-label"><span class="text-th">ค่าเดินทางมาทำงาน</span><span class="text-en">Transportation Allowance</span></span></a>
+          <a href="welfare-08.html" class="sidebar-chapter"><span class="sidebar-num">08</span><span class="sidebar-label"><span class="text-th">ค่ากะทำงาน</span><span class="text-en">Shift Allowance</span></span></a>
+          <a href="welfare-09.html" class="sidebar-chapter"><span class="sidebar-num">09</span><span class="sidebar-label"><span class="text-th">เงินช่วยเหลืออุปสมบท</span><span class="text-en">Ordination Support Allowance</span></span></a>
+          <a href="welfare-10.html" class="sidebar-chapter"><span class="sidebar-num">10</span><span class="sidebar-label"><span class="text-th">เงินช่วยเหลือกรณีสมรส</span><span class="text-en">Marriage Support Allowance</span></span></a>
+          <a href="welfare-11.html" class="sidebar-chapter"><span class="sidebar-num">11</span><span class="sidebar-label"><span class="text-th">เงินช่วยเหลือกรณีคลอดบุตร</span><span class="text-en">Childbirth Support Allowance</span></span></a>
+          <a href="welfare-12.html" class="sidebar-chapter"><span class="sidebar-num">12</span><span class="sidebar-label"><span class="text-th">เงินช่วยเหลือกรณีเสียชีวิตของบุคคลในครอบครัว</span><span class="text-en">Family Bereavement Assistance</span></span></a>
+          <a href="welfare-13.html" class="sidebar-chapter"><span class="sidebar-num">13</span><span class="sidebar-label"><span class="text-th">เงินช่วยเหลือกรณีเสียชีวิตของพนักงาน</span><span class="text-en">Death Benefit for Employees</span></span></a>
+          <a href="welfare-14.html" class="sidebar-chapter"><span class="sidebar-num">14</span><span class="sidebar-label"><span class="text-th">รางวัลตอบแทนการทำงานตามอายุงานต่อเนื่อง</span><span class="text-en">Long-Service Recognition Award</span></span></a>
+          <a href="welfare-15.html" class="sidebar-chapter"><span class="sidebar-num">15</span><span class="sidebar-label"><span class="text-th">กองทุนสำรองเลี้ยงชีพ</span><span class="text-en">Provident Fund</span></span></a>
+          <a href="welfare-16.html" class="sidebar-chapter"><span class="sidebar-num">16</span><span class="sidebar-label"><span class="text-th">สวัสดิการค่ารักษาพยาบาล</span><span class="text-en">Medical Benefits</span></span></a>
+          <a href="welfare-17.html" class="sidebar-chapter"><span class="sidebar-num">17</span><span class="sidebar-label"><span class="text-th">โทรศัพท์มือถือ</span><span class="text-en">Mobile Phone</span></span></a>
+          <a href="welfare-18.html" class="sidebar-chapter"><span class="sidebar-num">18</span><span class="sidebar-label"><span class="text-th">ค่าเดินทางกรณีใช้รถยนต์ส่วนตัว</span><span class="text-en">Travel Allowance for Use of Personal Vehicle</span></span></a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <article class="chapter-card">
+        <div class="chapter-badge" style="background:#FEF9E0;color:#7A6200">
+          <span class="text-th">หัวข้อที่ 5</span>
+          <span class="text-en">Section 5</span>
+        </div>
+        <h1 class="chapter-title">
+          <span class="text-th">เครื่องแบบพนักงาน</span>
+          <span class="text-en">Employee Uniforms</span>
+        </h1>
+        <div class="chapter-divider" style="background:linear-gradient(90deg,#7A6200,var(--gold))"></div>
+        <div class="chapter-body">
+          <div class="text-th"><p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.1</span>วัตถุประสงค์</p>
+<p style="padding-left:1.5em">เพื่อกำหนดหลักเกณฑ์การจัดให้ การใช้ การดูแลรักษา และการควบคุมเครื่องแบบพนักงาน ให้เป็นไปอย่างเหมาะสม สอดคล้องกับลักษณะงาน มาตรฐานด้านความปลอดภัย และภาพลักษณ์ขององค์กร</p>
+<p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.2</span>ผู้มีสิทธิ</p>
+<p style="padding-left:1.5em">ได้แก่ พนักงานประจำของบริษัท ทั้งนี้ บริษัทอาจกำหนดหลักเกณฑ์เพิ่มเติมสำหรับพนักงานทดลองงาน พนักงานสัญญาจ้าง หรือพนักงานประเภทอื่นตามที่บริษัทกำหนด</p>
+<p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.3</span>หลักเกณฑ์การจัดให้</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.3.1</span>บริษัทเป็นผู้กำหนดประเภท ความจำเป็น และความเหมาะสมของเครื่องแบบ ให้สอดคล้องกับหน้าที่ ความรับผิดชอบ ลักษณะงาน และสถานที่ปฏิบัติงานของพนักงานแต่ละตำแหน่ง</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.3.2</span>พนักงานจะได้รับเครื่องแบบ ดังนี้</p>
+<p style="padding-left:6.0em"><span style="color:var(--text-muted);margin-right:6px">0.3.2</span>เมื่อเริ่มปฏิบัติงาน บริษัทจะพิจารณาจัดให้ตามความจำเป็นของตำแหน่งงานและลักษณะงาน</p>
+<p style="padding-left:6.0em"><span style="color:var(--text-muted);margin-right:6px">0.3.2</span>การจัดให้เพิ่มเติมภายหลัง รวมถึงจำนวน รอบระยะเวลา เงื่อนไขการเบิกจ่าย หรือ
+การเปลี่ยนทดแทน ให้เป็นไปตามประกาศ ระเบียบ หรือแนวปฏิบัติที่บริษัทกำหนดเป็นการเฉพาะ และให้ถือเป็นส่วนหนึ่งของระเบียบฉบับนี้</p>
+<p style="padding-left:6.0em"><span style="color:var(--text-muted);margin-right:6px">0.3.2</span>บริษัทขอสงวนสิทธิในการกำหนด เปลี่ยนแปลง ปรับปรุง ระงับ หรือยกเลิกหลักเกณฑ์การจัดให้เครื่องแบบดังกล่าวตามความเหมาะสม โดยการดำเนินการดังกล่าวไม่ถือเป็นการเปลี่ยนแปลงสภาพการจ้าง</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.3.3</span>รูปแบบ ประเภท สี ขนาด มาตรฐานความปลอดภัย และรายละเอียดทางเทคนิคของเครื่องแบบ ให้เป็นไปตามที่บริษัทกำหนด และอาจมีการปรับปรุงตามความเหมาะสม</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.3.4</span>การจัดให้เครื่องแบบตามข้อนี้เป็นไปเพื่อประโยชน์ในการปฏิบัติงาน และไม่ถือเป็นค่าจ้างหรือค่าตอบแทนตามกฎหมายแรงงาน</p>
+<p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.4</span>การใช้และการดูแลรักษา</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.4.1</span>พนักงานต้องสวมเครื่องแบบในระหว่างเวลาปฏิบัติงานตามที่บริษัทกำหนด เว้นแต่ได้รับอนุญาตเป็นกรณีพิเศษ</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.4.2</span>พนักงานมีหน้าที่ดูแลรักษาเครื่องแบบให้อยู่ในสภาพเรียบร้อย สะอาด และเหมาะสมต่อ
+การใช้งาน</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.4.3</span>ห้ามนำเครื่องแบบไปใช้เพื่อประโยชน์ส่วนตัว หรือในกิจกรรมที่อาจก่อให้เกิดความเสียหายต่อชื่อเสียงหรือภาพลักษณ์ของบริษัท</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.4.4</span>กรณีเครื่องแบบสูญหาย หรือเสียหายจากการจงใจหรือประมาทเลินเล่อร้ายแรงของพนักงาน บริษัทอาจเรียกให้พนักงานรับผิดชอบตามความเสียหายที่เกิดขึ้น ทั้งนี้ การเรียกให้รับผิดดังกล่าวต้องเป็นไปตามกฎหมายแรงงาน</p>
+<p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.5</span>การสิ้นสุดสิทธิ</p>
+<p style="padding-left:1.5em">สิทธิในการได้รับเครื่องแบบจะสิ้นสุดลงเมื่อพนักงานพ้นสภาพการเป็นพนักงาน โดยบริษัทอาจกำหนดให้พนักงานส่งคืนเครื่องแบบที่ยังอยู่ในสภาพใช้งานได้ ทั้งนี้ การดำเนินการใด ๆ เกี่ยวกับเครื่องแบบภายหลังการพ้นสภาพ ต้องไม่ขัดต่อกฎหมายแรงงาน</p></div>
+          <div class="text-en"><p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.1</span>Purpose</p>
+<p style="padding-left:1.5em">This policy aims to establish guidelines for the provision, use, maintenance, and management of employee uniforms in a manner that is appropriate and consistent with the nature of the work, safety standards, and the Company’s corporate image.</p>
+<p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.2</span>Eligibility</p>
+<p style="padding-left:1.5em">Eligible persons include permanent employees of the Company. The Company may establish additional criteria for probationary employees, contract employees, or other categories of employees as determined by the Company.</p>
+<p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.3</span>Provision of Uniforms</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.3.1</span>The Company shall determine the type, necessity, and appropriateness of uniforms in accordance with the duties, responsibilities, nature of work, and workplace of each position.</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.3.2</span>Employees shall be provided with uniforms as follows:</p>
+<p style="padding-left:6.0em"><span style="color:var(--text-muted);margin-right:6px">0.3.2</span>Upon commencement of employment, the Company may provide uniforms as necessary based on the position and nature of the work.</p>
+<p style="padding-left:6.0em"><span style="color:var(--text-muted);margin-right:6px">0.3.2</span>Any additional provision of uniforms thereafter, including the number of uniforms, replacement cycle, conditions for issuance, or replacement of uniforms, shall be in accordance with the announcements, regulations, or guidelines prescribed by the Company, which shall form part of this Regulation.</p>
+<p style="padding-left:6.0em"><span style="color:var(--text-muted);margin-right:6px">0.3.2</span>The Company reserves the right to determine, amend, revise, suspend, or discontinue the criteria for providing uniforms as deemed appropriate. Such actions shall not be considered a change to the employee’s conditions of employment.</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.3.3</span>The design, type, color, size, safety standards, and technical specifications of the uniforms shall be as determined by the Company and may be revised as appropriate.</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.3.4</span>Uniforms provided under this policy are intended solely for work-related purposes and shall not be considered wages or remuneration under applicable labour laws.</p>
+<p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.4</span>Use and Maintenance</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.4.1</span>Employees shall wear the prescribed uniform during working hours as required by the Company, unless otherwise authorized in special circumstances.</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.4.2</span>Employees are responsible for maintaining their uniforms in a clean, orderly, and serviceable condition.</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.4.3</span>Uniforms shall not be used for personal purposes or for activities that may damage the reputation or image of the Company.</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.4.4</span>In the event that uniforms are lost or damaged due to intentional acts or gross negligence of the employee, the Company may require the employee to compensate for the damage incurred, subject to applicable labour laws.</p>
+<p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.5</span>Termination of Entitlement</p>
+<p style="padding-left:1.5em">The entitlement to receive uniforms shall cease upon termination of employment. The Company may require employees to return uniforms that remain in usable condition. Any actions relating to uniforms after termination of employment shall be in accordance with applicable labour laws.</p></div>
+        </div>
+        <nav class="chapter-nav"><a href="welfare-04.html">← <span class="text-th">การประกันอุบัติเหตุกลุ่ม</span><span class="text-en">Group Accident Insurance</span></a><a href="welfare-06.html" class="next"><span class="text-th">อาหารพนักงาน</span><span class="text-en">Employee Meals</span> →</a></nav>
+      </article>
+    </main>
+  </div>
+
+  <footer class="footer">
+    <span class="text-th">© 2026 บริษัท อัครา รีซอร์สเซส จำกัด (มหาชน) — ฝ่ายทรัพยากรบุคคล</span>
+    <span class="text-en">© 2026 Akara Resources Public Company Limited — Human Resources Department</span>
+  </footer>
+
+  <script>
+    function setLang(lang) {
+      document.documentElement.setAttribute('data-lang', lang);
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+      document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
+      localStorage.setItem('hr-lang', lang);
+    }
+    const saved = localStorage.getItem('hr-lang');
+    if (saved) setLang(saved);
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+    }
+  </script>
+</body>
+</html>

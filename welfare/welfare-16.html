@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="th" data-lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>สวัสดิการค่ารักษาพยาบาล — Akara Resources</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    body { display:flex; flex-direction:column; min-height:100vh; }
+    .page-wrap { display:flex; flex:1; }
+    .sidebar-fixed {
+      width:270px; flex-shrink:0; position:sticky; top:60px;
+      height:calc(100vh - 60px); overflow-y:auto;
+      background:#fff; border-right:1.5px solid var(--gray-2); padding:12px 8px;
+    }
+    .sidebar-fixed::-webkit-scrollbar { width:4px; }
+    .sidebar-fixed::-webkit-scrollbar-thumb { background:var(--gray-3); border-radius:2px; }
+    .sidebar-home {
+      display:flex; align-items:center; gap:6px; padding:7px 10px;
+      font-size:0.8rem; color:var(--text-muted); text-decoration:none;
+      border-radius:6px; margin-bottom:2px;
+    }
+    .sidebar-home:hover { background:var(--gray-1); color:var(--blue); }
+    .sidebar-section {
+      font-size:0.68rem; font-weight:700; letter-spacing:0.1em;
+      text-transform:uppercase; color:var(--text-muted);
+      padding:10px 10px 4px; display:block;
+    }
+    .sidebar-chapter {
+      display:flex; align-items:flex-start; gap:8px; padding:8px 10px;
+      border-radius:8px; text-decoration:none; color:var(--text-muted);
+      font-size:0.8rem; line-height:1.35; transition:all 0.15s; margin-bottom:1px;
+    }
+    .sidebar-chapter:hover { background:#FEF9E0; color:#7A6200; }
+    .sidebar-chapter.active { background:var(--gold); color:var(--dark); }
+    .sidebar-chapter.active .sidebar-num { background:rgba(0,0,0,0.1); color:var(--dark); }
+    .sidebar-num {
+      min-width:26px; height:26px; border-radius:6px;
+      background:#FEF9E0; color:#7A6200;
+      font-size:0.7rem; font-weight:700;
+      display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px;
+    }
+    .sidebar-label { flex:1; }
+    .main-content { flex:1; padding:32px 32px 60px; min-width:0; }
+    .chapter-card { max-width:740px; margin:0 auto; }
+    .chapter-body h2 { color:#7A6200; font-size:1.1rem; margin:28px 0 8px; padding-bottom:6px; border-bottom:2px solid #FEF9E0; }
+    .chapter-body h3 { color:var(--dark); font-size:1rem; margin:20px 0 6px; font-weight:700; }
+    .chapter-body h4 { color:#7A6200; font-size:0.95rem; margin:12px 0 4px; font-weight:600; }
+    .chapter-body p { color:var(--text); font-size:0.95rem; margin-bottom:0.8em; line-height:1.8; }
+    @media(max-width:768px) {
+      .sidebar-fixed { display:none; }
+      .sidebar-fixed.open { display:block; position:fixed; top:60px; left:0; z-index:200; height:calc(100vh - 60px); box-shadow:4px 0 20px rgba(0,0,0,0.15); }
+      .mob-menu { display:flex !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar" style="background:linear-gradient(135deg,#7A6200,#B8940A,var(--gold-dark))">
+    <div class="topbar-left">
+      <button class="mob-menu" onclick="toggleSidebar()" style="display:none;background:rgba(255,255,255,0.15);border:none;color:#fff;padding:6px 10px;border-radius:6px;cursor:pointer;font-size:1rem;margin-right:8px;">☰</button>
+      <img src="../assets/Akara Logo.jpg" alt="Akara Resources" class="topbar-logo">
+      <div class="topbar-title">
+        <span class="text-th">คู่มือพนักงาน</span><span class="text-en">Employee Handbook</span>
+        <span>Akara Resources Public Company Limited</span>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="lang-toggle">
+        <button class="lang-btn active" onclick="setLang('th')">TH</button>
+        <button class="lang-btn" onclick="setLang('en')">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="page-wrap">
+    <aside class="sidebar-fixed" id="sidebar">
+      <a href="../index.html" class="sidebar-home">← <span class="text-th">หน้าหลัก</span><span class="text-en">Home</span></a>
+      <span class="sidebar-section text-th">สวัสดิการและสิทธิประโยชน์</span>
+      <span class="sidebar-section text-en">Welfare & Benefits</span>
+      <nav style="display:flex;flex-direction:column;gap:1px;">
+          <a href="welfare-01.html" class="sidebar-chapter"><span class="sidebar-num">01</span><span class="sidebar-label"><span class="text-th">บททั่วไปและหลักการ</span><span class="text-en">General Provisions and Principles</span></span></a>
+          <a href="welfare-02.html" class="sidebar-chapter"><span class="sidebar-num">02</span><span class="sidebar-label"><span class="text-th">การตรวจสุขภาพ</span><span class="text-en">Medical Examination</span></span></a>
+          <a href="welfare-03.html" class="sidebar-chapter"><span class="sidebar-num">03</span><span class="sidebar-label"><span class="text-th">การประกันชีวิตกลุ่ม</span><span class="text-en">Group Life Insurance</span></span></a>
+          <a href="welfare-04.html" class="sidebar-chapter"><span class="sidebar-num">04</span><span class="sidebar-label"><span class="text-th">การประกันอุบัติเหตุกลุ่ม</span><span class="text-en">Group Accident Insurance</span></span></a>
+          <a href="welfare-05.html" class="sidebar-chapter"><span class="sidebar-num">05</span><span class="sidebar-label"><span class="text-th">เครื่องแบบพนักงาน</span><span class="text-en">Employee Uniforms</span></span></a>
+          <a href="welfare-06.html" class="sidebar-chapter"><span class="sidebar-num">06</span><span class="sidebar-label"><span class="text-th">อาหารพนักงาน</span><span class="text-en">Employee Meals</span></span></a>
+          <a href="welfare-07.html" class="sidebar-chapter"><span class="sidebar-num">07</span><span class="sidebar-label"><span class="text-th">ค่าเดินทางมาทำงาน</span><span class="text-en">Transportation Allowance</span></span></a>
+          <a href="welfare-08.html" class="sidebar-chapter"><span class="sidebar-num">08</span><span class="sidebar-label"><span class="text-th">ค่ากะทำงาน</span><span class="text-en">Shift Allowance</span></span></a>
+          <a href="welfare-09.html" class="sidebar-chapter"><span class="sidebar-num">09</span><span class="sidebar-label"><span class="text-th">เงินช่วยเหลืออุปสมบท</span><span class="text-en">Ordination Support Allowance</span></span></a>
+          <a href="welfare-10.html" class="sidebar-chapter"><span class="sidebar-num">10</span><span class="sidebar-label"><span class="text-th">เงินช่วยเหลือกรณีสมรส</span><span class="text-en">Marriage Support Allowance</span></span></a>
+          <a href="welfare-11.html" class="sidebar-chapter"><span class="sidebar-num">11</span><span class="sidebar-label"><span class="text-th">เงินช่วยเหลือกรณีคลอดบุตร</span><span class="text-en">Childbirth Support Allowance</span></span></a>
+          <a href="welfare-12.html" class="sidebar-chapter"><span class="sidebar-num">12</span><span class="sidebar-label"><span class="text-th">เงินช่วยเหลือกรณีเสียชีวิตของบุคคลในครอบครัว</span><span class="text-en">Family Bereavement Assistance</span></span></a>
+          <a href="welfare-13.html" class="sidebar-chapter"><span class="sidebar-num">13</span><span class="sidebar-label"><span class="text-th">เงินช่วยเหลือกรณีเสียชีวิตของพนักงาน</span><span class="text-en">Death Benefit for Employees</span></span></a>
+          <a href="welfare-14.html" class="sidebar-chapter"><span class="sidebar-num">14</span><span class="sidebar-label"><span class="text-th">รางวัลตอบแทนการทำงานตามอายุงานต่อเนื่อง</span><span class="text-en">Long-Service Recognition Award</span></span></a>
+          <a href="welfare-15.html" class="sidebar-chapter"><span class="sidebar-num">15</span><span class="sidebar-label"><span class="text-th">กองทุนสำรองเลี้ยงชีพ</span><span class="text-en">Provident Fund</span></span></a>
+          <a href="welfare-16.html" class="sidebar-chapter active"><span class="sidebar-num">16</span><span class="sidebar-label"><span class="text-th">สวัสดิการค่ารักษาพยาบาล</span><span class="text-en">Medical Benefits</span></span></a>
+          <a href="welfare-17.html" class="sidebar-chapter"><span class="sidebar-num">17</span><span class="sidebar-label"><span class="text-th">โทรศัพท์มือถือ</span><span class="text-en">Mobile Phone</span></span></a>
+          <a href="welfare-18.html" class="sidebar-chapter"><span class="sidebar-num">18</span><span class="sidebar-label"><span class="text-th">ค่าเดินทางกรณีใช้รถยนต์ส่วนตัว</span><span class="text-en">Travel Allowance for Use of Personal Vehicle</span></span></a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <article class="chapter-card">
+        <div class="chapter-badge" style="background:#FEF9E0;color:#7A6200">
+          <span class="text-th">หัวข้อที่ 16</span>
+          <span class="text-en">Section 16</span>
+        </div>
+        <h1 class="chapter-title">
+          <span class="text-th">สวัสดิการค่ารักษาพยาบาล</span>
+          <span class="text-en">Medical Benefits</span>
+        </h1>
+        <div class="chapter-divider" style="background:linear-gradient(90deg,#7A6200,var(--gold))"></div>
+        <div class="chapter-body">
+          <div class="text-th"><p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.1</span>วัตถุประสงค์</p>
+<p style="padding-left:1.5em">เพื่อส่งเสริมการเข้าถึงการรักษาพยาบาล และเสริมสร้างคุณภาพชีวิตที่ดีให้แก่พนักงานและครอบครัว ทั้งนี้ ภายใต้หลักเกณฑ์และเงื่อนไขที่บริษัทกำหนด</p>
+<p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.2</span>ผู้มีสิทธิ</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.2.1</span>พนักงานประจำมีสิทธิได้รับสวัสดิการค่ารักษาพยาบาลภายหลังพ้นระยะเวลาทดลองงาน</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.2.2</span>สวัสดิการค่ารักษาพยาบาลให้ครอบคลุมครอบครัวของพนักงาน โดย “ครอบครัวของพนักงาน” หมายถึง คู่สมรสโดยชอบด้วยกฎหมาย และบุตรหรือบุตรบุญธรรมโดยชอบด้วยกฎหมาย ซึ่งมีอายุต่ำกว่า 18 ปีบริบูรณ์ ทั้งนี้ การใช้สิทธิให้เป็นไปตามหลักเกณฑ์ วิธีการ และวงเงินที่บริษัทกำหนด</p>
+<p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.3</span>การใช้สิทธิจากแหล่งอื่นก่อน</p>
+<p style="padding-left:1.5em">พนักงานและครอบครัวต้องใช้สิทธิค่ารักษาพยาบาลจากแหล่งสิทธิอื่นที่มีอยู่ก่อนเป็นลำดับแรก เช่น สิทธิประโยชน์ตามกฎหมายประกันสังคม ประกันสุขภาพส่วนบุคคล หรือสิทธิอื่นใดที่เกี่ยวข้อง 
+โดยบริษัทจะรับผิดชอบเฉพาะส่วนที่เกินจากสิทธิดังกล่าว ภายในวงเงินที่กำหนด หากพนักงานหรือครอบครัวมิได้ใช้สิทธิจากแหล่งอื่นก่อน บริษัทขอสงวนสิทธิในการไม่รับผิดชอบค่าใช้จ่ายดังกล่าว</p>
+<p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.4</span>วงเงินและความคุ้มครอง</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.4.1</span>การรักษาพยาบาลผู้ป่วยใน (IPD)</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.4.2</span>การรักษาพยาบาลผู้ป่วยนอก (OPD)</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.4.3</span>การเบิกจ่ายค่ารักษาพยาบาลให้เป็นไปตามหลักเกณฑ์ วิธีการ และเงื่อนไขที่บริษัทกำหนด โดยบริษัทขอสงวนสิทธิในการกำหนด แก้ไข เปลี่ยนแปลง ปรับปรุง หรือยกเลิกวงเงิน ความคุ้มครอง หรือรายละเอียดดังกล่าวตามความเหมาะสม ทั้งนี้ ไม่ถือเป็นการเปลี่ยนแปลงสภาพการจ้าง และไม่ก่อให้เกิดสิทธิเรียกร้องเป็นการถาวรแก่พนักงาน</p>
+<p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.5</span>ข้อยกเว้น</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.5.1</span>การตรวจรักษาหรือการผ่าตัดเพื่อความสวยงาม หรือการควบคุมน้ำหนัก เว้นแต่เป็นการรักษา
+ที่มีข้อบ่งชี้ทางการแพทย์ หรือเป็นการตกแต่งแผลอันเนื่องมาจากอุบัติเหตุ</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.5.2</span>การรักษาภาวะมีบุตรยาก การทำหมัน หรือการกระทำใด ๆ ที่เกี่ยวข้อง เว้นแต่มีข้อบ่งชี้ทางการแพทย์ที่จำเป็น</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.5.3</span>การยุติการตั้งครรภ์ เว้นแต่เป็นไปตามข้อบ่งชี้ทางการแพทย์หรือเป็นไปตามที่กฎหมายกำหนดไว้โดยชัดแจ้ง</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.5.4</span>การทันตกรรม และการทันตกรรมเพื่อความสวยงาม</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.5.5</span>การรักษาหรือบำบัดจากการติดยาเสพติดให้โทษ หรือการบาดเจ็บหรือเจ็บป่วยในขณะมีปริมาณแอลกอฮอล์ในเลือดเกินกว่าที่กฎหมายกำหนด ตามผลตรวจทางการแพทย์หรือผลตรวจของเจ้าหน้าที่ผู้มีอำนาจ</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.5.6</span>การรักษาที่มิได้ดำเนินการโดยแพทย์แผนปัจจุบัน รวมถึงการรักษาโดยแพทย์ทางเลือก</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.5.7</span>การพยายามฆ่าตัวตาย หรือการทำร้ายตัวเองโดยเจตนา ไม่ว่าจะกระทำโดยตนเองหรือยินยอมให้ผู้อื่นกระทำ</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.5.8</span>การบาดเจ็บที่เกิดจากการเข้าร่วมทะเลาะวิวาท เว้นแต่เป็นการป้องกันตัวโดยชอบด้วยกฎหมาย</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.5.9</span>การบาดเจ็บหรือเจ็บป่วยที่เกิดจากการเข้าร่วมกิจกรรมเสี่ยงโดยสมัครใจ เช่น การแข่งรถ 
+แข่งเรือ ขับขี่เจ็ตสกี การชกมวย การโดยสารบอลลูน หรือการกระโดดบันจี้จัมพ์ หรือกิจกรรม
+ในลักษณะเดียวกัน</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.5.10</span>การรักษาที่ไม่ได้มีความจำเป็นทางการแพทย์ หรือการรักษาที่เป็นความสมัครใจโดยไม่มีข้อบ่งชี้ทางการแพทย์</p>
+<p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.6</span>สถานะทางกฎหมายของสวัสดิการค่ารักษาพยาบาล</p>
+<p style="padding-left:1.5em">สวัสดิการค่ารักษาพยาบาลตามข้อนี้ไม่ถือเป็นค่าจ้าง และไม่เป็นฐานในการคำนวณค่าล่วงเวลา ค่าชดเชย เงินทดแทน หรือสิทธิประโยชน์อื่นใด เว้นแต่กฎหมายกำหนดไว้เป็นอย่างอื่น</p></div>
+          <div class="text-en"><p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.1</span>Purpose</p>
+<p style="padding-left:1.5em">To promote access to medical treatment and enhance the quality of life of employees and their families, subject to the criteria and conditions determined by the Company.</p>
+<p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.2</span>Eligibility</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.2.1</span>Permanent employees shall be entitled to medical benefits after successfully completing the probation period.</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.2.2</span>Medical benefits shall also extend to the employee’s family members. “Family members” mean the employee’s legally registered spouse and legitimate or legally adopted children who are under 18 years of age. The use of such benefits shall be subject to the criteria, procedures, and coverage limits determined by the Company.</p>
+<p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.3</span>Use of Other Entitlements First</p>
+<p style="padding-left:1.5em">Employees and their family members must first utilize any available medical benefits from other sources, such as benefits under the social security system, personal health insurance, or any other applicable entitlements.</p>
+<p style="padding-left:1.5em">The Company shall be responsible only for medical expenses exceeding such entitlements, within the coverage limits specified by the Company. If the employee or family members fail to use such available entitlements first, the Company reserves the right not to reimburse the related expenses.</p>
+<p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.4</span>Coverage and Limits</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.4.1</span>Inpatient Treatment (IPD)</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.4.2</span>Outpatient Treatment (OPD)</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.4.3</span>Reimbursement of medical expenses shall be subject to the criteria, procedures, and conditions determined by the Company. The Company reserves the right to determine, amend, revise, adjust, or cancel the coverage limits, benefits, or related details as appropriate. Such actions shall not constitute a change in employment conditions and shall not create any permanent entitlement for employees.</p>
+<p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.5</span>Exclusions</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.5.1</span>Cosmetic treatment or surgery, or weight control procedures, unless medically necessary or required for reconstructive treatment following an accident.</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.5.2</span>Infertility treatment, sterilization, or related procedures, unless medically necessary.</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.5.3</span>Termination of pregnancy, unless medically indicated or expressly permitted by law.</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.5.4</span>Dental treatment, including cosmetic dental procedures.</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.5.5</span>Treatment or rehabilitation resulting from drug addiction, or injuries or illnesses occurring while the employee has a blood alcohol level exceeding the legal limit, as determined by medical examination or competent authorities.</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.5.6</span>Treatment not performed by licensed modern medical practitioners, including alternative or traditional medical treatments.</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.5.7</span>Attempted suicide or intentional self-inflicted injury, whether by the employee or with the consent of another person.</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.5.8</span>Injuries resulting from participation in a fight, except in cases of lawful self-defense.</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.5.9</span>Injuries or illnesses resulting from voluntarily participating in high-risk activities, such as car racing, boat racing, jet skiing, boxing, balloon riding, bungee jumping, or similar activities.</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.5.10</span>Treatment that is not medically necessary or elective treatment without medical indication.</p>
+<p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.6</span>Legal Status of Medical Benefits</p>
+<p style="padding-left:1.5em">Medical benefits under this provision shall not be considered wages and shall not form the basis for calculating overtime pay, severance pay, compensation, or any other employment-related benefits, unless otherwise required by law.</p></div>
+        </div>
+        <nav class="chapter-nav"><a href="welfare-15.html">← <span class="text-th">กองทุนสำรองเลี้ยงชีพ</span><span class="text-en">Provident Fund</span></a><a href="welfare-17.html" class="next"><span class="text-th">โทรศัพท์มือถือ</span><span class="text-en">Mobile Phone</span> →</a></nav>
+      </article>
+    </main>
+  </div>
+
+  <footer class="footer">
+    <span class="text-th">© 2026 บริษัท อัครา รีซอร์สเซส จำกัด (มหาชน) — ฝ่ายทรัพยากรบุคคล</span>
+    <span class="text-en">© 2026 Akara Resources Public Company Limited — Human Resources Department</span>
+  </footer>
+
+  <script>
+    function setLang(lang) {
+      document.documentElement.setAttribute('data-lang', lang);
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+      document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
+      localStorage.setItem('hr-lang', lang);
+    }
+    const saved = localStorage.getItem('hr-lang');
+    if (saved) setLang(saved);
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+    }
+  </script>
+</body>
+</html>

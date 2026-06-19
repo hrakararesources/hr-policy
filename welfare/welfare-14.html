@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="th" data-lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>รางวัลตอบแทนการทำงานตามอายุงานต่อเนื่อง — Akara Resources</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    body { display:flex; flex-direction:column; min-height:100vh; }
+    .page-wrap { display:flex; flex:1; }
+    .sidebar-fixed {
+      width:270px; flex-shrink:0; position:sticky; top:60px;
+      height:calc(100vh - 60px); overflow-y:auto;
+      background:#fff; border-right:1.5px solid var(--gray-2); padding:12px 8px;
+    }
+    .sidebar-fixed::-webkit-scrollbar { width:4px; }
+    .sidebar-fixed::-webkit-scrollbar-thumb { background:var(--gray-3); border-radius:2px; }
+    .sidebar-home {
+      display:flex; align-items:center; gap:6px; padding:7px 10px;
+      font-size:0.8rem; color:var(--text-muted); text-decoration:none;
+      border-radius:6px; margin-bottom:2px;
+    }
+    .sidebar-home:hover { background:var(--gray-1); color:var(--blue); }
+    .sidebar-section {
+      font-size:0.68rem; font-weight:700; letter-spacing:0.1em;
+      text-transform:uppercase; color:var(--text-muted);
+      padding:10px 10px 4px; display:block;
+    }
+    .sidebar-chapter {
+      display:flex; align-items:flex-start; gap:8px; padding:8px 10px;
+      border-radius:8px; text-decoration:none; color:var(--text-muted);
+      font-size:0.8rem; line-height:1.35; transition:all 0.15s; margin-bottom:1px;
+    }
+    .sidebar-chapter:hover { background:#FEF9E0; color:#7A6200; }
+    .sidebar-chapter.active { background:var(--gold); color:var(--dark); }
+    .sidebar-chapter.active .sidebar-num { background:rgba(0,0,0,0.1); color:var(--dark); }
+    .sidebar-num {
+      min-width:26px; height:26px; border-radius:6px;
+      background:#FEF9E0; color:#7A6200;
+      font-size:0.7rem; font-weight:700;
+      display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px;
+    }
+    .sidebar-label { flex:1; }
+    .main-content { flex:1; padding:32px 32px 60px; min-width:0; }
+    .chapter-card { max-width:740px; margin:0 auto; }
+    .chapter-body h2 { color:#7A6200; font-size:1.1rem; margin:28px 0 8px; padding-bottom:6px; border-bottom:2px solid #FEF9E0; }
+    .chapter-body h3 { color:var(--dark); font-size:1rem; margin:20px 0 6px; font-weight:700; }
+    .chapter-body h4 { color:#7A6200; font-size:0.95rem; margin:12px 0 4px; font-weight:600; }
+    .chapter-body p { color:var(--text); font-size:0.95rem; margin-bottom:0.8em; line-height:1.8; }
+    @media(max-width:768px) {
+      .sidebar-fixed { display:none; }
+      .sidebar-fixed.open { display:block; position:fixed; top:60px; left:0; z-index:200; height:calc(100vh - 60px); box-shadow:4px 0 20px rgba(0,0,0,0.15); }
+      .mob-menu { display:flex !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar" style="background:linear-gradient(135deg,#7A6200,#B8940A,var(--gold-dark))">
+    <div class="topbar-left">
+      <button class="mob-menu" onclick="toggleSidebar()" style="display:none;background:rgba(255,255,255,0.15);border:none;color:#fff;padding:6px 10px;border-radius:6px;cursor:pointer;font-size:1rem;margin-right:8px;">☰</button>
+      <img src="../assets/Akara Logo.jpg" alt="Akara Resources" class="topbar-logo">
+      <div class="topbar-title">
+        <span class="text-th">คู่มือพนักงาน</span><span class="text-en">Employee Handbook</span>
+        <span>Akara Resources Public Company Limited</span>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="lang-toggle">
+        <button class="lang-btn active" onclick="setLang('th')">TH</button>
+        <button class="lang-btn" onclick="setLang('en')">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="page-wrap">
+    <aside class="sidebar-fixed" id="sidebar">
+      <a href="../index.html" class="sidebar-home">← <span class="text-th">หน้าหลัก</span><span class="text-en">Home</span></a>
+      <span class="sidebar-section text-th">สวัสดิการและสิทธิประโยชน์</span>
+      <span class="sidebar-section text-en">Welfare & Benefits</span>
+      <nav style="display:flex;flex-direction:column;gap:1px;">
+          <a href="welfare-01.html" class="sidebar-chapter"><span class="sidebar-num">01</span><span class="sidebar-label"><span class="text-th">บททั่วไปและหลักการ</span><span class="text-en">General Provisions and Principles</span></span></a>
+          <a href="welfare-02.html" class="sidebar-chapter"><span class="sidebar-num">02</span><span class="sidebar-label"><span class="text-th">การตรวจสุขภาพ</span><span class="text-en">Medical Examination</span></span></a>
+          <a href="welfare-03.html" class="sidebar-chapter"><span class="sidebar-num">03</span><span class="sidebar-label"><span class="text-th">การประกันชีวิตกลุ่ม</span><span class="text-en">Group Life Insurance</span></span></a>
+          <a href="welfare-04.html" class="sidebar-chapter"><span class="sidebar-num">04</span><span class="sidebar-label"><span class="text-th">การประกันอุบัติเหตุกลุ่ม</span><span class="text-en">Group Accident Insurance</span></span></a>
+          <a href="welfare-05.html" class="sidebar-chapter"><span class="sidebar-num">05</span><span class="sidebar-label"><span class="text-th">เครื่องแบบพนักงาน</span><span class="text-en">Employee Uniforms</span></span></a>
+          <a href="welfare-06.html" class="sidebar-chapter"><span class="sidebar-num">06</span><span class="sidebar-label"><span class="text-th">อาหารพนักงาน</span><span class="text-en">Employee Meals</span></span></a>
+          <a href="welfare-07.html" class="sidebar-chapter"><span class="sidebar-num">07</span><span class="sidebar-label"><span class="text-th">ค่าเดินทางมาทำงาน</span><span class="text-en">Transportation Allowance</span></span></a>
+          <a href="welfare-08.html" class="sidebar-chapter"><span class="sidebar-num">08</span><span class="sidebar-label"><span class="text-th">ค่ากะทำงาน</span><span class="text-en">Shift Allowance</span></span></a>
+          <a href="welfare-09.html" class="sidebar-chapter"><span class="sidebar-num">09</span><span class="sidebar-label"><span class="text-th">เงินช่วยเหลืออุปสมบท</span><span class="text-en">Ordination Support Allowance</span></span></a>
+          <a href="welfare-10.html" class="sidebar-chapter"><span class="sidebar-num">10</span><span class="sidebar-label"><span class="text-th">เงินช่วยเหลือกรณีสมรส</span><span class="text-en">Marriage Support Allowance</span></span></a>
+          <a href="welfare-11.html" class="sidebar-chapter"><span class="sidebar-num">11</span><span class="sidebar-label"><span class="text-th">เงินช่วยเหลือกรณีคลอดบุตร</span><span class="text-en">Childbirth Support Allowance</span></span></a>
+          <a href="welfare-12.html" class="sidebar-chapter"><span class="sidebar-num">12</span><span class="sidebar-label"><span class="text-th">เงินช่วยเหลือกรณีเสียชีวิตของบุคคลในครอบครัว</span><span class="text-en">Family Bereavement Assistance</span></span></a>
+          <a href="welfare-13.html" class="sidebar-chapter"><span class="sidebar-num">13</span><span class="sidebar-label"><span class="text-th">เงินช่วยเหลือกรณีเสียชีวิตของพนักงาน</span><span class="text-en">Death Benefit for Employees</span></span></a>
+          <a href="welfare-14.html" class="sidebar-chapter active"><span class="sidebar-num">14</span><span class="sidebar-label"><span class="text-th">รางวัลตอบแทนการทำงานตามอายุงานต่อเนื่อง</span><span class="text-en">Long-Service Recognition Award</span></span></a>
+          <a href="welfare-15.html" class="sidebar-chapter"><span class="sidebar-num">15</span><span class="sidebar-label"><span class="text-th">กองทุนสำรองเลี้ยงชีพ</span><span class="text-en">Provident Fund</span></span></a>
+          <a href="welfare-16.html" class="sidebar-chapter"><span class="sidebar-num">16</span><span class="sidebar-label"><span class="text-th">สวัสดิการค่ารักษาพยาบาล</span><span class="text-en">Medical Benefits</span></span></a>
+          <a href="welfare-17.html" class="sidebar-chapter"><span class="sidebar-num">17</span><span class="sidebar-label"><span class="text-th">โทรศัพท์มือถือ</span><span class="text-en">Mobile Phone</span></span></a>
+          <a href="welfare-18.html" class="sidebar-chapter"><span class="sidebar-num">18</span><span class="sidebar-label"><span class="text-th">ค่าเดินทางกรณีใช้รถยนต์ส่วนตัว</span><span class="text-en">Travel Allowance for Use of Personal Vehicle</span></span></a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <article class="chapter-card">
+        <div class="chapter-badge" style="background:#FEF9E0;color:#7A6200">
+          <span class="text-th">หัวข้อที่ 14</span>
+          <span class="text-en">Section 14</span>
+        </div>
+        <h1 class="chapter-title">
+          <span class="text-th">รางวัลตอบแทนการทำงานตามอายุงานต่อเนื่อง</span>
+          <span class="text-en">Long-Service Recognition Award</span>
+        </h1>
+        <div class="chapter-divider" style="background:linear-gradient(90deg,#7A6200,var(--gold))"></div>
+        <div class="chapter-body">
+          <div class="text-th"><p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.1</span>วัตถุประสงค์</p>
+<p style="padding-left:1.5em">เพื่อแสดงความขอบคุณและยกย่องพนักงานที่ปฏิบัติงานกับบริษัทด้วยความทุ่มเท และมีอายุงานต่อเนื่องครบตามระยะเวลาที่กำหนด</p>
+<p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.2</span>ผู้มีสิทธิ</p>
+<p style="padding-left:1.5em">พนักงานประจำที่มีอายุงานต่อเนื่องครบตามเกณฑ์ที่บริษัทกำหนด โดยเป็นไปตามหลักเกณฑ์และเงื่อนไขตามข้อ 13.3</p>
+<p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.3</span>สิทธิประโยชน์และหลักเกณฑ์</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.3.1</span>อายุงานครบ 10 ปี ได้รับทองคำน้ำหนัก 0.5 บาท โดยมีมูลค่าสูงสุดไม่เกิน 35,000 บาท</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.3.2</span>อายุงานครบ 15 ปี ได้รับทองคำน้ำหนัก 1.0 บาท โดยมีมูลค่าสูงสุดไม่เกิน 70,000 บาท</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.3.3</span>อายุงานครบ 20 ปี ได้รับทองคำน้ำหนัก 1.5 บาท โดยมีมูลค่าสูงสุดไม่เกิน 105,000 บาท</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.3.4</span>พนักงานที่มีอายุงานครบตามเกณฑ์ในเดือนใดก็ตาม จะได้รับรางวัลตามข้อนี้ภายในเดือนกุมภาพันธ์ของปีปฏิทินถัดไป โดยต้องคงสถานะเป็นพนักงานของบริษัท ณ วันที่บริษัทมอบรางวัล และหากสิ้นสุดสภาพการจ้างก่อนวันดังกล่าว จะไม่มีสิทธิได้รับรางวัลตามข้อนี้</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.3.5</span>สำหรับกรณีเกษียณอายุ หรือถูกเลิกจ้างโดยมิได้กระทำความผิด บริษัทอาจพิจารณามอบรางวัลเป็นกรณีไปตามความเหมาะสม</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.3.6</span>บริษัทอาจกำหนดรูปแบบ ประเภท หรือรายละเอียดของรางวัล รวมถึงอาจพิจารณาจ่าย
+เป็นทรัพย์สินหรือเงินสดเทียบเท่า ตามความเหมาะสม</p>
+<p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.4</span>สถานะทางกฎหมายของรางวัล</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.4.1</span>รางวัลตามข้อนี้เป็นสวัสดิการตามนโยบายของบริษัท มิใช่ค่าจ้างหรือค่าตอบแทนในการทำงาน</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.4.2</span>รางวัลหรือประโยชน์ใด ๆ ตามข้อนี้ไม่ถือเป็นค่าจ้าง และไม่เป็นฐานในการคำนวณค่าล่วงเวลา ค่าชดเชย เงินทดแทน หรือสิทธิประโยชน์อื่นใด เว้นแต่กฎหมายจะกำหนดไว้เป็นอย่างอื่น</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.4.3</span>บริษัทขอสงวนสิทธิในการกำหนด เปลี่ยนแปลง ปรับปรุง ระงับ หรือยกเลิกหลักเกณฑ์ อัตรา และเงื่อนไขของสวัสดิการนี้ตามความเหมาะสม โดยไม่ถือเป็นการเปลี่ยนแปลงสภาพการจ้าง และไม่ก่อให้เกิดสิทธิเรียกร้องในอนาคต</p></div>
+          <div class="text-en"><p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.1</span>Purpose</p>
+<p style="padding-left:1.5em">To express appreciation and recognize employees who have demonstrated dedication and continuous service with the Company, reaching the required length of service milestones.</p>
+<p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.2</span>Eligibility</p>
+<p style="padding-left:1.5em">Permanent employees who have completed the continuous service periods specified by the Company, in accordance with the criteria and conditions outlined in Section 13.3.</p>
+<p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.3</span>Benefits and Conditions</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.3.1</span>Employees with 10 years of continuous service shall receive 0.5 Baht of gold, with a maximum value not exceeding THB 35,000.</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.3.2</span>Employees with 15 years of continuous service shall receive 1.0 Baht of gold, with a maximum value not exceeding THB 70,000.</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.3.3</span>Employees with 20 years of continuous service shall receive 1.5 Baht of gold, with a maximum value not exceeding THB 105,000.</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.3.4</span>Employees who meet the eligibility milestone in any month shall receive the award in February of the following calendar year, provided they remain employed with the Company on the date of award distribution. Employees who terminate employment prior to the award date shall not be entitled to receive the award.</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.3.5</span>In cases of retirement or termination without cause, the Company may, at its discretion, consider granting the award on a case-by-case basis.</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.3.6</span>The Company may determine the form, type, or specifications of the award, including the option to provide an equivalent monetary value, as deemed appropriate.</p>
+<p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.4</span>Legal Status of the Award</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.4.1</span>The award under this provision is a company benefit in accordance with Company policy and shall not be considered wages or remuneration for work performed.</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.4.2</span>Any award or benefit under this provision shall not be regarded as wages and shall not form the basis for calculating overtime, severance pay, compensation, or any other employment-related benefits, unless otherwise required by law.</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.4.3</span>The Company reserves the right to determine, amend, revise, suspend, or cancel the criteria, rates, and conditions of this benefit as appropriate. Such actions shall not constitute a change in employment conditions and shall not give rise to any future claims.</p></div>
+        </div>
+        <nav class="chapter-nav"><a href="welfare-13.html">← <span class="text-th">เงินช่วยเหลือกรณีเสียชีวิตของพ</span><span class="text-en">Death Benefit for Employees</span></a><a href="welfare-15.html" class="next"><span class="text-th">กองทุนสำรองเลี้ยงชีพ</span><span class="text-en">Provident Fund</span> →</a></nav>
+      </article>
+    </main>
+  </div>
+
+  <footer class="footer">
+    <span class="text-th">© 2026 บริษัท อัครา รีซอร์สเซส จำกัด (มหาชน) — ฝ่ายทรัพยากรบุคคล</span>
+    <span class="text-en">© 2026 Akara Resources Public Company Limited — Human Resources Department</span>
+  </footer>
+
+  <script>
+    function setLang(lang) {
+      document.documentElement.setAttribute('data-lang', lang);
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+      document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
+      localStorage.setItem('hr-lang', lang);
+    }
+    const saved = localStorage.getItem('hr-lang');
+    if (saved) setLang(saved);
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+    }
+  </script>
+</body>
+</html>

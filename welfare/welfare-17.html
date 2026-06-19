@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="th" data-lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>โทรศัพท์มือถือ — Akara Resources</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    body { display:flex; flex-direction:column; min-height:100vh; }
+    .page-wrap { display:flex; flex:1; }
+    .sidebar-fixed {
+      width:270px; flex-shrink:0; position:sticky; top:60px;
+      height:calc(100vh - 60px); overflow-y:auto;
+      background:#fff; border-right:1.5px solid var(--gray-2); padding:12px 8px;
+    }
+    .sidebar-fixed::-webkit-scrollbar { width:4px; }
+    .sidebar-fixed::-webkit-scrollbar-thumb { background:var(--gray-3); border-radius:2px; }
+    .sidebar-home {
+      display:flex; align-items:center; gap:6px; padding:7px 10px;
+      font-size:0.8rem; color:var(--text-muted); text-decoration:none;
+      border-radius:6px; margin-bottom:2px;
+    }
+    .sidebar-home:hover { background:var(--gray-1); color:var(--blue); }
+    .sidebar-section {
+      font-size:0.68rem; font-weight:700; letter-spacing:0.1em;
+      text-transform:uppercase; color:var(--text-muted);
+      padding:10px 10px 4px; display:block;
+    }
+    .sidebar-chapter {
+      display:flex; align-items:flex-start; gap:8px; padding:8px 10px;
+      border-radius:8px; text-decoration:none; color:var(--text-muted);
+      font-size:0.8rem; line-height:1.35; transition:all 0.15s; margin-bottom:1px;
+    }
+    .sidebar-chapter:hover { background:#FEF9E0; color:#7A6200; }
+    .sidebar-chapter.active { background:var(--gold); color:var(--dark); }
+    .sidebar-chapter.active .sidebar-num { background:rgba(0,0,0,0.1); color:var(--dark); }
+    .sidebar-num {
+      min-width:26px; height:26px; border-radius:6px;
+      background:#FEF9E0; color:#7A6200;
+      font-size:0.7rem; font-weight:700;
+      display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px;
+    }
+    .sidebar-label { flex:1; }
+    .main-content { flex:1; padding:32px 32px 60px; min-width:0; }
+    .chapter-card { max-width:740px; margin:0 auto; }
+    .chapter-body h2 { color:#7A6200; font-size:1.1rem; margin:28px 0 8px; padding-bottom:6px; border-bottom:2px solid #FEF9E0; }
+    .chapter-body h3 { color:var(--dark); font-size:1rem; margin:20px 0 6px; font-weight:700; }
+    .chapter-body h4 { color:#7A6200; font-size:0.95rem; margin:12px 0 4px; font-weight:600; }
+    .chapter-body p { color:var(--text); font-size:0.95rem; margin-bottom:0.8em; line-height:1.8; }
+    @media(max-width:768px) {
+      .sidebar-fixed { display:none; }
+      .sidebar-fixed.open { display:block; position:fixed; top:60px; left:0; z-index:200; height:calc(100vh - 60px); box-shadow:4px 0 20px rgba(0,0,0,0.15); }
+      .mob-menu { display:flex !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar" style="background:linear-gradient(135deg,#7A6200,#B8940A,var(--gold-dark))">
+    <div class="topbar-left">
+      <button class="mob-menu" onclick="toggleSidebar()" style="display:none;background:rgba(255,255,255,0.15);border:none;color:#fff;padding:6px 10px;border-radius:6px;cursor:pointer;font-size:1rem;margin-right:8px;">☰</button>
+      <img src="../assets/Akara Logo.jpg" alt="Akara Resources" class="topbar-logo">
+      <div class="topbar-title">
+        <span class="text-th">คู่มือพนักงาน</span><span class="text-en">Employee Handbook</span>
+        <span>Akara Resources Public Company Limited</span>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="lang-toggle">
+        <button class="lang-btn active" onclick="setLang('th')">TH</button>
+        <button class="lang-btn" onclick="setLang('en')">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="page-wrap">
+    <aside class="sidebar-fixed" id="sidebar">
+      <a href="../index.html" class="sidebar-home">← <span class="text-th">หน้าหลัก</span><span class="text-en">Home</span></a>
+      <span class="sidebar-section text-th">สวัสดิการและสิทธิประโยชน์</span>
+      <span class="sidebar-section text-en">Welfare & Benefits</span>
+      <nav style="display:flex;flex-direction:column;gap:1px;">
+          <a href="welfare-01.html" class="sidebar-chapter"><span class="sidebar-num">01</span><span class="sidebar-label"><span class="text-th">บททั่วไปและหลักการ</span><span class="text-en">General Provisions and Principles</span></span></a>
+          <a href="welfare-02.html" class="sidebar-chapter"><span class="sidebar-num">02</span><span class="sidebar-label"><span class="text-th">การตรวจสุขภาพ</span><span class="text-en">Medical Examination</span></span></a>
+          <a href="welfare-03.html" class="sidebar-chapter"><span class="sidebar-num">03</span><span class="sidebar-label"><span class="text-th">การประกันชีวิตกลุ่ม</span><span class="text-en">Group Life Insurance</span></span></a>
+          <a href="welfare-04.html" class="sidebar-chapter"><span class="sidebar-num">04</span><span class="sidebar-label"><span class="text-th">การประกันอุบัติเหตุกลุ่ม</span><span class="text-en">Group Accident Insurance</span></span></a>
+          <a href="welfare-05.html" class="sidebar-chapter"><span class="sidebar-num">05</span><span class="sidebar-label"><span class="text-th">เครื่องแบบพนักงาน</span><span class="text-en">Employee Uniforms</span></span></a>
+          <a href="welfare-06.html" class="sidebar-chapter"><span class="sidebar-num">06</span><span class="sidebar-label"><span class="text-th">อาหารพนักงาน</span><span class="text-en">Employee Meals</span></span></a>
+          <a href="welfare-07.html" class="sidebar-chapter"><span class="sidebar-num">07</span><span class="sidebar-label"><span class="text-th">ค่าเดินทางมาทำงาน</span><span class="text-en">Transportation Allowance</span></span></a>
+          <a href="welfare-08.html" class="sidebar-chapter"><span class="sidebar-num">08</span><span class="sidebar-label"><span class="text-th">ค่ากะทำงาน</span><span class="text-en">Shift Allowance</span></span></a>
+          <a href="welfare-09.html" class="sidebar-chapter"><span class="sidebar-num">09</span><span class="sidebar-label"><span class="text-th">เงินช่วยเหลืออุปสมบท</span><span class="text-en">Ordination Support Allowance</span></span></a>
+          <a href="welfare-10.html" class="sidebar-chapter"><span class="sidebar-num">10</span><span class="sidebar-label"><span class="text-th">เงินช่วยเหลือกรณีสมรส</span><span class="text-en">Marriage Support Allowance</span></span></a>
+          <a href="welfare-11.html" class="sidebar-chapter"><span class="sidebar-num">11</span><span class="sidebar-label"><span class="text-th">เงินช่วยเหลือกรณีคลอดบุตร</span><span class="text-en">Childbirth Support Allowance</span></span></a>
+          <a href="welfare-12.html" class="sidebar-chapter"><span class="sidebar-num">12</span><span class="sidebar-label"><span class="text-th">เงินช่วยเหลือกรณีเสียชีวิตของบุคคลในครอบครัว</span><span class="text-en">Family Bereavement Assistance</span></span></a>
+          <a href="welfare-13.html" class="sidebar-chapter"><span class="sidebar-num">13</span><span class="sidebar-label"><span class="text-th">เงินช่วยเหลือกรณีเสียชีวิตของพนักงาน</span><span class="text-en">Death Benefit for Employees</span></span></a>
+          <a href="welfare-14.html" class="sidebar-chapter"><span class="sidebar-num">14</span><span class="sidebar-label"><span class="text-th">รางวัลตอบแทนการทำงานตามอายุงานต่อเนื่อง</span><span class="text-en">Long-Service Recognition Award</span></span></a>
+          <a href="welfare-15.html" class="sidebar-chapter"><span class="sidebar-num">15</span><span class="sidebar-label"><span class="text-th">กองทุนสำรองเลี้ยงชีพ</span><span class="text-en">Provident Fund</span></span></a>
+          <a href="welfare-16.html" class="sidebar-chapter"><span class="sidebar-num">16</span><span class="sidebar-label"><span class="text-th">สวัสดิการค่ารักษาพยาบาล</span><span class="text-en">Medical Benefits</span></span></a>
+          <a href="welfare-17.html" class="sidebar-chapter active"><span class="sidebar-num">17</span><span class="sidebar-label"><span class="text-th">โทรศัพท์มือถือ</span><span class="text-en">Mobile Phone</span></span></a>
+          <a href="welfare-18.html" class="sidebar-chapter"><span class="sidebar-num">18</span><span class="sidebar-label"><span class="text-th">ค่าเดินทางกรณีใช้รถยนต์ส่วนตัว</span><span class="text-en">Travel Allowance for Use of Personal Vehicle</span></span></a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <article class="chapter-card">
+        <div class="chapter-badge" style="background:#FEF9E0;color:#7A6200">
+          <span class="text-th">หัวข้อที่ 17</span>
+          <span class="text-en">Section 17</span>
+        </div>
+        <h1 class="chapter-title">
+          <span class="text-th">โทรศัพท์มือถือ</span>
+          <span class="text-en">Mobile Phone</span>
+        </h1>
+        <div class="chapter-divider" style="background:linear-gradient(90deg,#7A6200,var(--gold))"></div>
+        <div class="chapter-body">
+          <div class="text-th"><p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.1</span>หลักการ</p>
+<p style="padding-left:1.5em">บริษัทจะจัดหาโทรศัพท์มือถือให้แก่พนักงานเฉพาะตำแหน่งงานที่บริษัทเห็นว่ามีความจำเป็นต้องใช้ในการติดต่อประสานงานภายนอกเป็นประจำ เพื่อประโยชน์ในกิจการของบริษัท โดยโทรศัพท์มือถือดังกล่าวถือเป็นทรัพย์สินของบริษัท</p>
+<p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.2</span>การใช้งาน</p>
+<p style="padding-left:1.5em">พนักงานต้องใช้โทรศัพท์มือถือเพื่อการปฏิบัติงานเท่านั้น และต้องใช้ให้เป็นไปตามวัตถุประสงค์ นโยบาย และคำสั่งของบริษัทอย่างเคร่งครัด ห้ามนำไปใช้ในกิจการส่วนตัว เว้นแต่ได้รับอนุญาตเป็นหนังสือจากบริษัท</p>
+<p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.3</span>การตรวจสอบ</p>
+<p style="padding-left:1.5em">บริษัทมีสิทธิตรวจสอบการใช้งานโทรศัพท์มือถือดังกล่าวได้ตามความจำเป็น เพื่อประโยชน์ด้านความปลอดภัย การคุ้มครองข้อมูล และการดำเนินธุรกิจของบริษัท ทั้งนี้ไม่ถือเป็นการละเมิดสิทธิส่วนบุคคลของพนักงาน</p>
+<p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.4</span>การคืนอุปกรณ์</p>
+<p style="padding-left:1.5em">พนักงานต้องคืนโทรศัพท์มือถือและอุปกรณ์ที่เกี่ยวข้องทั้งหมดให้แก่บริษัทในสภาพเรียบร้อยตามสมควร เมื่อพ้นสภาพการเป็นพนักงาน หรือเมื่อบริษัทมีคำสั่งให้คืน โดยพนักงานไม่มีสิทธิยึดหน่วงหรืออ้างสิทธิใด ๆ เหนือทรัพย์สินดังกล่าว</p>
+<p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.5</span>ความรับผิดกรณีสูญหายหรือเสียหาย</p>
+<p style="padding-left:1.5em">ในกรณีที่โทรศัพท์มือถือหรืออุปกรณ์ที่เกี่ยวข้องสูญหาย หรือได้รับความเสียหายอันเกิดจากการกระทำโดยเจตนา หรือประมาทเลินเล่ออย่างร้ายแรงของพนักงาน บริษัทอาจพิจารณาให้พนักงานรับผิดชอบชดใช้ค่าเสียหายตามความเหมาะสม</p></div>
+          <div class="text-en"><p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.1</span>Principle</p>
+<p style="padding-left:1.5em">The Company may provide mobile phones to employees whose positions require regular external communication for business purposes. Such mobile phones shall remain the property of the Company.</p>
+<p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.2</span>Usage</p>
+<p style="padding-left:1.5em">Employees must use the mobile phone strictly for work-related purposes and in accordance with the Company’s objectives, policies, and instructions. Personal use is strictly prohibited unless prior written approval is obtained from the Company.</p>
+<p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.3</span>Monitoring</p>
+<p style="padding-left:1.5em">The Company reserves the right to monitor and review the use of the mobile phone as necessary for security purposes, data protection, and the Company’s business operations. Such monitoring shall not be considered a violation of the employee’s privacy rights.</p>
+<p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.4</span>Return of Equipment</p>
+<p style="padding-left:1.5em">Employees must return the mobile phone and all related equipment to the Company in reasonable condition upon termination of employment or when requested by the Company. Employees shall have no right to retain, withhold, or claim any rights over such property.</p>
+<p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.5</span>Liability for Loss or Damage</p>
+<p style="padding-left:1.5em">In the event that the mobile phone or related equipment is lost or damaged due to the employee’s intentional act or gross negligence, the Company may require the employee to compensate for the damage as deemed appropriate.</p></div>
+        </div>
+        <nav class="chapter-nav"><a href="welfare-16.html">← <span class="text-th">สวัสดิการค่ารักษาพยาบาล</span><span class="text-en">Medical Benefits</span></a><a href="welfare-18.html" class="next"><span class="text-th">ค่าเดินทางกรณีใช้รถยนต์ส่วนตัว</span><span class="text-en">Travel Allowance for Use of Pe</span> →</a></nav>
+      </article>
+    </main>
+  </div>
+
+  <footer class="footer">
+    <span class="text-th">© 2026 บริษัท อัครา รีซอร์สเซส จำกัด (มหาชน) — ฝ่ายทรัพยากรบุคคล</span>
+    <span class="text-en">© 2026 Akara Resources Public Company Limited — Human Resources Department</span>
+  </footer>
+
+  <script>
+    function setLang(lang) {
+      document.documentElement.setAttribute('data-lang', lang);
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+      document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
+      localStorage.setItem('hr-lang', lang);
+    }
+    const saved = localStorage.getItem('hr-lang');
+    if (saved) setLang(saved);
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+    }
+  </script>
+</body>
+</html>

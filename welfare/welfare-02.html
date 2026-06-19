@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="th" data-lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>การตรวจสุขภาพ — Akara Resources</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    body { display:flex; flex-direction:column; min-height:100vh; }
+    .page-wrap { display:flex; flex:1; }
+    .sidebar-fixed {
+      width:270px; flex-shrink:0; position:sticky; top:60px;
+      height:calc(100vh - 60px); overflow-y:auto;
+      background:#fff; border-right:1.5px solid var(--gray-2); padding:12px 8px;
+    }
+    .sidebar-fixed::-webkit-scrollbar { width:4px; }
+    .sidebar-fixed::-webkit-scrollbar-thumb { background:var(--gray-3); border-radius:2px; }
+    .sidebar-home {
+      display:flex; align-items:center; gap:6px; padding:7px 10px;
+      font-size:0.8rem; color:var(--text-muted); text-decoration:none;
+      border-radius:6px; margin-bottom:2px;
+    }
+    .sidebar-home:hover { background:var(--gray-1); color:var(--blue); }
+    .sidebar-section {
+      font-size:0.68rem; font-weight:700; letter-spacing:0.1em;
+      text-transform:uppercase; color:var(--text-muted);
+      padding:10px 10px 4px; display:block;
+    }
+    .sidebar-chapter {
+      display:flex; align-items:flex-start; gap:8px; padding:8px 10px;
+      border-radius:8px; text-decoration:none; color:var(--text-muted);
+      font-size:0.8rem; line-height:1.35; transition:all 0.15s; margin-bottom:1px;
+    }
+    .sidebar-chapter:hover { background:#FEF9E0; color:#7A6200; }
+    .sidebar-chapter.active { background:var(--gold); color:var(--dark); }
+    .sidebar-chapter.active .sidebar-num { background:rgba(0,0,0,0.1); color:var(--dark); }
+    .sidebar-num {
+      min-width:26px; height:26px; border-radius:6px;
+      background:#FEF9E0; color:#7A6200;
+      font-size:0.7rem; font-weight:700;
+      display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px;
+    }
+    .sidebar-label { flex:1; }
+    .main-content { flex:1; padding:32px 32px 60px; min-width:0; }
+    .chapter-card { max-width:740px; margin:0 auto; }
+    .chapter-body h2 { color:#7A6200; font-size:1.1rem; margin:28px 0 8px; padding-bottom:6px; border-bottom:2px solid #FEF9E0; }
+    .chapter-body h3 { color:var(--dark); font-size:1rem; margin:20px 0 6px; font-weight:700; }
+    .chapter-body h4 { color:#7A6200; font-size:0.95rem; margin:12px 0 4px; font-weight:600; }
+    .chapter-body p { color:var(--text); font-size:0.95rem; margin-bottom:0.8em; line-height:1.8; }
+    @media(max-width:768px) {
+      .sidebar-fixed { display:none; }
+      .sidebar-fixed.open { display:block; position:fixed; top:60px; left:0; z-index:200; height:calc(100vh - 60px); box-shadow:4px 0 20px rgba(0,0,0,0.15); }
+      .mob-menu { display:flex !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar" style="background:linear-gradient(135deg,#7A6200,#B8940A,var(--gold-dark))">
+    <div class="topbar-left">
+      <button class="mob-menu" onclick="toggleSidebar()" style="display:none;background:rgba(255,255,255,0.15);border:none;color:#fff;padding:6px 10px;border-radius:6px;cursor:pointer;font-size:1rem;margin-right:8px;">☰</button>
+      <img src="../assets/Akara Logo.jpg" alt="Akara Resources" class="topbar-logo">
+      <div class="topbar-title">
+        <span class="text-th">คู่มือพนักงาน</span><span class="text-en">Employee Handbook</span>
+        <span>Akara Resources Public Company Limited</span>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="lang-toggle">
+        <button class="lang-btn active" onclick="setLang('th')">TH</button>
+        <button class="lang-btn" onclick="setLang('en')">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="page-wrap">
+    <aside class="sidebar-fixed" id="sidebar">
+      <a href="../index.html" class="sidebar-home">← <span class="text-th">หน้าหลัก</span><span class="text-en">Home</span></a>
+      <span class="sidebar-section text-th">สวัสดิการและสิทธิประโยชน์</span>
+      <span class="sidebar-section text-en">Welfare & Benefits</span>
+      <nav style="display:flex;flex-direction:column;gap:1px;">
+          <a href="welfare-01.html" class="sidebar-chapter"><span class="sidebar-num">01</span><span class="sidebar-label"><span class="text-th">บททั่วไปและหลักการ</span><span class="text-en">General Provisions and Principles</span></span></a>
+          <a href="welfare-02.html" class="sidebar-chapter active"><span class="sidebar-num">02</span><span class="sidebar-label"><span class="text-th">การตรวจสุขภาพ</span><span class="text-en">Medical Examination</span></span></a>
+          <a href="welfare-03.html" class="sidebar-chapter"><span class="sidebar-num">03</span><span class="sidebar-label"><span class="text-th">การประกันชีวิตกลุ่ม</span><span class="text-en">Group Life Insurance</span></span></a>
+          <a href="welfare-04.html" class="sidebar-chapter"><span class="sidebar-num">04</span><span class="sidebar-label"><span class="text-th">การประกันอุบัติเหตุกลุ่ม</span><span class="text-en">Group Accident Insurance</span></span></a>
+          <a href="welfare-05.html" class="sidebar-chapter"><span class="sidebar-num">05</span><span class="sidebar-label"><span class="text-th">เครื่องแบบพนักงาน</span><span class="text-en">Employee Uniforms</span></span></a>
+          <a href="welfare-06.html" class="sidebar-chapter"><span class="sidebar-num">06</span><span class="sidebar-label"><span class="text-th">อาหารพนักงาน</span><span class="text-en">Employee Meals</span></span></a>
+          <a href="welfare-07.html" class="sidebar-chapter"><span class="sidebar-num">07</span><span class="sidebar-label"><span class="text-th">ค่าเดินทางมาทำงาน</span><span class="text-en">Transportation Allowance</span></span></a>
+          <a href="welfare-08.html" class="sidebar-chapter"><span class="sidebar-num">08</span><span class="sidebar-label"><span class="text-th">ค่ากะทำงาน</span><span class="text-en">Shift Allowance</span></span></a>
+          <a href="welfare-09.html" class="sidebar-chapter"><span class="sidebar-num">09</span><span class="sidebar-label"><span class="text-th">เงินช่วยเหลืออุปสมบท</span><span class="text-en">Ordination Support Allowance</span></span></a>
+          <a href="welfare-10.html" class="sidebar-chapter"><span class="sidebar-num">10</span><span class="sidebar-label"><span class="text-th">เงินช่วยเหลือกรณีสมรส</span><span class="text-en">Marriage Support Allowance</span></span></a>
+          <a href="welfare-11.html" class="sidebar-chapter"><span class="sidebar-num">11</span><span class="sidebar-label"><span class="text-th">เงินช่วยเหลือกรณีคลอดบุตร</span><span class="text-en">Childbirth Support Allowance</span></span></a>
+          <a href="welfare-12.html" class="sidebar-chapter"><span class="sidebar-num">12</span><span class="sidebar-label"><span class="text-th">เงินช่วยเหลือกรณีเสียชีวิตของบุคคลในครอบครัว</span><span class="text-en">Family Bereavement Assistance</span></span></a>
+          <a href="welfare-13.html" class="sidebar-chapter"><span class="sidebar-num">13</span><span class="sidebar-label"><span class="text-th">เงินช่วยเหลือกรณีเสียชีวิตของพนักงาน</span><span class="text-en">Death Benefit for Employees</span></span></a>
+          <a href="welfare-14.html" class="sidebar-chapter"><span class="sidebar-num">14</span><span class="sidebar-label"><span class="text-th">รางวัลตอบแทนการทำงานตามอายุงานต่อเนื่อง</span><span class="text-en">Long-Service Recognition Award</span></span></a>
+          <a href="welfare-15.html" class="sidebar-chapter"><span class="sidebar-num">15</span><span class="sidebar-label"><span class="text-th">กองทุนสำรองเลี้ยงชีพ</span><span class="text-en">Provident Fund</span></span></a>
+          <a href="welfare-16.html" class="sidebar-chapter"><span class="sidebar-num">16</span><span class="sidebar-label"><span class="text-th">สวัสดิการค่ารักษาพยาบาล</span><span class="text-en">Medical Benefits</span></span></a>
+          <a href="welfare-17.html" class="sidebar-chapter"><span class="sidebar-num">17</span><span class="sidebar-label"><span class="text-th">โทรศัพท์มือถือ</span><span class="text-en">Mobile Phone</span></span></a>
+          <a href="welfare-18.html" class="sidebar-chapter"><span class="sidebar-num">18</span><span class="sidebar-label"><span class="text-th">ค่าเดินทางกรณีใช้รถยนต์ส่วนตัว</span><span class="text-en">Travel Allowance for Use of Personal Vehicle</span></span></a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <article class="chapter-card">
+        <div class="chapter-badge" style="background:#FEF9E0;color:#7A6200">
+          <span class="text-th">หัวข้อที่ 2</span>
+          <span class="text-en">Section 2</span>
+        </div>
+        <h1 class="chapter-title">
+          <span class="text-th">การตรวจสุขภาพ</span>
+          <span class="text-en">Medical Examination</span>
+        </h1>
+        <div class="chapter-divider" style="background:linear-gradient(90deg,#7A6200,var(--gold))"></div>
+        <div class="chapter-body">
+          <div class="text-th"><p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.1</span>ผู้มีสิทธิ</p>
+<p style="padding-left:1.5em">ได้แก่ พนักงานประจำตามสัญญาจ้างแรงงานของบริษัท เว้นแต่จะกำหนดไว้เป็นอย่างอื่นโดยชัดแจ้งในระเบียบ ประกาศ หรือสัญญาจ้างที่เกี่ยวข้อง</p>
+<p style="padding-left:1.5em">ในกรณีตำแหน่งงานที่มีความเสี่ยงด้านสุขภาพหรือความปลอดภัย บริษัทอาจกำหนดให้พนักงานประเภทอื่นเข้ารับการตรวจสุขภาพเพิ่มเติมตามความเหมาะสม</p>
+<p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.2</span>สิทธิประโยชน์</p>
+<p style="padding-left:1.5em">บริษัทจัดให้มีการตรวจสุขภาพ ดังนี้</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.2.1</span>ตรวจสุขภาพก่อนเริ่มงาน</p>
+<p style="padding-left:6.0em"><span style="color:var(--text-muted);margin-right:6px">0.2.1</span>ผู้ได้รับการคัดเลือกเข้าทำงานต้องเข้ารับการตรวจสุขภาพก่อนเริ่มงาน หรือภายในระยะเวลาที่บริษัทกำหนด ทั้งนี้ สำหรับตำแหน่งงานที่มีความเสี่ยงด้านสุขภาพหรือความปลอดภัย บริษัทอาจกำหนดให้มีการตรวจเพิ่มเติมตามลักษณะความเสี่ยง
+ของงาน</p>
+<p style="padding-left:6.0em"><span style="color:var(--text-muted);margin-right:6px">0.2.1</span>บริษัทเป็นผู้รับผิดชอบค่าใช้จ่ายในการตรวจสุขภาพตามที่บริษัทกำหนด</p>
+<p style="padding-left:6.0em"><span style="color:var(--text-muted);margin-right:6px">0.2.1</span>หากไม่เข้ารับการตรวจภายในกำหนด บริษัทอาจพิจารณาเลื่อนการบรรจุงาน ระงับการปฏิบัติงานชั่วคราว หรือมอบหมายงานอื่นที่เหมาะสม ทั้งนี้ เพื่อประโยชน์
+ด้านความปลอดภัยในการทำงาน</p>
+<p style="padding-left:6.0em"><span style="color:var(--text-muted);margin-right:6px">0.2.1</span>ผลการตรวจสุขภาพใช้เพื่อพิจารณาความเหมาะสมกับลักษณะงาน ความปลอดภัยในการปฏิบัติงาน และการปฏิบัติตามกฎหมายที่เกี่ยวข้องเท่านั้น และบริษัทจะไม่ใช้ข้อมูลดังกล่าวในลักษณะที่เป็นการเลือกปฏิบัติโดยไม่เป็นธรรม</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.2.2</span>ตรวจสุขภาพประจำปี</p>
+<p style="padding-left:6.0em"><span style="color:var(--text-muted);margin-right:6px">0.2.2</span>บริษัทจัดให้พนักงานเข้ารับการตรวจสุขภาพประจำปีอย่างน้อยปีละ 1 ครั้ง หรือ
+บ่อยกว่านั้นตามที่กฎหมายกำหนด หรือตามลักษณะความเสี่ยงของงาน</p>
+<p style="padding-left:6.0em"><span style="color:var(--text-muted);margin-right:6px">0.2.2</span>บริษัทเป็นผู้รับผิดชอบค่าใช้จ่ายในการตรวจสุขภาพตามโปรแกรมที่บริษัทกำหนด</p>
+<p style="padding-left:6.0em"><span style="color:var(--text-muted);margin-right:6px">0.2.2</span>ในกรณีที่ผลการตรวจพบความเสี่ยงต่อสุขภาพ บริษัทอาจพิจารณากำหนดมาตรการป้องกันเพิ่มเติม การปรับสภาพงาน หรือการส่งตรวจเพิ่มเติมตามความเหมาะสม</p>
+<p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.3</span>การใช้และการคุ้มครองข้อมูลสุขภาพ</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.3.1</span>ผลการตรวจสุขภาพถือเป็นข้อมูลส่วนบุคคลที่มีความอ่อนไหวตามกฎหมายคุ้มครองข้อมูล
+ส่วนบุคคล</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.3.2</span>บริษัทจะเก็บรวบรวม ใช้ และเปิดเผยข้อมูลดังกล่าวเท่าที่จำเป็นเพื่อวัตถุประสงค์ด้านความ-ปลอดภัยในการทำงาน การบริหารทรัพยากรบุคคล และการปฏิบัติตามกฎหมายที่เกี่ยวข้อง</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.3.3</span>บริษัทอาจเปิดเผยข้อมูลให้แก่แพทย์ หน่วยงานด้านอาชีวอนามัย หรือหน่วยงานที่มีอำนาจ
+ตามกฎหมาย เท่าที่จำเป็นเพื่อวัตถุประสงค์ดังกล่าว</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.3.4</span>บริษัทจะดำเนินการคุ้มครองข้อมูลตามมาตรการรักษาความมั่นคงปลอดภัยของข้อมูลและกฎหมายที่เกี่ยวข้องอย่างเคร่งครัด</p></div>
+          <div class="text-en"><p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.1</span>Eligibility</p>
+<p style="padding-left:1.5em">Eligible persons include permanent employees under the Company’s employment contracts, unless otherwise expressly specified in the relevant regulations, announcements, or employment agreements.</p>
+<p style="padding-left:1.5em">For positions involving health or safety risks, the Company may require other categories of employees to undergo additional medical examinations as deemed appropriate.</p>
+<p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.2</span>Benefits</p>
+<p style="padding-left:1.5em">The Company provides medical examinations as follows:</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.2.1</span>Pre-Employment Medical Examination</p>
+<p style="padding-left:6.0em"><span style="color:var(--text-muted);margin-right:6px">0.2.1</span>Candidates selected for employment must undergo a medical examination prior to commencing work, or within the period specified by the Company. For positions involving health or safety risks, the Company may require additional examinations according to the nature of the job-related risks.</p>
+<p style="padding-left:6.0em"><span style="color:var(--text-muted);margin-right:6px">0.2.1</span>The Company shall be responsible for the medical examination expenses in accordance with the program specified by the Company.</p>
+<p style="padding-left:6.0em"><span style="color:var(--text-muted);margin-right:6px">0.2.1</span>If the candidate fails to undergo the medical examination within the specified period, the Company may consider postponing the appointment, temporarily suspending work, or assigning other suitable duties as appropriate, for the purpose of ensuring workplace safety.</p>
+<p style="padding-left:6.0em"><span style="color:var(--text-muted);margin-right:6px">0.2.1</span>Medical examination results shall be used solely for assessing suitability for the job, ensuring safety in the performance of duties, and complying with applicable laws. The Company shall not use such information in a manner that constitutes unfair discrimination.</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.2.2</span>Annual Medical Examination</p>
+<p style="padding-left:6.0em"><span style="color:var(--text-muted);margin-right:6px">0.2.2</span>The Company shall arrange for employees to undergo an annual medical examination at least once per year, or more frequently as required by law or based on the nature of job-related risks.</p>
+<p style="padding-left:6.0em"><span style="color:var(--text-muted);margin-right:6px">0.2.2</span>The Company shall bear the cost of the medical examination in accordance with the program specified by the Company.</p>
+<p style="padding-left:6.0em"><span style="color:var(--text-muted);margin-right:6px">0.2.2</span>In cases where medical examination results indicate potential health risks, the Company may consider implementing additional preventive measures, adjusting working conditions, or arranging further medical examinations as appropriate.</p>
+<p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.3</span>Use and Protection of Health Information</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.3.1</span>Medical examination results shall be considered sensitive personal data under applicable personal data protection laws.</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.3.2</span>The Company shall collect, use, and disclose such information only to the extent necessary for workplace safety, human resource management, and compliance with applicable laws.</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.3.3</span>The Company may disclose such information to physicians, occupational health authorities, or legally authorized agencies to the extent necessary for the aforementioned purposes.</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.3.4</span>The Company shall implement appropriate data security measures and comply with applicable laws in protecting such information.</p></div>
+        </div>
+        <nav class="chapter-nav"><a href="welfare-01.html">← <span class="text-th">บททั่วไปและหลักการ</span><span class="text-en">General Provisions and Princip</span></a><a href="welfare-03.html" class="next"><span class="text-th">การประกันชีวิตกลุ่ม</span><span class="text-en">Group Life Insurance</span> →</a></nav>
+      </article>
+    </main>
+  </div>
+
+  <footer class="footer">
+    <span class="text-th">© 2026 บริษัท อัครา รีซอร์สเซส จำกัด (มหาชน) — ฝ่ายทรัพยากรบุคคล</span>
+    <span class="text-en">© 2026 Akara Resources Public Company Limited — Human Resources Department</span>
+  </footer>
+
+  <script>
+    function setLang(lang) {
+      document.documentElement.setAttribute('data-lang', lang);
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+      document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
+      localStorage.setItem('hr-lang', lang);
+    }
+    const saved = localStorage.getItem('hr-lang');
+    if (saved) setLang(saved);
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+    }
+  </script>
+</body>
+</html>

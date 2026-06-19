@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="th" data-lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>บททั่วไปและหลักการ — Akara Resources</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    body { display:flex; flex-direction:column; min-height:100vh; }
+    .page-wrap { display:flex; flex:1; }
+    .sidebar-fixed {
+      width:270px; flex-shrink:0; position:sticky; top:60px;
+      height:calc(100vh - 60px); overflow-y:auto;
+      background:#fff; border-right:1.5px solid var(--gray-2); padding:12px 8px;
+    }
+    .sidebar-fixed::-webkit-scrollbar { width:4px; }
+    .sidebar-fixed::-webkit-scrollbar-thumb { background:var(--gray-3); border-radius:2px; }
+    .sidebar-home {
+      display:flex; align-items:center; gap:6px; padding:7px 10px;
+      font-size:0.8rem; color:var(--text-muted); text-decoration:none;
+      border-radius:6px; margin-bottom:2px;
+    }
+    .sidebar-home:hover { background:var(--gray-1); color:var(--blue); }
+    .sidebar-section {
+      font-size:0.68rem; font-weight:700; letter-spacing:0.1em;
+      text-transform:uppercase; color:var(--text-muted);
+      padding:10px 10px 4px; display:block;
+    }
+    .sidebar-chapter {
+      display:flex; align-items:flex-start; gap:8px; padding:8px 10px;
+      border-radius:8px; text-decoration:none; color:var(--text-muted);
+      font-size:0.8rem; line-height:1.35; transition:all 0.15s; margin-bottom:1px;
+    }
+    .sidebar-chapter:hover { background:#FEF9E0; color:#7A6200; }
+    .sidebar-chapter.active { background:var(--gold); color:var(--dark); }
+    .sidebar-chapter.active .sidebar-num { background:rgba(0,0,0,0.1); color:var(--dark); }
+    .sidebar-num {
+      min-width:26px; height:26px; border-radius:6px;
+      background:#FEF9E0; color:#7A6200;
+      font-size:0.7rem; font-weight:700;
+      display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px;
+    }
+    .sidebar-label { flex:1; }
+    .main-content { flex:1; padding:32px 32px 60px; min-width:0; }
+    .chapter-card { max-width:740px; margin:0 auto; }
+    .chapter-body h2 { color:#7A6200; font-size:1.1rem; margin:28px 0 8px; padding-bottom:6px; border-bottom:2px solid #FEF9E0; }
+    .chapter-body h3 { color:var(--dark); font-size:1rem; margin:20px 0 6px; font-weight:700; }
+    .chapter-body h4 { color:#7A6200; font-size:0.95rem; margin:12px 0 4px; font-weight:600; }
+    .chapter-body p { color:var(--text); font-size:0.95rem; margin-bottom:0.8em; line-height:1.8; }
+    @media(max-width:768px) {
+      .sidebar-fixed { display:none; }
+      .sidebar-fixed.open { display:block; position:fixed; top:60px; left:0; z-index:200; height:calc(100vh - 60px); box-shadow:4px 0 20px rgba(0,0,0,0.15); }
+      .mob-menu { display:flex !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar" style="background:linear-gradient(135deg,#7A6200,#B8940A,var(--gold-dark))">
+    <div class="topbar-left">
+      <button class="mob-menu" onclick="toggleSidebar()" style="display:none;background:rgba(255,255,255,0.15);border:none;color:#fff;padding:6px 10px;border-radius:6px;cursor:pointer;font-size:1rem;margin-right:8px;">☰</button>
+      <img src="../assets/Akara Logo.jpg" alt="Akara Resources" class="topbar-logo">
+      <div class="topbar-title">
+        <span class="text-th">คู่มือพนักงาน</span><span class="text-en">Employee Handbook</span>
+        <span>Akara Resources Public Company Limited</span>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="lang-toggle">
+        <button class="lang-btn active" onclick="setLang('th')">TH</button>
+        <button class="lang-btn" onclick="setLang('en')">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="page-wrap">
+    <aside class="sidebar-fixed" id="sidebar">
+      <a href="../index.html" class="sidebar-home">← <span class="text-th">หน้าหลัก</span><span class="text-en">Home</span></a>
+      <span class="sidebar-section text-th">สวัสดิการและสิทธิประโยชน์</span>
+      <span class="sidebar-section text-en">Welfare & Benefits</span>
+      <nav style="display:flex;flex-direction:column;gap:1px;">
+          <a href="welfare-01.html" class="sidebar-chapter active"><span class="sidebar-num">01</span><span class="sidebar-label"><span class="text-th">บททั่วไปและหลักการ</span><span class="text-en">General Provisions and Principles</span></span></a>
+          <a href="welfare-02.html" class="sidebar-chapter"><span class="sidebar-num">02</span><span class="sidebar-label"><span class="text-th">การตรวจสุขภาพ</span><span class="text-en">Medical Examination</span></span></a>
+          <a href="welfare-03.html" class="sidebar-chapter"><span class="sidebar-num">03</span><span class="sidebar-label"><span class="text-th">การประกันชีวิตกลุ่ม</span><span class="text-en">Group Life Insurance</span></span></a>
+          <a href="welfare-04.html" class="sidebar-chapter"><span class="sidebar-num">04</span><span class="sidebar-label"><span class="text-th">การประกันอุบัติเหตุกลุ่ม</span><span class="text-en">Group Accident Insurance</span></span></a>
+          <a href="welfare-05.html" class="sidebar-chapter"><span class="sidebar-num">05</span><span class="sidebar-label"><span class="text-th">เครื่องแบบพนักงาน</span><span class="text-en">Employee Uniforms</span></span></a>
+          <a href="welfare-06.html" class="sidebar-chapter"><span class="sidebar-num">06</span><span class="sidebar-label"><span class="text-th">อาหารพนักงาน</span><span class="text-en">Employee Meals</span></span></a>
+          <a href="welfare-07.html" class="sidebar-chapter"><span class="sidebar-num">07</span><span class="sidebar-label"><span class="text-th">ค่าเดินทางมาทำงาน</span><span class="text-en">Transportation Allowance</span></span></a>
+          <a href="welfare-08.html" class="sidebar-chapter"><span class="sidebar-num">08</span><span class="sidebar-label"><span class="text-th">ค่ากะทำงาน</span><span class="text-en">Shift Allowance</span></span></a>
+          <a href="welfare-09.html" class="sidebar-chapter"><span class="sidebar-num">09</span><span class="sidebar-label"><span class="text-th">เงินช่วยเหลืออุปสมบท</span><span class="text-en">Ordination Support Allowance</span></span></a>
+          <a href="welfare-10.html" class="sidebar-chapter"><span class="sidebar-num">10</span><span class="sidebar-label"><span class="text-th">เงินช่วยเหลือกรณีสมรส</span><span class="text-en">Marriage Support Allowance</span></span></a>
+          <a href="welfare-11.html" class="sidebar-chapter"><span class="sidebar-num">11</span><span class="sidebar-label"><span class="text-th">เงินช่วยเหลือกรณีคลอดบุตร</span><span class="text-en">Childbirth Support Allowance</span></span></a>
+          <a href="welfare-12.html" class="sidebar-chapter"><span class="sidebar-num">12</span><span class="sidebar-label"><span class="text-th">เงินช่วยเหลือกรณีเสียชีวิตของบุคคลในครอบครัว</span><span class="text-en">Family Bereavement Assistance</span></span></a>
+          <a href="welfare-13.html" class="sidebar-chapter"><span class="sidebar-num">13</span><span class="sidebar-label"><span class="text-th">เงินช่วยเหลือกรณีเสียชีวิตของพนักงาน</span><span class="text-en">Death Benefit for Employees</span></span></a>
+          <a href="welfare-14.html" class="sidebar-chapter"><span class="sidebar-num">14</span><span class="sidebar-label"><span class="text-th">รางวัลตอบแทนการทำงานตามอายุงานต่อเนื่อง</span><span class="text-en">Long-Service Recognition Award</span></span></a>
+          <a href="welfare-15.html" class="sidebar-chapter"><span class="sidebar-num">15</span><span class="sidebar-label"><span class="text-th">กองทุนสำรองเลี้ยงชีพ</span><span class="text-en">Provident Fund</span></span></a>
+          <a href="welfare-16.html" class="sidebar-chapter"><span class="sidebar-num">16</span><span class="sidebar-label"><span class="text-th">สวัสดิการค่ารักษาพยาบาล</span><span class="text-en">Medical Benefits</span></span></a>
+          <a href="welfare-17.html" class="sidebar-chapter"><span class="sidebar-num">17</span><span class="sidebar-label"><span class="text-th">โทรศัพท์มือถือ</span><span class="text-en">Mobile Phone</span></span></a>
+          <a href="welfare-18.html" class="sidebar-chapter"><span class="sidebar-num">18</span><span class="sidebar-label"><span class="text-th">ค่าเดินทางกรณีใช้รถยนต์ส่วนตัว</span><span class="text-en">Travel Allowance for Use of Personal Vehicle</span></span></a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <article class="chapter-card">
+        <div class="chapter-badge" style="background:#FEF9E0;color:#7A6200">
+          <span class="text-th">หัวข้อที่ 1</span>
+          <span class="text-en">Section 1</span>
+        </div>
+        <h1 class="chapter-title">
+          <span class="text-th">บททั่วไปและหลักการ</span>
+          <span class="text-en">General Provisions and Principles</span>
+        </h1>
+        <div class="chapter-divider" style="background:linear-gradient(90deg,#7A6200,var(--gold))"></div>
+        <div class="chapter-body">
+          <div class="text-th"><p style="padding-left:1.5em;font-weight:600"><span style="color:var(--blue);margin-right:6px">1.</span>วัตถุประสงค์</p>
+<p style="padding-left:1.5em">เพื่อกำหนดหลักเกณฑ์ แนวทาง และขอบเขตการจัดสวัสดิการและสิทธิประโยชน์ให้แก่พนักงานของบริษัทอย่างเป็นมาตรฐาน โปร่งใส เป็นธรรม และสอดคล้องกับกฎหมายแรงงาน กฎหมายที่เกี่ยวข้อง มาตรฐานด้านอาชีวอนามัย ความปลอดภัย และแนวปฏิบัติที่ดีขององค์กร ตลอดจนเพื่อส่งเสริมคุณภาพชีวิต 
+ความมั่นคง และสวัสดิภาพของพนักงานอย่างเหมาะสมและยั่งยืน</p>
+<p style="padding-left:1.5em;font-weight:600"><span style="color:var(--blue);margin-right:6px">2.</span>ขอบเขตการบังคับใช้</p>
+<p style="padding-left:1.5em">ระเบียบสวัสดิการและสิทธิประโยชน์ฉบับนี้ใช้บังคับกับพนักงานประจำตามสัญญาจ้างแรงงานของบริษัทเป็นหลัก เว้นแต่จะได้กำหนดไว้เป็นอย่างอื่นโดยชัดแจ้งในระเบียบฉบับนี้ สัญญาจ้าง ข้อตกลงการจ้าง หรือประกาศของบริษัท</p>
+<p style="padding-left:1.5em">สำหรับพนักงานประเภทอื่น เช่น พนักงานทดลองงาน พนักงานสัญญาจ้างกำหนดระยะเวลา พนักงานชั่วคราว หรือบุคคลภายนอก ให้ได้รับสิทธิตามที่บริษัทกำหนดเป็นกรณีไป</p>
+<p style="padding-left:1.5em">บุคคลซึ่งปฏิบัติงานให้แก่บริษัทในฐานะที่ปรึกษา ผู้รับจ้างอิสระ ผู้รับเหมา หรือบุคคลภายนอกอื่นใด ไม่อยู่ภายใต้บังคับของระเบียบฉบับนี้ เว้นแต่บริษัทจะกำหนดไว้เป็นลายลักษณ์อักษรเป็นการเฉพาะ</p>
+<p style="padding-left:1.5em;font-weight:600"><span style="color:var(--blue);margin-right:6px">3.</span>หลักการทั่วไปเกี่ยวกับสวัสดิการ</p>
+<p style="padding-left:3.0em"><span style="color:var(--text-muted);margin-right:6px">3.1</span>สวัสดิการและสิทธิประโยชน์ตามระเบียบฉบับนี้เป็นการจัดให้โดยสมัครใจของบริษัทตามความเหมาะสมขององค์กร เว้นแต่กฎหมายจะกำหนดไว้เป็นอย่างอื่น ทั้งนี้ สถานะทางกฎหมายของสวัสดิการ
+แต่ละประเภทให้เป็นไปตามที่กำหนดไว้ในหมวดนั้น ๆ และตามกฎหมายที่เกี่ยวข้อง</p>
+<p style="padding-left:3.0em"><span style="color:var(--text-muted);margin-right:6px">3.2</span>การได้รับสิทธิประโยชน์ต้องเป็นไปตามคุณสมบัติ เงื่อนไข หลักเกณฑ์ ขั้นตอน และวิธีการที่บริษัทกำหนด รวมถึงประกาศหรือระเบียบเฉพาะเรื่องที่เกี่ยวข้อง ซึ่งถือเป็นส่วนหนึ่งของระเบียบฉบับนี้</p>
+<p style="padding-left:3.0em"><span style="color:var(--text-muted);margin-right:6px">3.3</span>บริษัทขอสงวนสิทธิในการกำหนด เปลี่ยนแปลง ปรับปรุง ระงับ หรือยกเลิกสวัสดิการทั้งหมดหรือบางส่วนตามความเหมาะสม สภาพธุรกิจ เงื่อนไขของผู้ให้บริการ หรือข้อกำหนดตามกฎหมาย ทั้งนี้ 
+การพิจารณาว่าสวัสดิการใดเป็นสภาพการจ้างหรือไม่ ให้เป็นไปตามหลักกฎหมายแรงงานและ
+คำวินิจฉัยของหน่วยงานที่มีอำนาจตามกฎหมาย</p>
+<p style="padding-left:3.0em"><span style="color:var(--text-muted);margin-right:6px">3.4</span>ในกรณีมีข้อขัดแย้งหรือความไม่ชัดเจนในการตีความระหว่างระเบียบนี้กับสัญญาจ้าง ข้อตกลงเฉพาะบุคคล หรือประกาศของบริษัท ให้ใช้ข้อกำหนดที่ระบุไว้โดยชัดแจ้งเป็นสำคัญ</p>
+<p style="padding-left:3.0em"><span style="color:var(--text-muted);margin-right:6px">3.5</span>บริษัทมุ่งมั่นส่งเสริมความเท่าเทียม ความหลากหลาย และการไม่เลือกปฏิบัติในการจัดสวัสดิการและสิทธิประโยชน์ โดยพิจารณาบนหลักความเป็นธรรม โปร่งใส และโอกาสที่เท่าเทียมกัน โดยคำนึงถึง
+ความแตกต่างด้านเพศ วัย ความพิการ และปัจจัยส่วนบุคคลอื่นตามความเหมาะสม</p>
+<p style="padding-left:1.5em;font-weight:600"><span style="color:var(--blue);margin-right:6px">4.</span>การบริหารและการกำกับดูแล</p>
+<p style="padding-left:3.0em"><span style="color:var(--text-muted);margin-right:6px">4.1</span>ฝ่ายทรัพยากรบุคคลเป็นหน่วยงานหลักในการบริหาร จัดการ ตีความ และกำกับดูแลการใช้สิทธิตามระเบียบนี้ รวมถึงมีอำนาจเสนอแนะแนวทางปฏิบัติเพิ่มเติมเพื่อให้เป็นไปตามวัตถุประสงค์ของระเบียบฉบับนี้</p>
+<p style="padding-left:3.0em"><span style="color:var(--text-muted);margin-right:6px">4.2</span>บริษัทอาจกำหนดขั้นตอน แบบฟอร์ม เอกสาร หรือระบบอิเล็กทรอนิกส์เพิ่มเติมเพื่อประกอบการใช้สิทธิ ซึ่งถือเป็นส่วนหนึ่งของกระบวนการบริหารสวัสดิการ</p>
+<p style="padding-left:3.0em"><span style="color:var(--text-muted);margin-right:6px">4.3</span>พนักงานมีหน้าที่ปฏิบัติตามขั้นตอนและให้ข้อมูลที่ถูกต้อง ครบถ้วน และเป็นความจริงในการขอใช้สิทธิ หากปรากฏว่ามีการให้ข้อมูลอันเป็นเท็จหรือใช้สิทธิไม่ถูกต้อง บริษัทอาจพิจารณาระงับสิทธิและดำเนินการตามระเบียบวินัยของบริษัท</p>
+<p style="padding-left:1.5em;font-weight:600"><span style="color:var(--blue);margin-right:6px">5.</span>การคุ้มครองข้อมูลส่วนบุคคล</p>
+<p style="padding-left:3.0em"><span style="color:var(--text-muted);margin-right:6px">5.1</span>บริษัทอาจเก็บรวบรวม ใช้ และเปิดเผยข้อมูลส่วนบุคคลของพนักงานและบุคคลในครอบครัว
+เพื่อวัตถุประสงค์ในการบริหารสวัสดิการและสิทธิประโยชน์ตามระเบียบฉบับนี้</p>
+<p style="padding-left:3.0em"><span style="color:var(--text-muted);margin-right:6px">5.2</span>บริษัทอาจเปิดเผยข้อมูลดังกล่าวแก่ผู้ให้บริการภายนอก เช่น บริษัทประกันภัย โรงพยาบาล สถาบันการเงิน หรือผู้ให้บริการกองทุนสำรองเลี้ยงชีพ เท่าที่จำเป็นเพื่อการดำเนินการตามสวัสดิการ</p>
+<p style="padding-left:3.0em"><span style="color:var(--text-muted);margin-right:6px">5.3</span>การดำเนินการดังกล่าวจะเป็นไปตามกฎหมายคุ้มครองข้อมูลส่วนบุคคลและมาตรการรักษา
+ความปลอดภัยของบริษัท</p></div>
+          <div class="text-en"><p style="padding-left:1.5em;font-weight:600"><span style="color:var(--blue);margin-right:6px">1.</span>Objective</p>
+<p style="padding-left:1.5em">This Regulation is established to prescribe the principles, guidelines, and scope governing the provision of welfare and benefits to Employees of the Company in a standardized, transparent, and equitable manner, in compliance with applicable labor laws, relevant legislation, occupational health and safety standards, and recognized good corporate practices.</p>
+<p style="padding-left:1.5em">This Regulation further aims to promote the quality of life, stability, and well-being of Employees in 
+an appropriate and sustainable manner.</p>
+<p style="padding-left:1.5em;font-weight:600"><span style="color:var(--blue);margin-right:6px">2.</span>Scope of Application</p>
+<p style="padding-left:1.5em">Other categories of personnel, including probationary Employees, fixed-term Employees, temporary Employees, or other individuals, shall be entitled to benefits only as determined by the Company on a case-by-case basis.</p>
+<p style="padding-left:1.5em">Individuals performing work for the Company in the capacity of consultants, independent contractors, service providers, contractors, or any other external persons shall not be subject to this Regulation, unless expressly provided in writing by the Company.</p>
+<p style="padding-left:3.0em"><span style="color:var(--text-muted);margin-right:6px">2.1</span>The welfare and benefits provided under this Regulation are granted at the discretion of the Company, except where otherwise required by law. The legal status of each category of welfare or benefit shall be determined in accordance with the relevant section of this Regulation and applicable laws.</p>
+<p style="padding-left:3.0em"><span style="color:var(--text-muted);margin-right:6px">2.2</span>Eligibility for any welfare or benefit shall be subject to the qualifications, conditions, criteria, procedures, and processes prescribed by the Company, including any specific announcements, policies, or guidelines issued in connection therewith, which shall form an integral part of this Regulation.</p>
+<p style="padding-left:3.0em"><span style="color:var(--text-muted);margin-right:6px">2.3</span>The Company reserves the right to prescribe, amend, modify, suspend, or terminate any welfare or benefit, in whole or in part, as deemed appropriate in light of business conditions, service provider arrangements, or legal requirements. The determination as to whether any welfare or benefit constitutes a condition of employment shall be subject to applicable labor laws and the interpretation of competent authorities.</p>
+<p style="padding-left:3.0em"><span style="color:var(--text-muted);margin-right:6px">2.4</span>In the event of any inconsistency or ambiguity between this Regulation and any employment contract, individual agreement, or Company announcement, the provision expressly stipulated in writing shall prevail.</p>
+<p style="padding-left:3.0em"><span style="color:var(--text-muted);margin-right:6px">2.5</span>The Company is committed to promoting equality, diversity, and non-discrimination in the provision of welfare and benefits. Consideration shall be based on principles of fairness, transparency, and equal opportunity, taking into account differences in gender, age, disability, and other relevant personal factors as appropriate.</p>
+<p style="padding-left:1.5em;font-weight:600"><span style="color:var(--blue);margin-right:6px">3.</span>Administration and Governance</p>
+<p style="padding-left:3.0em"><span style="color:var(--text-muted);margin-right:6px">3.1</span>The Human Resources Department shall serve as the primary unit responsible for administering, managing, interpreting, and overseeing the implementation of this Regulation, and shall have the authority to propose additional guidelines as necessary to ensure alignment with its objectives.</p>
+<p style="padding-left:3.0em"><span style="color:var(--text-muted);margin-right:6px">3.2</span>The Company may prescribe additional procedures, forms, documentation requirements, or electronic systems to facilitate the administration of welfare and benefits, which shall form part of the implementation process under this Regulation.</p>
+<p style="padding-left:3.0em"><span style="color:var(--text-muted);margin-right:6px">3.3</span>Employees shall comply with all prescribed procedures and shall provide accurate, complete, and truthful information when applying for any welfare or benefit. In the event of false statements or improper use of benefits, the Company may suspend such benefits and take disciplinary action in accordance with its internal regulations.</p>
+<p style="padding-left:1.5em;font-weight:600"><span style="color:var(--blue);margin-right:6px">4.</span>Personal Data Protection</p>
+<p style="padding-left:3.0em"><span style="color:var(--text-muted);margin-right:6px">4.1</span>The Company may collect, use, and disclose personal data of Employees and their family members for the purpose of administering welfare and benefits under this Regulation.</p>
+<p style="padding-left:3.0em"><span style="color:var(--text-muted);margin-right:6px">4.2</span>The Company may disclose such personal data to external service providers, including insurance companies, hospitals, financial institutions, or provident fund managers, to the extent necessary for the implementation of the relevant welfare or benefits.</p>
+<p style="padding-left:3.0em"><span style="color:var(--text-muted);margin-right:6px">4.3</span>Such processing of personal data shall be carried out in compliance with applicable personal data protection laws and the Company’s data security measures.</p></div>
+        </div>
+        <nav class="chapter-nav"><a href="welfare-02.html" class="next"><span class="text-th">การตรวจสุขภาพ</span><span class="text-en">Medical Examination</span> →</a></nav>
+      </article>
+    </main>
+  </div>
+
+  <footer class="footer">
+    <span class="text-th">© 2026 บริษัท อัครา รีซอร์สเซส จำกัด (มหาชน) — ฝ่ายทรัพยากรบุคคล</span>
+    <span class="text-en">© 2026 Akara Resources Public Company Limited — Human Resources Department</span>
+  </footer>
+
+  <script>
+    function setLang(lang) {
+      document.documentElement.setAttribute('data-lang', lang);
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+      document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
+      localStorage.setItem('hr-lang', lang);
+    }
+    const saved = localStorage.getItem('hr-lang');
+    if (saved) setLang(saved);
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+    }
+  </script>
+</body>
+</html>

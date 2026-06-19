@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="th" data-lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>กองทุนสำรองเลี้ยงชีพ — Akara Resources</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    body { display:flex; flex-direction:column; min-height:100vh; }
+    .page-wrap { display:flex; flex:1; }
+    .sidebar-fixed {
+      width:270px; flex-shrink:0; position:sticky; top:60px;
+      height:calc(100vh - 60px); overflow-y:auto;
+      background:#fff; border-right:1.5px solid var(--gray-2); padding:12px 8px;
+    }
+    .sidebar-fixed::-webkit-scrollbar { width:4px; }
+    .sidebar-fixed::-webkit-scrollbar-thumb { background:var(--gray-3); border-radius:2px; }
+    .sidebar-home {
+      display:flex; align-items:center; gap:6px; padding:7px 10px;
+      font-size:0.8rem; color:var(--text-muted); text-decoration:none;
+      border-radius:6px; margin-bottom:2px;
+    }
+    .sidebar-home:hover { background:var(--gray-1); color:var(--blue); }
+    .sidebar-section {
+      font-size:0.68rem; font-weight:700; letter-spacing:0.1em;
+      text-transform:uppercase; color:var(--text-muted);
+      padding:10px 10px 4px; display:block;
+    }
+    .sidebar-chapter {
+      display:flex; align-items:flex-start; gap:8px; padding:8px 10px;
+      border-radius:8px; text-decoration:none; color:var(--text-muted);
+      font-size:0.8rem; line-height:1.35; transition:all 0.15s; margin-bottom:1px;
+    }
+    .sidebar-chapter:hover { background:#FEF9E0; color:#7A6200; }
+    .sidebar-chapter.active { background:var(--gold); color:var(--dark); }
+    .sidebar-chapter.active .sidebar-num { background:rgba(0,0,0,0.1); color:var(--dark); }
+    .sidebar-num {
+      min-width:26px; height:26px; border-radius:6px;
+      background:#FEF9E0; color:#7A6200;
+      font-size:0.7rem; font-weight:700;
+      display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px;
+    }
+    .sidebar-label { flex:1; }
+    .main-content { flex:1; padding:32px 32px 60px; min-width:0; }
+    .chapter-card { max-width:740px; margin:0 auto; }
+    .chapter-body h2 { color:#7A6200; font-size:1.1rem; margin:28px 0 8px; padding-bottom:6px; border-bottom:2px solid #FEF9E0; }
+    .chapter-body h3 { color:var(--dark); font-size:1rem; margin:20px 0 6px; font-weight:700; }
+    .chapter-body h4 { color:#7A6200; font-size:0.95rem; margin:12px 0 4px; font-weight:600; }
+    .chapter-body p { color:var(--text); font-size:0.95rem; margin-bottom:0.8em; line-height:1.8; }
+    @media(max-width:768px) {
+      .sidebar-fixed { display:none; }
+      .sidebar-fixed.open { display:block; position:fixed; top:60px; left:0; z-index:200; height:calc(100vh - 60px); box-shadow:4px 0 20px rgba(0,0,0,0.15); }
+      .mob-menu { display:flex !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar" style="background:linear-gradient(135deg,#7A6200,#B8940A,var(--gold-dark))">
+    <div class="topbar-left">
+      <button class="mob-menu" onclick="toggleSidebar()" style="display:none;background:rgba(255,255,255,0.15);border:none;color:#fff;padding:6px 10px;border-radius:6px;cursor:pointer;font-size:1rem;margin-right:8px;">☰</button>
+      <img src="../assets/Akara Logo.jpg" alt="Akara Resources" class="topbar-logo">
+      <div class="topbar-title">
+        <span class="text-th">คู่มือพนักงาน</span><span class="text-en">Employee Handbook</span>
+        <span>Akara Resources Public Company Limited</span>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="lang-toggle">
+        <button class="lang-btn active" onclick="setLang('th')">TH</button>
+        <button class="lang-btn" onclick="setLang('en')">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="page-wrap">
+    <aside class="sidebar-fixed" id="sidebar">
+      <a href="../index.html" class="sidebar-home">← <span class="text-th">หน้าหลัก</span><span class="text-en">Home</span></a>
+      <span class="sidebar-section text-th">สวัสดิการและสิทธิประโยชน์</span>
+      <span class="sidebar-section text-en">Welfare & Benefits</span>
+      <nav style="display:flex;flex-direction:column;gap:1px;">
+          <a href="welfare-01.html" class="sidebar-chapter"><span class="sidebar-num">01</span><span class="sidebar-label"><span class="text-th">บททั่วไปและหลักการ</span><span class="text-en">General Provisions and Principles</span></span></a>
+          <a href="welfare-02.html" class="sidebar-chapter"><span class="sidebar-num">02</span><span class="sidebar-label"><span class="text-th">การตรวจสุขภาพ</span><span class="text-en">Medical Examination</span></span></a>
+          <a href="welfare-03.html" class="sidebar-chapter"><span class="sidebar-num">03</span><span class="sidebar-label"><span class="text-th">การประกันชีวิตกลุ่ม</span><span class="text-en">Group Life Insurance</span></span></a>
+          <a href="welfare-04.html" class="sidebar-chapter"><span class="sidebar-num">04</span><span class="sidebar-label"><span class="text-th">การประกันอุบัติเหตุกลุ่ม</span><span class="text-en">Group Accident Insurance</span></span></a>
+          <a href="welfare-05.html" class="sidebar-chapter"><span class="sidebar-num">05</span><span class="sidebar-label"><span class="text-th">เครื่องแบบพนักงาน</span><span class="text-en">Employee Uniforms</span></span></a>
+          <a href="welfare-06.html" class="sidebar-chapter"><span class="sidebar-num">06</span><span class="sidebar-label"><span class="text-th">อาหารพนักงาน</span><span class="text-en">Employee Meals</span></span></a>
+          <a href="welfare-07.html" class="sidebar-chapter"><span class="sidebar-num">07</span><span class="sidebar-label"><span class="text-th">ค่าเดินทางมาทำงาน</span><span class="text-en">Transportation Allowance</span></span></a>
+          <a href="welfare-08.html" class="sidebar-chapter"><span class="sidebar-num">08</span><span class="sidebar-label"><span class="text-th">ค่ากะทำงาน</span><span class="text-en">Shift Allowance</span></span></a>
+          <a href="welfare-09.html" class="sidebar-chapter"><span class="sidebar-num">09</span><span class="sidebar-label"><span class="text-th">เงินช่วยเหลืออุปสมบท</span><span class="text-en">Ordination Support Allowance</span></span></a>
+          <a href="welfare-10.html" class="sidebar-chapter"><span class="sidebar-num">10</span><span class="sidebar-label"><span class="text-th">เงินช่วยเหลือกรณีสมรส</span><span class="text-en">Marriage Support Allowance</span></span></a>
+          <a href="welfare-11.html" class="sidebar-chapter"><span class="sidebar-num">11</span><span class="sidebar-label"><span class="text-th">เงินช่วยเหลือกรณีคลอดบุตร</span><span class="text-en">Childbirth Support Allowance</span></span></a>
+          <a href="welfare-12.html" class="sidebar-chapter"><span class="sidebar-num">12</span><span class="sidebar-label"><span class="text-th">เงินช่วยเหลือกรณีเสียชีวิตของบุคคลในครอบครัว</span><span class="text-en">Family Bereavement Assistance</span></span></a>
+          <a href="welfare-13.html" class="sidebar-chapter"><span class="sidebar-num">13</span><span class="sidebar-label"><span class="text-th">เงินช่วยเหลือกรณีเสียชีวิตของพนักงาน</span><span class="text-en">Death Benefit for Employees</span></span></a>
+          <a href="welfare-14.html" class="sidebar-chapter"><span class="sidebar-num">14</span><span class="sidebar-label"><span class="text-th">รางวัลตอบแทนการทำงานตามอายุงานต่อเนื่อง</span><span class="text-en">Long-Service Recognition Award</span></span></a>
+          <a href="welfare-15.html" class="sidebar-chapter active"><span class="sidebar-num">15</span><span class="sidebar-label"><span class="text-th">กองทุนสำรองเลี้ยงชีพ</span><span class="text-en">Provident Fund</span></span></a>
+          <a href="welfare-16.html" class="sidebar-chapter"><span class="sidebar-num">16</span><span class="sidebar-label"><span class="text-th">สวัสดิการค่ารักษาพยาบาล</span><span class="text-en">Medical Benefits</span></span></a>
+          <a href="welfare-17.html" class="sidebar-chapter"><span class="sidebar-num">17</span><span class="sidebar-label"><span class="text-th">โทรศัพท์มือถือ</span><span class="text-en">Mobile Phone</span></span></a>
+          <a href="welfare-18.html" class="sidebar-chapter"><span class="sidebar-num">18</span><span class="sidebar-label"><span class="text-th">ค่าเดินทางกรณีใช้รถยนต์ส่วนตัว</span><span class="text-en">Travel Allowance for Use of Personal Vehicle</span></span></a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <article class="chapter-card">
+        <div class="chapter-badge" style="background:#FEF9E0;color:#7A6200">
+          <span class="text-th">หัวข้อที่ 15</span>
+          <span class="text-en">Section 15</span>
+        </div>
+        <h1 class="chapter-title">
+          <span class="text-th">กองทุนสำรองเลี้ยงชีพ</span>
+          <span class="text-en">Provident Fund</span>
+        </h1>
+        <div class="chapter-divider" style="background:linear-gradient(90deg,#7A6200,var(--gold))"></div>
+        <div class="chapter-body">
+          <div class="text-th"><p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.1</span>หลักการ</p>
+<p style="padding-left:1.5em">บริษัทจัดให้มีกองทุนสำรองเลี้ยงชีพสำหรับพนักงาน โดยการดำเนินการให้เป็นไปตามข้อบังคับกองทุนและกฎหมายที่เกี่ยวข้อง และบริษัทอาจปรับเปลี่ยนการบริหารกองทุนตามความเหมาะสมภายใต้กรอบกฎหมาย</p>
+<p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.2</span>เงินสะสมและเงินสมทบ</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.2.1</span>พนักงานมีสิทธิเลือกจ่ายเงินสะสมเข้ากองทุนในอัตราร้อยละ 2 ถึงร้อยละ 15 ของฐานเงินเดือน ทั้งนี้ การจ่ายเงินสะสมดังกล่าวเป็นทางเลือกในการออมเงินระยะยาว และอาจได้รับสิทธิประโยชน์ทางภาษีตามที่กฎหมายกำหนด</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.2.2</span>บริษัทจะจ่ายเงินสมทบในอัตราเท่ากับเงินสะสมของพนักงาน ทั้งนี้ ไม่เกินอัตราสูงสุดตามช่วงอายุงานที่บริษัทกำหนด และให้เป็นไปตามข้อบังคับกองทุนและกฎหมายที่เกี่ยวข้อง</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.2.3</span>การจ่ายเงินสะสมและเงินสมทบให้เป็นไปตามหลักเกณฑ์ วิธีการ และระยะเวลาที่กำหนดไว้ในข้อบังคับกองทุน</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.2.4</span>พนักงานสามารถยื่นคำขอปรับเปลี่ยนอัตราเงินสะสมได้ปีละ 1 ครั้ง ตามระยะเวลาและเงื่อนไขที่บริษัทประกาศกำหนด</p>
+<p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.3</span>การได้รับสิทธิในเงินสมทบของบริษัท</p>
+<p style="padding-left:1.5em">เมื่อพนักงานพ้นสภาพการเป็นพนักงานไม่ว่าด้วยเหตุใด พนักงานมีสิทธิได้รับเงินสมทบของบริษัทตามอัตราการได้รับสิทธิ ที่กำหนดในข้อบังคับกองทุน โดยคำนวณจากอายุงานรวมระยะเวลาทดลองงาน ดังนี้</p>
+<p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.4</span>กรณีไม่ได้รับสิทธิในเงินสมทบ</p>
+<p style="padding-left:1.5em">พนักงานจะไม่ได้รับสิทธิในเงินสมทบของบริษัท หรือได้รับตามเงื่อนไขที่กฎหมายและข้อบังคับกองทุนกำหนด ในกรณีดังต่อไปนี้</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.4.1</span>พ้นสภาพการเป็นพนักงานเนื่องจากกระทำผิดวินัยร้ายแรงตามข้อบังคับเกี่ยวกับการทำงานของบริษัท ทั้งนี้ ให้เป็นไปตามข้อบังคับกองทุน</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.4.2</span>ลาออกจากกองทุนสำรองเลี้ยงชีพโดยยังคงสถานะเป็นพนักงานของบริษัท</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.4.3</span>กรณีอื่นใดตามที่ข้อบังคับกองทุนกำหนด</p>
+<p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.5</span>สถานะของสิทธิประโยชน์และการเปลี่ยนแปลงเงื่อนไข</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.5.1</span>สิทธิประโยชน์ตามข้อนี้ให้เป็นไปตามข้อบังคับกองทุนและกฎหมายที่เกี่ยวข้อง</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.5.2</span>เงินสะสม เงินสมทบ และสิทธิประโยชน์ใด ๆ ตามข้อนี้ ไม่ถือเป็นค่าจ้าง และไม่เป็นฐานในการคำนวณค่าล่วงเวลา ค่าชดเชย เงินทดแทน หรือสิทธิประโยชน์อื่นใด เว้นแต่กฎหมายกำหนดไว้เป็นอย่างอื่น</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.5.3</span>บริษัทขอสงวนสิทธิในการกำหนด เปลี่ยนแปลง ปรับปรุง หรือยกเลิกอัตราเงินสะสม เงินสมทบ หลักเกณฑ์ หรือเงื่อนไขที่เกี่ยวข้องตามความเหมาะสม โดยให้เป็นไปตามกฎหมายและข้อบังคับกองทุน และไม่ถือเป็นการเปลี่ยนแปลงสภาพการจ้าง</p></div>
+          <div class="text-en"><p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.1</span>Principle</p>
+<p style="padding-left:1.5em">The Company provides a provident fund for employees. The fund shall be administered in accordance with the fund regulations and applicable laws. The Company may adjust or change the management of the provident fund as appropriate, within the scope permitted by law</p>
+<p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.2</span>Employee Contributions and Company Contributions</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.2.1</span>Employees may choose to contribute between 2% and 15% of their base salary to the provident fund. Such contributions are intended as a long-term savings option and may be eligible for tax benefits in accordance with applicable laws.</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.2.2</span>The Company shall contribute an amount equal to the employee’s contribution, subject to the maximum rate determined according to the employee’s length of service and in accordance with the fund regulations and applicable laws.</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.2.3</span>Contributions by both the employee and the Company shall be made in accordance with the rules, procedures, and timeframes specified in the fund regulations.</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.2.4</span>Employees may request to change their contribution rate once per year, subject to the timeline and conditions announced by the Company.</p>
+<p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.3</span>Entitlement to Company Contributions</p>
+<p style="padding-left:1.5em">Upon termination of employment for any reason, employees shall be entitled to receive the Company’s contributions in accordance with the vesting schedule specified in the fund regulations. The vesting calculation shall be based on the employee’s total length of service, including the probation period, as follows:</p>
+<p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.4</span>Circumstances Where Company Contributions Are Not Payable</p>
+<p style="padding-left:1.5em">Employees shall not be entitled to the Company’s contributions, or may receive them only in accordance with the conditions prescribed by law and the fund regulations, in the following cases:</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.4.1</span>Termination of employment due to serious misconduct under the Company’s work rules, subject to the provisions of the fund regulations.</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.4.2</span>Withdrawal from the provident fund while remaining employed by the Company.</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.4.3</span>Any other circumstances specified in the fund regulations.</p>
+<p style="padding-left:3.0em;font-weight:600"><span style="color:var(--blue);margin-right:6px">0.5</span>Status of Benefits and Changes to Conditions</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.5.1</span>The benefits under this provision shall be governed by the fund regulations and applicable laws.</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.5.2</span>Employee contributions, Company contributions, and any benefits under this provision shall not be considered wages and shall not form the basis for calculating overtime pay, severance pay, compensation, or any other employment-related benefits, unless otherwise required by law.</p>
+<p style="padding-left:4.5em"><span style="color:var(--text-muted);margin-right:6px">0.5.3</span>The Company reserves the right to determine, amend, revise, or cancel the contribution rates, rules, or related conditions as appropriate, in accordance with applicable laws and the fund regulations. Such actions shall not be deemed a change in employment conditions.</p></div>
+        </div>
+        <nav class="chapter-nav"><a href="welfare-14.html">← <span class="text-th">รางวัลตอบแทนการทำงานตามอายุงาน</span><span class="text-en">Long-Service Recognition Award</span></a><a href="welfare-16.html" class="next"><span class="text-th">สวัสดิการค่ารักษาพยาบาล</span><span class="text-en">Medical Benefits</span> →</a></nav>
+      </article>
+    </main>
+  </div>
+
+  <footer class="footer">
+    <span class="text-th">© 2026 บริษัท อัครา รีซอร์สเซส จำกัด (มหาชน) — ฝ่ายทรัพยากรบุคคล</span>
+    <span class="text-en">© 2026 Akara Resources Public Company Limited — Human Resources Department</span>
+  </footer>
+
+  <script>
+    function setLang(lang) {
+      document.documentElement.setAttribute('data-lang', lang);
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+      document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
+      localStorage.setItem('hr-lang', lang);
+    }
+    const saved = localStorage.getItem('hr-lang');
+    if (saved) setLang(saved);
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+    }
+  </script>
+</body>
+</html>

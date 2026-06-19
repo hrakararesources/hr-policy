@@ -327,8 +327,8 @@ def main():
     print("  Akara Resources — Welfare Generator v1")
     print("="*56)
 
-    docx_th = os.path.join(BASE_DIR, "content", "welfare", "01_Welfare and Benefits TH.docx")
-    docx_en = os.path.join(BASE_DIR, "content", "welfare", "02_Welfare and Benefits EN.docx")
+    docx_th = os.path.join(BASE_DIR, "content", "welfare", "01_Welfare and Benefits Regulation TH.docx")
+    docx_en = os.path.join(BASE_DIR, "content", "welfare", "02_Welfare and Benefits Regulation EN.docx")
     out_dir = os.path.join(BASE_DIR, "welfare")
 
     if not os.path.exists(docx_th):
