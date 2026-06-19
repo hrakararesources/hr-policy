@@ -267,7 +267,8 @@ def main():
     for i, ch in enumerate(WORK_RULES_CHAPTERS):
         badge = "สารจากผู้บริหาร" if ch["num"] == 0 else f"หมวดที่ {ch['num']}"
         badge_en = "Management Message" if ch["num"] == 0 else f"Chapter {ch['num']}"
-        filename = f"chapter-{'00' if ch['num']==0 else f'{ch[\"num\"]:02d}'}.html"
+        chnum = ch["num"]
+        filename = "chapter-00.html" if chnum == 0 else f"chapter-{chnum:02d}.html"
         
         content_th = text_to_html(chapter_texts_th.get(i, []))
         content_en = text_to_html(chapter_texts_en.get(i, []))
@@ -281,11 +282,13 @@ def main():
         prev_link = next_link = ""
         if i > 0:
             prev_ch = WORK_RULES_CHAPTERS[i-1]
-            prev_file = f"chapter-{'00' if prev_ch['num']==0 else f'{prev_ch[\"num\"]:02d}'}.html"
+            pn = prev_ch["num"]
+            prev_file = "chapter-00.html" if pn == 0 else f"chapter-{pn:02d}.html"
             prev_link = f'<a href="{prev_file}">← {prev_ch["title_th"][:30]}</a>'
         if i < total - 1:
             next_ch = WORK_RULES_CHAPTERS[i+1]
-            next_file = f"chapter-{'00' if next_ch['num']==0 else f'{next_ch[\"num\"]:02d}'}.html"
+            nn = next_ch["num"]
+            next_file = "chapter-00.html" if nn == 0 else f"chapter-{nn:02d}.html"
             next_link = f'<a href="{next_file}" class="next">{next_ch["title_th"][:30]} →</a>'
 
         html = PAGE_HTML.format(

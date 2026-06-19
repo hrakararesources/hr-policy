@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="th" data-lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>วันลาและหลักเกณฑ์การลา — Akara Resources</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-left">
+      <a href="index.html" class="back-btn">
+        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 2L4 7L9 12"/></svg>
+        <span class="text-th">สารบัญ</span><span class="text-en">Contents</span>
+      </a>
+      <img src="../assets/Akara_Logo.jpg" alt="Akara Resources" class="topbar-logo">
+      <div class="topbar-title">
+        <span class="text-th">ระเบียบข้อบังคับการทำงาน</span>
+        <span class="text-en">Work Rules & Regulations</span>
+        <span>หมวดที่ 9</span>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="lang-toggle">
+        <button class="lang-btn active" onclick="setLang('th')">TH</button>
+        <button class="lang-btn" onclick="setLang('en')">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <button class="sidebar-toggle" onclick="toggleSidebar()">☰ <span class="text-th">หัวข้อ</span><span class="text-en">Sections</span></button>
+    <div class="chapter-layout">
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-title text-th">หัวข้อในบทนี้</div>
+        <div class="sidebar-title text-en">In this chapter</div>
+        <nav class="sidebar-nav" id="sidebarNav"></nav>
+      </aside>
+      <article class="chapter-card">
+        <div class="chapter-badge">หมวดที่ 9</div>
+        <h1 class="chapter-title">
+          <span class="text-th">วันลาและหลักเกณฑ์การลา</span>
+          <span class="text-en">Leave and Leave Criteria</span>
+        </h1>
+        <div class="chapter-divider"></div>
+        <div class="chapter-body" id="chapterBody">
+          <div class="text-th"><h2 class="chapter-section">หมวดที่ 9 วันลา และหลักเกณฑ์การลา 28</h2></div>
+          <div class="text-en"><p style="color:var(--text-muted)">Content for chapter 9</p></div>
+        </div>
+        <nav class="chapter-nav"><a href="chapter-08.html">← การจ่ายค่าจ้าง ค่าล่วงเวลา และ</a><a href="chapter-10.html" class="next">วินัย และโทษทางวินัย →</a></nav>
+      </article>
+    </div>
+  </main>
+
+  <footer class="footer">© 2026 Akara Resources Co., Ltd. — Human Resources Department</footer>
+
+  <script>
+    function setLang(lang) {
+      document.documentElement.setAttribute('data-lang', lang);
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+      document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
+      localStorage.setItem('hr-lang', lang);
+    }
+    const saved = localStorage.getItem('hr-lang');
+    if (saved) setLang(saved);
+
+    const headings = document.querySelectorAll('.chapter-body h3, .chapter-body h4');
+    const nav = document.getElementById('sidebarNav');
+    headings.forEach((h, i) => {
+      h.id = 'sec-' + i;
+      const a = document.createElement('a');
+      a.href = '#sec-' + i;
+      a.textContent = h.textContent.substring(0,45);
+      if (h.tagName === 'H4') a.style.paddingLeft = '16px';
+      nav.appendChild(a);
+    });
+
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          nav.querySelectorAll('a').forEach(a => a.classList.remove('active'));
+          const active = nav.querySelector(`a[href="#${e.target.id}"]`);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, {rootMargin: '-20% 0px -75% 0px'});
+    headings.forEach(h => obs.observe(h));
+
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+    }
+  </script>
+</body>
+</html>
