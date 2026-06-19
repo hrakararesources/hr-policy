@@ -33,7 +33,7 @@ SKIP = [
     'Support Document', 'AKR-OHR', 'AKR-DCC', 'Document No',
     'Document Title', 'Revision No', 'Effective Date', 'Effective date',
     'Page No', 'Work Rules and Regulations', 'Welfare and Benefits',
-    'ห้ามท า', 'ห้ามทำ', 'QMR', '16-Apr-2026', '20/Jun/2025',
+    'ห้ามท า', 'ห้ามทำ', 'QMR', '16-Apr-2026', '20/Jun/2025', 'Rev.00', 'Rev.01', 'Rev.02',
 ]
 
 def fix_spaces(text):
@@ -90,23 +90,37 @@ def text_to_html(text):
     if not text.strip():
         return '<p style="color:var(--text-muted)">ไม่มีเนื้อหา</p>'
     html, buf = [], []
+
     def flush():
         if not buf: return
         para = ' '.join(buf).strip()
         buf.clear()
         if not para or len(para) < 2: return
+        # หมวดที่ X
         if re.match(r'^หมวดที่\s*\d+', para):
             html.append(f'<h2>{para}</h2>')
-        elif re.match(r'^\d+\.\s+\S', para) and len(para) < 120:
+        # ข้อ 1. / 2. / 3. (หัวข้อหลัก)
+        elif re.match(r'^\d+\.\s+[\u0E00-\u0E7FA-Z]', para) and len(para) < 150:
             html.append(f'<h3>{para}</h3>')
-        elif re.match(r'^\d+\.\d+\s+\S', para) and len(para) < 120:
+        # ข้อ 1.1 / 2.3 (หัวข้อย่อย)
+        elif re.match(r'^\d+\.\d+\s+[\u0E00-\u0E7FA-Z]', para) and len(para) < 150:
             html.append(f'<h4>{para}</h4>')
+        # ข้อ 1.1.1 (หัวข้อย่อยย่อย)
+        elif re.match(r'^\d+\.\d+\.\d+\s+', para) and len(para) < 200:
+            html.append(f'<p style="padding-left:1.5em"><strong>{para[:para.index(" ")+20]}</strong>{para[para.index(" ")+20:]}</p>')
         else:
             html.append(f'<p>{para}</p>')
+
     for line in text.split('\n'):
         line = line.strip()
-        if not line: flush()
-        else: buf.append(line)
+        # บังคับ flush เมื่อเจอหัวข้อใหม่
+        if line and re.match(r'^(\d+\.|หมวดที่)\s*\d', line):
+            flush()
+            buf.append(line)
+        elif not line:
+            flush()
+        else:
+            buf.append(line)
     flush()
     return '\n'.join(html)
 
