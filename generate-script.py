@@ -454,6 +454,7 @@ def main():
 
     # Reset และ inject TOC ใหม่
     # เขียน index.html ใหม่ทั้งไฟล์ทุกครั้ง
+    toc_block = "\n".join(toc_items)
     toc_content = f'''<!DOCTYPE html>
 <html lang="th" data-lang="th">
 <head>
