@@ -368,20 +368,97 @@ def main():
         ))
 
     # Reset และ inject TOC ใหม่
-    with open(toc_path, "r", encoding="utf-8") as f:
-        toc_html = f.read()
-    toc_block = "\n".join(toc_items)
-    toc_html = re.sub(
-        r'<div class="toc-list"[^>]*>.*?</div>\s*',
-        '',
-        toc_html, flags=re.DOTALL
-    )
-    toc_html = toc_html.replace(
-        '<p id="noResult"',
-        f'<div class="toc-list" id="tocList">\n{toc_block}\n</div>\n\n    <p id="noResult"'
-    )
+    # เขียน index.html ใหม่ทั้งไฟล์ทุกครั้ง
+    toc_content = f'''<!DOCTYPE html>
+<html lang="th" data-lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ระเบียบข้อบังคับการทำงาน — Akara Resources</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-left">
+      <a href="../index.html" class="back-btn">
+        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 2L4 7L9 12"/></svg>
+        <span class="text-th">หน้าหลัก</span><span class="text-en">Home</span>
+      </a>
+      <img src="../assets/Akara Logo.jpg" alt="Akara Resources" class="topbar-logo">
+      <div class="topbar-title">
+        <span class="text-th">คู่มือพนักงาน</span><span class="text-en">Employee Handbook</span>
+        <span>Akara Resources Public Company Limited</span>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="lang-toggle">
+        <button class="lang-btn active" onclick="setLang('th')">TH</button>
+        <button class="lang-btn" onclick="setLang('en')">EN</button>
+      </div>
+    </div>
+  </header>
+  <section class="hero" style="padding:36px 24px 32px">
+    <div class="hero-eyebrow">Work Rules & Regulations</div>
+    <h1>
+      <span class="text-th">ระเบียบข้อบังคับการทำงาน</span>
+      <span class="text-en">Work Rules & Regulations</span>
+    </h1>
+    <p>
+      <span class="text-th">บริษัท อัครา รีซอร์สเซส จำกัด (มหาชน) — 14 หมวด</span>
+      <span class="text-en">Akara Resources Public Company Limited — 14 Chapters</span>
+    </p>
+  </section>
+  <main class="container" style="max-width:720px">
+    <div class="toc-search-wrap">
+      <span class="toc-search-icon">🔍</span>
+      <input type="search" class="toc-search" id="tocSearch"
+        placeholder="ค้นหาหัวข้อ... / Search..."
+        oninput="filterTOC(this.value)">
+    </div>
+    <div class="toc-list" id="tocList">
+{toc_block}
+    </div>
+    <p id="noResult" style="display:none;text-align:center;color:var(--text-muted);padding:40px 0">
+      <span class="text-th">ไม่พบหัวข้อที่ค้นหา</span>
+      <span class="text-en">No results found</span>
+    </p>
+  </main>
+  <footer class="footer">
+    <span class="text-th">© 2026 บริษัท อัครา รีซอร์สเซส จำกัด (มหาชน) — ฝ่ายทรัพยากรบุคคล</span>
+    <span class="text-en">© 2026 Akara Resources Public Company Limited — Human Resources Department</span>
+  </footer>
+  <script>
+    function setLang(lang) {{
+      document.documentElement.setAttribute('data-lang', lang);
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+      document.querySelector(`.lang-btn[onclick="setLang('${{lang}}')"]`).classList.add('active');
+      localStorage.setItem('hr-lang', lang);
+    }}
+    const saved = localStorage.getItem('hr-lang');
+    if (saved) setLang(saved);
+    function filterTOC(q) {{
+      const items = document.querySelectorAll('.toc-item');
+      const noResult = document.getElementById('noResult');
+      const search = q.toLowerCase().trim();
+      let visible = 0;
+      items.forEach(item => {{
+        const text = item.textContent.toLowerCase();
+        if (!search || text.includes(search)) {{
+          item.classList.remove('hidden'); visible++;
+        }} else {{
+          item.classList.add('hidden');
+        }}
+      }});
+      noResult.style.display = visible === 0 ? 'block' : 'none';
+    }}
+  </script>
+</body>
+</html>'''
+
     with open(toc_path, "w", encoding="utf-8") as f:
-        f.write(toc_html)
+        f.write(toc_content)
 
     print(f"\n✅ อัปเดต TOC")
     print("\n" + "="*56)
