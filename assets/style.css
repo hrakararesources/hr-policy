@@ -64,7 +64,7 @@ a:hover { color: var(--blue-dark); }
   box-shadow: 0 2px 12px rgba(0,0,0,0.15);
 }
 .topbar-left { display: flex; align-items: center; gap: 12px; }
-.topbar-logo { height: 44px; width: auto; object-fit: contain; }
+.topbar-logo { height: 40px; width: auto; background: white; padding: 4px 10px; border-radius: 6px;}
 .topbar-title { font-size: 0.85rem; font-weight: 600; color: rgba(255,255,255,0.85); line-height: 1.2; }
 .topbar-title span { display: block; font-size: 0.7rem; font-weight: 400; color: rgba(255,255,255,0.6); }
 .topbar-right { display: flex; align-items: center; gap: 12px; }
