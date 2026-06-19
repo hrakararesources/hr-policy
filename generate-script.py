@@ -33,7 +33,7 @@ SKIP = [
     'Support Document', 'AKR-OHR', 'AKR-DCC', 'Document No',
     'Document Title', 'Revision No', 'Effective Date', 'Effective date',
     'Page No', 'Work Rules and Regulations', 'Welfare and Benefits',
-    'ห้ามท า', 'ห้ามทำ', 'QMR', '16-Apr-2026', '20/Jun/2025', 'Rev.00', 'Rev.01', 'Rev.02',
+    'ห้ามท า', 'ห้ามทำ', 'QMR', '16-Apr-2026', '20/Jun/2025', 'Rev.0', 'Rev.1', 'Rev.2',
 ]
 
 def fix_spaces(text):
@@ -59,6 +59,10 @@ def clean_line(line):
     """ตรวจว่าควรเก็บบรรทัดนี้ไหม"""
     line = line.strip()
     if not line:
+        return None
+    if re.match(r'^Rev\.\d', line):
+        return None
+    if re.match(r'^\d\d\s*$', line):
         return None
     if any(s in line for s in SKIP):
         return None
