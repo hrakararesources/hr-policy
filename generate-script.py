@@ -85,14 +85,33 @@ def para_to_html(para, skip_list, size_h1):
 
     style = para.style.name
 
+    # หัวข้อหมวด — ตัวใหญ่ bold
     if size and size >= size_h1 and is_bold:
         return f'<h2>{t}</h2>'
+
+    # หัวข้อ bold Normal style
     if is_bold and style == 'Normal':
         return f'<h3>{t}</h3>'
-    if is_bold and style == 'List Paragraph':
-        return f'<h4>{t}</h4>'
+
+    # List Paragraph — ดู numPr ว่ามีเลขกำกับไหม
     if style == 'List Paragraph':
-        return f'<li>{t}</li>'
+        # ตรวจว่ามี numbering หรือเปล่า
+        numPr = para._element.find('.//{http://schemas.openxmlformats.org/wordprocessingml/2006/main}numPr')
+        if numPr is not None:
+            # มีเลขกำกับ — ใช้ <ol> style
+            indent = para._element.find('.//{http://schemas.openxmlformats.org/wordprocessingml/2006/main}ilvl')
+            level = int(indent.get('{http://schemas.openxmlformats.org/wordprocessingml/2006/main}val', 0)) if indent is not None else 0
+            padding = (level + 1) * 1.5
+            if is_bold:
+                return f'<p style="padding-left:{padding}em;font-weight:600">{t}</p>'
+            return f'<p style="padding-left:{padding}em">{t}</p>'
+        else:
+            # ไม่มีเลข ไม่มี bullet — paragraph ธรรมดา indent
+            if is_bold:
+                return f'<p style="padding-left:1.5em;font-weight:600">{t}</p>'
+            return f'<p style="padding-left:1.5em">{t}</p>'
+
+    # Normal paragraph
     return f'<p>{t}</p>'
 
 def wrap_lists(html_parts):
