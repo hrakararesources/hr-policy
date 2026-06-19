@@ -372,9 +372,13 @@ def main():
         toc_html = f.read()
     toc_block = "\n".join(toc_items)
     toc_html = re.sub(
-        r'<div class="toc-list"[^>]*>.*?</div>',
-        f'<div class="toc-list" id="tocList">\n{toc_block}\n</div>',
+        r'<div class="toc-list"[^>]*>.*?</div>\s*',
+        '',
         toc_html, flags=re.DOTALL
+    )
+    toc_html = toc_html.replace(
+        '<p id="noResult"',
+        f'<div class="toc-list" id="tocList">\n{toc_block}\n</div>\n\n    <p id="noResult"'
     )
     with open(toc_path, "w", encoding="utf-8") as f:
         f.write(toc_html)
