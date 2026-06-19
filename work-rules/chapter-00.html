@@ -45,13 +45,12 @@
     .sidebar-label { flex:1; }
     .main-content { flex:1; padding:32px 32px 60px; min-width:0; }
     .chapter-card { max-width:740px; margin:0 auto; }
-    .chapter-body h2.chapter-section { color:var(--blue); font-size:1.1rem; margin:28px 0 8px; }
-    .chapter-body h2 { color:var(--dark); font-size:1.15rem; margin:24px 0 8px; }
-    .chapter-body h3 { color:var(--blue); font-size:1rem; margin:20px 0 6px; border-left:3px solid var(--blue); padding-left:10px; }
-    .chapter-body h4 { color:var(--dark); font-size:0.95rem; margin:14px 0 4px; font-weight:600; }
-    .chapter-body p { color:var(--text); font-size:0.95rem; margin-bottom:0.8em; line-height:1.75; }
+    .chapter-body h2 { color:var(--blue); font-size:1.1rem; margin:28px 0 8px; padding-bottom:6px; border-bottom:2px solid var(--blue-light); }
+    .chapter-body h3 { color:var(--dark); font-size:1rem; margin:20px 0 6px; font-weight:700; }
+    .chapter-body h4 { color:var(--dark); font-size:0.95rem; margin:12px 0 4px; font-weight:600; }
+    .chapter-body p { color:var(--text); font-size:0.95rem; margin-bottom:0.8em; line-height:1.8; }
     .chapter-body ul { padding-left:1.4em; margin-bottom:1em; }
-    .chapter-body li { font-size:0.95rem; margin-bottom:0.4em; color:var(--text); line-height:1.7; }
+    .chapter-body li { font-size:0.95rem; margin-bottom:0.5em; color:var(--text); line-height:1.7; }
     @media(max-width:768px) {
       .sidebar-fixed { display:none; }
       .sidebar-fixed.open { display:block; position:fixed; top:60px; left:0; z-index:200; height:calc(100vh - 60px); box-shadow:4px 0 20px rgba(0,0,0,0.15); }
@@ -104,19 +103,26 @@
 
     <main class="main-content">
       <article class="chapter-card">
-        <div class="chapter-badge">สารจากผู้บริหาร</div>
+        <div class="chapter-badge">
+          <span class="text-th">สารจากผู้บริหาร</span>
+          <span class="text-en">Management Message</span>
+        </div>
         <h1 class="chapter-title">
           <span class="text-th">สารจากผู้บริหาร</span>
           <span class="text-en">Message from Management</span>
         </h1>
         <div class="chapter-divider"></div>
         <div class="chapter-body">
-<p>ความรับผิดชอบต่อสังคม คือ หัวใจสำคัญของอัครา อัคราตระหนักดีว่า ธุรกิจจะมั่นคงและยั่งยืนได้นั้น ชุมชนและสังคมจะต้องเติบโตไปพร้อมกัน ดังนั้น  “การสร้างการเติบโตทางธุรกิจอย่างยั่งยืน พร้อมยกระดับคุณภาพชีวิตของคนในชุมชนอย่างเป็นรูปธรรม” จึงเป็นหนึ่งในพันธกิจหลักของบริษัท เสมอมา</p>
+          <div class="text-th"><p>ความรับผิดชอบต่อสังคม คือ หัวใจสำคัญของอัครา อัคราตระหนักดีว่า ธุรกิจจะมั่นคงและยั่งยืนได้นั้น ชุมชนและสังคมจะต้องเติบโตไปพร้อมกัน ดังนั้น  “การสร้างการเติบโตทางธุรกิจอย่างยั่งยืน พร้อมยกระดับคุณภาพชีวิตของคนในชุมชนอย่างเป็นรูปธรรม” จึงเป็นหนึ่งในพันธกิจหลักของบริษัท เสมอมา</p>
 <p>เราจึงนำหลักของ ESG (Environmental, Social, and Governance) มาใช้เป็นแนวทางในการดำเนินธุรกิจด้วยความรับผิดชอบต่อสิ่งแวดล้อม (Environmental) และสังคม (Social) อย่างมีบรรษัทภิบาล (Governance) หรือมีการกำกับดูแลองค์กรอย่างโปร่งใสและเป็นธรรม โดยมุ่งมั่นยกระดับคุณภาพชีวิตของชุมชนรอบพื้นที่การดำเนินงานของบริษัทในทุกมิติ ผ่านโครงการพัฒนาชุมชนในรูปแบบต่าง ๆ ตั้งแต่การปรับปรุงโครงสร้างพื้นฐาน การส่งเสริมสุขภาพ การสนับสนุนด้านการศึกษา และการฝึกอบรมเพื่อพัฒนาศักยภาพและ
 เพิ่มโอกาสในการประกอบอาชีพ การขับเคลื่อนเศรษฐกิจผ่านการสร้างงานและสนับสนุนผู้ประกอบการในชุมชน ตลอดจนการอนุรักษ์และส่งเสริมวัฒนธรรมและประเพณีท้องถิ่น</p>
-<p>เพราะเราเชื่อว่าอนาคตของชุมชน คือ อนาคตของเรา และนี่คือเหตุผลที่เราจะยังคงทุ่มเท ดำเนินกิจกรรมและโครงการ เพื่อพัฒนาชุมชนและสังคมต่อไป เพื่อให้ชุมชนของเราเติบโตไปพร้อมกับเราอย่างยั่งยืน</p>
+<p>เพราะเราเชื่อว่าอนาคตของชุมชน คือ อนาคตของเรา และนี่คือเหตุผลที่เราจะยังคงทุ่มเท ดำเนินกิจกรรมและโครงการ เพื่อพัฒนาชุมชนและสังคมต่อไป เพื่อให้ชุมชนของเราเติบโตไปพร้อมกับเราอย่างยั่งยืน</p></div>
+          <div class="text-en"><p>ความรับผิดชอบต่อสังคม คือ หัวใจสำคัญของอัครา อัคราตระหนักดีว่า ธุรกิจจะมั่นคงและยั่งยืนได้นั้น ชุมชนและสังคมจะต้องเติบโตไปพร้อมกัน ดังนั้น  “การสร้างการเติบโตทางธุรกิจอย่างยั่งยืน พร้อมยกระดับคุณภาพชีวิตของคนในชุมชนอย่างเป็นรูปธรรม” จึงเป็นหนึ่งในพันธกิจหลักของบริษัท เสมอมา</p>
+<p>เราจึงนำหลักของ ESG (Environmental, Social, and Governance) มาใช้เป็นแนวทางในการดำเนินธุรกิจด้วยความรับผิดชอบต่อสิ่งแวดล้อม (Environmental) และสังคม (Social) อย่างมีบรรษัทภิบาล (Governance) หรือมีการกำกับดูแลองค์กรอย่างโปร่งใสและเป็นธรรม โดยมุ่งมั่นยกระดับคุณภาพชีวิตของชุมชนรอบพื้นที่การดำเนินงานของบริษัทในทุกมิติ ผ่านโครงการพัฒนาชุมชนในรูปแบบต่าง ๆ ตั้งแต่การปรับปรุงโครงสร้างพื้นฐาน การส่งเสริมสุขภาพ การสนับสนุนด้านการศึกษา และการฝึกอบรมเพื่อพัฒนาศักยภาพและ
+เพิ่มโอกาสในการประกอบอาชีพ การขับเคลื่อนเศรษฐกิจผ่านการสร้างงานและสนับสนุนผู้ประกอบการในชุมชน ตลอดจนการอนุรักษ์และส่งเสริมวัฒนธรรมและประเพณีท้องถิ่น</p>
+<p>เพราะเราเชื่อว่าอนาคตของชุมชน คือ อนาคตของเรา และนี่คือเหตุผลที่เราจะยังคงทุ่มเท ดำเนินกิจกรรมและโครงการ เพื่อพัฒนาชุมชนและสังคมต่อไป เพื่อให้ชุมชนของเราเติบโตไปพร้อมกับเราอย่างยั่งยืน</p></div>
         </div>
-        <nav class="chapter-nav"><a href="chapter-01.html" class="next">บททั่วไป →</a></nav>
+        <nav class="chapter-nav"><a href="chapter-01.html" class="next"><span class="text-th">บททั่วไป</span><span class="text-en">General Provisions</span> →</a></nav>
       </article>
     </main>
   </div>
