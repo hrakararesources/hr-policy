@@ -2,6 +2,7 @@
 """Akara Resources — HR Policy Generator v7 (TH+EN docx)"""
 import os, re
 from docx import Document
+from docx.oxml.ns import qn
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -153,10 +154,72 @@ def extract_chapter(paragraphs, start_key, end_key, skip_list, size_h1, include_
 
 def build_content(paragraphs, start_key, end_key, skip_list, size_h1):
     paras = extract_chapter(paragraphs, start_key, end_key, skip_list, size_h1)
-    parts = [para_to_html(p, skip_list, size_h1) for p in paras]
-    parts = [h for h in parts if h]
-    parts = wrap_lists(parts)
-    return "\n".join(parts) or '<p style="color:var(--text-muted)">ไม่มีเนื้อหา</p>'
+    
+    # counters สำหรับ auto numbering
+    counters = [0, 0, 0]
+    html_parts = []
+    
+    for para in paras:
+        t = para.text.strip()
+        if not t: continue
+        if any(s in t for s in skip_list): continue
+
+        is_bold = any(run.bold for run in para.runs if run.text.strip())
+        size = None
+        for run in para.runs:
+            if run.text.strip() and run.font.size:
+                size = run.font.size
+                break
+
+        style = para.style.name
+        numPr = para._element.find('.//' + qn('w:numPr'))
+
+        # หัวข้อหมวด — reset counters
+        if size and size >= size_h1 and is_bold:
+            counters = [0, 0, 0]
+            html_parts.append(f'<h2>{t}</h2>')
+            continue
+
+        # หัวข้อ bold Normal
+        if is_bold and style == 'Normal':
+            html_parts.append(f'<h3>{t}</h3>')
+            continue
+
+        # List Paragraph มี numbering
+        if numPr is not None:
+            ilvl_el = numPr.find(qn('w:ilvl'))
+            level = int(ilvl_el.get(qn('w:val'), 0)) if ilvl_el is not None else 0
+            
+            # เพิ่ม counter ตาม level และ reset level ที่ต่ำกว่า
+            counters[level] += 1
+            for l in range(level + 1, 3):
+                counters[l] = 0
+
+            # สร้างเลข
+            if level == 0:
+                num_str = f'{counters[0]}.'
+            elif level == 1:
+                num_str = f'{counters[0]}.{counters[1]}'
+            else:
+                num_str = f'{counters[0]}.{counters[1]}.{counters[2]}'
+
+            padding = (level + 1) * 1.5
+            if is_bold:
+                html_parts.append(
+                    f'<p style="padding-left:{padding}em;font-weight:600">'
+                    f'<span style="color:var(--blue);margin-right:6px">{num_str}</span>{t}</p>'
+                )
+            else:
+                html_parts.append(
+                    f'<p style="padding-left:{padding}em">'
+                    f'<span style="color:var(--text-muted);margin-right:6px">{num_str}</span>{t}</p>'
+                )
+            continue
+
+        # Normal paragraph
+        html_parts.append(f'<p>{t}</p>')
+
+    return "\n".join(html_parts) or '<p style="color:var(--text-muted)">ไม่มีเนื้อหา</p>'
 
 def build_sidebar(chapters, current_file):
     links = []
