@@ -1,7 +1,12 @@
 #!/usr/bin/env python3
 """Akara Resources — HR Policy HTML Generator v4 (sidebar nav)"""
 
-import os, re
+import os, re, unicodedata
+def fix_thai(text):
+    text = unicodedata.normalize('NFC', text)
+    text = text.replace('\u0e32\u0e47', '\u0e33')
+    text = text.replace('\u0e32\u0e4b', '\u0e33')
+    return text
 
 try:
     import fitz
@@ -39,6 +44,9 @@ JUNK = [
     r'Work Rules and Regulations\s*', r'Welfare and Benefits\s*',
     r'^\d+\s*of\s*\d+\s*$', r'^Rev\.\d+.*$',
     r'^00\s*$', r'^16-Apr-2026\s*$',
+    r'สารบัญ\s*\n',
+    r'สารจากผู้บริหาร\s+\d+',
+    r'หมวดที่\s*\d+\s+[^\n]+\d+\s*\n',
 ]
 
 def clean(text):
