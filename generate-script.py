@@ -1,142 +1,149 @@
 #!/usr/bin/env python3
 """
-========================================================
- Akara Resources — HR Policy HTML Generator
- ใช้สำหรับ: อ่านไฟล์ PDF แล้วสร้างหน้า HTML อัตโนมัติ
-========================================================
-
-วิธีใช้:
-  1. วางไฟล์ PDF Work Rules ใน:  content/work-rules/
-  2. วางไฟล์ PDF Welfare ใน:      content/welfare/
-  3. รัน: python generate-script.py
-
-Requirements:
-  pip install pymupdf  (หรือ pip install PyMuPDF)
+Akara Resources — HR Policy HTML Generator v2
+อ่าน PDF 2 ไฟล์ (TH + EN) แยกตามหมวด แล้วสร้าง HTML
 """
 
 import os
 import re
-import json
 
-# ลองใช้ PyMuPDF ก่อน ถ้าไม่มีให้แจ้งวิธีติดตั้ง
 try:
-    import fitz  # PyMuPDF
+    import fitz
     PDF_LIB = "pymupdf"
 except ImportError:
-    try:
-        from pdfminer.high_level import extract_text as pdfminer_extract
-        PDF_LIB = "pdfminer"
-    except ImportError:
-        PDF_LIB = None
+    PDF_LIB = None
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # ============================================================
-#  CONFIG — แก้ตรงนี้ถ้าชื่อโฟลเดอร์ต่างออกไป
+# CONFIG — หมวดของ Work Rules (ตรวจสอบกับ PDF จริง)
 # ============================================================
-BASE_DIR        = os.path.dirname(os.path.abspath(__file__))
-CONTENT_WR_DIR  = os.path.join(BASE_DIR, "content", "work-rules")   # โฟลเดอร์ PDF Work Rules
-CONTENT_WF_DIR  = os.path.join(BASE_DIR, "content", "welfare")      # โฟลเดอร์ PDF Welfare
-OUTPUT_WR_DIR   = os.path.join(BASE_DIR, "work-rules")
-OUTPUT_WF_DIR   = os.path.join(BASE_DIR, "welfare")
-ASSETS_PREFIX_WR = "../assets"
-ASSETS_PREFIX_WF = "../assets"
+WORK_RULES_CHAPTERS = [
+    {"num": 0,  "title_th": "สารจากผู้บริหาร",       "title_en": "Message from Management",        "start_pattern": r"สารจากผู้บริหาร"},
+    {"num": 1,  "title_th": "บททั่วไป",               "title_en": "General Provisions",              "start_pattern": r"หมวดที่\s*1"},
+    {"num": 2,  "title_th": "วิสัยทัศน์องค์กร เสาหลักกลยุทธ์และนโยบายองค์กร", "title_en": "Corporate Vision, Strategic Pillars and Policies", "start_pattern": r"หมวดที่\s*2"},
+    {"num": 3,  "title_th": "การว่าจ้าง",              "title_en": "Employment",                      "start_pattern": r"หมวดที่\s*3"},
+    {"num": 4,  "title_th": "การสับเปลี่ยนหน้าที่การปฏิบัติงาน การโยกย้าย และการปฏิบัติงานที่บ้าน", "title_en": "Job Rotation, Transfer and Work from Home", "start_pattern": r"หมวดที่\s*4"},
+    {"num": 5,  "title_th": "วันทำงาน เวลาทำงานปกติและเวลาพัก", "title_en": "Working Days, Hours and Rest Periods", "start_pattern": r"หมวดที่\s*5"},
+    {"num": 6,  "title_th": "วันหยุด และหลักเกณฑ์วันหยุด", "title_en": "Holidays and Holiday Criteria", "start_pattern": r"หมวดที่\s*6"},
+    {"num": 7,  "title_th": "หลักเกณฑ์การทำงานล่วงเวลาและการทำงานในวันหยุด", "title_en": "Overtime and Holiday Work Criteria", "start_pattern": r"หมวดที่\s*7"},
+    {"num": 8,  "title_th": "การจ่ายค่าจ้าง ค่าล่วงเวลา และค่าทำงานในวันหยุด", "title_en": "Wages, Overtime Pay and Holiday Pay", "start_pattern": r"หมวดที่\s*8"},
+    {"num": 9,  "title_th": "วันลาและหลักเกณฑ์การลา", "title_en": "Leave and Leave Criteria",       "start_pattern": r"หมวดที่\s*9"},
+    {"num": 10, "title_th": "วินัย และโทษทางวินัย",   "title_en": "Discipline and Disciplinary Penalties", "start_pattern": r"หมวดที่\s*10"},
+    {"num": 11, "title_th": "การร้องทุกข์",            "title_en": "Grievance Procedure",             "start_pattern": r"หมวดที่\s*11"},
+    {"num": 12, "title_th": "การพ้นสภาพการเป็นพนักงาน", "title_en": "Termination of Employment",    "start_pattern": r"หมวดที่\s*12"},
+    {"num": 13, "title_th": "สวัสดิการและสิทธิประโยชน์อื่น ๆ", "title_en": "Welfare and Other Benefits", "start_pattern": r"หมวดที่\s*13"},
+    {"num": 14, "title_th": "ข้อกำหนดทั่วไปและการบังคับใช้", "title_en": "General Provisions and Enforcement", "start_pattern": r"หมวดที่\s*14"},
+]
 
 # ============================================================
-#  HELPERS
+# EXTRACT PDF TEXT
 # ============================================================
-
-def extract_text_from_pdf(pdf_path):
-    """อ่านข้อความจาก PDF"""
-    if PDF_LIB == "pymupdf":
-        doc = fitz.open(pdf_path)
-        pages_text = []
-        for page in doc:
-            pages_text.append(page.get_text("text"))
-        doc.close()
-        return pages_text  # list ของข้อความแต่ละหน้า
-    elif PDF_LIB == "pdfminer":
-        text = pdfminer_extract(pdf_path)
-        return [text]
-    else:
-        print("❌  ไม่พบ library สำหรับอ่าน PDF")
-        print("    กรุณารัน: pip install PyMuPDF")
+def extract_pages(pdf_path):
+    if PDF_LIB != "pymupdf":
         return []
+    doc = fitz.open(pdf_path)
+    pages = []
+    for page in doc:
+        text = page.get_text("text")
+        # ล้างเส้นส่วนท้ายกระดาษ
+        text = re.sub(r'ห้ามทำสำเนา.*?\n', '', text)
+        text = re.sub(r'AKR-DCC.*?\n', '', text)
+        text = re.sub(r'Support Document.*?\n', '', text)
+        text = re.sub(r'Document No\..*?\n', '', text)
+        text = re.sub(r'Document Title:.*?\n', '', text)
+        text = re.sub(r'Revision No\..*?\n', '', text)
+        text = re.sub(r'Effective Date.*?\n', '', text)
+        text = re.sub(r'Page No\..*?\n', '', text)
+        text = re.sub(r'Work Rules and Regulations\s*\n', '', text)
+        pages.append(text)
+    doc.close()
+    return pages
 
 
-def text_to_html_paragraphs(text):
-    """แปลงข้อความดิบเป็น HTML paragraphs"""
-    lines = text.strip().split("\n")
+def split_by_chapters(pages, chapters):
+    full_text = "\n".join(pages)
+    lines = full_text.split("\n")
+    
+    chapter_texts = {i: [] for i in range(len(chapters))}
+    current_chapter = 0
+    
+    for line in lines:
+        stripped = line.strip()
+        if not stripped:
+            continue
+        # ตรวจว่าเป็นจุดเริ่มต้น chapter ใหม่
+        matched = False
+        for i, ch in enumerate(chapters):
+            if i > current_chapter and re.search(ch["start_pattern"], stripped):
+                current_chapter = i
+                matched = True
+                break
+        chapter_texts[current_chapter].append(stripped)
+    
+    return chapter_texts
+
+
+def text_to_html(lines):
+    """แปลงข้อความเป็น HTML ที่อ่านง่าย"""
     html_parts = []
     buffer = []
-
+    
+    def flush_buffer():
+        if not buffer:
+            return
+        para = " ".join(buffer).strip()
+        if not para:
+            buffer.clear()
+            return
+        # ตรวจว่าเป็นหัวข้อหรือไม่
+        if re.match(r'^(หมวดที่|บทที่|\d+\.\s+[ก-ฮA-Z]|[ก-ฮ]\.\s+)', para) and len(para) < 120:
+            if re.match(r'^หมวดที่', para):
+                html_parts.append(f'<h2 class="chapter-section">{para}</h2>')
+            else:
+                html_parts.append(f'<h3>{para}</h3>')
+        elif re.match(r'^\d+\.\d+', para) and len(para) < 100:
+            html_parts.append(f'<h4>{para}</h4>')
+        else:
+            html_parts.append(f'<p>{para}</p>')
+        buffer.clear()
+    
     for line in lines:
         line = line.strip()
         if not line:
-            if buffer:
-                para = " ".join(buffer)
-                # ตรวจหัวข้อ: บรรทัดสั้น + ตัวหนา หรือ ขึ้นต้นด้วยตัวเลข
-                if re.match(r"^(\d+[\.\)]\s|ข้อ\s*\d+|Section\s*\d+|Article\s*\d+|หมวด|Chapter)", para, re.IGNORECASE):
-                    html_parts.append(f'<h3>{para}</h3>')
-                elif len(para) < 80 and not para.endswith('.'):
-                    html_parts.append(f'<h4>{para}</h4>')
-                else:
-                    html_parts.append(f'<p>{para}</p>')
-                buffer = []
+            flush_buffer()
         else:
             buffer.append(line)
-
-    if buffer:
-        html_parts.append(f'<p>{" ".join(buffer)}</p>')
-
+    flush_buffer()
+    
     return "\n".join(html_parts)
 
 
-def get_sorted_pdfs(folder):
-    """รายชื่อไฟล์ PDF เรียงตามชื่อ"""
-    if not os.path.exists(folder):
-        return []
-    files = [f for f in os.listdir(folder) if f.lower().endswith(".pdf")]
-    files.sort()  # เรียงตามชื่อ (ควรตั้งชื่อ 01_xxx.pdf, 02_xxx.pdf ...)
-    return files
-
-
-def filename_to_title(filename):
-    """แปลงชื่อไฟล์เป็นชื่อบท เช่น 01_สิทธิพนักงาน.pdf → สิทธิพนักงาน"""
-    name = os.path.splitext(filename)[0]          # ตัด .pdf
-    name = re.sub(r"^[\d_\-\s]+", "", name)       # ตัดเลขนำหน้า
-    name = name.replace("_", " ").replace("-", " ").strip()
-    return name if name else filename
-
-
 # ============================================================
-#  HTML TEMPLATES
+# HTML TEMPLATE
 # ============================================================
-
-PAGE_TEMPLATE = """<!DOCTYPE html>
+PAGE_HTML = """<!DOCTYPE html>
 <html lang="th" data-lang="th">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{page_title} — Akara Resources</title>
+  <title>{title_th} — Akara Resources</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{assets}/style.css">
+  <link rel="stylesheet" href="../assets/style.css">
 </head>
 <body>
-
   <header class="topbar">
     <div class="topbar-left">
       <a href="index.html" class="back-btn">
-        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-          <path d="M9 2L4 7L9 12"/>
-        </svg>
-        <span class="text-th">สารบัญ</span>
-        <span class="text-en">Contents</span>
+        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 2L4 7L9 12"/></svg>
+        <span class="text-th">สารบัญ</span><span class="text-en">Contents</span>
       </a>
-      <img src="{assets}/Akara_Logo.jpg" alt="Akara Resources" class="topbar-logo">
+      <img src="../assets/Akara_Logo.jpg" alt="Akara Resources" class="topbar-logo">
       <div class="topbar-title">
-        <span class="text-th">{section_th}</span>
-        <span class="text-en">{section_en}</span>
-        <span>{badge_label} {num}</span>
+        <span class="text-th">ระเบียบข้อบังคับการทำงาน</span>
+        <span class="text-en">Work Rules & Regulations</span>
+        <span>{badge}</span>
       </div>
     </div>
     <div class="topbar-right">
@@ -148,38 +155,30 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
   </header>
 
   <main class="container">
-    <button class="sidebar-toggle" onclick="toggleSidebar()">
-      ☰ <span class="text-th">เนื้อหา</span><span class="text-en">Sections</span>
-    </button>
-
+    <button class="sidebar-toggle" onclick="toggleSidebar()">☰ <span class="text-th">หัวข้อ</span><span class="text-en">Sections</span></button>
     <div class="chapter-layout">
       <aside class="sidebar" id="sidebar">
-        <div class="sidebar-title text-th">เนื้อหาในบทนี้</div>
+        <div class="sidebar-title text-th">หัวข้อในบทนี้</div>
         <div class="sidebar-title text-en">In this chapter</div>
-        <nav class="sidebar-nav" id="sidebarNav">
-          <!-- จะถูก populate โดย JS -->
-        </nav>
+        <nav class="sidebar-nav" id="sidebarNav"></nav>
       </aside>
-
       <article class="chapter-card">
-        <div class="chapter-badge">{badge_label} {num}</div>
-        <h1 class="chapter-title">{title}</h1>
+        <div class="chapter-badge">{badge}</div>
+        <h1 class="chapter-title">
+          <span class="text-th">{title_th}</span>
+          <span class="text-en">{title_en}</span>
+        </h1>
         <div class="chapter-divider"></div>
         <div class="chapter-body" id="chapterBody">
-{content_html}
+          <div class="text-th">{content_th}</div>
+          <div class="text-en">{content_en}</div>
         </div>
-
-        <nav class="chapter-nav">
-          {prev_link}
-          {next_link}
-        </nav>
+        <nav class="chapter-nav">{prev_link}{next_link}</nav>
       </article>
     </div>
   </main>
 
-  <footer class="footer">
-    © 2026 Akara Resources Co., Ltd. — Human Resources Department
-  </footer>
+  <footer class="footer">© 2026 Akara Resources Co., Ltd. — Human Resources Department</footer>
 
   <script>
     function setLang(lang) {{
@@ -191,20 +190,18 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
     const saved = localStorage.getItem('hr-lang');
     if (saved) setLang(saved);
 
-    // Build sidebar from headings
     const headings = document.querySelectorAll('.chapter-body h3, .chapter-body h4');
     const nav = document.getElementById('sidebarNav');
     headings.forEach((h, i) => {{
-      h.id = 'section-' + i;
+      h.id = 'sec-' + i;
       const a = document.createElement('a');
-      a.href = '#section-' + i;
-      a.textContent = h.textContent;
-      if (h.tagName === 'H4') a.style.paddingLeft = '18px';
+      a.href = '#sec-' + i;
+      a.textContent = h.textContent.substring(0,45);
+      if (h.tagName === 'H4') a.style.paddingLeft = '16px';
       nav.appendChild(a);
     }});
 
-    // Highlight active sidebar item on scroll
-    const observer = new IntersectionObserver(entries => {{
+    const obs = new IntersectionObserver(entries => {{
       entries.forEach(e => {{
         if (e.isIntersecting) {{
           nav.querySelectorAll('a').forEach(a => a.classList.remove('active'));
@@ -212,21 +209,21 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
           if (active) active.classList.add('active');
         }}
       }});
-    }}, {{ rootMargin: '-20% 0px -75% 0px' }});
-    headings.forEach(h => observer.observe(h));
+    }}, {{rootMargin: '-20% 0px -75% 0px'}});
+    headings.forEach(h => obs.observe(h));
 
     function toggleSidebar() {{
       document.getElementById('sidebar').classList.toggle('open');
     }}
   </script>
 </body>
-</html>
-"""
+</html>"""
 
-TOC_ITEM_TEMPLATE = """<a href="{filename}" class="toc-item">
-  <div class="toc-num{num_class}">{num:02d}</div>
+TOC_ITEM = """<a href="{filename}" class="toc-item">
+  <div class="toc-num">{num}</div>
   <div class="toc-text">
-    <strong>{title}</strong>
+    <strong class="text-th">{title_th}</strong>
+    <strong class="text-en">{title_en}</strong>
     <span>{filename}</span>
   </div>
   <span class="toc-chevron">›</span>
@@ -234,147 +231,89 @@ TOC_ITEM_TEMPLATE = """<a href="{filename}" class="toc-item">
 
 
 # ============================================================
-#  GENERATOR FUNCTIONS
+# MAIN
 # ============================================================
-
-def generate_section(
-    pdf_folder,
-    output_folder,
-    assets_prefix,
-    section_th,
-    section_en,
-    badge_label,
-    file_prefix,
-    toc_placeholder,
-    toc_index_path,
-    num_class=""
-):
-    pdfs = get_sorted_pdfs(pdf_folder)
-
-    if not pdfs:
-        print(f"⚠️  ไม่พบไฟล์ PDF ใน {pdf_folder}")
-        print(f"    วางไฟล์ PDF ของคุณแล้วรัน script อีกครั้ง")
-        return
-
-    print(f"\n📂 พบ {len(pdfs)} ไฟล์ใน {pdf_folder}")
-    toc_items_html = []
-    total = len(pdfs)
-
-    for idx, pdf_file in enumerate(pdfs, start=1):
-        pdf_path = os.path.join(pdf_folder, pdf_file)
-        title    = filename_to_title(pdf_file)
-        out_name = f"{file_prefix}-{idx:02d}.html"
-        out_path = os.path.join(output_folder, out_name)
-
-        print(f"  [{idx:02d}/{total}] {pdf_file} → {out_name}")
-
-        # อ่าน PDF
-        pages = extract_text_from_pdf(pdf_path)
-        all_text = "\n\n".join(pages)
-        content_html = text_to_html_paragraphs(all_text)
-
-        if not content_html.strip():
-            content_html = f'<p style="color:var(--text-muted);font-style:italic;">ไม่สามารถแยกข้อความจาก PDF นี้ได้อัตโนมัติ กรุณาเปิดไฟล์ {pdf_file} แล้ว copy เนื้อหามาวางที่นี่</p>'
-
-        # Prev / Next links
-        prev_link = ""
-        next_link = ""
-        if idx > 1:
-            prev_file = f"{file_prefix}-{idx-1:02d}.html"
-            prev_title = filename_to_title(pdfs[idx-2])
-            prev_link = f'<a href="{prev_file}">← {prev_title[:35]}{"..." if len(prev_title)>35 else ""}</a>'
-        if idx < total:
-            next_file = f"{file_prefix}-{idx+1:02d}.html"
-            next_title = filename_to_title(pdfs[idx])
-            next_link = f'<a href="{next_file}" class="next">{next_title[:35]}{"..." if len(next_title)>35 else ""} →</a>'
-
-        # Write HTML
-        html = PAGE_TEMPLATE.format(
-            page_title   = title,
-            assets       = assets_prefix,
-            section_th   = section_th,
-            section_en   = section_en,
-            badge_label  = badge_label,
-            num          = idx,
-            title        = title,
-            content_html = content_html,
-            prev_link    = prev_link,
-            next_link    = next_link,
-        )
-
-        with open(out_path, "w", encoding="utf-8") as f:
-            f.write(html)
-
-        # TOC item
-        toc_items_html.append(TOC_ITEM_TEMPLATE.format(
-            filename  = out_name,
-            num       = idx,
-            num_class = num_class,
-            title     = title,
-        ))
-
-    # Inject TOC into index.html
-    with open(toc_index_path, "r", encoding="utf-8") as f:
-        toc_html = f.read()
-
-    toc_block = "\n".join(toc_items_html)
-    toc_html  = toc_html.replace(f"<!-- {toc_placeholder} -->", toc_block)
-
-    with open(toc_index_path, "w", encoding="utf-8") as f:
-        f.write(toc_html)
-
-    print(f"  ✅ อัปเดต TOC → {toc_index_path}")
-    print(f"  ✅ สร้างไฟล์ HTML {total} ไฟล์ เรียบร้อย")
-
-
-# ============================================================
-#  MAIN
-# ============================================================
-
 def main():
-    print("=" * 54)
-    print("  Akara Resources — HR Policy HTML Generator")
-    print("=" * 54)
+    print("=" * 56)
+    print("  Akara Resources — HR Policy Generator v2")
+    print("=" * 56)
 
     if PDF_LIB is None:
-        print("\n❌  กรุณาติดตั้ง PyMuPDF ก่อน:")
-        print("    pip install PyMuPDF\n")
-        return
+        print("\n❌  pip install PyMuPDF\n"); return
 
-    print(f"\n✔  ใช้ library: {PDF_LIB}")
+    # ---- Work Rules ----
+    pdf_th = os.path.join(BASE_DIR, "content", "work-rules", "01_Work Rules and Regulations TH.pdf")
+    pdf_en = os.path.join(BASE_DIR, "content", "work-rules", "02_Work Rules and Regulations EN.pdf")
+    out_dir = os.path.join(BASE_DIR, "work-rules")
+    toc_path = os.path.join(out_dir, "index.html")
 
-    # Work Rules
-    generate_section(
-        pdf_folder     = CONTENT_WR_DIR,
-        output_folder  = OUTPUT_WR_DIR,
-        assets_prefix  = ASSETS_PREFIX_WR,
-        section_th     = "ระเบียบข้อบังคับการทำงาน",
-        section_en     = "Work Rules & Regulations",
-        badge_label    = "บทที่",
-        file_prefix    = "chapter",
-        toc_placeholder= "WORK_RULES_TOC_PLACEHOLDER",
-        toc_index_path = os.path.join(OUTPUT_WR_DIR, "index.html"),
-        num_class      = "",
-    )
+    if not os.path.exists(pdf_th):
+        print(f"\n⚠️  ไม่พบ: {pdf_th}"); return
 
-    # Welfare
-    generate_section(
-        pdf_folder     = CONTENT_WF_DIR,
-        output_folder  = OUTPUT_WF_DIR,
-        assets_prefix  = ASSETS_PREFIX_WF,
-        section_th     = "สวัสดิการและผลประโยชน์",
-        section_en     = "Welfare & Benefits",
-        badge_label    = "หัวข้อที่",
-        file_prefix    = "welfare",
-        toc_placeholder= "WELFARE_TOC_PLACEHOLDER",
-        toc_index_path = os.path.join(OUTPUT_WF_DIR, "index.html"),
-        num_class      = " gold-bg",
-    )
+    print(f"\n📄 อ่าน PDF TH...")
+    pages_th = extract_pages(pdf_th)
+    chapter_texts_th = split_by_chapters(pages_th, WORK_RULES_CHAPTERS)
 
-    print("\n" + "=" * 54)
-    print("  ✅ เสร็จสมบูรณ์! เปิด index.html ด้วย Live Server")
-    print("=" * 54 + "\n")
+    chapter_texts_en = {i: [] for i in range(len(WORK_RULES_CHAPTERS))}
+    if os.path.exists(pdf_en):
+        print(f"📄 อ่าน PDF EN...")
+        pages_en = extract_pages(pdf_en)
+        chapter_texts_en = split_by_chapters(pages_en, WORK_RULES_CHAPTERS)
 
+    print(f"\n✍️  สร้าง HTML {len(WORK_RULES_CHAPTERS)} หน้า...")
+    toc_items = []
+    total = len(WORK_RULES_CHAPTERS)
+
+    for i, ch in enumerate(WORK_RULES_CHAPTERS):
+        badge = "สารจากผู้บริหาร" if ch["num"] == 0 else f"หมวดที่ {ch['num']}"
+        badge_en = "Management Message" if ch["num"] == 0 else f"Chapter {ch['num']}"
+        filename = f"chapter-{'00' if ch['num']==0 else f'{ch[\"num\"]:02d}'}.html"
+        
+        content_th = text_to_html(chapter_texts_th.get(i, []))
+        content_en = text_to_html(chapter_texts_en.get(i, []))
+        
+        if not content_th:
+            content_th = f'<p style="color:var(--text-muted)">เนื้อหาหมวด {ch["num"]}</p>'
+        if not content_en:
+            content_en = f'<p style="color:var(--text-muted)">Content for chapter {ch["num"]}</p>'
+
+        # prev/next
+        prev_link = next_link = ""
+        if i > 0:
+            prev_ch = WORK_RULES_CHAPTERS[i-1]
+            prev_file = f"chapter-{'00' if prev_ch['num']==0 else f'{prev_ch[\"num\"]:02d}'}.html"
+            prev_link = f'<a href="{prev_file}">← {prev_ch["title_th"][:30]}</a>'
+        if i < total - 1:
+            next_ch = WORK_RULES_CHAPTERS[i+1]
+            next_file = f"chapter-{'00' if next_ch['num']==0 else f'{next_ch[\"num\"]:02d}'}.html"
+            next_link = f'<a href="{next_file}" class="next">{next_ch["title_th"][:30]} →</a>'
+
+        html = PAGE_HTML.format(
+            title_th=ch["title_th"], title_en=ch["title_en"],
+            badge=badge, content_th=content_th, content_en=content_en,
+            prev_link=prev_link, next_link=next_link
+        )
+        out_path = os.path.join(out_dir, filename)
+        with open(out_path, "w", encoding="utf-8") as f:
+            f.write(html)
+        print(f"  ✅ {filename}")
+
+        toc_items.append(TOC_ITEM.format(
+            filename=filename, num=badge,
+            title_th=ch["title_th"], title_en=ch["title_en"]
+        ))
+
+    # อัปเดต TOC
+    with open(toc_path, "r", encoding="utf-8") as f:
+        toc_html = f.read()
+    toc_html = toc_html.replace("<!-- WORK_RULES_TOC_PLACEHOLDER -->", "\n".join(toc_items))
+    with open(toc_path, "w", encoding="utf-8") as f:
+        f.write(toc_html)
+
+    print(f"\n✅ อัปเดต TOC → work-rules/index.html")
+    print("\n" + "="*56)
+    print("  เสร็จ! เปิด index.html ด้วย Live Server")
+    print("="*56 + "\n")
 
 if __name__ == "__main__":
     main()
