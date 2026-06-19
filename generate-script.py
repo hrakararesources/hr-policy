@@ -156,7 +156,7 @@ def build_content(paragraphs, start_key, end_key, skip_list, size_h1):
     paras = extract_chapter(paragraphs, start_key, end_key, skip_list, size_h1)
     
     # counters สำหรับ auto numbering
-    counters = [0, 0, 0]
+    counters = [0, 0, 0, 0, 0]
     html_parts = []
     
     for para in paras:
@@ -192,7 +192,7 @@ def build_content(paragraphs, start_key, end_key, skip_list, size_h1):
             
             # เพิ่ม counter ตาม level และ reset level ที่ต่ำกว่า
             counters[level] += 1
-            for l in range(level + 1, 3):
+            for l in range(level + 1, 5):
                 counters[l] = 0
 
             # สร้างเลข
