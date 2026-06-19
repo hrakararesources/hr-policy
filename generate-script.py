@@ -191,8 +191,11 @@ def build_content(paragraphs, start_key, end_key, skip_list, size_h1):
             level = int(ilvl_el.get(qn('w:val'), 0)) if ilvl_el is not None else 0
             
             # เพิ่ม counter ตาม level และ reset level ที่ต่ำกว่า
+            # ขยาย counters ถ้า level สูงเกินที่มี
+            while len(counters) <= level:
+                counters.append(0)
             counters[level] += 1
-            for l in range(level + 1, 5):
+            for l in range(level + 1, len(counters)):
                 counters[l] = 0
 
             # สร้างเลข
