@@ -7,14 +7,39 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    .chapter-layout { grid-template-columns: 280px 1fr; }
+    .sidebar-chapter {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 10px 12px; border-radius: 8px;
+      text-decoration: none; color: var(--text-muted);
+      font-size: 0.82rem; line-height: 1.35;
+      transition: all 0.2s; border: 1.5px solid transparent;
+    }
+    .sidebar-chapter:hover { background: var(--blue-light); color: var(--blue); }
+    .sidebar-chapter.active {
+      background: var(--blue); color: #fff;
+      border-color: var(--blue);
+    }
+    .sidebar-chapter.active .sidebar-num { background: rgba(255,255,255,0.2); color: #fff; }
+    .sidebar-num {
+      min-width: 28px; height: 28px; border-radius: 7px;
+      background: var(--blue-light); color: var(--blue);
+      font-size: 0.72rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .sidebar-label { flex: 1; }
+    .sidebar-section-label {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--text-muted);
+      padding: 12px 12px 4px; display: block;
+    }
+  </style>
 </head>
 <body>
   <header class="topbar">
     <div class="topbar-left">
-      <a href="index.html" class="back-btn">
-        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 2L4 7L9 12"/></svg>
-        <span class="text-th">สารบัญ</span><span class="text-en">Contents</span>
-      </a>
       <img src="../assets/Akara Logo.jpg" alt="Akara Resources" class="topbar-logo">
       <div class="topbar-title">
         <span class="text-th">คู่มือพนักงาน</span><span class="text-en">Employee Handbook</span>
@@ -29,17 +54,38 @@
     </div>
   </header>
 
-  <main class="container">
-    <button class="sidebar-toggle" onclick="toggleSidebar()">
-      ☰ <span class="text-th">หัวข้อ</span><span class="text-en">Sections</span>
-    </button>
-    <div class="chapter-layout">
-      <aside class="sidebar" id="sidebar">
-        <div class="sidebar-title text-th">หัวข้อในบทนี้</div>
-        <div class="sidebar-title text-en">In this chapter</div>
-        <nav class="sidebar-nav" id="sidebarNav"></nav>
-      </aside>
-      <article class="chapter-card">
+  <div style="display:flex; min-height:calc(100vh - 60px);">
+    <aside class="sidebar" id="sidebar" style="width:280px;flex-shrink:0;position:sticky;top:60px;height:calc(100vh - 60px);overflow-y:auto;background:#fff;border-right:1px solid var(--gray-2);padding:16px 8px;">
+      <a href="../index.html" style="display:flex;align-items:center;gap:6px;padding:8px 12px;font-size:0.8rem;color:var(--text-muted);text-decoration:none;margin-bottom:4px;">
+        ← <span class="text-th">หน้าหลัก</span><span class="text-en">Home</span>
+      </a>
+      <a href="index.html" style="display:flex;align-items:center;gap:6px;padding:8px 12px;font-size:0.8rem;color:var(--blue);text-decoration:none;font-weight:600;margin-bottom:8px;">
+        ☰ <span class="text-th">สารบัญ</span><span class="text-en">Contents</span>
+      </a>
+      <span class="sidebar-section-label text-th">ระเบียบข้อบังคับการทำงาน</span>
+      <span class="sidebar-section-label text-en">Work Rules & Regulations</span>
+      <nav style="display:flex;flex-direction:column;gap:2px;">
+          <a href="chapter-00.html" class="sidebar-chapter"><span class="sidebar-num">00</span><span class="sidebar-label"><span class="text-th">สารจากผู้บริหาร</span><span class="text-en">Message from Management</span></span></a>
+          <a href="chapter-01.html" class="sidebar-chapter"><span class="sidebar-num">01</span><span class="sidebar-label"><span class="text-th">บททั่วไป</span><span class="text-en">General Provisions</span></span></a>
+          <a href="chapter-02.html" class="sidebar-chapter"><span class="sidebar-num">02</span><span class="sidebar-label"><span class="text-th">วิสัยทัศน์องค์กร เสาหลักกลยุทธ์และนโยบายองค์กร</span><span class="text-en">Corporate Vision, Strategic Pillars and Policies</span></span></a>
+          <a href="chapter-03.html" class="sidebar-chapter"><span class="sidebar-num">03</span><span class="sidebar-label"><span class="text-th">การว่าจ้าง</span><span class="text-en">Employment</span></span></a>
+          <a href="chapter-04.html" class="sidebar-chapter"><span class="sidebar-num">04</span><span class="sidebar-label"><span class="text-th">การสับเปลี่ยนหน้าที่ การโยกย้าย และการปฏิบัติงานที่บ้าน</span><span class="text-en">Job Rotation, Transfer and Work from Home</span></span></a>
+          <a href="chapter-05.html" class="sidebar-chapter active"><span class="sidebar-num">05</span><span class="sidebar-label"><span class="text-th">วันทำงาน เวลาทำงานปกติ และเวลาพัก</span><span class="text-en">Working Days, Hours and Rest Periods</span></span></a>
+          <a href="chapter-06.html" class="sidebar-chapter"><span class="sidebar-num">06</span><span class="sidebar-label"><span class="text-th">วันหยุด และหลักเกณฑ์วันหยุด</span><span class="text-en">Holidays and Holiday Criteria</span></span></a>
+          <a href="chapter-07.html" class="sidebar-chapter"><span class="sidebar-num">07</span><span class="sidebar-label"><span class="text-th">หลักเกณฑ์การทำงานล่วงเวลา และการทำงานในวันหยุด</span><span class="text-en">Overtime and Holiday Work</span></span></a>
+          <a href="chapter-08.html" class="sidebar-chapter"><span class="sidebar-num">08</span><span class="sidebar-label"><span class="text-th">การจ่ายค่าจ้าง ค่าล่วงเวลา และค่าทำงานในวันหยุด</span><span class="text-en">Wages, Overtime and Holiday Pay</span></span></a>
+          <a href="chapter-09.html" class="sidebar-chapter"><span class="sidebar-num">09</span><span class="sidebar-label"><span class="text-th">วันลา และหลักเกณฑ์การลา</span><span class="text-en">Leave and Leave Criteria</span></span></a>
+          <a href="chapter-10.html" class="sidebar-chapter"><span class="sidebar-num">10</span><span class="sidebar-label"><span class="text-th">วินัย และโทษทางวินัย</span><span class="text-en">Discipline and Penalties</span></span></a>
+          <a href="chapter-11.html" class="sidebar-chapter"><span class="sidebar-num">11</span><span class="sidebar-label"><span class="text-th">การร้องทุกข์</span><span class="text-en">Grievance Procedure</span></span></a>
+          <a href="chapter-12.html" class="sidebar-chapter"><span class="sidebar-num">12</span><span class="sidebar-label"><span class="text-th">การพ้นสภาพการเป็นพนักงาน</span><span class="text-en">Termination of Employment</span></span></a>
+          <a href="chapter-13.html" class="sidebar-chapter"><span class="sidebar-num">13</span><span class="sidebar-label"><span class="text-th">สวัสดิการและสิทธิประโยชน์อื่น ๆ</span><span class="text-en">Welfare and Other Benefits</span></span></a>
+          <a href="chapter-14.html" class="sidebar-chapter"><span class="sidebar-num">14</span><span class="sidebar-label"><span class="text-th">ข้อกำหนดทั่วไปและการบังคับใช้</span><span class="text-en">General Provisions and Enforcement</span></span></a>
+      </nav>
+    </aside>
+
+    <main style="flex:1;padding:32px 28px 60px;min-width:0;">
+      <button class="sidebar-toggle" onclick="toggleSidebar()" style="display:none;">☰</button>
+      <article class="chapter-card" style="max-width:760px;margin:0 auto;">
         <div class="chapter-badge">หมวดที่ 5</div>
         <h1 class="chapter-title">
           <span class="text-th">วันทำงาน เวลาทำงานปกติ และเวลาพัก</span>
@@ -47,17 +93,11 @@
         </h1>
         <div class="chapter-divider"></div>
         <div class="chapter-body" id="chapterBody">
-          <div class="text-th"><p>AKR-OHR-SD-001</p>
-<p>00</p>
-<p>16-Apr-2026</p>
-<p>14 of 56</p>
-<p>Rev.00 Effective date: 20/Jun/2025</p>
+          <div class="text-th"><p>16-Apr-2026</p>
+<p>Effective date: 20/Jun/2025</p>
 <p>2.3.5 ภาระหน้าที่เกี่ยวกับการจัดหาเครื่องมือหรืออุปกรณ์การท างาน รวมทั้งค่าใช้จ่ายต่าง ๆ ที่จ าเป็นอันเนื่องจากการท างาน 2.3.6 ช่วงเวลาที่บริษัทสามารถติดต่อพนักงานได้ รวมถึงสิทธิของพนักงานในการปฏิเสธการ ติดต่อหรือการท างานนอกเวลาท างาน เว้นแต่เป็นกรณีจ าเป็นเร่งด่วนเพื่อประโยชน์ ในการด าเนินธุรกิจของบริษัท 2.3.7 การรักษาความลับของข้อมูล รวมถึงข้อมูลส่วนบุคคล และมาตรการด้านความมั่นคง ปลอดภัยทางเทคโนโลยีสารสนเทศของบริษัท 2.3.8 พนักงานต้องจัดให้มีสภาพแวดล้อมในการท างานที่ปลอดภัย เหมาะสม และไม่ก่อให้เกิด อันตรายต่อสุขภาพหรือทรัพย์สินของบริษัท รวมทั้งต้องปฏิบัติตามมาตรการด้านความ ปลอดภัย อาชีวอนามัย และความมั่นคงปลอดภัยของข้อมูลตามที่บริษัทก าหนด 2.3.9 บริษัทสงวนสิทธิในการเปลี่ยนแปลง ระงับ หรือยกเลิกการปฏิบัติงานที่บ้านได้ตาม ความจ าเป็นทางธุรกิจ หรือเมื่อเห็นว่าพนักงานไม่สามารถปฏิบัติตามเงื่อนไขที่ก าหนดได้ โดยจะแจ้งให้พนักงานทราบล่วงหน้าตามสมควร 2.4 การปฏิบัติงานที่บ้านของพนักงานจะต้องได้รับความเห็นชอบจากผู้บังคับบัญชาตามล าดับชั้นก่อน ทุกครั้ง และต้องมีการบันทึกหรือยืนยันเป็นลายลักษณ์อักษรตามรูปแบบที่บริษัทก าหนด</p>
-<p>AKR-OHR-SD-001</p>
-<p>00</p>
 <p>16-Apr-2026</p>
-<p>15 of 56</p>
-<p>Rev.00 Effective date: 20/Jun/2025</p>
+<p>Effective date: 20/Jun/2025</p>
 <h2>หมวดที่ 5 วันท างาน เวลาท างานปกติ และเวลาพัก</h2>
 <p>เพื่อให้การก าหนดวันท างาน เวลาท างาน และเวลาพัก สอดคล้องกับลักษณะงานและสภาพการด าเนิน ธุรกิจในแต่ละพื้นที่ บริษัทจึงก าหนดรายละเอียดดังต่อไปนี้ 1. วันท างาน เวลาท างานปกติ และเวลาพัก 1.1 ส านักงานกรุงเทพ 1.1.1 วันท างานปกติ</p>
 <p>คือ วันจันทร์ ถึง วันศุกร์ 1.1.2 เวลาท างานปกติ</p>
@@ -67,40 +107,25 @@
 <p>คือ วันจันทร์ ถึง วันศุกร์ 1.2.2 เวลาท างานปกติ</p>
 <p>คือ เวลา 07:30 น. – 17:00 น. 1.2.3 เวลาพัก ก าหนดไม่น้อยกว่า 1 ชั่วโมง โดยให้สลับกันพักตามที่บริษัทหรือผู้บังคับบัญชา ก าหนด ทั้งนี้ พนักงานจะต้องไม่ท างานติดต่อกันเกิน 5 ชั่วโมงโดยไม่มีเวลาพัก 1.3 พนักงานที่ท างานเป็นกะ 1.3.1 วันท างานปกติ</p>
 <p>เป็นไปตามตารางการท างานที่บริษัทก าหนด 1.3.2 เวลาท างานปกติกะที่ 1 คือ เวลา 07:30 น. – 16:00 น. 1.3.3 เวลาท างานปกติกะที่ 2 คือ เวลา 15:30 น. – 00:00 น. 1.3.4 เวลาท างานปกติกะที่ 3 คือ เวลา 23:30 น. – 08:00 น. 1.3.5 เวลาพัก ก าหนดให้ไม่น้อยกว่า 1 ชั่วโมง โดยให้สลับกันพักตามที่บริษัทหรือผู้บังคับบัญชา ก าหนด เพื่อไม่ให้กระทบต่อการปฏิบัติงาน บริษัทก าหนดให้มีเวลาพักระหว่างเวลาท างานปกติวันละไม่น้อยกว่า 1 ชั่วโมง ภายหลังจากพนักงาน ท างานมาแล้วไม่เกิน 5 ชั่วโมง โดยบริษัทอาจตกลงกับพนักงานให้แบ่งเวลาพักเป็นช่วง ๆ ภายในระยะเวลาท างาน ปกติ</p>
-<p>AKR-OHR-SD-001</p>
-<p>00</p>
 <p>16-Apr-2026</p>
-<p>16 of 56</p>
-<p>Rev.00 Effective date: 20/Jun/2025</p>
+<p>Effective date: 20/Jun/2025</p>
 <p>ในกรณีที่มีการท างานล่วงเวลาต่อเนื่องจากเวลาท างานปกติไม่น้อยกว่า 2 ชั่วโมง บริษัทก าหนดให้มีเวลา พักก่อนเริ่มท างานล่วงเวลาไม่น้อยกว่า 20 นาที เว้นแต่งานที่มีลักษณะต้องท าติดต่อกัน โดยได้รับความยินยอม จากพนักงาน หรืองานฉุกเฉิน ซึ่งไม่ต้องมีเวลาพักดังกล่าว ส าหรับงานที่มีลักษณะอันตราย การท างานล่วงเวลาจะต้องไม่เกินวันละ 2 ชั่วโมง เว้นแต่กรณีฉุกเฉินหรือ มีเหตุจ าเป็นตามที่กฎหมายก าหนด ทั้งนี้ ลักษณะงานของบางหน่วยงานอาจจ าเป็นต้องปฏิบัติงานต่อเนื่อง หากหยุดพักอาจก่อให้เกิด ความเสียหายต่อบริษัท บริษัทอาจก าหนดให้มีการสลับสับเปลี่ยนกันพักระหว่างการท างาน โดยพนักงานจะต้อง ได้รับเวลาพักรวมไม่น้อยกว่า 1 ชั่วโมงต่อวัน และต้องไม่ท างานติดต่อกันเกิน 5 ชั่วโมง</p>
 <p>2. การเปลี่ยนแปลงวันและเวลาท างาน บริษัทสงวนสิทธิในการเปลี่ยนแปลงวันท างาน เวลาท างาน หรือเวลาพัก ทั้งหมดหรือบางส่วน เพื่อให้ เหมาะสมกับลักษณะงาน สภาพการด าเนินธุรกิจ หรือเหตุจ าเป็นอื่น ทั้งนี้ บริษัทจะด าเนินการตามขั้นตอนของ กฎหมายแรงงานที่เกี่ยวข้อง และค านึงถึงความเป็นธรรมแก่พนักงาน โดยจ านวนชั่วโมงการท างานรวมต่อสัปดาห์ ของพนักงานต้องไม่เกิน 48 ชั่วโมง เว้นแต่ลักษณะงานที่กฎหมายก าหนดไว้เป็นอย่างอื่น</p>
 <p>3. การบันทึกเวลา 3.1 พนักงานทุกคนจะต้องบันทึกเวลาท างานทุกครั้งที่เข้าท างานและเลิกงาน  หรือลาโดยได้รับอนุญาต ระหว่างเวลาท างานไม่ว่าจะเป็นการท างานในวันปกติหรือในวันหยุดงาน ตามระเบียบที่บริษัท ก าหนด การบันทึกเวลาท างาน ถือเป็นหลักฐานแสดงการมาปฏิบัติงานของพนักงาน และน าไปใช้ใน การค านวณค่าจ้าง และค่าล่วงเวลาส าหรับพนักงาน 3.2 พนักงานต้องบันทึกเวลาการท างานด้วยตนเองทุกครั้ง โดยผ่านเครื่องบันทึกเวลา หรือวิธีการอื่นใด ตามที่บริษัทก าหนด 3.3 บริษัทอาจก าหนดให้พนักงานในบางต าแหน่งไม่ต้องบันทึกเวลาได้ตามที่บริษัทเห็นสมควร 3.4 ห้ามพนักงานบันทึกเวลาท างานแทนกัน ซึ่งการบันทึกเวลาท างานแทนกันหรือกระท าการเพิ่มเติม แก้ไขใด ๆ เกี่ยวกับเวลาท างาน บริษัทถือเป็นความผิดทางวินัย โดยบริษัทจะพิจารณาโทษ ตามระเบียบว่าด้วยวินัยของบริษัท</p></div>
-          <div class="text-en"><p>AKR-OHR-SD-001</p>
-<p>00</p>
-<p>16-Apr-2026</p>
-<p>14 of 59</p>
-<p>Rev.00 Effective date: 20/Jun/2025</p>
+          <div class="text-en"><p>Effective date: 20/Jun/2025</p>
 <p>2.3.2 Normal working days and hours, rest periods, and overtime work 2.3.3 Rules governing overtime work, work on holidays, and various types of leave 2.3.4 Scope of duties and responsibilities of the employee, including supervision and monitoring by the Company 2.3.5 Responsibilities relating to the provision of work tools or equipment, including any necessary expenses arising from the performance of work 2.3.6 The period during which the Company may contact the employee, including the employee’s right to refuse contact or work outside normal working hours, except in urgent circumstances necessary for the Company’s business operations 2.3.7 Confidentiality of information, including personal data, and compliance with the Company’s information technology security measures 2.3.8 The employee shall ensure that the working environment is safe, appropriate, and does not pose risks to health or the Company’s property, and shall comply with occupational safety, health, and information security measures prescribed by the Company 2.3.9 The Company reserves the right to amend, suspend, or terminate the work-from-home arrangement as necessary for business reasons or where the employee fails to comply with the specified conditions, with reasonable prior notice given to the employee 2.4 Any work-from-home arrangement must receive prior approval from the employee’s line supervisor in accordance with the Company’s chain of command and must be documented or confirmed in writing in accordance with the format prescribed by the Company.</p>
-<p>AKR-OHR-SD-001</p>
-<p>00</p>
-<p>16-Apr-2026</p>
-<p>15 of 59</p>
-<p>Rev.00 Effective date: 20/Jun/2025</p>
+<p>Effective date: 20/Jun/2025</p>
 <p>Chapter 5 Working Days, Normal Working Hours, and Rest Periods</p>
 <p>To ensure that working days, working hours, and rest periods are consistent with the nature of work and the Company’s business operations in each location, the Company prescribes the following provisions: 1. Working Days, Normal Working Hours, and Rest Periods 1.1 Bangkok Office 1.1.1 Normal working days: Monday to Friday 1.1.2 Normal working hours: 08:30 – 17:30 1.1.3 Rest period: 12:00 – 13:00 1.2 Head Office (Chatree Gold Mine) 1.2.1 Normal working days: Monday to Friday 1.2.2 Normal working hours: 07:30 – 17:00 1.2.3 Rest period: Not less than one (1) hour, which may be taken on a rotational basis as determined by the Company or the employee’s supervisor. Employees shall not work continuously for more than five (5) hours without a rest period. 1.3 Shift Employees 1.3.1 Normal working days: In accordance with the work schedule determined by the Company 1.3.2 Normal working hours – Shift 1: 07:30 – 16:00 1.3.3 Normal working hours – Shift 2: 15:30 – 00:00 1.3.4 Normal working hours – Shift 3: 23:30 – 08:00 1.3.5 Rest period: Not less than one (1) hour, which shall be taken on a rotational basis as determined by the Company or the employee’s supervisor so as not to affect work operations. The Company shall provide a rest period during normal working hours of not less than one (1) hour per day after the employee has worked for no more than five (5) consecutive hours. The Company may agree with employees to divide the rest period into several intervals within normal working hours. Where overtime work continues from normal working hours for not less than two (2) hours, the Company shall provide a rest period of not less than twenty (20) minutes before the commencement of overtime</p>
-<p>AKR-OHR-SD-001</p>
-<p>00</p>
-<p>16-Apr-2026</p>
-<p>16 of 59</p>
-<p>Rev.00 Effective date: 20/Jun/2025</p>
+<p>Effective date: 20/Jun/2025</p>
 <p>work, except for work that must be performed continuously with the employee’s consent or in emergency situations, in which case such rest period may not be required. For work involving hazardous conditions, overtime work shall not exceed two (2) hours per day, except in cases of emergency or where otherwise permitted by law. In certain departments where work must be performed continuously and interruption may cause damage to the Company, the Company may arrange for employees to take rest periods on a rotational basis during working hours. In such cases, employees must receive a total rest period of not less than one (1) hour per day and shall not work continuously for more than five (5) hours.</p>
 <p>2. Changes to Working Days and Working Hours The Company reserves the right to change working days, working hours, or rest periods, in whole or in part, as appropriate to the nature of work, business operations, or other necessary circumstances. Any such changes shall be implemented in accordance with applicable labour laws and with due consideration for fairness to employees. In any case, the total working hours per week shall not exceed forty-eight (48) hours, unless otherwise permitted by law.</p>
 <p>3. Time Recording 3.1 All employees must record their working time each time they report to work and leave work, or when they are absent with approval during working hours, whether on normal working days or holidays, in accordance with the Company’s procedures. Time records shall serve as evidence of attendance and shall be used for the calculation of wages and overtime pay. 3.2 Employees must record their working time personally through the time-recording machine or by any other method prescribed by the Company. 3.3 The Company may exempt employees in certain positions from time recording at its discretion. 3.4 Employees are strictly prohibited from recording time on behalf of others. Any act of recording time for another employee or altering time records shall be considered a disciplinary offense and shall be subject to disciplinary action in accordance with the Company’s disciplinary regulations. 3.5 In the event that an employee forgets to record his or her time of arrival and/or departure, the employee must notify the Human Resources Department in accordance with the procedures prescribed by the Company and obtain confirmation from the supervisor that the employee actually</p></div>
         </div>
-        <nav class="chapter-nav"><a href="chapter-04.html">← การสับเปลี่ยนหน้าที่การปฏิบัติงาน ก</a><a href="chapter-06.html" class="next">วันหยุด และหลักเกณฑ์วันหยุด →</a></nav>
+        <nav class="chapter-nav"><a href="chapter-04.html">← การสับเปลี่ยนหน้าที่ การโยกย้าย และ</a><a href="chapter-06.html" class="next">วันหยุด และหลักเกณฑ์วันหยุด →</a></nav>
       </article>
-    </div>
-  </main>
+    </main>
+  </div>
 
   <footer class="footer">
     <span class="text-th">© 2026 บริษัท อัครา รีซอร์สเซส จำกัด (มหาชน) — ฝ่ายทรัพยากรบุคคล</span>
@@ -116,30 +141,6 @@
     }
     const saved = localStorage.getItem('hr-lang');
     if (saved) setLang(saved);
-
-    // Build sidebar from headings
-    const headings = document.querySelectorAll('.chapter-body h2, .chapter-body h3, .chapter-body h4');
-    const nav = document.getElementById('sidebarNav');
-    headings.forEach((h, i) => {
-      h.id = 'sec-' + i;
-      const a = document.createElement('a');
-      a.href = '#sec-' + i;
-      a.textContent = h.textContent.substring(0, 50);
-      if (h.tagName === 'H3') a.style.paddingLeft = '12px';
-      if (h.tagName === 'H4') a.style.paddingLeft = '22px';
-      nav.appendChild(a);
-    });
-
-    const obs = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          nav.querySelectorAll('a').forEach(a => a.classList.remove('active'));
-          const active = nav.querySelector(`a[href="#${e.target.id}"]`);
-          if (active) active.classList.add('active');
-        }
-      });
-    }, {rootMargin: '-10% 0px -80% 0px'});
-    headings.forEach(h => obs.observe(h));
 
     function toggleSidebar() {
       document.getElementById('sidebar').classList.toggle('open');

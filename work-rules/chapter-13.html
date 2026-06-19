@@ -7,14 +7,39 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    .chapter-layout { grid-template-columns: 280px 1fr; }
+    .sidebar-chapter {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 10px 12px; border-radius: 8px;
+      text-decoration: none; color: var(--text-muted);
+      font-size: 0.82rem; line-height: 1.35;
+      transition: all 0.2s; border: 1.5px solid transparent;
+    }
+    .sidebar-chapter:hover { background: var(--blue-light); color: var(--blue); }
+    .sidebar-chapter.active {
+      background: var(--blue); color: #fff;
+      border-color: var(--blue);
+    }
+    .sidebar-chapter.active .sidebar-num { background: rgba(255,255,255,0.2); color: #fff; }
+    .sidebar-num {
+      min-width: 28px; height: 28px; border-radius: 7px;
+      background: var(--blue-light); color: var(--blue);
+      font-size: 0.72rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .sidebar-label { flex: 1; }
+    .sidebar-section-label {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--text-muted);
+      padding: 12px 12px 4px; display: block;
+    }
+  </style>
 </head>
 <body>
   <header class="topbar">
     <div class="topbar-left">
-      <a href="index.html" class="back-btn">
-        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 2L4 7L9 12"/></svg>
-        <span class="text-th">สารบัญ</span><span class="text-en">Contents</span>
-      </a>
       <img src="../assets/Akara Logo.jpg" alt="Akara Resources" class="topbar-logo">
       <div class="topbar-title">
         <span class="text-th">คู่มือพนักงาน</span><span class="text-en">Employee Handbook</span>
@@ -29,17 +54,38 @@
     </div>
   </header>
 
-  <main class="container">
-    <button class="sidebar-toggle" onclick="toggleSidebar()">
-      ☰ <span class="text-th">หัวข้อ</span><span class="text-en">Sections</span>
-    </button>
-    <div class="chapter-layout">
-      <aside class="sidebar" id="sidebar">
-        <div class="sidebar-title text-th">หัวข้อในบทนี้</div>
-        <div class="sidebar-title text-en">In this chapter</div>
-        <nav class="sidebar-nav" id="sidebarNav"></nav>
-      </aside>
-      <article class="chapter-card">
+  <div style="display:flex; min-height:calc(100vh - 60px);">
+    <aside class="sidebar" id="sidebar" style="width:280px;flex-shrink:0;position:sticky;top:60px;height:calc(100vh - 60px);overflow-y:auto;background:#fff;border-right:1px solid var(--gray-2);padding:16px 8px;">
+      <a href="../index.html" style="display:flex;align-items:center;gap:6px;padding:8px 12px;font-size:0.8rem;color:var(--text-muted);text-decoration:none;margin-bottom:4px;">
+        ← <span class="text-th">หน้าหลัก</span><span class="text-en">Home</span>
+      </a>
+      <a href="index.html" style="display:flex;align-items:center;gap:6px;padding:8px 12px;font-size:0.8rem;color:var(--blue);text-decoration:none;font-weight:600;margin-bottom:8px;">
+        ☰ <span class="text-th">สารบัญ</span><span class="text-en">Contents</span>
+      </a>
+      <span class="sidebar-section-label text-th">ระเบียบข้อบังคับการทำงาน</span>
+      <span class="sidebar-section-label text-en">Work Rules & Regulations</span>
+      <nav style="display:flex;flex-direction:column;gap:2px;">
+          <a href="chapter-00.html" class="sidebar-chapter"><span class="sidebar-num">00</span><span class="sidebar-label"><span class="text-th">สารจากผู้บริหาร</span><span class="text-en">Message from Management</span></span></a>
+          <a href="chapter-01.html" class="sidebar-chapter"><span class="sidebar-num">01</span><span class="sidebar-label"><span class="text-th">บททั่วไป</span><span class="text-en">General Provisions</span></span></a>
+          <a href="chapter-02.html" class="sidebar-chapter"><span class="sidebar-num">02</span><span class="sidebar-label"><span class="text-th">วิสัยทัศน์องค์กร เสาหลักกลยุทธ์และนโยบายองค์กร</span><span class="text-en">Corporate Vision, Strategic Pillars and Policies</span></span></a>
+          <a href="chapter-03.html" class="sidebar-chapter"><span class="sidebar-num">03</span><span class="sidebar-label"><span class="text-th">การว่าจ้าง</span><span class="text-en">Employment</span></span></a>
+          <a href="chapter-04.html" class="sidebar-chapter"><span class="sidebar-num">04</span><span class="sidebar-label"><span class="text-th">การสับเปลี่ยนหน้าที่ การโยกย้าย และการปฏิบัติงานที่บ้าน</span><span class="text-en">Job Rotation, Transfer and Work from Home</span></span></a>
+          <a href="chapter-05.html" class="sidebar-chapter"><span class="sidebar-num">05</span><span class="sidebar-label"><span class="text-th">วันทำงาน เวลาทำงานปกติ และเวลาพัก</span><span class="text-en">Working Days, Hours and Rest Periods</span></span></a>
+          <a href="chapter-06.html" class="sidebar-chapter"><span class="sidebar-num">06</span><span class="sidebar-label"><span class="text-th">วันหยุด และหลักเกณฑ์วันหยุด</span><span class="text-en">Holidays and Holiday Criteria</span></span></a>
+          <a href="chapter-07.html" class="sidebar-chapter"><span class="sidebar-num">07</span><span class="sidebar-label"><span class="text-th">หลักเกณฑ์การทำงานล่วงเวลา และการทำงานในวันหยุด</span><span class="text-en">Overtime and Holiday Work</span></span></a>
+          <a href="chapter-08.html" class="sidebar-chapter"><span class="sidebar-num">08</span><span class="sidebar-label"><span class="text-th">การจ่ายค่าจ้าง ค่าล่วงเวลา และค่าทำงานในวันหยุด</span><span class="text-en">Wages, Overtime and Holiday Pay</span></span></a>
+          <a href="chapter-09.html" class="sidebar-chapter"><span class="sidebar-num">09</span><span class="sidebar-label"><span class="text-th">วันลา และหลักเกณฑ์การลา</span><span class="text-en">Leave and Leave Criteria</span></span></a>
+          <a href="chapter-10.html" class="sidebar-chapter"><span class="sidebar-num">10</span><span class="sidebar-label"><span class="text-th">วินัย และโทษทางวินัย</span><span class="text-en">Discipline and Penalties</span></span></a>
+          <a href="chapter-11.html" class="sidebar-chapter"><span class="sidebar-num">11</span><span class="sidebar-label"><span class="text-th">การร้องทุกข์</span><span class="text-en">Grievance Procedure</span></span></a>
+          <a href="chapter-12.html" class="sidebar-chapter"><span class="sidebar-num">12</span><span class="sidebar-label"><span class="text-th">การพ้นสภาพการเป็นพนักงาน</span><span class="text-en">Termination of Employment</span></span></a>
+          <a href="chapter-13.html" class="sidebar-chapter active"><span class="sidebar-num">13</span><span class="sidebar-label"><span class="text-th">สวัสดิการและสิทธิประโยชน์อื่น ๆ</span><span class="text-en">Welfare and Other Benefits</span></span></a>
+          <a href="chapter-14.html" class="sidebar-chapter"><span class="sidebar-num">14</span><span class="sidebar-label"><span class="text-th">ข้อกำหนดทั่วไปและการบังคับใช้</span><span class="text-en">General Provisions and Enforcement</span></span></a>
+      </nav>
+    </aside>
+
+    <main style="flex:1;padding:32px 28px 60px;min-width:0;">
+      <button class="sidebar-toggle" onclick="toggleSidebar()" style="display:none;">☰</button>
+      <article class="chapter-card" style="max-width:760px;margin:0 auto;">
         <div class="chapter-badge">หมวดที่ 13</div>
         <h1 class="chapter-title">
           <span class="text-th">สวัสดิการและสิทธิประโยชน์อื่น ๆ</span>
@@ -47,40 +93,26 @@
         </h1>
         <div class="chapter-divider"></div>
         <div class="chapter-body" id="chapterBody">
-          <div class="text-th"><p>AKR-OHR-SD-001</p>
-<p>00</p>
-<p>16-Apr-2026</p>
-<p>52 of 56</p>
-<p>Rev.00 Effective date: 20/Jun/2025</p>
+          <div class="text-th"><p>16-Apr-2026</p>
+<p>Effective date: 20/Jun/2025</p>
 <p>8. การสิ้นสุดสัญญาจ้าง หรือเหตุอื่นตามกฎหมาย 8.1 การสิ้นสุดสัญญาจ้างตามระยะเวลา หรือเงื่อนไขที่ก าหนดในสัญญาจ้าง 8.2 การที่พนักงานต้องค าพิพากษาถึงที่สุดให้จ าคุกโดยไม่รอการลงโทษ อันเป็นเหตุให้ไม่สามารถ ปฏิบัติงานได้ 8.3 เหตุอื่นใดตามที่กฎหมายก าหนดให้สัญญาจ้างแรงงานสิ้นสุดลง 8.4 การที่พนักงานขาดคุณสมบัติ หรือถูกเพิกถอนใบอนุญาตตามกฎหมาย อันเป็นเงื่อนไขส าคัญใน การปฏิบัติงาน และไม่สามารถแก้ไขได้ภายในระยะเวลาที่เหมาะสม 8.5 การสิ้นสุดสัญญาจ้างตามข้อนี้ ให้ถือเป็นการสิ้นสุดสัญญาจ้างตามกฎหมาย และไม่ถือเป็น การเลิกจ้างของบริษัท</p>
-<p>AKR-OHR-SD-001</p>
-<p>00</p>
 <p>16-Apr-2026</p>
-<p>53 of 56</p>
-<p>Rev.00 Effective date: 20/Jun/2025</p>
+<p>Effective date: 20/Jun/2025</p>
 <h2>หมวดที่ 13 สวัสดิการและสิทธิประโยชน์อื่น ๆ</h2>
 <p>1. หลักการจัดสวัสดิการ บริษัทจัดให้มีสวัสดิการและสิทธิประโยชน์แก่พนักงานตามความเหมาะสม เพื่อส่งเสริมคุณภาพชีวิต ความมั่นคงในการท างาน และประสิทธิภาพในการปฏิบัติงานของพนักงาน ทั้งนี้ การจัดให้มีสวัสดิการดังกล่าวให้เป็นไปตามนโยบาย ระเบียบ และแนวปฏิบัติที่บริษัทก าหนด และ บริษัทสงวนสิทธิในการก าหนด แก้ไข เปลี่ยนแปลง ระงับ หรือยกเลิกสวัสดิการใด ๆ ได้ตามความจ าเป็น ความเหมาะสม หรือสภาพการณ์ทางธุรกิจ โดยไม่ถือเป็นการเปลี่ยนแปลงสภาพการจ้าง เว้นแต่กฎหมายก าหนด ไว้เป็นอย่างอื่น</p>
 <p>2. ประเภทสวัสดิการ สวัสดิการและสิทธิประโยชน์ที่บริษัทจัดให้ อาจรวมถึงแต่ไม่จ ากัดเพียงเรื่องดังต่อไปนี้ 2.1 การตรวจสุขภาพก่อนเริ่มงาน และการตรวจสุขภาพประจ าปี 2.2 การประกันอุบัติเหตุและประกันชีวิต 2.3 เครื่องแบบพนักงาน 2.4 ค่าใช้จ่ายหรือเงินช่วยเหลือที่เกี่ยวข้องกับการปฏิบัติงาน เช่น ค่าเดินทาง ค่าอาหาร ค่ากะท างาน เป็นต้น 2.5 สวัสดิการด้านการรักษาพยาบาลส าหรับพนักงานและครอบครัว 2.6 กองทุนส ารองเลี้ยงชีพ 2.7 การจัดหาอุปกรณ์ ทรัพย์สิน หรือสิ่งอ านวยความสะดวกเพื่อการปฏิบัติงาน 2.8 เงินช่วยเหลือในโอกาสส าคัญหรือเหตุจ าเป็น เช่น การอุปสมบท การสมรส การคลอดบุตร การเจ็บป่วย หรือการเสียชีวิต 2.9 รางวัลตอบแทนตามอายุงาน 2.10 สวัสดิการอื่นตามที่บริษัทก าหนดเป็นครั้งคราว</p></div>
-          <div class="text-en"><p>AKR-OHR-SD-001</p>
-<p>00</p>
-<p>16-Apr-2026</p>
-<p>52 of 59</p>
-<p>Rev.00 Effective date: 20/Jun/2025</p>
+          <div class="text-en"><p>Effective date: 20/Jun/2025</p>
 <p>3.4 An employee may request early retirement upon reaching at least fifty-five (55) years of age. Approval of early retirement shall be at the sole discretion of the Company, and such separation shall be deemed termination due to retirement.</p>
 <p>3.5 Any employment after retirement shall be considered a new employment contract and shall not be regarded as a continuation of the previous employment. Such employment shall not entitle the employee to retroactive recognition of prior years of service unless otherwise specified in writing by the Company.</p>
 <p>4. Termination of Employment with Severance Pay The Company may terminate the employment of an employee with entitlement to severance pay in accordance with applicable laws under the following circumstances: 4.1 Where the employee commits disciplinary misconduct that does not constitute serious misconduct, and the Company has issued a written warning, but the employee fails to improve his or her conduct or performance within the period specified by the Company. 4.2 Where the employee’s performance is below the required standards or the employee is unable to perform assigned duties effectively, provided that the Company has informed the employee of the performance evaluation, issued warnings, or given the employee an opportunity to improve, but the employee fails to demonstrate satisfactory improvement within a reasonable period. 4.3 Where the employee suffers from illness or health limitations that prevent the employee from continuously performing his or her duties or returning to work within a reasonable period, provided that the Company has considered the matter in good faith and is unable to assign other suitable work to the employee. 4.4 Where the employee lacks the qualifications necessary for the position or demonstrates conduct that adversely affects the trust and confidence required for the performance of duties, provided that such conduct does not constitute serious misconduct. 4.5 Where the employee’s qualifications or information provided during the recruitment process are inconsistent with the actual qualifications and affect the employee’s ability to perform the job, provided that such case does not constitute serious misrepresentation.</p>
-<p>AKR-OHR-SD-001</p>
-<p>00</p>
-<p>16-Apr-2026</p>
-<p>53 of 59</p>
-<p>Rev.00 Effective date: 20/Jun/2025</p>
+<p>Effective date: 20/Jun/2025</p>
 <p>4.6 Where the Company, acting in good faith, needs to restructure its organization, downsize its operations, abolish positions, or improve operational efficiency, and the Company is unable to assign other suitable positions to the employee. 4.7 In cases of termination under this section, the Company shall provide advance notice of termination of not less than one wage payment period or shall pay wages in lieu of such notice in accordance with applicable laws. 4.8 Notice of termination shall be given in the form and manner prescribed by the Company. Written notice or notification through the Company’s electronic systems shall be deemed valid notice.</p>
 <p>5. Severance Pay An employee whose employment is terminated by the Company without fault under labour laws shall be entitled to severance pay in accordance with the rates and criteria prescribed under the Labour Protection Act and its amendments. Such severance pay shall be calculated based on the employee’s length of continuous service and the employee’s final wage rate. 5.1 An employee who has completed at least one hundred and twenty (120) days but less than one (1) year of continuous service shall receive severance pay of not less than thirty (30) days of the employee’s final wage. 5.2 An employee who has completed at least one (1) year but less than three (3) years of continuous service shall receive severance pay of not less than ninety (90) days of the employee’s final wage. 5.3 An employee who has completed at least three (3) years but less than six (6) years of continuous service shall receive severance pay of not less than one hundred and eighty (180) days of the employee’s final wage. 5.4 An employee who has completed at least six (6) years but less than ten (10) years of continuous service shall receive severance pay of not less than two hundred and forty (240) days of the employee’s final wage. 5.5 An employee who has completed at least ten (10) years but less than twenty (20) years of continuous service shall receive severance pay of not less than three hundred (300) days of the employee’s final wage. 5.6 An employee who has completed twenty (20) years or more of continuous service shall receive severance pay of not less than four hundred (400) days of the employee’s final wage.</p></div>
         </div>
         <nav class="chapter-nav"><a href="chapter-12.html">← การพ้นสภาพการเป็นพนักงาน</a><a href="chapter-14.html" class="next">ข้อกำหนดทั่วไปและการบังคับใช้ →</a></nav>
       </article>
-    </div>
-  </main>
+    </main>
+  </div>
 
   <footer class="footer">
     <span class="text-th">© 2026 บริษัท อัครา รีซอร์สเซส จำกัด (มหาชน) — ฝ่ายทรัพยากรบุคคล</span>
@@ -96,30 +128,6 @@
     }
     const saved = localStorage.getItem('hr-lang');
     if (saved) setLang(saved);
-
-    // Build sidebar from headings
-    const headings = document.querySelectorAll('.chapter-body h2, .chapter-body h3, .chapter-body h4');
-    const nav = document.getElementById('sidebarNav');
-    headings.forEach((h, i) => {
-      h.id = 'sec-' + i;
-      const a = document.createElement('a');
-      a.href = '#sec-' + i;
-      a.textContent = h.textContent.substring(0, 50);
-      if (h.tagName === 'H3') a.style.paddingLeft = '12px';
-      if (h.tagName === 'H4') a.style.paddingLeft = '22px';
-      nav.appendChild(a);
-    });
-
-    const obs = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          nav.querySelectorAll('a').forEach(a => a.classList.remove('active'));
-          const active = nav.querySelector(`a[href="#${e.target.id}"]`);
-          if (active) active.classList.add('active');
-        }
-      });
-    }, {rootMargin: '-10% 0px -80% 0px'});
-    headings.forEach(h => obs.observe(h));
 
     function toggleSidebar() {
       document.getElementById('sidebar').classList.toggle('open');

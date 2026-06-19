@@ -7,14 +7,39 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    .chapter-layout { grid-template-columns: 280px 1fr; }
+    .sidebar-chapter {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 10px 12px; border-radius: 8px;
+      text-decoration: none; color: var(--text-muted);
+      font-size: 0.82rem; line-height: 1.35;
+      transition: all 0.2s; border: 1.5px solid transparent;
+    }
+    .sidebar-chapter:hover { background: var(--blue-light); color: var(--blue); }
+    .sidebar-chapter.active {
+      background: var(--blue); color: #fff;
+      border-color: var(--blue);
+    }
+    .sidebar-chapter.active .sidebar-num { background: rgba(255,255,255,0.2); color: #fff; }
+    .sidebar-num {
+      min-width: 28px; height: 28px; border-radius: 7px;
+      background: var(--blue-light); color: var(--blue);
+      font-size: 0.72rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .sidebar-label { flex: 1; }
+    .sidebar-section-label {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--text-muted);
+      padding: 12px 12px 4px; display: block;
+    }
+  </style>
 </head>
 <body>
   <header class="topbar">
     <div class="topbar-left">
-      <a href="index.html" class="back-btn">
-        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 2L4 7L9 12"/></svg>
-        <span class="text-th">สารบัญ</span><span class="text-en">Contents</span>
-      </a>
       <img src="../assets/Akara Logo.jpg" alt="Akara Resources" class="topbar-logo">
       <div class="topbar-title">
         <span class="text-th">คู่มือพนักงาน</span><span class="text-en">Employee Handbook</span>
@@ -29,17 +54,38 @@
     </div>
   </header>
 
-  <main class="container">
-    <button class="sidebar-toggle" onclick="toggleSidebar()">
-      ☰ <span class="text-th">หัวข้อ</span><span class="text-en">Sections</span>
-    </button>
-    <div class="chapter-layout">
-      <aside class="sidebar" id="sidebar">
-        <div class="sidebar-title text-th">หัวข้อในบทนี้</div>
-        <div class="sidebar-title text-en">In this chapter</div>
-        <nav class="sidebar-nav" id="sidebarNav"></nav>
-      </aside>
-      <article class="chapter-card">
+  <div style="display:flex; min-height:calc(100vh - 60px);">
+    <aside class="sidebar" id="sidebar" style="width:280px;flex-shrink:0;position:sticky;top:60px;height:calc(100vh - 60px);overflow-y:auto;background:#fff;border-right:1px solid var(--gray-2);padding:16px 8px;">
+      <a href="../index.html" style="display:flex;align-items:center;gap:6px;padding:8px 12px;font-size:0.8rem;color:var(--text-muted);text-decoration:none;margin-bottom:4px;">
+        ← <span class="text-th">หน้าหลัก</span><span class="text-en">Home</span>
+      </a>
+      <a href="index.html" style="display:flex;align-items:center;gap:6px;padding:8px 12px;font-size:0.8rem;color:var(--blue);text-decoration:none;font-weight:600;margin-bottom:8px;">
+        ☰ <span class="text-th">สารบัญ</span><span class="text-en">Contents</span>
+      </a>
+      <span class="sidebar-section-label text-th">ระเบียบข้อบังคับการทำงาน</span>
+      <span class="sidebar-section-label text-en">Work Rules & Regulations</span>
+      <nav style="display:flex;flex-direction:column;gap:2px;">
+          <a href="chapter-00.html" class="sidebar-chapter"><span class="sidebar-num">00</span><span class="sidebar-label"><span class="text-th">สารจากผู้บริหาร</span><span class="text-en">Message from Management</span></span></a>
+          <a href="chapter-01.html" class="sidebar-chapter active"><span class="sidebar-num">01</span><span class="sidebar-label"><span class="text-th">บททั่วไป</span><span class="text-en">General Provisions</span></span></a>
+          <a href="chapter-02.html" class="sidebar-chapter"><span class="sidebar-num">02</span><span class="sidebar-label"><span class="text-th">วิสัยทัศน์องค์กร เสาหลักกลยุทธ์และนโยบายองค์กร</span><span class="text-en">Corporate Vision, Strategic Pillars and Policies</span></span></a>
+          <a href="chapter-03.html" class="sidebar-chapter"><span class="sidebar-num">03</span><span class="sidebar-label"><span class="text-th">การว่าจ้าง</span><span class="text-en">Employment</span></span></a>
+          <a href="chapter-04.html" class="sidebar-chapter"><span class="sidebar-num">04</span><span class="sidebar-label"><span class="text-th">การสับเปลี่ยนหน้าที่ การโยกย้าย และการปฏิบัติงานที่บ้าน</span><span class="text-en">Job Rotation, Transfer and Work from Home</span></span></a>
+          <a href="chapter-05.html" class="sidebar-chapter"><span class="sidebar-num">05</span><span class="sidebar-label"><span class="text-th">วันทำงาน เวลาทำงานปกติ และเวลาพัก</span><span class="text-en">Working Days, Hours and Rest Periods</span></span></a>
+          <a href="chapter-06.html" class="sidebar-chapter"><span class="sidebar-num">06</span><span class="sidebar-label"><span class="text-th">วันหยุด และหลักเกณฑ์วันหยุด</span><span class="text-en">Holidays and Holiday Criteria</span></span></a>
+          <a href="chapter-07.html" class="sidebar-chapter"><span class="sidebar-num">07</span><span class="sidebar-label"><span class="text-th">หลักเกณฑ์การทำงานล่วงเวลา และการทำงานในวันหยุด</span><span class="text-en">Overtime and Holiday Work</span></span></a>
+          <a href="chapter-08.html" class="sidebar-chapter"><span class="sidebar-num">08</span><span class="sidebar-label"><span class="text-th">การจ่ายค่าจ้าง ค่าล่วงเวลา และค่าทำงานในวันหยุด</span><span class="text-en">Wages, Overtime and Holiday Pay</span></span></a>
+          <a href="chapter-09.html" class="sidebar-chapter"><span class="sidebar-num">09</span><span class="sidebar-label"><span class="text-th">วันลา และหลักเกณฑ์การลา</span><span class="text-en">Leave and Leave Criteria</span></span></a>
+          <a href="chapter-10.html" class="sidebar-chapter"><span class="sidebar-num">10</span><span class="sidebar-label"><span class="text-th">วินัย และโทษทางวินัย</span><span class="text-en">Discipline and Penalties</span></span></a>
+          <a href="chapter-11.html" class="sidebar-chapter"><span class="sidebar-num">11</span><span class="sidebar-label"><span class="text-th">การร้องทุกข์</span><span class="text-en">Grievance Procedure</span></span></a>
+          <a href="chapter-12.html" class="sidebar-chapter"><span class="sidebar-num">12</span><span class="sidebar-label"><span class="text-th">การพ้นสภาพการเป็นพนักงาน</span><span class="text-en">Termination of Employment</span></span></a>
+          <a href="chapter-13.html" class="sidebar-chapter"><span class="sidebar-num">13</span><span class="sidebar-label"><span class="text-th">สวัสดิการและสิทธิประโยชน์อื่น ๆ</span><span class="text-en">Welfare and Other Benefits</span></span></a>
+          <a href="chapter-14.html" class="sidebar-chapter"><span class="sidebar-num">14</span><span class="sidebar-label"><span class="text-th">ข้อกำหนดทั่วไปและการบังคับใช้</span><span class="text-en">General Provisions and Enforcement</span></span></a>
+      </nav>
+    </aside>
+
+    <main style="flex:1;padding:32px 28px 60px;min-width:0;">
+      <button class="sidebar-toggle" onclick="toggleSidebar()" style="display:none;">☰</button>
+      <article class="chapter-card" style="max-width:760px;margin:0 auto;">
         <div class="chapter-badge">หมวดที่ 1</div>
         <h1 class="chapter-title">
           <span class="text-th">บททั่วไป</span>
@@ -47,66 +93,38 @@
         </h1>
         <div class="chapter-divider"></div>
         <div class="chapter-body" id="chapterBody">
-          <div class="text-th"><p>AKR-OHR-SD-001</p>
-<p>00</p>
-<p>16-Apr-2026</p>
-<p>3 of 56</p>
-<p>Rev.00 Effective date: 20/Jun/2025</p>
+          <div class="text-th"><p>16-Apr-2026</p>
+<p>Effective date: 20/Jun/2025</p>
 <p>สารจากผู้บริหาร</p>
 <p>ความรับผิดชอบต่อสังคม คือ หัวใจส าคัญของอัครา อัคราตระหนักดีว่า ธุรกิจจะมั่นคงและยั่งยืนได้นั้น ชุมชนและสังคมจะต้องเติบโตไปพร้อมกัน ดังนั้น  “การสร้างการเติบโตทางธุรกิจอย่างยั่งยืน พร้อมยกระดับ คุณภาพชีวิตของคนในชุมชนอย่างเป็นรูปธรรม” จึงเป็นหนึ่งในพันธกิจหลักของบริษัท เสมอมา เราจึงน าหลักของ ESG (Environmental, Social, and Governance) มาใช้เป็นแนวทางในการด าเนิน ธุรกิจด้วยความรับผิดชอบต่อสิ่งแวดล้อม (Environmental) และสังคม (Social) อย่างมีบรรษัทภิบาล (Governance) หรือมีการก ากับดูแลองค์กรอย่างโปร่งใสและเป็นธรรม โดยมุ่งมั่นยกระดับคุณภาพชีวิตของชุมชน รอบพื้นที่การด าเนินงานของบริษัทในทุกมิติ ผ่านโครงการพัฒนาชุมชนในรูปแบบต่าง ๆ ตั้งแต่การปรับปรุง โครงสร้างพื้นฐาน การส่งเสริมสุขภาพ การสนับสนุนด้านการศึกษา และการฝึกอบรมเพื่อพัฒนาศักยภาพและ เพิ่มโอกาสในการประกอบอาชีพ การขับเคลื่อนเศรษฐกิจผ่านการสร้างงานและสนับสนุนผู้ประกอบการในชุมชน ตลอดจนการอนุรักษ์และส่งเสริมวัฒนธรรมและประเพณีท้องถิ่น เพราะเราเชื่อว่าอนาคตของชุมชน คือ อนาคตของเรา และนี่คือเหตุผลที่เราจะยังคงทุ่มเท ด าเนินกิจกรรม และโครงการ เพื่อพัฒนาชุมชนและสังคมต่อไป เพื่อให้ชุมชนของเราเติบโตไปพร้อมกับเราอย่างยั่งยืน</p>
-<p>AKR-OHR-SD-001</p>
-<p>00</p>
 <p>16-Apr-2026</p>
-<p>4 of 56</p>
-<p>Rev.00 Effective date: 20/Jun/2025</p>
+<p>Effective date: 20/Jun/2025</p>
 <h2>หมวดที่ 1 บททั่วไป</h2>
 <p>คู่มือพนักงานฉบับนี้จัดท าขึ้นเพื่อรวบรวมนโยบายทั่วไปเกี่ยวกับสภาพการจ้างของพนักงาน และให้ถือ เป็นส่วนหนึ่งของสัญญาจ้างระหว่างบริษัทและพนักงาน เพื่อแจ้งให้พนักงานทุกคนทราบถึงสิทธิและ ความรับผิดชอบของตน รวมถึงข้อก าหนดและเงื่อนไขแห่งการจ้างงานให้เป็นไปตามข้อบังคับ ระเบียบ และ แนวปฏิบัติของบริษัท ข้อบังคับเกี่ยวกับการท างานฉบับนี้จัดท าขึ้นให้สอดคล้องกับกฎหมายว่าด้วยการคุ้มครองแรงงาน ที่มีผลบังคับใช้ในปัจจุบัน และพิจารณาประกอบกับนโยบายการจ้างงานของสถานประกอบการโดยทั่วไป ในประเทศไทย ในกรณีที่เกิดข้อขัดแย้งใด ๆ ระหว่างข้อบังคับเกี่ยวกับการท างานฉบับนี้กับกฎหมาย บริษัทจะ ถือปฏิบัติตามกฎหมายว่าด้วยการคุ้มครองแรงงานเป็นหลัก ทั้งนี้ บริษัทขอสงวนสิทธิในการเปลี่ยนแปลง แก้ไข เพิ่มเติม หรือยกเว้นข้อความทั้งหมดหรือบางส่วน ของข้อบังคับเกี่ยวกับการท างานฉบับนี้ เพื่อให้สอดคล้องกับการเปลี่ยนแปลงทางเศรษฐกิจ สังคม หรือในกรณีที่มี การประกาศใช้กฎหมายใหม่ โดยบริษัทจะด าเนินการตามขั้นตอนที่กฎหมายก าหนด จริยธรรม และวัฒนธรรม อันดีงามของประเทศไทยและประเทศคู่ค้า เพื่อให้การด าเนินงานเป็นไปอย่างถูกต้องและเหมาะสม ให้ใช้ค านิยามดังต่อไปนี้กับค าต่าง ๆ ที่อยู่ในข้อบังคับเกี่ยวกับการท างานฉบับนี้ 1. ข้อบังคับ หมายถึง ข้อบังคับเกี่ยวกับการท างานของบริษัท อัครา รีซอร์สเซส จ ากัด (มหาชน) 2. บริษัท หมายถึง บริษัท อัครา รีซอร์สเซส จ ากัด (มหาชน) ส านักงานกรุงเทพและส านักงานเหมืองแร่ ทองค าชาตรี โดยให้รวมถึงผู้ซึ่งได้รับมอบอ านาจให้ท าการแทนบริษัท หรือผู้ได้รับมอบหมายให้ 3. สถานที่ท างาน หมายถึง สถานที่ท างานเพื่อประกอบกิจการของบริษัท  ได้แก่ 3.1 ส านักงานกรุงเทพ 188 อาคารสปริง ทาวเวอร์ ห้องเลขที่ 6 ชั้น 14 ถนนพญาไท แขวงทุ่งพญาไท เขตราชเทวี กรุงเทพมหานคร 10400 โทรศัพท์ +66 5661 4500 ต่อ 2000 อีเมล: admincgm@akararesources.com</p>
-<p>AKR-OHR-SD-001</p>
-<p>00</p>
 <p>16-Apr-2026</p>
-<p>5 of 56</p>
-<p>Rev.00 Effective date: 20/Jun/2025</p>
+<p>Effective date: 20/Jun/2025</p>
 <p>3.2 ส านักงานเหมืองแร่ทองค าชาตรี 99 หมู่ 9 ต าบลเขาเจ็ดลูก อ าเภอทับคล้อ จังหวัดพิจิตร 66230 โทรศัพท์ +66 5661 4500 อีเมล: admincgm@akararesources.com 3.3 ส านักงานหรือสถานที่ท างานอื่น ๆ ที่อาจมีขึ้นในอนาคต 3.4 นอกจากนี้ “สถานที่ท างาน” ให้หมายความรวมถึง 3.4.1 สถานที่ที่บริษัทมอบหมายหรืออนุญาตให้พนักงานไปปฏิบัติงาน ไม่ว่าจะอยู่ภายใน หรือภายนอกสถานประกอบการ 3.4.2 สถานที่ของบริษัท ลูกค้า คู่ค้า หรือสถานที่อื่นใดที่เกี่ยวข้องกับการปฏิบัติงาน ตามหน้าที่ 3.4.3 ยานพาหนะของบริษัท หรือยานพาหนะที่บริษัทจัดจ้างหรืออนุญาตให้ใช้ ในการปฏิบัติงานหรือกิจกรรมของบริษัท 3.4.4 สถานที่ที่บริษัทจัดกิจกรรม ไม่ว่าจะเป็นกิจกรรมภายในหรือนอกสถานที่ 3.4.5 สถานที่ซึ่งพนักงานปฏิบัติงานที่บ้าน หรือปฏิบัติงานผ่านการใช้เทคโนโลยีสารสนเทศ ณ สถานที่ใด ๆ ทั้งนี้ ต้องเป็นสถานที่ที่พนักงานได้แจ้งไว้และได้รับความเห็นชอบ จากบริษัทแล้ว 4. บุคลากรหรือพนักงาน หมายถึง บุคคลซึ่งบริษัทได้ตกลงจ้างตามสัญญาจ้างแรงงานให้ปฏิบัติงาน แก่บริษัท เพื่อรับค่าตอบแทนหรือค่าจ้าง ไม่ว่าจะอยู่ในระยะทดลองงาน หรือได้รับการบรรจุ เป็นพนักงานแล้วก็ตาม 5. พนักงานทดลองงาน หมายถึง พนักงานซึ่งบริษัทตกลงจ้างให้ปฏิบัติงานและอยู่ในระยะทดลอง- งานตามเงื่อนไขที่บริษัทก าหนดและแจ้งไว้เป็นลายลักษณ์อักษร ทั้งนี้ บริษัทอาจพิจารณาขยาย ระยะเวลาทดลองงาน ประเมินผลการปฏิบัติงาน หรือด าเนินการเกี่ยวกับการจ้างตามที่กฎหมาย อนุญาต โดยพนักงานทดลองงานยังคงมีสิทธิและได้รับความคุ้มครองตามกฎหมายว่าด้วย การคุ้มครองแรงงานทุกประการ 6. พนักงานรายเดือน หมายถึง พนักงานซึ่งบริษัทตกลงจ้างให้ปฏิบัติงาน โดยก าหนดอัตราค่าจ้าง เป็นรายเดือน ทั้งนี้ สิทธิ ประโยชน์ และสวัสดิการต่าง ๆ ให้เป็นไปตามข้อบังคับการท างาน ระเบียบ และนโยบายของบริษัท รวมถึงกฎหมายที่เกี่ยวข้อง</p>
-<p>AKR-OHR-SD-001</p>
-<p>00</p>
 <p>16-Apr-2026</p>
-<p>6 of 56</p>
-<p>Rev.00 Effective date: 20/Jun/2025</p>
+<p>Effective date: 20/Jun/2025</p>
 <p>7. พนักงานรายวัน หรือรายชั่วโมง หรือพนักงานตามผลงาน หมายถึง พนักงานซึ่งบริษัทตกลง จ้างให้ปฏิบัติงาน และได้รับค่าจ้างในอัตรารายวัน รายชั่วโมง หรือค่าจ้างตามผลงาน ตามที่ก าหนด ไว้ในสัญญาจ้าง ทั้งนี้ การก าหนดและการจ่ายค่าจ้างตามผลงานต้องไม่ขัดต่อกฎหมายว่าด้วย การคุ้มครองแรงงาน และสิทธิประโยชน์และสวัสดิการให้เป็นไปตามข้อบังคับการท างาน ระเบียบ และนโยบายของบริษัท รวมถึงกฎหมายที่เกี่ยวข้อง 8. พนักงานตามสัญญา หมายถึง พนักงานซึ่งบริษัทตกลงจ้างให้ปฏิบัติงานตามสัญญาจ้าง โดยท า สัญญาเป็นลายลักษณ์อักษร และก าหนดระยะเวลาการจ้างที่แน่นอน หรือผูกพันกับความส าเร็จ ของงานในแต่ละโครงการ หรือระยะเวลาที่ตกลงกันไว้เป็นการเฉพาะ ทั้งนี้ การจ้างดังกล่าว ไม่ก่อให้เกิดความคาดหมายในการจ้างงานต่อเนื่อง หรือการบรรจุเป็นพนักงานประจ า เว้นแต่บริษัท จะได้ตกลงเป็นหนังสือไว้เป็นอย่างอื่น 9. วันท างาน หมายถึง วันที่บริษัทก าหนดให้พนักงานต้องปฏิบัติงานตามปกติ โดยให้จ านวนวันท างาน และชั่วโมงการท างานเป็นไปตามที่บริษัทก าหนด ทั้งนี้ ต้องไม่เกินอัตราที่กฎหมายว่าด้วย การคุ้มครองแรงงานก าหนด 10. วันหยุด หมายถึง วันที่บริษัทก าหนดให้พนักงานหยุดท างานตามข้อบังคับการท างาน ระเบียบ และ นโยบายของบริษัท ได้แก่ วันหยุดประจ าสัปดาห์ วันหยุดตามประเพณี และวันหยุดพักผ่อนประจ าปี 11. วันลา หมายถึง วันที่พนักงานได้รับอนุญาตให้หยุดงานเป็นการชั่วคราวตามประเภทการลาที่ก าหนด ไว้ตามกฎหมายหรือข้อบังคับการท างานของบริษัท ซึ่งรวมถึงการลาป่วย ลาคลอด ลารับราชการ ทหาร ลาบวช และลากิจ ทั้งนี้ ให้เป็นไปตามหลักเกณฑ์และเงื่อนไขที่บริษัทก าหนด โดยบริษัท จะจัดให้สิทธิในการลาไม่น้อยกว่าที่กฎหมายว่าด้วยการคุ้มครองแรงงานก าหนด 12. ค่าจ้าง หมายถึง เงินที่บริษัทตกลงจ่ายเป็นค่าตอบแทนในการท างานตามสัญญาจ้าง ไม่ว่าจะ ก าหนดหรือค านวณเป็นรายเดือน รายวัน รายชั่วโมง หรือในรูปแบบอื่นใดตามที่ตกลงกัน ทั้งนี้ ส าหรับการท างานในเวลาท างานปกติ หรือการท างานที่บริษัทมอบหมาย 13. การท างานล่วงเวลา หมายถึง การท างานเกินเวลาท างานปกติในวันท างานตามที่บริษัทก าหนด ซึ่งบริษัทได้สั่ง มอบหมาย หรืออนุญาต และพนักงานให้ความยินยอม ทั้งนี้ ให้เป็นไปตามกฎหมาย ว่าด้วยการคุ้มครองแรงงาน 14. ค่าล่วงเวลา หมายถึง เงินค่าจ้างที่บริษัทจ่ายให้แก่พนักงานส าหรับการท างานล่วงเวลาในวันท างาน ซึ่งบริษัทได้สั่งหรืออนุญาต ทั้งนี้ ให้เป็นไปตามกฎหมายว่าด้วยการคุ้มครองแรงงาน</p></div>
-          <div class="text-en"><p>AKR-OHR-SD-001</p>
-<p>00</p>
-<p>16-Apr-2026</p>
-<p>3 of 59</p>
-<p>Rev.00 Effective date: 20/Jun/2025</p>
+          <div class="text-en"><p>Effective date: 20/Jun/2025</p>
 <p>Message from the Management</p>
 <p>Social responsibility lies at the heart of Akara’s philosophy. The Company recognizes that sustainable and long-term business success can only be achieved when communities and society grow and prosper alongside the Company. Accordingly, fostering sustainable business growth while meaningfully enhancing the quality of life of people in surrounding communities has long been one of the Company’s fundamental commitments.</p>
 <p>To uphold this commitment, the Company adopts the principles of Environmental, Social, and Governance (ESG) as a guiding framework for its operations. Through this approach, the Company conducts its business with responsibility toward the environment and society under a system of transparent, fair, and accountable corporate governance. The Company remains dedicated to enhancing the well-being of communities surrounding its areas of operation through a range of community development initiatives, including improvements to local infrastructure, health promotion, educational support, and capacity-building programs aimed at strengthening skills and expanding employment opportunities, as well as contributing to local economic development through job creation and support for community entrepreneurs while preserving and promoting local culture and traditions.</p>
 <p>The Company firmly believes that the future of the communities in which it operates is closely connected to its own future. For this reason, Akara will continue to conduct its business responsibly and to support initiatives that promote sustainable community and social development, ensuring that the communities in which we operate grow and prosper sustainably together with the Company.</p>
-<p>AKR-OHR-SD-001</p>
-<p>00</p>
-<p>16-Apr-2026</p>
-<p>4 of 59</p>
-<p>Rev.00 Effective date: 20/Jun/2025</p>
+<p>Effective date: 20/Jun/2025</p>
 <p>Chapter 1 General Provisions</p>
 <p>These Work Rules have been established to set forth the general policies governing the employment conditions of employees and shall form an integral part of the employment agreement between the Company and its employees. The purpose of these Work Rules is to inform all employees of their rights and responsibilities, as well as the terms and conditions of employment, in accordance with the Company’s rules, regulations, and established practices. These Work Rules have been prepared in compliance with the applicable labour protection laws currently in force and with due consideration of general employment practices in Thailand. In the event of any inconsistency between these Work Rules and the applicable labour protection laws, the provisions of the applicable labour protection laws shall prevail. The Company reserves the right to amend, revise, supplement, or waive any provision, in whole or in part, of these Work Rules in order to reflect changes in economic or social conditions or in the event of the enactment of new laws or regulations. Any such amendment shall be implemented in accordance with applicable legal procedures and in a manner consistent with ethical standards and the cultural values of Thailand and the Company’s business partners, to ensure that the Company’s operations remain appropriate and compliant. For the purposes of these Work Rules, the following terms shall have the meanings set forth below: 1. Work Rules means the Work Rules of Akara Resources Public Company Limited. 2. Company means Akara Resources Public Company Limited, including the Bangkok Office and the Chatree Gold Mine Office, and shall also include any person duly authorized or assigned to act on behalf of the Company. 3. Workplace means any place where the Company conducts its business operations, including but not limited to: 3.1 Bangkok Office 188 Spring Tower, Unit 6, Level 14, Phaya Thai Road, Thung Phaya Thai, Ratchathewi, Bangkok 10400, Thailand Tel +66 5661 4500 ext. 2000 Email: admincgm@akararesources.com</p>
-<p>AKR-OHR-SD-001</p>
-<p>00</p>
-<p>16-Apr-2026</p>
-<p>5 of 59</p>
-<p>Rev.00 Effective date: 20/Jun/2025</p>
+<p>Effective date: 20/Jun/2025</p>
 <p>3.2 Chatree Gold Mine No. 99, Moo 9, Khao Chet Luk Subdistrict, Thap Khlo District, Phichit Province 66230 Tel +66 5661 4500 Email: admincgm@akararesources.com 3.3 Any other office or workplace that may be established by the Company in the future. 3.4 In addition, the term “Workplace” shall also include: 3.4.1 Any location where an employee is assigned or authorized by the Company to perform work duties, whether within or outside the Company’s premises. 3.4.2 Any premises of the Company, its customers, business partners, or any other location related to the performance of the employee’s duties. 3.4.3 Any vehicle owned by the Company or any vehicle arranged, contracted, or authorized by the Company for use in performing work duties or participating in Company activities. 3.4.4 Any location where Company activities are organized, whether conducted on the Company’s premises or off-site. 3.4.5 Any location where an employee performs work from home or performs duties through the use of information technology at any place, provided that such location has been notified to and approved by the Company. 4. Employee means any person whom the Company has agreed to employ under an employment contract to perform work for the Company in return for remuneration or wages, whether such person is under a probationary period or has already been confirmed as a regular employee. 5. Probationary Employee means an employee whom the Company has agreed to employ and who is undergoing a probationary period in accordance with the conditions determined and notified in writing by the Company. The Company may extend the probationary period, evaluate the employee’s performance, or take any employment-related action as permitted by law. A probationary employee shall remain entitled to all rights and protections provided under the applicable labour protection laws. 6. Monthly Employee means an employee whom the Company has agreed to employ with wages determined on a monthly basis. The rights, benefits, and welfare of such employee shall be in</p>
-<p>AKR-OHR-SD-001</p>
-<p>00</p>
-<p>16-Apr-2026</p>
-<p>6 of 59</p>
-<p>Rev.00 Effective date: 20/Jun/2025</p>
+<p>Effective date: 20/Jun/2025</p>
 <p>accordance with these Work Rules, the Company’s regulations and policies, and the applicable laws.</p>
 <p>7. Daily Employee, Hourly Employee, or Piece-rate Employee means an employee whom the Company has agreed to employ and who receives wages calculated on a daily basis, hourly basis, or based on work output, as specified in the employment contract. The determination and payment of piece-rate wages shall not be contrary to the applicable labour protection laws. The rights, benefits, and welfare of such employees shall be in accordance with these Work Rules, the Company’s regulations and policies, and the applicable laws. 8. Contract Employee means an employee whom the Company has agreed to employ under a written employment contract for a fixed term or for the duration of a specific project or assignment, or for a period as mutually agreed upon. Such employment shall not create any expectation of continued employment or conversion to permanent employment unless otherwise agreed in writing by the Company. 9. Working Day means a day on which an employee is required to perform work in accordance with the Company’s normal working schedule. The number of working days and working hours shall be determined by the Company, provided that such working hours shall not exceed the limits prescribed by the applicable labour protection laws. 10. Holiday means a day on which the Company designates employees to be off from work in accordance with these Work Rules and the Company’s regulations and policies, including weekly holidays, traditional holidays, and annual leave. 11. Leave means a day on which an employee is granted permission to be temporarily absent from work under the types of leave prescribed by law or under these Work Rules of the Company, including sick leave, maternity leave, military service leave, ordination leave, and personal leave. Such leave shall be subject to the rules and conditions determined by the Company, provided that the leave entitlements granted shall not be less than those prescribed under the applicable labour protection laws. 12. Wages means money which the Company agrees to pay as remuneration for work performed under an employment contract, whether calculated on a monthly, daily, hourly, or any other agreed basis, for work performed during normal working hours or for duties assigned by the Company.</p></div>
         </div>
         <nav class="chapter-nav"><a href="chapter-00.html">← สารจากผู้บริหาร</a><a href="chapter-02.html" class="next">วิสัยทัศน์องค์กร เสาหลักกลยุทธ์และน →</a></nav>
       </article>
-    </div>
-  </main>
+    </main>
+  </div>
 
   <footer class="footer">
     <span class="text-th">© 2026 บริษัท อัครา รีซอร์สเซส จำกัด (มหาชน) — ฝ่ายทรัพยากรบุคคล</span>
@@ -122,30 +140,6 @@
     }
     const saved = localStorage.getItem('hr-lang');
     if (saved) setLang(saved);
-
-    // Build sidebar from headings
-    const headings = document.querySelectorAll('.chapter-body h2, .chapter-body h3, .chapter-body h4');
-    const nav = document.getElementById('sidebarNav');
-    headings.forEach((h, i) => {
-      h.id = 'sec-' + i;
-      const a = document.createElement('a');
-      a.href = '#sec-' + i;
-      a.textContent = h.textContent.substring(0, 50);
-      if (h.tagName === 'H3') a.style.paddingLeft = '12px';
-      if (h.tagName === 'H4') a.style.paddingLeft = '22px';
-      nav.appendChild(a);
-    });
-
-    const obs = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          nav.querySelectorAll('a').forEach(a => a.classList.remove('active'));
-          const active = nav.querySelector(`a[href="#${e.target.id}"]`);
-          if (active) active.classList.add('active');
-        }
-      });
-    }, {rootMargin: '-10% 0px -80% 0px'});
-    headings.forEach(h => obs.observe(h));
 
     function toggleSidebar() {
       document.getElementById('sidebar').classList.toggle('open');

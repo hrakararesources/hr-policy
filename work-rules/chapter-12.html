@@ -7,14 +7,39 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    .chapter-layout { grid-template-columns: 280px 1fr; }
+    .sidebar-chapter {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 10px 12px; border-radius: 8px;
+      text-decoration: none; color: var(--text-muted);
+      font-size: 0.82rem; line-height: 1.35;
+      transition: all 0.2s; border: 1.5px solid transparent;
+    }
+    .sidebar-chapter:hover { background: var(--blue-light); color: var(--blue); }
+    .sidebar-chapter.active {
+      background: var(--blue); color: #fff;
+      border-color: var(--blue);
+    }
+    .sidebar-chapter.active .sidebar-num { background: rgba(255,255,255,0.2); color: #fff; }
+    .sidebar-num {
+      min-width: 28px; height: 28px; border-radius: 7px;
+      background: var(--blue-light); color: var(--blue);
+      font-size: 0.72rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .sidebar-label { flex: 1; }
+    .sidebar-section-label {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--text-muted);
+      padding: 12px 12px 4px; display: block;
+    }
+  </style>
 </head>
 <body>
   <header class="topbar">
     <div class="topbar-left">
-      <a href="index.html" class="back-btn">
-        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 2L4 7L9 12"/></svg>
-        <span class="text-th">สารบัญ</span><span class="text-en">Contents</span>
-      </a>
       <img src="../assets/Akara Logo.jpg" alt="Akara Resources" class="topbar-logo">
       <div class="topbar-title">
         <span class="text-th">คู่มือพนักงาน</span><span class="text-en">Employee Handbook</span>
@@ -29,17 +54,38 @@
     </div>
   </header>
 
-  <main class="container">
-    <button class="sidebar-toggle" onclick="toggleSidebar()">
-      ☰ <span class="text-th">หัวข้อ</span><span class="text-en">Sections</span>
-    </button>
-    <div class="chapter-layout">
-      <aside class="sidebar" id="sidebar">
-        <div class="sidebar-title text-th">หัวข้อในบทนี้</div>
-        <div class="sidebar-title text-en">In this chapter</div>
-        <nav class="sidebar-nav" id="sidebarNav"></nav>
-      </aside>
-      <article class="chapter-card">
+  <div style="display:flex; min-height:calc(100vh - 60px);">
+    <aside class="sidebar" id="sidebar" style="width:280px;flex-shrink:0;position:sticky;top:60px;height:calc(100vh - 60px);overflow-y:auto;background:#fff;border-right:1px solid var(--gray-2);padding:16px 8px;">
+      <a href="../index.html" style="display:flex;align-items:center;gap:6px;padding:8px 12px;font-size:0.8rem;color:var(--text-muted);text-decoration:none;margin-bottom:4px;">
+        ← <span class="text-th">หน้าหลัก</span><span class="text-en">Home</span>
+      </a>
+      <a href="index.html" style="display:flex;align-items:center;gap:6px;padding:8px 12px;font-size:0.8rem;color:var(--blue);text-decoration:none;font-weight:600;margin-bottom:8px;">
+        ☰ <span class="text-th">สารบัญ</span><span class="text-en">Contents</span>
+      </a>
+      <span class="sidebar-section-label text-th">ระเบียบข้อบังคับการทำงาน</span>
+      <span class="sidebar-section-label text-en">Work Rules & Regulations</span>
+      <nav style="display:flex;flex-direction:column;gap:2px;">
+          <a href="chapter-00.html" class="sidebar-chapter"><span class="sidebar-num">00</span><span class="sidebar-label"><span class="text-th">สารจากผู้บริหาร</span><span class="text-en">Message from Management</span></span></a>
+          <a href="chapter-01.html" class="sidebar-chapter"><span class="sidebar-num">01</span><span class="sidebar-label"><span class="text-th">บททั่วไป</span><span class="text-en">General Provisions</span></span></a>
+          <a href="chapter-02.html" class="sidebar-chapter"><span class="sidebar-num">02</span><span class="sidebar-label"><span class="text-th">วิสัยทัศน์องค์กร เสาหลักกลยุทธ์และนโยบายองค์กร</span><span class="text-en">Corporate Vision, Strategic Pillars and Policies</span></span></a>
+          <a href="chapter-03.html" class="sidebar-chapter"><span class="sidebar-num">03</span><span class="sidebar-label"><span class="text-th">การว่าจ้าง</span><span class="text-en">Employment</span></span></a>
+          <a href="chapter-04.html" class="sidebar-chapter"><span class="sidebar-num">04</span><span class="sidebar-label"><span class="text-th">การสับเปลี่ยนหน้าที่ การโยกย้าย และการปฏิบัติงานที่บ้าน</span><span class="text-en">Job Rotation, Transfer and Work from Home</span></span></a>
+          <a href="chapter-05.html" class="sidebar-chapter"><span class="sidebar-num">05</span><span class="sidebar-label"><span class="text-th">วันทำงาน เวลาทำงานปกติ และเวลาพัก</span><span class="text-en">Working Days, Hours and Rest Periods</span></span></a>
+          <a href="chapter-06.html" class="sidebar-chapter"><span class="sidebar-num">06</span><span class="sidebar-label"><span class="text-th">วันหยุด และหลักเกณฑ์วันหยุด</span><span class="text-en">Holidays and Holiday Criteria</span></span></a>
+          <a href="chapter-07.html" class="sidebar-chapter"><span class="sidebar-num">07</span><span class="sidebar-label"><span class="text-th">หลักเกณฑ์การทำงานล่วงเวลา และการทำงานในวันหยุด</span><span class="text-en">Overtime and Holiday Work</span></span></a>
+          <a href="chapter-08.html" class="sidebar-chapter"><span class="sidebar-num">08</span><span class="sidebar-label"><span class="text-th">การจ่ายค่าจ้าง ค่าล่วงเวลา และค่าทำงานในวันหยุด</span><span class="text-en">Wages, Overtime and Holiday Pay</span></span></a>
+          <a href="chapter-09.html" class="sidebar-chapter"><span class="sidebar-num">09</span><span class="sidebar-label"><span class="text-th">วันลา และหลักเกณฑ์การลา</span><span class="text-en">Leave and Leave Criteria</span></span></a>
+          <a href="chapter-10.html" class="sidebar-chapter"><span class="sidebar-num">10</span><span class="sidebar-label"><span class="text-th">วินัย และโทษทางวินัย</span><span class="text-en">Discipline and Penalties</span></span></a>
+          <a href="chapter-11.html" class="sidebar-chapter"><span class="sidebar-num">11</span><span class="sidebar-label"><span class="text-th">การร้องทุกข์</span><span class="text-en">Grievance Procedure</span></span></a>
+          <a href="chapter-12.html" class="sidebar-chapter active"><span class="sidebar-num">12</span><span class="sidebar-label"><span class="text-th">การพ้นสภาพการเป็นพนักงาน</span><span class="text-en">Termination of Employment</span></span></a>
+          <a href="chapter-13.html" class="sidebar-chapter"><span class="sidebar-num">13</span><span class="sidebar-label"><span class="text-th">สวัสดิการและสิทธิประโยชน์อื่น ๆ</span><span class="text-en">Welfare and Other Benefits</span></span></a>
+          <a href="chapter-14.html" class="sidebar-chapter"><span class="sidebar-num">14</span><span class="sidebar-label"><span class="text-th">ข้อกำหนดทั่วไปและการบังคับใช้</span><span class="text-en">General Provisions and Enforcement</span></span></a>
+      </nav>
+    </aside>
+
+    <main style="flex:1;padding:32px 28px 60px;min-width:0;">
+      <button class="sidebar-toggle" onclick="toggleSidebar()" style="display:none;">☰</button>
+      <article class="chapter-card" style="max-width:760px;margin:0 auto;">
         <div class="chapter-badge">หมวดที่ 12</div>
         <h1 class="chapter-title">
           <span class="text-th">การพ้นสภาพการเป็นพนักงาน</span>
@@ -47,87 +93,52 @@
         </h1>
         <div class="chapter-divider"></div>
         <div class="chapter-body" id="chapterBody">
-          <div class="text-th"><p>AKR-OHR-SD-001</p>
-<p>00</p>
-<p>16-Apr-2026</p>
-<p>47 of 56</p>
-<p>Rev.00 Effective date: 20/Jun/2025</p>
+          <div class="text-th"><p>16-Apr-2026</p>
+<p>Effective date: 20/Jun/2025</p>
 <p>3.3 เมื่อได้รับค าร้องทุกข์ ผู้บังคับบัญชา หรือฝ่ายทรัพยากรบุคคล ต้องด าเนินการสอบสวนข้อเท็จจริง โดยเร็ว ด้วยความเป็นกลางและเหมาะสม ทั้งนี้ ผู้ร้องทุกข์และผู้เกี่ยวข้องต้องให้ความร่วมมือ ในการให้ข้อมูลอย่างสุจริต 3.4 หากเรื่องร้องทุกข์อยู่ในอ านาจของผู้รับเรื่อง ให้ด าเนินการแก้ไขโดยเร็ว และแจ้งผลเป็นลายลักษณ์- อักษรแก่พนักงาน พร้อมทั้งรายงานผลให้ฝ่ายทรัพยากรบุคคลทราบ 3.5 หากเรื่องร้องทุกข์อยู่นอกอ านาจของผู้รับเรื่อง ให้ส่งต่อผู้บังคับบัญชาระดับสูงขึ้นไปตามล าดับ พร้อมข้อเสนอแนะในการแก้ไข โดยผู้บังคับบัญชาแต่ละระดับต้องด าเนินการพิจารณาและ แจ้งผลภายในระยะเวลาที่เหมาะสม และไม่เกิน 7 วันท างานต่อขั้นตอนนับแต่วันที่ได้รับเรื่อง</p>
 <p>4. ความคุ้มครองผู้ร้องทุกข์และผู้เกี่ยวข้อง บริษัทจะคุ้มครองผู้ร้องทุกข์ ผู้ให้ข้อมูล พยาน และผู้เกี่ยวข้องที่ด าเนินการโดยสุจริต มิให้ถูกกลั่นแกล้ง ข่มขู่ เลือกปฏิบัติ หรือได้รับผลกระทบในทางไม่เป็นธรรมจากการใช้สิทธิร้องทุกข์เท่าที่จ าเป็นและเหมาะสมกับการ ด าเนินการสอบสวน ทั้งนี้ การคุ้มครองไม่ครอบคลุมกรณีที่การร้องทุกข์เป็นการกระท าโดยทุจริต ให้ข้อมูลเท็จ หรือมีเจตนา ก่อให้เกิดความเสียหายแก่บริษัทหรือผู้อื่น 5. ช่องทางการร้องทุกข์ พนักงานสามารถยื่นข้อร้องทุกข์ผ่านช่องทางดังต่อไปนี้ 5.1 ผู้บังคับบัญชาโดยตรง 5.2 ฝ่ายทรัพยากรบุคคล 5.3 ช่องทางร้องเรียนอื่นตามที่บริษัทก าหนด บริษัทจะรักษาความลับของข้อมูลและตัวตนของผู้ร้องทุกข์อย่างเคร่งครัด เท่าที่จ าเป็นต่อการด าเนินการ ตามขั้นตอน</p>
-<p>AKR-OHR-SD-001</p>
-<p>00</p>
 <p>16-Apr-2026</p>
-<p>48 of 56</p>
-<p>Rev.00 Effective date: 20/Jun/2025</p>
+<p>Effective date: 20/Jun/2025</p>
 <h2>หมวดที่ 12 การพ้นสภาพการเป็นพนักงาน</h2>
 <p>1. หลักเกณฑ์การพ้นสภาพการเป็นพนักงาน การพ้นสภาพการเป็นพนักงาน หมายถึง การสิ้นสุดความเป็นพนักงานกับบริษัท ไม่ว่าด้วยเหตุใด ๆ และ ให้รวมถึงกรณีดังต่อไปนี้ 1.1 การลาออกโดยสมัครใจของพนักงาน 1.2 การเกษียณอายุ ตามหลักเกณฑ์และเงื่อนไขที่บริษัทก าหนด 1.3 การเลิกจ้างโดยบริษัท โดยพนักงานมีสิทธิได้รับค่าชดเชยตามกฎหมาย 1.4 การเลิกจ้างโดยบริษัท โดยพนักงานไม่มีสิทธิได้รับค่าชดเชยตามกฎหมาย 1.5 การเสียชีวิต 1.6 การสิ้นสุดสัญญาจ้างตามกฎหมาย หรือเหตุอื่นใดที่ท าให้สัญญาจ้างแรงงานสิ้นสุดลงตาม บทบัญญัติแห่งกฎหมาย</p>
 <p>2. การลาออกโดยสมัครใจของพนักงาน 2.1 พนักงานที่ประสงค์จะลาออกต้องยื่นหนังสือลาออกเป็นลายลักษณ์อักษรต่อผู้บังคับบัญชาตามสาย งาน หรือผู้มีอ านาจของบริษัทล่วงหน้าไม่น้อยกว่าสามสิบ (30) วัน โดยให้ถือเป็นการบอกกล่าว ล่วงหน้าตามกฎหมาย ทั้งนี้ บริษัทอาจพิจารณาอนุมัติให้พนักงานพ้นสภาพก่อนก าหนดได้ตาม ความเหมาะสม โดยค านึงถึงความจ าเป็นของงานและผลกระทบต่อการด าเนินธุรกิจของบริษัท 2.2 นับแต่วันที่ยื่นหนังสือลาออก พนักงานยังคงมีหน้าที่ต้องปฏิบัติงานตามปกติจนกว่าจะถึงวันสิ้นสุด การเป็นพนักงาน และต้องไม่ผละงาน ละทิ้งหน้าที่ หรือหยุดงานโดยไม่มีเหตุอันสมควร 2.3 ก่อนวันสิ้นสุดการเป็นพนักงาน พนักงานต้องด าเนินการส่งมอบงานในความรับผิดชอบ รวมถึง ทรัพย์สิน อุปกรณ์ เครื่องมือ เอกสาร ข้อมูล สิทธิการเข้าถึงระบบสารสนเทศ รหัสผ่าน ตลอดจนสิ่ง อื่นใดที่เป็นของบริษัท หรืออยู่ในความครอบครองหรือความดูแลของพนักงาน ให้ครบถ้วน ถูกต้อง และเรียบร้อย ตามหลักเกณฑ์ ขั้นตอน และระยะเวลาที่บริษัทก าหนด รวมทั้งต้องด าเนินการ ช าระหนี้สินหรือภาระผูกพันใด ๆ ที่มีต่อบริษัท (ถ้ามี) ให้เสร็จสิ้นก่อนวันสิ้นสุดการเป็นพนักงาน 2.4 ในกรณีที่พนักงานไม่ด าเนินการส่งมอบให้ครบถ้วน หรือก่อให้เกิดความเสียหายแก่บริษัท บริษัท มีสิทธิเรียกคืนทรัพย์สิน เรียกร้องค่าเสียหาย หรือด าเนินการตามกฎหมายตามความเหมาะสม</p>
-<p>AKR-OHR-SD-001</p>
-<p>00</p>
 <p>16-Apr-2026</p>
-<p>49 of 56</p>
-<p>Rev.00 Effective date: 20/Jun/2025</p>
+<p>Effective date: 20/Jun/2025</p>
 <p>2.5 ในกรณีที่พนักงานได้ยื่นหนังสือลาออกแล้ว แต่ละทิ้งหน้าที่เป็นเวลาสาม (3) วันท างานติดต่อกัน ไม่ว่าจะมีวันหยุดคั่นหรือไม่ก็ตาม โดยไม่มีเหตุอันสมควรหรือไม่ได้รับอนุญาตจากบริษัท ให้ถือว่า เป็นความผิดวินัยร้ายแรง และบริษัทมีสิทธิพิจารณาด าเนินการทางวินัย รวมถึงเลิกจ้างโดยไม่จ่าย ค่าชดเชยตามกฎหมาย 2.6 การลาออกที่ไม่เป็นไปตามหลักเกณฑ์และขั้นตอนที่บริษัทก าหนด อาจส่งผลให้พนักงานไม่ได้รับ สิทธิประโยชน์บางประการตามนโยบายหรือระเบียบของบริษัท ทั้งนี้ ไม่กระทบต่อสิทธิที่พนักงาน พึงได้รับตามกฎหมาย 2.7 เมื่อพนักงานพ้นสภาพการเป็นพนักงาน และได้ด าเนินการส่งมอบงาน ทรัพย์สิน สิทธิการเข้าถึง ระบบสารสนเทศ ตลอดจนเอกสารหรือสิ่งอื่นใดที่เกี่ยวข้อง รวมทั้งได้ช าระหนี้สินหรือภาระผูกพัน ที่มีต่อบริษัทครบถ้วนแล้ว บริษัทจะด าเนินการช าระค่าจ้าง ค่าล่วงเวลา ค่าลาพักผ่อนประจ าปี คงเหลือ และเงินอื่นใดที่พนักงานมีสิทธิได้รับตามกฎหมาย ภายในระยะเวลาที่กฎหมายก าหนด ทั้งนี้ บริษัทมีสิทธิหักเงินได้เท่าที่กฎหมายอนุญาต รวมถึงหนี้สิน ความเสียหาย หรือภาระผูกพัน ที่พนักงานค้างช าระต่อบริษัท (ถ้ามี) 2.8 การไม่ด าเนินการส่งมอบงานหรือทรัพย์สินให้ครบถ้วน ไม่ถือเป็นเหตุให้เลื่อนวันสิ้นสุดการเป็น พนักงาน ทั้งนี้ บริษัทสงวนสิทธิในการเรียกร้องตามกฎหมายต่อไป</p>
 <p>3. การเกษียณอายุ 3.1 พนักงานจะพ้นสภาพการเป็นพนักงานเนื่องจากการเกษียณอายุ เมื่อมีอายุครบหกสิบ (60) ปี บริบูรณ์ 3.2 พนักงานที่พ้นสภาพการเป็นพนักงานเนื่องจากการเกษียณอายุ มีสิทธิได้รับค่าชดเชยและสิทธิ ประโยชน์อื่นตามที่กฎหมายก าหนด 3.3 ในกรณีที่พนักงานมีอายุครบหกสิบ (60) ปีบริบูรณ์ในปีใด ให้การเกษียณอายุมีผลตั้งแต่วันที่ 1 มกราคมของปีถัดไป เว้นแต่บริษัทจะก าหนดเป็นอย่างอื่นตามความจ าเป็นทางธุรกิจ หรือ มีข้อตกลงเป็นลายลักษณ์อักษรระหว่างบริษัทและพนักงาน 3.4 พนักงานอาจยื่นค าร้องขอเกษียณอายุก่อนก าหนดได้เมื่อมีอายุไม่น้อยกว่าห้าสิบห้า (55) ปีบริบูรณ์ ทั้งนี้ การอนุมัติให้เกษียณอายุก่อนก าหนดให้เป็นไปตามดุลยพินิจของบริษัทแต่เพียงผู้เดียว และ ให้ถือว่าการพ้นสภาพดังกล่าวเป็นการพ้นสภาพเนื่องจากการเกษียณอายุ 3.5 การจ้างงานภายหลังเกษียณให้ถือเป็นสัญญาจ้างฉบับใหม่ ไม่ถือเป็นการจ้างงานต่อเนื่อง และ ไม่ก่อให้เกิดสิทธิในการนับอายุงานย้อนหลัง เว้นแต่บริษัทจะก าหนดไว้เป็นลายลักษณ์อักษร</p>
-<p>AKR-OHR-SD-001</p>
-<p>00</p>
 <p>16-Apr-2026</p>
-<p>50 of 56</p>
-<p>Rev.00 Effective date: 20/Jun/2025</p>
+<p>Effective date: 20/Jun/2025</p>
 <p>4. การเลิกจ้างโดยได้รับค่าชดเชย บริษัทอาจพิจารณาเลิกจ้างพนักงานโดยพนักงานมีสิทธิได้รับค่าชดเชยตามที่กฎหมายก าหนด ในกรณี ดังต่อไปนี้ 4.1 พนักงานกระท าผิดวินัยในลักษณะที่ยังไม่ถึงขั้นเป็นความผิดวินัยร้ายแรง และบริษัทได้มี การตักเตือนหรือแจ้งให้พนักงานทราบแล้ว แต่พนักงานยังไม่ปรับปรุงพฤติกรรมหรือการปฏิบัติงาน ให้ดีขึ้นภายในระยะเวลาที่บริษัทก าหนด 4.2 พนักงานมีผลการปฏิบัติงานต ่ากว่ามาตรฐาน หรือไม่สามารถปฏิบัติหน้าที่ที่ได้รับมอบหมายได้ อย่างมีประสิทธิภาพ ทั้งนี้ ภายหลังจากที่บริษัทได้แจ้งผลการประเมิน ตักเตือน หรือให้โอกาส ปรับปรุงแก้ไขแล้ว แต่ยังไม่สามารถปรับปรุงได้ภายในระยะเวลาอันสมควร 4.3 พนักงานมีภาวะเจ็บป่วย หรือมีข้อจ ากัดทางสุขภาพที่ส่งผลให้ไม่สามารถปฏิบัติงานตามหน้าที่ได้ อย่างต่อเนื่อง หรือไม่สามารถกลับเข้าปฏิบัติงานได้ภายในระยะเวลาที่เหมาะสม ทั้งนี้ บริษัท ได้พิจารณาโดยสุจริต และไม่สามารถจัดหางานอื่นที่เหมาะสมให้ได้ 4.4 พนักงานขาดคุณสมบัติที่จ าเป็นต่อการปฏิบัติงาน หรือมีพฤติการณ์ที่ส่งผลกระทบต่อความเชื่อถือ ไว้วางใจในการปฏิบัติหน้าที่ ทั้งนี้ ต้องไม่เข้าลักษณะเป็นความผิดวินัยร้ายแรง 4.5 พนักงานมีข้อมูลหรือคุณสมบัติไม่ตรงตามที่ได้แสดงไว้ในการสมัครงาน และมีผลกระทบต่อ ความสามารถในการปฏิบัติงาน โดยไม่เข้าข่ายเป็นการให้ข้อมูลอันเป็นเท็จในลักษณะร้ายแรง 4.6 บริษัทมีความจ าเป็นต้องปรับโครงสร้างองค์กรโดยสุจริต ลดขนาดกิจการ ยุบต าแหน่งงาน หรือ ปรับปรุงประสิทธิภาพการด าเนินงาน และบริษัทไม่สามารถจัดหาต าแหน่งงานอื่นที่เหมาะสมให้ พนักงานได้ 4.7 ในกรณีการเลิกจ้างตามหมวดนี้ บริษัทจะบอกกล่าวล่วงหน้าไม่น้อยกว่าหนึ่งงวดการจ่ายค่าจ้าง หรือ จ่ายค่าจ้างแทนการบอกกล่าวล่วงหน้าตามที่กฎหมายก าหนด 4.8 การบอกกล่าวการเลิกจ้างให้เป็นไปตามรูปแบบและวิธีการที่บริษัทก าหนด และให้ถือว่าการแจ้งเป็น หนังสือหรือผ่านระบบอิเล็กทรอนิกส์ของบริษัทเป็นการบอกกล่าวโดยชอบแล้ว</p>
 <p>5. ค่าชดเชย พนักงานที่ถูกเลิกจ้างโดยไม่มีความผิดตามกฎหมายแรงงาน มีสิทธิได้รับค่าชดเชยตามอัตราและ หลักเกณฑ์ที่ก าหนดไว้ในพระราชบัญญัติคุ้มครองแรงงาน และที่แก้ไขเพิ่มเติม โดยให้เป็นไปตามอายุงาน และอัตราค่าจ้างสุดท้ายของพนักงาน</p>
-<p>AKR-OHR-SD-001</p>
-<p>00</p>
 <p>16-Apr-2026</p>
-<p>51 of 56</p>
-<p>Rev.00 Effective date: 20/Jun/2025</p>
+<p>Effective date: 20/Jun/2025</p>
 <p>5.1 พนักงานที่ท างานติดต่อกันครบ 120 วัน แต่ไม่ครบ 1 ปี ได้รับไม่น้อยกว่าค่าจ้างอัตราสุดท้าย 30 วัน 5.2 พนักงานที่ท างานติดต่อกันครบ 1 ปี แต่ไม่ครบ 3 ปี ได้รับไม่น้อยกว่าค่าจ้างอัตราสุดท้าย 90 วัน 5.3 พนักงานที่ท างานติดต่อกันครบ 3 ปี แต่ไม่ครบ 6 ปี ได้รับไม่น้อยกว่าค่าจ้างอัตราสุดท้าย 180 วัน 5.4 พนักงานที่ท างานติดต่อกันครบ 6 ปี แต่ไม่ครบ 10 ปี ได้รับไม่น้อยกว่าค่าจ้างอัตราสุดท้าย 240 วัน 5.5 พนักงานที่ท างานติดต่อกันครบ 10 ปี แต่ไม่ครบ 20 ปี ได้รับไม่น้อยกว่าค่าจ้างอัตราสุดท้าย 300 วัน 5.6 พนักงานที่ท างานติดต่อกันครบ 20 ปีขึ้นไป ได้รับไม่น้อยกว่าค่าจ้างอัตราสุดท้าย 400 วัน</p>
 <p>ทั้งนี้ อัตราค่าชดเชย รวมถึงค่าชดเชยพิเศษในกรณีที่กฎหมายก าหนด เช่น การย้ายสถานประกอบ กิจการ การเลิกกิจการ การปรับโครงสร้างองค์กร หรือเหตุอื่นตามที่กฎหมายแรงงานก าหนด ให้เป็นไป ตามหลักเกณฑ์ เงื่อนไข และอัตราที่กฎหมายก าหนด ซึ่งอาจมีการเปลี่ยนแปลงได้ตามการแก้ไขกฎหมาย ในอนาคต</p>
 <p>6. การเลิกจ้างโดยไม่ได้รับค่าชดเชย 6.1 พนักงานกระท าความผิดวินัยร้ายแรงตามหลักเกณฑ์ที่ก าหนดไว้ในมาตรา 119 แห่งพระราชบัญญัติ คุ้มครองแรงงาน พ.ศ. 2541 และที่แก้ไขเพิ่มเติม 6.2 พนักงานซึ่งท างานยังไม่ครบหนึ่งร้อยยี่สิบ (120) วันติดต่อกันนับแต่วันเริ่มงาน จะไม่มีสิทธิได้รับ ค่าชดเชย ทั้งนี้ ให้เป็นไปตามหลักเกณฑ์และเงื่อนไขที่กฎหมายแรงงานก าหนด 6.3 กรณีอื่นใดที่กฎหมายแรงงานก าหนดให้บริษัทมีสิทธิเลิกจ้างโดยไม่ต้องจ่ายค่าชดเชย ทั้งนี้ ไม่กระทบต่อสิทธิของพนักงานในการได้รับค่าชดเชยพิเศษตามที่กฎหมายก าหนด (ถ้ามี)</p>
 <p>7. การเสียชีวิต 7.1 เมื่อพนักงานเสียชีวิตด้วยเหตุใด ๆ ให้ถือว่าพนักงานพ้นสภาพจากการเป็นพนักงานของบริษัทนับแต่ วันที่เสียชีวิต 7.2 บริษัทจะด าเนินการช าระค่าจ้าง ค่าล่วงเวลา ค่าท างานในวันหยุด ค่าลาพักผ่อนประจ าปีคงเหลือ และเงินอื่นใดที่พนักงานมีสิทธิได้รับ ให้แก่ทายาทโดยธรรม หรือผู้รับผลประโยชน์ที่พนักงานได้แจ้ง ไว้กับบริษัท ทั้งนี้ ให้เป็นไปตามหลักเกณฑ์และภายในระยะเวลาที่กฎหมายก าหนด 7.3 ในกรณีที่พนักงานมีหนี้สิน หรือภาระผูกพันใด ๆ ต่อบริษัท บริษัทมีสิทธิหักเงินได้เท่าที่กฎหมาย อนุญาต</p></div>
-          <div class="text-en"><p>AKR-OHR-SD-001</p>
-<p>00</p>
-<p>16-Apr-2026</p>
-<p>47 of 59</p>
-<p>Rev.00 Effective date: 20/Jun/2025</p>
+          <div class="text-en"><p>Effective date: 20/Jun/2025</p>
 <p>from the date of suspension. The amount already paid at the rate of fifty percent (50%) as specified above shall be treated as part of such wages, together with interest at the rate of fifteen percent (15%) per annum.</p>
-<p>AKR-OHR-SD-001</p>
-<p>00</p>
-<p>16-Apr-2026</p>
-<p>48 of 59</p>
-<p>Rev.00 Effective date: 20/Jun/2025</p>
+<p>Effective date: 20/Jun/2025</p>
 <p>Chapter 11 Grievance Procedures</p>
 <p>1. Definition of Grievance A grievance refers to a situation in which an employee is dissatisfied with or suffers hardship arising from work, including matters related to working conditions, terms of employment, supervision, work instructions or job assignments, payment of wages or other compensation, welfare and benefits, or any inappropriate treatment by the Company, supervisors, or fellow employees.</p>
 <p>This shall also include cases where the employee submits such matters to the Company or a supervisor for consideration, resolution, or settlement, with the objective of promoting fairness, maintaining good working relationships, and ensuring an appropriate working environment.</p>
 <p>2. Principles for Handling Grievances The Company shall handle grievances in accordance with the following principles: 2.1 Fairness, impartiality, and transparency 2.2 Prompt and appropriate action in accordance with the circumstances 2.3 Confidentiality of all parties involved 2.4 Protection of complainants, witnesses, and information providers 2.5 Non-discrimination and prohibition of retaliation or harassment</p>
 <p>3. Grievance Procedures 3.1 If an employee believes that he or she has not been treated fairly or has been treated in a manner inconsistent with the Company’s Work Rules, the employee shall first discuss the matter with his or her direct supervisor. The supervisor shall consider the matter and provide a response without undue delay and within seven (7) working days. If the grievance involves the direct supervisor, the employee may submit the matter directly to a higher-level supervisor or the Human Resources Department. 3.2 If the employee does not receive a response within the specified period or is dissatisfied with the outcome, the matter shall be deemed a formal grievance. The employee must submit the grievance in writing, stating the relevant facts and details, together with the employee’s name and position,</p>
-<p>AKR-OHR-SD-001</p>
-<p>00</p>
-<p>16-Apr-2026</p>
-<p>49 of 59</p>
-<p>Rev.00 Effective date: 20/Jun/2025</p>
+<p>Effective date: 20/Jun/2025</p>
 <p>within thirty (30) days from the date the incident occurred or the date the employee became aware of the incident. 3.3 Upon receiving the grievance, the supervisor or the Human Resources Department shall promptly conduct a fact-finding process in a fair, impartial, and appropriate manner. The complainant and all relevant parties shall cooperate in providing information honestly and in good faith. 3.4 If the grievance falls within the authority of the recipient, the matter shall be resolved promptly and the result shall be communicated to the employee in writing. The outcome shall also be reported to the Human Resources Department. 3.5 If the grievance is beyond the authority of the recipient, the matter shall be escalated to the next higher level of management together with recommendations for resolution. Each level of management shall consider the matter and communicate the outcome within a reasonable period, and not later than seven (7) working days for each step of the process from the date the matter is received.</p>
 <p>4. Protection of Complainants and Related Persons The Company shall protect complainants, information providers, witnesses, and all related persons who act in good faith from retaliation, intimidation, discrimination, or any unfair treatment arising from the exercise of their right to file a grievance, to the extent necessary and appropriate for the investigation process. However, such protection shall not apply where the grievance is made in bad faith, involves false information, or is intended to cause damage to the Company or other persons. 5. Channels for Submitting Grievances Employees may submit grievances through the following channels: 5.1 Direct supervisor 5.2 Human Resources Department 5.3 Other complaint channels as designated by the Company The Company shall strictly maintain the confidentiality of the information and the identity of the complainant to the extent necessary for the grievance process.</p>
-<p>AKR-OHR-SD-001</p>
-<p>00</p>
-<p>16-Apr-2026</p>
-<p>50 of 59</p>
-<p>Rev.00 Effective date: 20/Jun/2025</p>
+<p>Effective date: 20/Jun/2025</p>
 <p>Chapter 12 Separation from Employment</p>
 <p>1. Grounds for Separation from Employment Separation from employment refers to the cessation of the employment relationship between the employee and the Company for any reason whatsoever. This includes, but is not limited to, the following circumstances: 1.1 Voluntary resignation by the employee. 1.2 Retirement in accordance with the criteria and conditions prescribed by the Company. 1.3 Termination by the Company where the employee is entitled to severance pay in accordance with applicable laws. 1.4 Termination by the Company where the employee is not entitled to severance pay in accordance with applicable laws. 1.5 Death of the employee. 1.6 Expiration or termination of the employment contract in accordance with the law, or any other circumstances resulting in the termination of the employment relationship under applicable law.</p>
 <p>2. Voluntary Resignation 2.1 An employee who wishes to resign shall submit a written resignation letter to his or her line supervisor or other authorized representative of the Company at least thirty (30) days in advance. Such notice shall be deemed advance notice in accordance with applicable law. The Company may, at its discretion, approve an earlier effective date of resignation as appropriate, taking into account operational requirements and the impact on the Company’s business. 2.2 From the date the resignation letter is submitted, the employee shall continue to perform his or her duties as usual until the effective date of termination and shall not abandon duties, neglect responsibilities, or be absent from work without reasonable cause. 2.3 Prior to the effective date of termination, the employee shall complete the proper handover of all work responsibilities, as well as return all Company property, including but not limited to equipment, tools, documents, information, access rights to information systems, passwords, and any other items belonging to the Company or under the employee’s possession or control. The employee shall comply with the procedures, requirements, and timelines prescribed by the Company and shall settle any debts or obligations owed to the Company (if any) before the termination date.</p>
-<p>AKR-OHR-SD-001</p>
-<p>00</p>
-<p>16-Apr-2026</p>
-<p>51 of 59</p>
-<p>Rev.00 Effective date: 20/Jun/2025</p>
+<p>Effective date: 20/Jun/2025</p>
 <p>2.4 If the employee fails to complete the handover or causes damage to the Company, the Company reserves the right to recover its property, claim compensation for damages, or take legal action as deemed appropriate. 2.5 If an employee submits a resignation letter but subsequently abandons his or her duties for three (3) consecutive working days, regardless of whether holidays fall within such period, without reasonable cause or without the Company’s approval, such conduct shall be deemed serious misconduct. The Company reserves the right to take disciplinary action, including termination without severance pay in accordance with applicable law. 2.6 Failure to comply with the Company’s resignation procedures and requirements may result in the employee not being eligible for certain benefits under the Company’s policies or regulations. However, this shall not affect any rights to which the employee is legally entitled. 2.7 Upon termination of employment and after the employee has properly completed the handover of work, Company property, access rights to information systems, documents, and any other related items, and has settled all debts or obligations owed to the Company, the Company shall pay wages, overtime pay, unused annual leave compensation, and any other payments to which the employee is legally entitled within the timeframe prescribed by law. The Company reserves the right to make deductions as permitted by law, including any debts, damages, or obligations owed by the employee to the Company (if any). 2.8 Failure to complete the handover of work or Company property shall not be considered a reason to postpone the effective date of termination of employment. The Company reserves the right to pursue any legal remedies as appropriate.</p>
 <p>3. Retirement 3.1 An employee shall cease to be employed by the Company upon reaching sixty (60) years of age. 3.2 An employee whose employment terminates due to retirement shall be entitled to severance pay and other benefits as prescribed by applicable laws. 3.3 If an employee reaches sixty (60) years of age in any given year, the retirement shall take effect on 1 January of the following year, unless otherwise determined by the Company due to business necessity or otherwise agreed in writing between the Company and the employee.</p></div>
         </div>
         <nav class="chapter-nav"><a href="chapter-11.html">← การร้องทุกข์</a><a href="chapter-13.html" class="next">สวัสดิการและสิทธิประโยชน์อื่น ๆ →</a></nav>
       </article>
-    </div>
-  </main>
+    </main>
+  </div>
 
   <footer class="footer">
     <span class="text-th">© 2026 บริษัท อัครา รีซอร์สเซส จำกัด (มหาชน) — ฝ่ายทรัพยากรบุคคล</span>
@@ -143,30 +154,6 @@
     }
     const saved = localStorage.getItem('hr-lang');
     if (saved) setLang(saved);
-
-    // Build sidebar from headings
-    const headings = document.querySelectorAll('.chapter-body h2, .chapter-body h3, .chapter-body h4');
-    const nav = document.getElementById('sidebarNav');
-    headings.forEach((h, i) => {
-      h.id = 'sec-' + i;
-      const a = document.createElement('a');
-      a.href = '#sec-' + i;
-      a.textContent = h.textContent.substring(0, 50);
-      if (h.tagName === 'H3') a.style.paddingLeft = '12px';
-      if (h.tagName === 'H4') a.style.paddingLeft = '22px';
-      nav.appendChild(a);
-    });
-
-    const obs = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          nav.querySelectorAll('a').forEach(a => a.classList.remove('active'));
-          const active = nav.querySelector(`a[href="#${e.target.id}"]`);
-          if (active) active.classList.add('active');
-        }
-      });
-    }, {rootMargin: '-10% 0px -80% 0px'});
-    headings.forEach(h => obs.observe(h));
 
     function toggleSidebar() {
       document.getElementById('sidebar').classList.toggle('open');

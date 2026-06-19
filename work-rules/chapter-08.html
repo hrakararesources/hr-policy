@@ -7,14 +7,39 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    .chapter-layout { grid-template-columns: 280px 1fr; }
+    .sidebar-chapter {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 10px 12px; border-radius: 8px;
+      text-decoration: none; color: var(--text-muted);
+      font-size: 0.82rem; line-height: 1.35;
+      transition: all 0.2s; border: 1.5px solid transparent;
+    }
+    .sidebar-chapter:hover { background: var(--blue-light); color: var(--blue); }
+    .sidebar-chapter.active {
+      background: var(--blue); color: #fff;
+      border-color: var(--blue);
+    }
+    .sidebar-chapter.active .sidebar-num { background: rgba(255,255,255,0.2); color: #fff; }
+    .sidebar-num {
+      min-width: 28px; height: 28px; border-radius: 7px;
+      background: var(--blue-light); color: var(--blue);
+      font-size: 0.72rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .sidebar-label { flex: 1; }
+    .sidebar-section-label {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--text-muted);
+      padding: 12px 12px 4px; display: block;
+    }
+  </style>
 </head>
 <body>
   <header class="topbar">
     <div class="topbar-left">
-      <a href="index.html" class="back-btn">
-        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 2L4 7L9 12"/></svg>
-        <span class="text-th">สารบัญ</span><span class="text-en">Contents</span>
-      </a>
       <img src="../assets/Akara Logo.jpg" alt="Akara Resources" class="topbar-logo">
       <div class="topbar-title">
         <span class="text-th">คู่มือพนักงาน</span><span class="text-en">Employee Handbook</span>
@@ -29,100 +54,86 @@
     </div>
   </header>
 
-  <main class="container">
-    <button class="sidebar-toggle" onclick="toggleSidebar()">
-      ☰ <span class="text-th">หัวข้อ</span><span class="text-en">Sections</span>
-    </button>
-    <div class="chapter-layout">
-      <aside class="sidebar" id="sidebar">
-        <div class="sidebar-title text-th">หัวข้อในบทนี้</div>
-        <div class="sidebar-title text-en">In this chapter</div>
-        <nav class="sidebar-nav" id="sidebarNav"></nav>
-      </aside>
-      <article class="chapter-card">
+  <div style="display:flex; min-height:calc(100vh - 60px);">
+    <aside class="sidebar" id="sidebar" style="width:280px;flex-shrink:0;position:sticky;top:60px;height:calc(100vh - 60px);overflow-y:auto;background:#fff;border-right:1px solid var(--gray-2);padding:16px 8px;">
+      <a href="../index.html" style="display:flex;align-items:center;gap:6px;padding:8px 12px;font-size:0.8rem;color:var(--text-muted);text-decoration:none;margin-bottom:4px;">
+        ← <span class="text-th">หน้าหลัก</span><span class="text-en">Home</span>
+      </a>
+      <a href="index.html" style="display:flex;align-items:center;gap:6px;padding:8px 12px;font-size:0.8rem;color:var(--blue);text-decoration:none;font-weight:600;margin-bottom:8px;">
+        ☰ <span class="text-th">สารบัญ</span><span class="text-en">Contents</span>
+      </a>
+      <span class="sidebar-section-label text-th">ระเบียบข้อบังคับการทำงาน</span>
+      <span class="sidebar-section-label text-en">Work Rules & Regulations</span>
+      <nav style="display:flex;flex-direction:column;gap:2px;">
+          <a href="chapter-00.html" class="sidebar-chapter"><span class="sidebar-num">00</span><span class="sidebar-label"><span class="text-th">สารจากผู้บริหาร</span><span class="text-en">Message from Management</span></span></a>
+          <a href="chapter-01.html" class="sidebar-chapter"><span class="sidebar-num">01</span><span class="sidebar-label"><span class="text-th">บททั่วไป</span><span class="text-en">General Provisions</span></span></a>
+          <a href="chapter-02.html" class="sidebar-chapter"><span class="sidebar-num">02</span><span class="sidebar-label"><span class="text-th">วิสัยทัศน์องค์กร เสาหลักกลยุทธ์และนโยบายองค์กร</span><span class="text-en">Corporate Vision, Strategic Pillars and Policies</span></span></a>
+          <a href="chapter-03.html" class="sidebar-chapter"><span class="sidebar-num">03</span><span class="sidebar-label"><span class="text-th">การว่าจ้าง</span><span class="text-en">Employment</span></span></a>
+          <a href="chapter-04.html" class="sidebar-chapter"><span class="sidebar-num">04</span><span class="sidebar-label"><span class="text-th">การสับเปลี่ยนหน้าที่ การโยกย้าย และการปฏิบัติงานที่บ้าน</span><span class="text-en">Job Rotation, Transfer and Work from Home</span></span></a>
+          <a href="chapter-05.html" class="sidebar-chapter"><span class="sidebar-num">05</span><span class="sidebar-label"><span class="text-th">วันทำงาน เวลาทำงานปกติ และเวลาพัก</span><span class="text-en">Working Days, Hours and Rest Periods</span></span></a>
+          <a href="chapter-06.html" class="sidebar-chapter"><span class="sidebar-num">06</span><span class="sidebar-label"><span class="text-th">วันหยุด และหลักเกณฑ์วันหยุด</span><span class="text-en">Holidays and Holiday Criteria</span></span></a>
+          <a href="chapter-07.html" class="sidebar-chapter"><span class="sidebar-num">07</span><span class="sidebar-label"><span class="text-th">หลักเกณฑ์การทำงานล่วงเวลา และการทำงานในวันหยุด</span><span class="text-en">Overtime and Holiday Work</span></span></a>
+          <a href="chapter-08.html" class="sidebar-chapter active"><span class="sidebar-num">08</span><span class="sidebar-label"><span class="text-th">การจ่ายค่าจ้าง ค่าล่วงเวลา และค่าทำงานในวันหยุด</span><span class="text-en">Wages, Overtime and Holiday Pay</span></span></a>
+          <a href="chapter-09.html" class="sidebar-chapter"><span class="sidebar-num">09</span><span class="sidebar-label"><span class="text-th">วันลา และหลักเกณฑ์การลา</span><span class="text-en">Leave and Leave Criteria</span></span></a>
+          <a href="chapter-10.html" class="sidebar-chapter"><span class="sidebar-num">10</span><span class="sidebar-label"><span class="text-th">วินัย และโทษทางวินัย</span><span class="text-en">Discipline and Penalties</span></span></a>
+          <a href="chapter-11.html" class="sidebar-chapter"><span class="sidebar-num">11</span><span class="sidebar-label"><span class="text-th">การร้องทุกข์</span><span class="text-en">Grievance Procedure</span></span></a>
+          <a href="chapter-12.html" class="sidebar-chapter"><span class="sidebar-num">12</span><span class="sidebar-label"><span class="text-th">การพ้นสภาพการเป็นพนักงาน</span><span class="text-en">Termination of Employment</span></span></a>
+          <a href="chapter-13.html" class="sidebar-chapter"><span class="sidebar-num">13</span><span class="sidebar-label"><span class="text-th">สวัสดิการและสิทธิประโยชน์อื่น ๆ</span><span class="text-en">Welfare and Other Benefits</span></span></a>
+          <a href="chapter-14.html" class="sidebar-chapter"><span class="sidebar-num">14</span><span class="sidebar-label"><span class="text-th">ข้อกำหนดทั่วไปและการบังคับใช้</span><span class="text-en">General Provisions and Enforcement</span></span></a>
+      </nav>
+    </aside>
+
+    <main style="flex:1;padding:32px 28px 60px;min-width:0;">
+      <button class="sidebar-toggle" onclick="toggleSidebar()" style="display:none;">☰</button>
+      <article class="chapter-card" style="max-width:760px;margin:0 auto;">
         <div class="chapter-badge">หมวดที่ 8</div>
         <h1 class="chapter-title">
           <span class="text-th">การจ่ายค่าจ้าง ค่าล่วงเวลา และค่าทำงานในวันหยุด</span>
-          <span class="text-en">Wages, Overtime Pay and Holiday Pay</span>
+          <span class="text-en">Wages, Overtime and Holiday Pay</span>
         </h1>
         <div class="chapter-divider"></div>
         <div class="chapter-body" id="chapterBody">
-          <div class="text-th"><p>AKR-OHR-SD-001</p>
-<p>00</p>
-<p>16-Apr-2026</p>
-<p>22 of 56</p>
-<p>Rev.00 Effective date: 20/Jun/2025</p>
+          <div class="text-th"><p>16-Apr-2026</p>
+<p>Effective date: 20/Jun/2025</p>
 <p>เว้นแต่ในกรณีที่ลักษณะหรือสภาพของงานต้องท าติดต่อกันไป หากหยุดจะก่อให้เกิดความเสียหาย แก่งาน หรือเป็นกรณีงานฉุกเฉิน บริษัทอาจมอบหมายให้พนักงานท างานล่วงเวลา หรือท างานในวันหยุดได้ เกินกว่าที่ก าหนดตามความจ าเป็น</p>
 <p>4. ผู้ไม่มีสิทธิได้รับค่าล่วงเวลา  ค่าท างานในวันหยุด และค่าล่วงเวลาในวันหยุด 4.1 พนักงานในระดับบังคับบัญชา (ระดับ S1 ขึ้นไป) และมีอ านาจหน้าที่ท าการแทนนายจ้างส าหรับ กรณีการจ้าง การให้บ าเหน็จ การลงโทษ หรือการเลิกจ้าง ไม่มีสิทธิได้รับค่าล่วงเวลา ค่าท างานใน วันหยุด และค่าล่วงเวลาในวันหยุด 4.2 ในกรณีที่พนักงานอ้างว่าได้มาท างานล่วงเวลาหรือท างานในวันหยุด โดยมิได้รับค าสั่งหรือมิได้รับ อนุมัติจากบริษัทให้ถูกต้องก่อน  บริษัทมีสิทธิปฏิเสธไม่จ่ายค่าล่วงเวลา หรือค่าท างานในวันหยุด ให้แก่พนักงาน</p>
-<p>AKR-OHR-SD-001</p>
-<p>00</p>
 <p>16-Apr-2026</p>
-<p>23 of 56</p>
-<p>Rev.00 Effective date: 20/Jun/2025</p>
+<p>Effective date: 20/Jun/2025</p>
 <h2>หมวดที่ 8 การจ่ายค่าจ้าง  ค่าล่วงเวลา  และค่าท างานในวันหยุด</h2>
 <p>1. การจ่ายค่าจ้าง 1.1 บริษัทจะจ่ายค่าจ้างเป็นเงินสด หรือเช็ค ณ ส านักงานของบริษัท หรือจ่ายผ่านบัญชีธนาคารของ พนักงานแต่ละคน และให้ถือว่าหลักฐานการโอนเงินเข้าบัญชีเงินฝากของพนักงานเป็นหลักฐานการ จ่ายเงินของบริษัท 1.1.1 บริษัทอาจจัดท าหลักฐานการจ่ายค่าจ้างในรูปแบบอิเล็กทรอนิกส์ และให้ถือว่าหลักฐาน ดังกล่าวเป็นหลักฐานการจ่ายเงินของบริษัท 1.1.2 พนักงานมีหน้าที่แจ้งข้อมูลบัญชีธนาคารที่ถูกต้องแก่บริษัท และต้องแจ้งให้บริษัททราบเป็น ลายลักษณ์อักษรเมื่อมีการเปลี่ยนแปลงบัญชีดังกล่าว 1.2 บริษัทจะจ่ายค่าจ้างเดือนละหนึ่งครั้ง ทุกวันที่ 25 ของเดือน (เว้นแต่เดือนใดมีเหตุสุดวิสัย ไม่สามารถจ่ายเงินค่าจ้างในวันที่ 25 ได้ บริษัทจะประกาศให้ทราบล่วงหน้า) 1.3 ในกรณีที่วันก าหนดจ่ายค่าจ้างตรงกับวันหยุดประจ าสัปดาห์ หรือวันหยุดประเพณี บริษัทจะจ่าย ค่าจ้างก่อนวันก าหนดดังกล่าวหนึ่งหรือสองวัน แล้วแต่กรณี 1.4 ในการรับเงินทุกประเภทจากบริษัท พนักงานจะต้องเป็นผู้รับด้วยตนเอง เว้นแต่จะมีการมอบอ านาจ เป็นลายลักษณ์อักษรตามที่บริษัทก าหนด 1.5 บริษัทจะหักภาษีเงินได้ เงินสมทบกองทุนประกันสังคม กองทุนส ารองเลี้ยงชีพ ณ ที่จ่ายตามที่ กฎหมายก าหนด 1.6 ในกรณีที่บริษัทจ่ายเงินเกินกว่าที่พนักงานมีสิทธิได้รับ บริษัทมีสิทธิเรียกคืนเงินส่วนที่จ่ายเกิน ดังกล่าว และอาจหักคืนจากค่าจ้างหรือเงินอื่นที่พนักงานพึงได้รับ โดยต้องเป็นไปตามหลักเกณฑ์ และเงื่อนไขที่กฎหมายก าหนด ส่วนในกรณีที่บริษัทจ่ายเงินต ่ากว่าสิทธิที่พนักงานพึงได้รับ บริษัท จะด าเนินการจ่ายเงินส่วนที่ขาดให้แก่พนักงานโดยเร็ว 1.7 กรณีพนักงานถึงแก่กรรม บริษัทจะจ่ายค่าจ้างที่ค้างจ่ายให้แก่ทายาทโดยชอบด้วยกฎหมายของ พนักงาน หรือผู้รับผลประโยชน์ตามหนังสือแต่งตั้งผู้รับผลประโยชน์กรณีเสียชีวิตที่พนักงานได้แสดง เจตนาไว้ต่อบริษัท</p>
-<p>AKR-OHR-SD-001</p>
-<p>00</p>
 <p>16-Apr-2026</p>
-<p>24 of 56</p>
-<p>Rev.00 Effective date: 20/Jun/2025</p>
+<p>Effective date: 20/Jun/2025</p>
 <p>1.8 รอบการจ่ายค่าจ้าง 1.8.1 บริษัทก าหนดรอบการจ่ายค่าจ้างส าหรับการท างานตั้งแต่วันที่ 1 ถึงวันสุดท้ายของเดือน และจะจ่ายในวันที่ 25 ของเดือนนั้น 1.8.2 กรณีพนักงานเริ่มงานภายหลังวันที่ 20 ของเดือน บริษัทจะเริ่มจ่ายค่าจ้างงวดแรกในวันที่ 25 ของเดือนถัดไป โดยค่าจ้างส าหรับระยะเวลาตั้งแต่วันเริ่มงานจนถึงวันสิ้นเดือนจะน าไป รวมจ่ายในรอบการจ่ายถัดไป 1.8.3 การท างานล่วงเวลา การท างานในวันหยุด การท างานล่วงเวลาในวันหยุด รวมถึงรายการ เงินเพิ่มหรือเงินหักที่เกี่ยวเนื่องกับระบบบันทึกเวลาปฏิบัติงานของบริษัท ซึ่งต้องอาศัย การตรวจสอบและประมวลผลภายหลัง ส าหรับรอบระยะเวลาตั้งแต่วันที่ 1 ถึงวันสุดท้าย ของเดือน บริษัทจะด าเนินการจ่ายหรือหักเงินดังกล่าวในวันที่ 25 ของเดือนถัดไป 1.9 การจ่ายเงินกรณีเลิกจ้าง 1.9.1 ในกรณีที่บริษัทเลิกจ้างพนักงาน บริษัทจะจ่ายค่าจ้าง ค่าล่วงเวลา ค่าท างานในวันหยุด ค่าล่วงเวลาในวันหยุด และเงินอื่นใดที่พนักงานมีสิทธิได้รับ ให้แก่พนักงานภายในสาม (3) วันนับแต่วันที่เลิกจ้าง ตามที่กฎหมายก าหนด 1.9.2 ในกรณีที่มีรายการเงินบางประเภทซึ่งยังไม่สามารถค านวณได้แล้วเสร็จภายในก าหนดเวลา ดังกล่าว บริษัทจะจ่ายเงินในส่วนที่สามารถค านวณได้ก่อนภายในระยะเวลาที่กฎหมาย ก าหนด และจะด าเนินการจ่ายส่วนที่เหลือให้แก่พนักงานโดยเร็วที่สุดภายหลังจากที่ สามารถตรวจสอบและค านวณได้ครบถ้วนแล้ว</p>
 <p>2. การจ่ายค่าท างานล่วงเวลา 2.1 การท างานล่วงเวลาจะต้องได้รับมอบหมายหรืออนุมัติจากผู้บังคับบัญชาตามขั้นตอนที่บริษัท ก าหนด 2.2 พนักงานที่ได้รับมอบหมายหรือได้รับอนุมัติให้ท างานล่วงเวลาในวันท างานปกติ จะได้รับค่าท างาน ล่วงเวลาในอัตราไม่น้อยกว่าหนึ่งเท่าครึ่งของอัตราค่าจ้างต่อชั่วโมงในวันท างานปกติ ตามจ านวน ชั่วโมงที่ท า 2.3 พนักงานที่ได้รับมอบหมายหรือได้รับอนุมัติให้ท างานล่วงเวลาในวันหยุด จะได้รับค่าล่วงเวลา ในวันหยุดในอัตราไม่น้อยกว่าสามเท่าของอัตราค่าจ้างต่อชั่วโมงในวันท างานปกติ ตามจ านวน ชั่วโมงที่ท า</p>
-<p>AKR-OHR-SD-001</p>
-<p>00</p>
 <p>16-Apr-2026</p>
-<p>25 of 56</p>
-<p>Rev.00 Effective date: 20/Jun/2025</p>
+<p>Effective date: 20/Jun/2025</p>
 <p>3. การจ่ายค่าท างานในวันหยุด 3.1 ในกรณีที่บริษัทสั่งให้พนักงานมาท างานในวันหยุด พนักงานรายเดือนซึ่งได้รับค่าจ้างในวันหยุด อยู่แล้ว จะได้รับค่าท างานในวันหยุดเพิ่มขึ้นอีกหนึ่งเท่า ของอัตราค่าจ้างต่อชั่วโมงในวันท างานปกติ ตามจ านวนชั่วโมงที่ท างาน</p>
 <p>3.2 ในกรณีที่บริษัทสั่งให้พนักงานมาท างานในวันหยุด ดังต่อไปนี้ 3.2.1 มาท างานในวันหยุดประจ าสัปดาห์ พนักงานรายวันซึ่งไม่ได้รับค่าจ้างในวันหยุดประจ า สัปดาห์ จะได้รับค่าท างานในวันหยุดในอัตราสองเท่า ของอัตราค่าจ้างต่อชั่วโมงในวัน ท างานปกติ ตามจ านวนชั่วโมงที่ท างาน 3.2.2 มาท างานในวันหยุดตามประเพณี พนักงานรายวันซึ่งได้รับค่าจ้างในวันหยุดตามประเพณี อยู่แล้ว จะได้รับค่าท างานในวันหยุดเพิ่มขึ้นอีกหนึ่งเท่า ของอัตราค่าจ้างต่อชั่วโมงในวัน ท างานปกติ ตามจ านวนชั่วโมงที่ท างาน</p>
 <p>4. การค านวณอัตราค่าจ้างต่อชั่วโมงการท างาน เพื่อใช้เป็นหลักเกณฑ์ในการค านวณค่าล่วงเวลา ค่าท างานในวันหยุด และสิทธิประโยชน์อื่นที่เกี่ยวข้อง บริษัทก าหนดวิธีการค านวณอัตราค่าจ้างต่อชั่วโมงไว้ดังต่อไปนี้ 4.1 พนักงานรายเดือน อัตราค่าจ้างต่อชั่วโมง เท่ากับ เงินเดือน ÷ (30 วัน x จ านวนชั่วโมงท างานต่อวันโดยเฉลี่ย) 4.2 พนักงานรายวัน อัตราค่าจ้างต่อชั่วโมง เท่ากับ ค่าจ้างรายวัน ÷ จ านวนชั่วโมงท างานต่อวันโดยเฉลี่ย ในกรณีที่จ านวนชั่วโมงท างานปกติแตกต่างกันตามต าแหน่งงานหรือรูปแบบการปฏิบัติงาน ให้ใช้จ านวน ชั่วโมงท างานปกติที่ก าหนดส าหรับต าแหน่งนั้นเป็นเกณฑ์ในการค านวณ</p>
 <p>5. เงินที่ไม่ถือเป็นค่าจ้าง เงินสวัสดิการ เงินช่วยเหลือ เงินตอบแทนพิเศษ หรือเงินอื่นใดที่บริษัทจ่ายให้แก่พนักงานตามนโยบาย ของบริษัท ซึ่งมิได้เป็นค่าตอบแทนการท างานตามปกติ ให้ถือว่าไม่ใช่ค่าจ้างตามกฎหมาย และไม่ให้น าไปรวม ค านวณสิทธิประโยชน์ตามกฎหมายแรงงาน เว้นแต่กฎหมายจะก าหนดไว้เป็นอย่างอื่น และการจ่ายเงินดังกล่าว ไม่ถือเป็นแบบอย่างหรือก่อให้เกิดสิทธิเรียกร้องของพนักงานในอนาคต</p>
-<p>AKR-OHR-SD-001</p>
-<p>00</p>
 <p>16-Apr-2026</p>
-<p>26 of 56</p>
-<p>Rev.00 Effective date: 20/Jun/2025</p>
+<p>Effective date: 20/Jun/2025</p>
 <p>6. การปรับเงินเดือนและการจ่ายโบนัส 6.1 การปรับเงินเดือน 6.1.1 การปรับเงินเดือนจะด าเนินการปีละหนึ่งครั้ง โดยปกติในเดือนกรกฎาคมของทุกปี ทั้งนี้ อาจเปลี่ยนแปลงได้ตามความเหมาะสมของสภาพธุรกิจและดุลยพินิจของบริษัท 6.1.2 การพิจารณาปรับเงินเดือนจะอ้างอิงจากผลการประเมินผลการปฏิบัติงานของพนักงานใน รอบระยะเวลาที่บริษัทก าหนด รวมถึงความรู้ ความสามารถ ทักษะที่จ าเป็นต่อการ- ปฏิบัติงาน ศักยภาพในการพัฒนา ตลอดจนโครงสร้างค่าจ้างและงบประมาณของบริษัท 6.1.3 พนักงานที่อยู่ระหว่างทดลองงาน พนักงานที่อยู่ระหว่างการด าเนินการทางวินัย หรือ พนักงานที่มีผลการประเมินการปฏิบัติงานต ่ากว่าเกณฑ์ที่บริษัทก าหนด อาจไม่ได้รับการ พิจารณาปรับเงินเดือนในรอบนั้น 6.1.4 พนักงานที่เริ่มงานตั้งแต่วันที่ 1 มกราคมของปีใดเป็นต้นไป จะไม่ได้รับการพิจารณาปรับ เงินเดือนในรอบการปรับกลางปีของปีนั้น 6.1.5 การปรับเงินเดือนถือเป็นดุลยพินิจของบริษัท และบริษัทขอสงวนสิทธิในการก าหนด แก้ไข เปลี่ยนแปลง หรือยกเลิกหลักเกณฑ์ วิธีการ และเงื่อนไขในการปรับเงินเดือนเป็นคราว ๆ ไป ตามความเหมาะสมของสภาพธุรกิจ 6.2 การจ่ายโบนัส 6.2.1 บริษัทอาจพิจารณาจ่ายโบนัสให้แก่พนักงาน โดยขึ้นอยู่กับผลประกอบการของบริษัท สภาพธุรกิจ และดุลยพินิจของบริษัท 6.2.2 การพิจารณาจ่ายโบนัสจะค านึงถึงผลการประเมินผลการปฏิบัติงานของพนักงาน ความรู้ ความสามารถ ศักยภาพในการท างาน ระยะเวลาการท างาน ตลอดจนหลักเกณฑ์และ เงื่อนไขอื่น ๆ ตามที่บริษัทก าหนดในแต่ละปี 6.2.3 พนักงานที่อยู่ระหว่างทดลองงาน พนักงานที่อยู่ระหว่างการด าเนินการทางวินัย หรือ พนักงานที่มีผลการประเมินต ่ากว่าเกณฑ์ที่บริษัทก าหนด อาจไม่ได้รับสิทธิในการจ่ายโบนัส 6.2.4 รอบระยะเวลา รูปแบบ วิธีการค านวณ หลักเกณฑ์ และก าหนดการจ่ายโบนัส บริษัท จะก าหนดและประกาศให้พนักงานทราบเป็นคราว ๆ ไปในแต่ละปี ซึ่งอาจอยู่ในรูปแบบ การจ่ายเป็นรายปี รายไตรมาส หรือเป็นกรณีพิเศษ ทั้งนี้ ให้ขึ้นอยู่กับผลประกอบการ สภาพธุรกิจ และดุลยพินิจของบริษัท</p></div>
-          <div class="text-en"><p>AKR-OHR-SD-001</p>
-<p>00</p>
-<p>16-Apr-2026</p>
-<p>22 of 59</p>
-<p>Rev.00 Effective date: 20/Jun/2025</p>
+          <div class="text-en"><p>Effective date: 20/Jun/2025</p>
 <p>However, in cases where the nature or condition of the work requires continuous operation and interruption may cause damage to the work, or in emergency situations, the Company may require employees to perform overtime work or work on holidays in excess of the above limit as necessary. 4. Employees Not Entitled to Overtime Pay, Holiday Pay, and Holiday Overtime Pay 4.1 Employees in supervisory positions (S1 level and above) who have authority to act on behalf of the employer in matters relating to employment, including hiring, granting remuneration or benefits, imposing disciplinary action, or terminating employment, shall not be entitled to overtime pay, holiday pay, or holiday overtime pay. 4.2 In the event that an employee claims to have performed overtime work or work on a holiday without prior instruction or approval from the Company, the Company reserves the right to refuse payment of overtime pay or holiday pay.</p>
-<p>AKR-OHR-SD-001</p>
-<p>00</p>
-<p>16-Apr-2026</p>
-<p>23 of 59</p>
-<p>Rev.00 Effective date: 20/Jun/2025</p>
+<p>Effective date: 20/Jun/2025</p>
 <p>Chapter 8 Payment of Wages, Overtime Pay, and Holiday Pay</p>
 <p>1. Payment of Wages 1.1 The Company shall pay wages in cash or by cheque at the Company’s office, or by transfer to each employee’s bank account. Evidence of the transfer into the employee’s bank account shall be deemed proof of payment by the Company. 1.1.1 The Company may issue wage payment records in electronic form, and such records shall be deemed valid evidence of payment by the Company. 1.1.2 Employees are required to provide accurate bank account information to the Company and must notify the Company in writing of any changes to such account. 1.2 The Company shall pay wages once per month on the 25th day of each month. In the event of force majeure that prevents payment from being made on such date, the Company shall notify employees in advance. 1.3 If the scheduled payday falls on a weekly holiday or public holiday, the Company shall pay wages one or two days prior to such date, as appropriate. 1.4 All payments from the Company shall be received by the employee in person, unless a written authorization has been provided in accordance with the Company’s requirements. 1.5 The Company shall deduct personal income tax, Social Security contributions, and Provident Fund contributions at source as required by law. 1.6 If the Company makes an overpayment to an employee, the Company shall have the right to recover the excess amount and may deduct such amount from wages or other payments due to the employee in accordance with applicable legal requirements. In the event of an underpayment, the Company shall pay the outstanding amount to the employee as soon as practicable. 1.7 In the event of an employee’s death, the Company shall pay any outstanding wages to the employee’s lawful heir or to the beneficiary designated by the employee in the Beneficiary Designation Form submitted to the Company. 1.8 Wage Payment Period 1.8.1 The Company shall determine the wage payment cycle for work performed from the 1st to the last day of each month, and wages shall be paid on the 25th day of that month.</p>
-<p>AKR-OHR-SD-001</p>
-<p>00</p>
-<p>16-Apr-2026</p>
-<p>24 of 59</p>
-<p>Rev.00 Effective date: 20/Jun/2025</p>
+<p>Effective date: 20/Jun/2025</p>
 <p>1.8.2 If an employee commences employment after the 20th day of the month, the first wage payment shall be made on the 25th day of the following month. Wages for the period from the employee’s start date until the end of that month shall be included in the next payroll cycle. 1.8.3 Overtime work, holiday work, holiday overtime, and other additional payments or deductions related to the Company’s time recording system that require verification and processing after the payroll cut-off period for work performed from the 1st to the last day of the month shall be paid or deducted on the 25th day of the following month. 1.9 Payment Upon Termination 1.9.1 In the event that the Company terminates an employee, the Company shall pay wages, overtime pay, holiday pay, holiday overtime pay, and any other payments to which the employee is entitled within three (3) days from the date of termination, as required by law. 1.9.2 If certain payments cannot be fully calculated within the specified period, the Company shall first pay the portion that can be calculated within the legally required timeframe and shall pay the remaining amount to the employee as soon as practicable once the calculation has been completed.</p>
 <p>2. Payment of Overtime 2.1 Overtime work must be assigned or approved by the employee’s supervisor in accordance with the procedures established by the Company. 2.2 Employees who are assigned or approved to work overtime on normal working days shall receive overtime pay at a rate of not less than one and a half times the hourly wage rate of a normal working day, based on the actual hours worked. 2.3 Employees who are assigned or approved to work overtime on holidays shall receive holiday overtime pay at a rate of not less than three times the hourly wage rate of a normal working day, based on the actual hours worked.</p>
 <p>3. Payment for Work on Holidays 3.1 If the Company requires an employee to work on a holiday, monthly-paid employees who are already entitled to wages on such holiday shall receive additional holiday pay equal to one time the hourly wage rate of a normal working day, based on the actual hours worked.</p>
-<p>AKR-OHR-SD-001</p>
-<p>00</p>
-<p>16-Apr-2026</p>
-<p>25 of 59</p>
-<p>Rev.00 Effective date: 20/Jun/2025</p>
+<p>Effective date: 20/Jun/2025</p>
 <p>3.2 If the Company requires employees to work on a holiday: 3.2.1 Daily wage employees who are not entitled to wages on weekly holidays shall receive holiday pay at a rate of two times the hourly wage rate of a normal working day, based on the actual hours worked. 3.2.2 Daily wage employees who are already entitled to wages on public holidays shall receive additional holiday pay equal to one time the hourly wage rate of a normal working day, based on the actual hours worked.</p>
 <p>4. Calculation of Hourly Wage Rate For the purpose of calculating overtime pay, holiday pay, and other related benefits, the Company determines the method for calculating the hourly wage rate as follows: 4.1 Monthly Employees Hourly Wage Rate = Monthly Salary ÷ (30 × Average Working Hours per Day) 4.2 Daily Employees Hourly Wage Rate = Daily Wage ÷ Average Working Hours per Day If the normal working hours vary depending on the position or working arrangement, the normal working hours specified for that position shall be used as the basis for calculation. 5. Payments Not Considered as Wages Welfare payments, financial assistance, special remuneration, or any other payments provided by the Company to employees in accordance with the Company’s policies, which are not remuneration for normal work performance, shall not be considered wages under the law and shall not be included in the calculation of benefits under labour laws, unless otherwise required by law. The provision of such payments shall not constitute a precedent nor create any entitlement or claim by employees in the future.</p>
 <p>6. Salary Adjustment and Bonus 6.1 Salary Adjustment 6.1.1 Salary adjustments shall normally be conducted once per year, typically in July. However, this may be subject to change depending on business conditions and at the discretion of the Company. 6.1.2 Consideration for salary adjustment shall be based on the employee’s performance evaluation results during the evaluation period determined by the Company, including</p>
-<p>AKR-OHR-SD-001</p>
-<p>00</p>
-<p>16-Apr-2026</p>
-<p>26 of 59</p>
-<p>Rev.00 Effective date: 20/Jun/2025</p>
+<p>Effective date: 20/Jun/2025</p>
 <p>knowledge, competencies, job-related skills, development potential, as well as the Company’s salary structure and budget. 6.1.3 Employees who are under probation, subject to disciplinary proceedings, or whose performance evaluation results fall below the standards determined by the Company may not be eligible for salary adjustment in that cycle. 6.1.4 Employees who commence employment from 1 January of any given year onward shall not be eligible for the mid-year salary adjustment for that year. 6.1.5 Salary adjustment shall be at the discretion of the Company. The Company reserves the right to determine, amend, modify, or cancel the criteria, methods, and conditions for salary adjustments from time to time as deemed appropriate in accordance with business conditions. 6.2 Bonus 6.2.1 The Company may consider granting a bonus to employees depending on the Company’s performance, business conditions, and at the discretion of the Company. 6.2.2 Consideration for bonus payment shall take into account the employee’s performance evaluation results, knowledge, competencies, work potential, length of service, as well as other criteria and conditions determined by the Company from time to time. 6.2.3 Employees who are under probation, subject to disciplinary proceedings, or whose performance evaluation results fall below the standards determined by the Company may not be eligible for bonus payment. 6.2.4 The bonus period, form, calculation method, criteria, and payment schedule shall be determined and announced by the Company from time to time each year. Such bonus may be paid on an annual basis, quarterly basis, or as a special payment, depending on the Company’s performance, business conditions, and at the discretion of the Company. 6.2.5 A bonus is a discretionary benefit that the Company may grant from time to time at its sole discretion. It shall not be deemed wages, a condition of employment, or give rise to any entitlement or claim by employees under any circumstances. 6.2.6 The Company reserves the right to determine, amend, modify, or cancel the criteria, methods, and conditions for bonus payment from time to time as deemed appropriate in accordance with business conditions.</p></div>
         </div>
         <nav class="chapter-nav"><a href="chapter-07.html">← หลักเกณฑ์การทำงานล่วงเวลา และการทำง</a><a href="chapter-09.html" class="next">วันลา และหลักเกณฑ์การลา →</a></nav>
       </article>
-    </div>
-  </main>
+    </main>
+  </div>
 
   <footer class="footer">
     <span class="text-th">© 2026 บริษัท อัครา รีซอร์สเซส จำกัด (มหาชน) — ฝ่ายทรัพยากรบุคคล</span>
@@ -138,30 +149,6 @@
     }
     const saved = localStorage.getItem('hr-lang');
     if (saved) setLang(saved);
-
-    // Build sidebar from headings
-    const headings = document.querySelectorAll('.chapter-body h2, .chapter-body h3, .chapter-body h4');
-    const nav = document.getElementById('sidebarNav');
-    headings.forEach((h, i) => {
-      h.id = 'sec-' + i;
-      const a = document.createElement('a');
-      a.href = '#sec-' + i;
-      a.textContent = h.textContent.substring(0, 50);
-      if (h.tagName === 'H3') a.style.paddingLeft = '12px';
-      if (h.tagName === 'H4') a.style.paddingLeft = '22px';
-      nav.appendChild(a);
-    });
-
-    const obs = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          nav.querySelectorAll('a').forEach(a => a.classList.remove('active'));
-          const active = nav.querySelector(`a[href="#${e.target.id}"]`);
-          if (active) active.classList.add('active');
-        }
-      });
-    }, {rootMargin: '-10% 0px -80% 0px'});
-    headings.forEach(h => obs.observe(h));
 
     function toggleSidebar() {
       document.getElementById('sidebar').classList.toggle('open');
